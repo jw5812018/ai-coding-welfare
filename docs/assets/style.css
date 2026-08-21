@@ -90,6 +90,8 @@ h2 + .hint { margin: 0 0 26px; color: var(--fg-dim); font-size: 14px; }
 .kv dt { color: var(--fg-dim); }
 .kv dd { margin: 0; }
 .kv dd b { color: var(--ok); }
+/* 额度构成写在首日额度后面，压暗一档，别抢主数字的视觉 */
+.kv dd small { color: var(--fg-dim); font-size: 12px; display: block; }
 
 ul.hl { margin: 0; padding-left: 18px; font-size: 14px; color: var(--fg-dim); }
 ul.hl li { margin-bottom: 5px; }

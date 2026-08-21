@@ -22,7 +22,12 @@
       "name": "AgentRouter",
       "subtitle": "AI Coding 公益站 · 注册即送额度，签到每日续命",
       "recommended": true,
-      "dailyBonus": "签到 $25/天",
+      "credits": {
+        "signup": 100,
+        "invite": 50,
+        "dailyCheckin": 25,
+        "approx": false
+      },
       "signupUrl": "https://agentrouter.org/register?aff=szt3",
       "homeUrl": "https://agentrouter.org",
       "docsUrl": "https://agentrouter.org/docs/index.html",
@@ -37,8 +42,8 @@
       ],
       "tags": ["公益站", "免费额度", "Claude Code", "Codex", "Anthropic 兼容"],
       "highlights": [
-        "邀请链接注册直接到账额度，不需要充值、不需要信用卡",
-        "每日签到继续领额度，长期白嫖不断供",
+        "注册即送 $100，从本页邀请链接进入再多 $50，不需要充值、不需要信用卡",
+        "每日签到再领 $25，首日合计最高 $175，长期白嫖不断供",
         "同时提供 Anthropic 与 OpenAI 两种兼容协议，Claude Code / Codex / Cline / Cursor 都能直连",
         "官方文档覆盖十几种客户端，照着抄配置即可"
       ],
@@ -74,6 +79,12 @@
       "name": "JustDoWork",
       "subtitle": "New API 中转站 · GitHub 一键登录，支持签到与绘图",
       "recommended": false,
+      "credits": {
+        "signup": 70,
+        "invite": null,
+        "dailyCheckin": 22,
+        "approx": true
+      },
       "signupUrl": "https://api.justwoker.icu/sign-up?aff=VTrz",
       "homeUrl": "https://api.justwoker.icu",
       "docsUrl": "https://api.justwoker.icu/dashboard/overview",
@@ -82,8 +93,9 @@
       "mirrors": [],
       "tags": ["New API", "免费额度", "签到", "绘图", "OpenAI 兼容"],
       "highlights": [
+        "注册即得约 $70 额度，GitHub 一键登录，不用充值",
         "基于开源 New API 面板，控制台熟悉、日志与用量一目了然",
-        "开启了每日签到，可持续领取额度",
+        "每日签到再领约 $22，首日合计约 $92",
         "支持对话之外的绘图 / 异步任务接口",
         "一键把 Key 推送到 Cherry Studio、DeepChat、CC Switch 等客户端"
       ],
@@ -101,7 +113,7 @@
         ]
       },
       "earnMore": [
-        "每日签到领额度",
+        "每日签到领约 $22",
         "关注站点公告获取活动兑换码"
       ],
       "caveats": [

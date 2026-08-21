@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { renderReadme } from './lib/render-readme.mjs';
 import { renderHtml } from './lib/render-html.mjs';
+import { auditCredits } from './lib/credits.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const p = (...s) => path.join(ROOT, ...s);
@@ -22,6 +23,9 @@ try {
 }
 
 if (!sites.length) throw new Error('data/sites.json 里没有任何站点');
+
+// 额度是手工登记的，站点改政策时不会自己变；和接口实测值对不上就提醒一声
+for (const w of auditCredits(sites, live)) console.warn(`⚠ ${w}`);
 
 await writeFile(p('README.md'), renderReadme({ meta, sites, live }), 'utf8');
 

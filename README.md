@@ -5,7 +5,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-2%20%E4%B8%AA-blue" alt="收录站点">
   <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-2%2F2-brightgreen" alt="在线">
-  <img src="https://img.shields.io/badge/%E6%B3%A8%E5%86%8C%E5%8F%AF%E5%BE%97-%2450-success" alt="注册可得">
+  <img src="https://img.shields.io/badge/%E9%A6%96%E6%97%A5%E5%8F%AF%E5%BE%97-%E6%9C%80%E9%AB%98%20%24175-success" alt="首日可得">
   <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--08--21%2009.19%20UTC-informational" alt="数据更新">
 </p>
 
@@ -18,12 +18,14 @@
 
 ## 🚀 一分钟上车
 
-| 站点 | 状态 | 新用户额度 | 持续领取 | 兼容协议 | 模型 | 注册 |
-| :-- | :--: | :--: | :--: | :--: | :--: | :--: |
-| **AgentRouter** 🔥 | 🟢 在线 | **$50** | 签到 $25/天 ✅ | Anthropic + OpenAI | 3 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) |
-| **JustDoWork** | 🟢 在线 | 站内公示 | 每日签到 ✅ | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://api.justwoker.icu/sign-up?aff=VTrz) |
+| 站点 | 状态 | 首日可得 | 额度构成 | 之后每天 | 兼容协议 | 模型 | 注册 |
+| :-- | :--: | :--: | :-- | :--: | :--: | :--: | :--: |
+| **AgentRouter** 🔥 | 🟢 在线 | **$175** | 注册 $100 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 3 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) |
+| **JustDoWork** | 🟢 在线 | **≈$92** | 注册 $70 + 首签 ≈$22 | ≈$22/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://api.justwoker.icu/sign-up?aff=VTrz) |
 
-> 表格里的额度、模型、在线状态**全部由脚本抓取站点公开接口自动生成**，最后更新：`2026-08-21 09:19 UTC`。
+> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天签到额度；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-08-21 09:19 UTC`。
+>
+> 2 个站全注册一遍，第一天手上大约有 **$267** 额度可用。
 
 **只想快点用上 Claude Code？** 三步：
 
@@ -52,16 +54,22 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 
 **为什么值得注册**
 
-- 邀请链接注册直接到账额度，不需要充值、不需要信用卡
-- 每日签到继续领额度，长期白嫖不断供
+- 注册即送 $100，从本页邀请链接进入再多 $50，不需要充值、不需要信用卡
+- 每日签到再领 $25，首日合计最高 $175，长期白嫖不断供
 - 同时提供 Anthropic 与 OpenAI 两种兼容协议，Claude Code / Codex / Cline / Cursor 都能直连
 - 官方文档覆盖十几种客户端，照着抄配置即可
+
+**能拿多少额度**
+
+- 注册即送：**$100**
+- 从本页邀请链接注册额外：**$50**（站点接口实测一致）
+- 每日签到：**$25/天**（长期续命的关键）
+- 首日合计：**$175**　（注册 $100 + 本页邀请 $50 + 首签 $25）
 
 **实时数据**（自动抓取站点公开接口）
 
 - 站点名称：**Agent Router**
 - 面板版本：`init-20260820-c6931bb5`
-- 邀请注册到账：**$50**
 - 邀请他人可得：**$150**
 - 登录方式：GitHub / LinuxDO
 - 接口延迟：309 ms
@@ -182,10 +190,17 @@ curl -s https://agentrouter.org/v1/chat/completions \
 
 **为什么值得注册**
 
+- 注册即得约 $70 额度，GitHub 一键登录，不用充值
 - 基于开源 New API 面板，控制台熟悉、日志与用量一目了然
-- 开启了每日签到，可持续领取额度
+- 每日签到再领约 $22，首日合计约 $92
 - 支持对话之外的绘图 / 异步任务接口
 - 一键把 Key 推送到 Cherry Studio、DeepChat、CC Switch 等客户端
+
+**能拿多少额度**
+
+- 注册即送：**$70**
+- 每日签到：**≈$22/天**（长期续命的关键）
+- 首日合计：**≈$92**　（注册 $70 + 首签 ≈$22）
 
 **实时数据**（自动抓取站点公开接口）
 
@@ -269,7 +284,7 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 
 **如何继续拿额度**
 
-- 每日签到领额度
+- 每日签到领约 $22
 - 关注站点公告获取活动兑换码
 
 **⚠️ 使用前必读**
@@ -287,9 +302,10 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 | [`data/live.json`](data/live.json) | 自动抓取的实时快照（额度 / 模型 / 在线状态） |
 | [`scripts/refresh.mjs`](scripts/refresh.mjs) | 抓取站点公开接口 |
 | [`scripts/lib/merge.mjs`](scripts/lib/merge.mjs) | 抓取失败时沿用上次快照，页面不会被刷空 |
+| [`scripts/lib/credits.mjs`](scripts/lib/credits.mjs) | 额度口径：注册 + 邀请 + 签到 = 首日可得 |
 | [`scripts/build.mjs`](scripts/build.mjs) | 用数据重新生成 README 与落地页 |
 | [`scripts/check.mjs`](scripts/check.mjs) | 链接与站点健康检查，失效即 CI 报警 |
-| [`scripts/test.mjs`](scripts/test.mjs) | 合并逻辑的单测（零依赖，`npm test`） |
+| [`scripts/test.mjs`](scripts/test.mjs) | 合并逻辑与额度口径的单测（零依赖，`npm test`） |
 | [`scripts/quickstart.sh`](scripts/quickstart.sh) / [`.ps1`](scripts/quickstart.ps1) | 交互式配置 Claude Code 环境变量 |
 
 本地跑一遍：

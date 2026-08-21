@@ -1,5 +1,6 @@
 /** 生成 README.md：全部内容由 data/sites.json + data/live.json 渲染，请勿手改 README。 */
 import { staleHours } from './newapi.mjs';
+import { creditPlan, usd, breakdown } from './credits.mjs';
 
 /** shields.io 转义：- → --，_ → __，其余走 URI 编码 */
 const shield = (s) => encodeURIComponent(String(s).replace(/-/g, '--').replace(/_/g, '__'));
@@ -27,16 +28,25 @@ function openaiModel(snap) {
 function overviewTable(sites, liveById) {
   const rows = sites.map((s) => {
     const l = liveById.get(s.id) ?? {};
+    const plan = creditPlan(s, l);
     const state = l.online ? '🟢 在线' : '🔴 异常';
-    const bonus = l.inviteeBonusUsd ? `**$${l.inviteeBonusUsd}**` : '站内公示';
-    const checkin = l.checkinEnabled ? '每日签到 ✅' : s.dailyBonus ? `${s.dailyBonus} ✅` : l.checkinEnabled === false ? '无签到' : '—';
+    const first = plan.firstDay != null ? `**${usd(plan.firstDay, plan.approx)}**` : '站内公示';
+    const detail = breakdown(plan) ?? '—';
+    const checkin =
+      plan.daily != null
+        ? `${usd(plan.daily, plan.approx)}/天`
+        : l.checkinEnabled
+          ? '支持签到'
+          : l.checkinEnabled === false
+            ? '无签到'
+            : '—';
     const models = l.models?.length ? `${l.models.length} 个可查` : '需登录查看';
     const proto = [s.endpoints?.anthropic && 'Anthropic', s.endpoints?.openai && 'OpenAI'].filter(Boolean).join(' + ');
-    return `| **${s.name}**${s.recommended ? ' 🔥' : ''} | ${state} | ${bonus} | ${checkin} | ${proto} | ${models} | [点此注册 →](${s.signupUrl}) |`;
+    return `| **${s.name}**${s.recommended ? ' 🔥' : ''} | ${state} | ${first} | ${detail} | ${checkin} | ${proto} | ${models} | [点此注册 →](${s.signupUrl}) |`;
   });
   return [
-    '| 站点 | 状态 | 新用户额度 | 持续领取 | 兼容协议 | 模型 | 注册 |',
-    '| :-- | :--: | :--: | :--: | :--: | :--: | :--: |',
+    '| 站点 | 状态 | 首日可得 | 额度构成 | 之后每天 | 兼容协议 | 模型 | 注册 |',
+    '| :-- | :--: | :--: | :-- | :--: | :--: | :--: | :--: |',
     ...rows,
   ].join('\n');
 }
@@ -61,7 +71,6 @@ function liveFacts(snap) {
     staleHours(snap) ? `⚠ 接口已连续 ${staleHours(snap)} 小时没抓到新数据，下列信息为 \`${fmtDate(snap.staleFrom)}\` 的快照` : null,
     `站点名称：**${snap.systemName ?? '—'}**`,
     `面板版本：\`${snap.version ?? '—'}\``,
-    snap.inviteeBonusUsd ? `邀请注册到账：**$${snap.inviteeBonusUsd}**` : null,
     snap.inviterBonusUsd ? `邀请他人可得：**$${snap.inviterBonusUsd}**` : null,
     snap.checkinEnabled != null ? `每日签到：${yes(snap.checkinEnabled)}` : null,
     snap.registerOpen != null ? `开放注册：${yes(snap.registerOpen)}` : null,
@@ -70,6 +79,22 @@ function liveFacts(snap) {
     snap.latencyMs != null ? `接口延迟：${snap.latencyMs} ms` : null,
   ].filter(Boolean);
   return items.map((t) => `- ${t}`).join('\n');
+}
+
+/** 额度明细：接口只给邀请额度，注册基础额度与签到额度来自 sites.json 登记 */
+function creditFacts(site, snap) {
+  const p = creditPlan(site, snap);
+  if (p.firstDay == null) return null;
+  return [
+    p.signup != null ? `- 注册即送：**${usd(p.signup)}**` : null,
+    p.invite != null
+      ? `- 从本页邀请链接注册额外：**${usd(p.invite)}**${p.apiInvite === p.invite ? '（站点接口实测一致）' : ''}`
+      : null,
+    p.daily != null ? `- 每日签到：**${usd(p.daily, p.approx)}/天**（长期续命的关键）` : null,
+    `- 首日合计：**${usd(p.firstDay, p.approx)}**${breakdown(p) ? `　（${breakdown(p)}）` : ''}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
 }
 
 function siteSection(site, snap) {
@@ -90,6 +115,7 @@ function siteSection(site, snap) {
     `**为什么值得注册**`,
     '',
     site.highlights.map((h) => `- ${h}`).join('\n'),
+    ...(creditFacts(site, snap) ? ['', '**能拿多少额度**', '', creditFacts(site, snap)] : []),
     '',
     '**实时数据**（自动抓取站点公开接口）',
     '',
@@ -205,7 +231,8 @@ export function renderReadme({ meta, sites, live }) {
   const byId = new Map((live?.sites ?? []).map((s) => [s.id, s]));
   const onlineCount = sites.filter((s) => byId.get(s.id)?.online).length;
   const staleCount = sites.filter((s) => staleHours(byId.get(s.id))).length;
-  const best = Math.max(0, ...sites.map((s) => byId.get(s.id)?.inviteeBonusUsd ?? 0));
+  const best = Math.max(0, ...sites.map((s) => creditPlan(s, byId.get(s.id)).firstDay ?? 0));
+  const total = sites.reduce((sum, s) => sum + (creditPlan(s, byId.get(s.id)).firstDay ?? 0), 0);
 
   const head = [
     `<h1 align="center">${meta.title}</h1>`,
@@ -215,7 +242,7 @@ export function renderReadme({ meta, sites, live }) {
     '<p align="center">',
     `  <img src="${B('收录站点', `${sites.length} 个`, 'blue')}" alt="收录站点">`,
     `  <img src="${B('在线', `${onlineCount}/${sites.length}`, onlineCount === sites.length ? 'brightgreen' : 'orange')}" alt="在线">`,
-    best > 0 ? `  <img src="${B('注册可得', `$${best}`, 'success')}" alt="注册可得">` : null,
+    best > 0 ? `  <img src="${B('首日可得', `最高 $${best}`, 'success')}" alt="首日可得">` : null,
     `  <img src="${B('数据更新', fmtDate(live?.generatedAt).replace(/:/g, '.'), 'informational')}" alt="数据更新">`,
     '</p>',
     '',
@@ -229,7 +256,10 @@ export function renderReadme({ meta, sites, live }) {
     '',
     overviewTable(sites, byId),
     '',
-    `> 表格里的额度、模型、在线状态**全部由脚本抓取站点公开接口自动生成**，最后更新：\`${fmtDate(live?.generatedAt)}\`。`,
+    `> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天签到额度；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：\`${fmtDate(live?.generatedAt)}\`。`,
+    total > 0 ? '>' : null,
+    total > 0 ? `> ${sites.length} 个站全注册一遍，第一天手上大约有 **$${total}** 额度可用。` : null,
+    staleCount > 0 ? '>' : null,
     staleCount > 0
       ? `> 🟡 有 ${staleCount} 个站点已超过 48 小时没抓到接口数据，其明细为上一次成功抓取的快照；在线状态按注册页实际可访问性判断。`
       : null,
@@ -270,9 +300,10 @@ function tail(meta, sites, live) {
     '| [`data/live.json`](data/live.json) | 自动抓取的实时快照（额度 / 模型 / 在线状态） |',
     '| [`scripts/refresh.mjs`](scripts/refresh.mjs) | 抓取站点公开接口 |',
     '| [`scripts/lib/merge.mjs`](scripts/lib/merge.mjs) | 抓取失败时沿用上次快照，页面不会被刷空 |',
+    '| [`scripts/lib/credits.mjs`](scripts/lib/credits.mjs) | 额度口径：注册 + 邀请 + 签到 = 首日可得 |',
     '| [`scripts/build.mjs`](scripts/build.mjs) | 用数据重新生成 README 与落地页 |',
     '| [`scripts/check.mjs`](scripts/check.mjs) | 链接与站点健康检查，失效即 CI 报警 |',
-    '| [`scripts/test.mjs`](scripts/test.mjs) | 合并逻辑的单测（零依赖，`npm test`） |',
+    '| [`scripts/test.mjs`](scripts/test.mjs) | 合并逻辑与额度口径的单测（零依赖，`npm test`） |',
     '| [`scripts/quickstart.sh`](scripts/quickstart.sh) / [`.ps1`](scripts/quickstart.ps1) | 交互式配置 Claude Code 环境变量 |',
     '',
     '本地跑一遍：',

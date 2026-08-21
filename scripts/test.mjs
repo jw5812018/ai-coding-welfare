@@ -6,6 +6,7 @@
 import assert from 'node:assert/strict';
 import { mergeSnapshot, meaningful } from './lib/merge.mjs';
 import { pickPreferred, staleHours, STALE_WARN_HOURS } from './lib/newapi.mjs';
+import { creditPlan, usd, breakdown, auditCredits } from './lib/credits.mjs';
 
 let passed = 0;
 function test(name, fn) {
@@ -142,6 +143,42 @@ test('首次抓取（没有旧快照）不会因为 old 缺失而炸', () => {
 test('注册页也不通 → 如实标记异常', () => {
   const m = mergeSnapshot({ ...FRESH_BLOCKED, signup: { status: 0, ok: false, ms: 20000, error: 'timeout' } }, OLD_GOOD);
   assert.equal(m.online, false);
+});
+
+console.log('额度口径 creditPlan');
+const AR = { id: 'agentrouter', name: 'AgentRouter', credits: { signup: 100, invite: 50, dailyCheckin: 25, approx: false } };
+const JD = { id: 'justdowork', name: 'JustDoWork', credits: { signup: 70, invite: null, dailyCheckin: 22, approx: true } };
+
+test('AgentRouter：100 注册 + 50 邀请 + 25 签到 = 首日 175', () => {
+  const p = creditPlan(AR, OLD_GOOD);
+  assert.equal(p.base, 150);
+  assert.equal(p.firstDay, 175);
+  assert.equal(usd(p.firstDay, p.approx), '$175');
+  assert.equal(breakdown(p), '注册 $100 + 本页邀请 $50 + 首签 $25');
+});
+test('AgentRouter：登记的邀请额度与接口实测 $50 一致', () => {
+  const p = creditPlan(AR, OLD_GOOD);
+  assert.equal(p.apiInvite, 50);
+  assert.equal(p.invite, p.apiInvite);
+  assert.deepEqual(auditCredits([AR], { sites: [OLD_GOOD] }), []);
+});
+test('JustDoWork：70 + 约 22 = 首日约 92，带 ≈ 前缀', () => {
+  const p = creditPlan(JD, { id: 'justdowork' });
+  assert.equal(p.firstDay, 92);
+  assert.equal(usd(p.firstDay, p.approx), '≈$92');
+  assert.equal(breakdown(p), '注册 $70 + 首签 ≈$22');
+});
+test('接口把邀请额度改了 → auditCredits 告警，提醒更新登记值', () => {
+  const w = auditCredits([AR], { sites: [{ ...OLD_GOOD, inviteeBonusUsd: 30 }] });
+  assert.equal(w.length, 1);
+  assert.match(w[0], /登记邀请额度 \$50.*返回 \$30/);
+});
+test('没填 credits 的站点不炸，只告警', () => {
+  const p = creditPlan({ id: 'x', name: 'X' }, null);
+  assert.equal(p.firstDay, null);
+  assert.equal(usd(p.firstDay), null);
+  assert.equal(breakdown(p), null);
+  assert.equal(auditCredits([{ id: 'x', name: 'X' }], { sites: [] }).length, 1);
 });
 
 console.log('工具函数');

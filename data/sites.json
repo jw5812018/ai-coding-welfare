@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "title": "AI Coding 福利站导航",
+    "tagline": "免费额度 · 白嫖 Claude Code / Codex / Cursor 的中转与公益站合集",
+    "keywords": [
+      "Claude Code 免费",
+      "Claude Code 中转",
+      "Codex 中转",
+      "AI API 中转站",
+      "公益站",
+      "免费 API 额度",
+      "claude-opus-5 API",
+      "New API",
+      "AgentRouter"
+    ],
+    "repoUrl": "https://github.com/panxunying/ai-coding-welfare",
+    "pagesUrl": "https://panxunying.github.io/ai-coding-welfare/"
+  },
+  "sites": [
+    {
+      "id": "agentrouter",
+      "name": "AgentRouter",
+      "subtitle": "AI Coding 公益站 · 注册即送额度，签到每日续命",
+      "recommended": true,
+      "dailyBonus": "签到 $25/天",
+      "signupUrl": "https://agentrouter.org/register?aff=szt3",
+      "homeUrl": "https://agentrouter.org",
+      "docsUrl": "https://agentrouter.org/docs/index.html",
+      "statusApi": "https://agentrouter.org/api/status",
+      "pricingApi": "https://agentrouter.org/api/pricing",
+      "mirrors": [
+        {
+          "label": "大陆备用域名",
+          "homeUrl": "https://ps.air-outer.com",
+          "signupUrl": "https://ps.air-outer.com/register?aff=szt3"
+        }
+      ],
+      "tags": ["公益站", "免费额度", "Claude Code", "Codex", "Anthropic 兼容"],
+      "highlights": [
+        "邀请链接注册直接到账额度，不需要充值、不需要信用卡",
+        "每日签到继续领额度，长期白嫖不断供",
+        "同时提供 Anthropic 与 OpenAI 两种兼容协议，Claude Code / Codex / Cline / Cursor 都能直连",
+        "官方文档覆盖十几种客户端，照着抄配置即可"
+      ],
+      "endpoints": {
+        "anthropic": "https://agentrouter.org",
+        "openai": "https://agentrouter.org/v1"
+      },
+      "register": {
+        "methods": ["GitHub OAuth", "LinuxDO OAuth"],
+        "requirements": [
+          "务必从本页的邀请链接进入注册，否则拿不到邀请额度",
+          "注册成功后退出再重新登录一次，额度才会显示到账"
+        ]
+      },
+      "earnMore": [
+        "每日签到领额度（登录后台点签到）",
+        "绑定邮箱参与官方不定期抽奖兑换码",
+        "邀请他人注册，邀请人同样得额度"
+      ],
+      "caveats": [
+        "官方定位是公益站，不承诺 SLA、不支持充值；上游波动时可能临时停用某些模型",
+        "请求内容仅支持中 / 英 / 法 / 德 / 俄，其它语言会被拦截并返回 400",
+        "严禁批量注册、刷量、转售额度、虚假邀请，官方会直接封号"
+      ],
+      "community": [
+        "Discord: https://discord.gg/aYq5B4RW3",
+        "X: https://x.com/AgentRouter_0",
+        "邮箱: agent_router_org@163.com"
+      ]
+    },
+    {
+      "id": "justdowork",
+      "name": "JustDoWork",
+      "subtitle": "New API 中转站 · GitHub 一键登录，支持签到与绘图",
+      "recommended": false,
+      "signupUrl": "https://api.justwoker.icu/sign-up?aff=VTrz",
+      "homeUrl": "https://api.justwoker.icu",
+      "docsUrl": "https://api.justwoker.icu/dashboard/overview",
+      "statusApi": "https://api.justwoker.icu/api/status",
+      "pricingApi": null,
+      "mirrors": [],
+      "tags": ["New API", "免费额度", "签到", "绘图", "OpenAI 兼容"],
+      "highlights": [
+        "基于开源 New API 面板，控制台熟悉、日志与用量一目了然",
+        "开启了每日签到，可持续领取额度",
+        "支持对话之外的绘图 / 异步任务接口",
+        "一键把 Key 推送到 Cherry Studio、DeepChat、CC Switch 等客户端"
+      ],
+      "endpoints": {
+        "anthropic": "https://api.justwoker.icu",
+        "openai": "https://api.justwoker.icu/v1"
+      },
+      "register": {
+        "methods": ["GitHub OAuth"],
+        "requirements": [
+          "已关闭账号密码注册，只能用 GitHub 授权登录",
+          "GitHub 账号注册满 365 天才允许绑定，小号会被拒绝",
+          "注册页有 Turnstile 人机校验，需要能正常加载 Cloudflare 脚本",
+          "务必从本页邀请链接进入，注册后邀请额度才会算到位"
+        ]
+      },
+      "earnMore": [
+        "每日签到领额度",
+        "关注站点公告获取活动兑换码"
+      ],
+      "caveats": [
+        "模型清单与价格需要登录后台才能查看，本页不做承诺",
+        "中转站上游随时可能调整，请以站内实际价格与可用模型为准"
+      ],
+      "community": []
+    }
+  ]
+}

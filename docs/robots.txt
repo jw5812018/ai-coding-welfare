@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://panxunying.github.io/ai-coding-welfare/sitemap.xml

@@ -1,0 +1,25 @@
+{
+  "name": "ai-coding-welfare",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI Coding 福利站导航：免费额度中转站 / 公益站合集，README 与落地页由脚本自动生成",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "refresh": "node scripts/refresh.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "all": "npm run refresh && npm run build && npm run check"
+  },
+  "keywords": [
+    "claude-code",
+    "codex",
+    "ai-api",
+    "free-credits",
+    "new-api",
+    "agentrouter"
+  ],
+  "license": "MIT"
+}

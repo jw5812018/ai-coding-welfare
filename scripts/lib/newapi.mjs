@@ -4,6 +4,9 @@
  * 只读取站点自己公开暴露的接口：
  *   GET /api/status   —— 站名、版本、注册方式、邀请额度、公告
  *   GET /api/pricing  —— 模型清单与倍率（部分站点要求登录，拿不到就跳过）
+ *
+ * 同时兼做各面板共用的探测底座：fetchJson / blankSnapshot / pickPreferred / staleHours
+ * 都被 lib/vibecode.mjs、lib/merge.mjs 与渲染器复用，改动时留意调用方。
  */
 
 const UA = 'ai-coding-welfare/1.0 (+https://github.com/)';
@@ -127,20 +130,19 @@ export function staleHours(snap) {
   return Number.isFinite(h) && h > STALE_WARN_HOURS ? Math.round(h) : null;
 }
 
-/** 把 /api/status 与 /api/pricing 合成一条站点实时快照。 */
-export async function probeSite(site) {
-  const [statusRes, pricingRes] = await Promise.all([
-    fetchJson(site.statusApi),
-    site.pricingApi ? fetchJson(site.pricingApi) : Promise.resolve({ ok: false, error: 'not public' }),
-  ]);
-
-  const snapshot = {
+/**
+ * 所有面板共用的快照骨架。
+ * 字段集合必须保持稳定：merge.mjs 按字段决定「沿用旧值还是用新值」，
+ * 渲染器也直接按这些字段取数，少一个字段页面上就会出现 undefined。
+ */
+export function blankSnapshot(site, { apiOk, pricingOk, latencyMs, error }) {
+  return {
     id: site.id,
     checkedAt: new Date().toISOString(),
-    apiOk: Boolean(statusRes.ok),
-    pricingOk: Boolean(pricingRes.ok),
-    latencyMs: statusRes.ms ?? null,
-    error: statusRes.ok ? null : statusRes.error ?? null,
+    apiOk: Boolean(apiOk),
+    pricingOk: Boolean(pricingOk),
+    latencyMs: latencyMs ?? null,
+    error: error ?? null,
     systemName: null,
     version: null,
     registerOpen: null,
@@ -152,10 +154,28 @@ export async function probeSite(site) {
     inviteeBonusUsd: null,
     inviterBonusUsd: null,
     topupEnabled: null,
+    services: [],
     announcements: [],
-    models: normalizeModels(pricingRes.ok ? pricingRes.json?.data : null),
-    modelsSource: pricingRes.ok ? 'public-api' : 'login-required',
+    models: [],
+    modelsSource: pricingOk ? 'public-api' : 'login-required',
+    defaults: { claude: null, openai: null },
   };
+}
+
+/** 把 /api/status 与 /api/pricing 合成一条站点实时快照。get 可注入，便于单测不联网。 */
+export async function probeNewApi(site, get = fetchJson) {
+  const [statusRes, pricingRes] = await Promise.all([
+    get(site.statusApi),
+    site.pricingApi ? get(site.pricingApi) : Promise.resolve({ ok: false, error: 'not public' }),
+  ]);
+
+  const snapshot = blankSnapshot(site, {
+    apiOk: statusRes.ok,
+    pricingOk: pricingRes.ok,
+    latencyMs: statusRes.ms ?? null,
+    error: statusRes.ok ? null : statusRes.error ?? null,
+  });
+  snapshot.models = normalizeModels(pricingRes.ok ? pricingRes.json?.data : null);
 
   const d = statusRes.ok ? statusRes.json?.data ?? {} : {};
   const per = Number(d.quota_per_unit) || null;

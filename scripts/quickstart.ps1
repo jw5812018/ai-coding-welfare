@@ -10,10 +10,11 @@ $liveFile = Join-Path $root 'data\live.json'
 
 if (-not (Test-Path $sitesFile)) { throw "找不到 $sitesFile" }
 
-$sites = (Get-Content $sitesFile -Raw -Encoding UTF8 | ConvertFrom-Json).sites
+$sites = (Get-Content $sitesFile -Raw -Encoding UTF8 | ConvertFrom-Json).sites |
+  Where-Object { $_.endpoints.anthropic }
 $live = if (Test-Path $liveFile) { (Get-Content $liveFile -Raw -Encoding UTF8 | ConvertFrom-Json).sites } else { @() }
 
-Write-Host "`n可选站点：" -ForegroundColor Cyan
+Write-Host "`n可选站点（只列出提供 Anthropic 兼容 Base URL、能直连 Claude Code 的站点）：" -ForegroundColor Cyan
 for ($i = 0; $i -lt $sites.Count; $i++) {
   Write-Host ("  {0}) {1} — {2}" -f ($i + 1), $sites[$i].name, $sites[$i].subtitle)
 }

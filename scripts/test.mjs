@@ -5,8 +5,9 @@
  */
 import assert from 'node:assert/strict';
 import { mergeSnapshot, meaningful } from './lib/merge.mjs';
-import { pickPreferred, staleHours, STALE_WARN_HOURS } from './lib/newapi.mjs';
-import { creditPlan, usd, breakdown, auditCredits } from './lib/credits.mjs';
+import { pickPreferred, staleHours, STALE_WARN_HOURS, blankSnapshot } from './lib/newapi.mjs';
+import { creditPlan, usd, breakdown, perDay, auditCredits } from './lib/credits.mjs';
+import { PANELS, probeSite } from './lib/panels.mjs';
 
 let passed = 0;
 function test(name, fn) {
@@ -148,6 +149,7 @@ test('注册页也不通 → 如实标记异常', () => {
 console.log('额度口径 creditPlan');
 const AR = { id: 'agentrouter', name: 'AgentRouter', credits: { signup: 100, invite: 50, dailyCheckin: 25, approx: false } };
 const JD = { id: 'justdowork', name: 'JustDoWork', credits: { signup: 70, invite: null, dailyCheckin: 22, approx: true } };
+const RC = { id: 'rawchat', name: 'RawChat 公益站', credits: { signup: null, invite: null, dailyCheckin: null, dailyQuota: 50 } };
 
 test('AgentRouter：100 注册 + 50 邀请 + 25 签到 = 首日 175', () => {
   const p = creditPlan(AR, OLD_GOOD);
@@ -173,12 +175,107 @@ test('接口把邀请额度改了 → auditCredits 告警，提醒更新登记�
   assert.equal(w.length, 1);
   assert.match(w[0], /登记邀请额度 \$50.*返回 \$30/);
 });
+test('AgentRouter：签到额度是累积的，措辞是「首签」而不是「重置」', () => {
+  const p = creditPlan(AR, OLD_GOOD);
+  assert.equal(p.resets, false);
+  assert.equal(perDay(p), '$25/天');
+});
+test('RawChat：每日重置额度池 $50 → 首日 $50，且说明不累积', () => {
+  const p = creditPlan(RC, null);
+  assert.equal(p.firstDay, 50);
+  assert.equal(p.daily, 50);
+  assert.equal(p.resets, true);
+  assert.equal(p.base, null);
+  assert.equal(perDay(p), '$50/天（重置）');
+  assert.equal(breakdown(p), '每日额度池 $50（每天重置，不累积）');
+});
+test('dailyCheckin 与 dailyQuota 同时填 → 按签到算并告警', () => {
+  const both = { id: 'both', name: 'Both', credits: { signup: 10, dailyCheckin: 5, dailyQuota: 50 } };
+  const p = creditPlan(both, null);
+  assert.equal(p.daily, 5);
+  assert.equal(p.resets, false);
+  assert.match(auditCredits([both], { sites: [] }).join(''), /口径不同/);
+});
 test('没填 credits 的站点不炸，只告警', () => {
   const p = creditPlan({ id: 'x', name: 'X' }, null);
   assert.equal(p.firstDay, null);
   assert.equal(usd(p.firstDay), null);
   assert.equal(breakdown(p), null);
+  assert.equal(perDay(p), null);
   assert.equal(auditCredits([{ id: 'x', name: 'X' }], { sites: [] }).length, 1);
+});
+
+console.log('vibe-code 面板（Codex 公益站，接口不是 New API）');
+/** 2026-08-21 从 new.sharedchat.cc 实测抓到的返回体 */
+const VC_SITE = { id: 'rawchat', panel: 'vibecode', statusApi: 'https://new.sharedchat.cc/frontend-api/getConfig' };
+const VC_CONFIG = {
+  code: 1,
+  msg: 'success',
+  data: { siteName: 'RawChat公益站', siteType: 'codex', isAuth: false, isAuthClaude: false, isAuthCodex: true, isAuthGemini: false },
+};
+const VC_LOGIN = {
+  code: 1,
+  msg: 'success',
+  data: {
+    notice: '  每日 0 点重置额度  ',
+    isEnableRegister: true,
+    isEnableMailRegister: true,
+    isEnableGitHubLogin: false,
+    isEnableLinuxDoLogin: false,
+    siteName: 'RawChat公益站',
+    backendVersion: '1.0.0.0',
+  },
+};
+const vcFetch = (map) => async (url) => map[String(url)] ?? { ok: false, error: 'unreachable' };
+const VC_OK = vcFetch({
+  'https://new.sharedchat.cc/frontend-api/getConfig': { ok: true, status: 200, ms: 587, json: VC_CONFIG },
+  'https://new.sharedchat.cc/frontend-api/getLoginConfig': { ok: true, status: 200, ms: 431, json: VC_LOGIN },
+});
+const VC_CLOSED = { ok: true, status: 200, ms: 300, json: { code: 0, msg: '该接口未接入公益站独立网关，旧转发链路已关闭', data: null } };
+
+// 探测本身是异步的，先在顶层 await 出结果，断言保持同步，测试运行器就不用管 Promise
+const vcGood = await probeSite(VC_SITE, VC_OK);
+const vcClosed = await probeSite(VC_SITE, vcFetch({
+  'https://new.sharedchat.cc/frontend-api/getConfig': VC_CLOSED,
+  'https://new.sharedchat.cc/frontend-api/getLoginConfig': VC_CLOSED,
+}));
+const vcUnreachable = await probeSite(VC_SITE, vcFetch({}));
+
+test('站名 / 版本 / 注册开关 / 登录方式 / 已开放服务 都取到了', () => {
+  assert.equal(vcGood.apiOk, true);
+  assert.equal(vcGood.error, null);
+  assert.equal(vcGood.systemName, 'RawChat公益站');
+  assert.equal(vcGood.version, '1.0.0.0');
+  assert.equal(vcGood.registerOpen, true);
+  assert.deepEqual(vcGood.loginMethods, ['邮箱']);
+  assert.deepEqual(vcGood.services, ['Codex']);
+  assert.equal(vcGood.latencyMs, 587);
+});
+test('站内公告取自 notice，模型清单为空且标注需登录', () => {
+  assert.deepEqual(vcGood.announcements, [{ id: null, date: null, text: '每日 0 点重置额度' }]);
+  assert.deepEqual(vcGood.models, []);
+  assert.equal(vcGood.modelsSource, 'login-required');
+});
+test('快照字段集合与 New API 面板完全一致（否则 merge 会漏字段）', () => {
+  assert.deepEqual(Object.keys(vcGood).sort(), Object.keys(blankSnapshot(VC_SITE, {})).sort());
+});
+test('HTTP 200 但 code=0（接口未开放）→ 不当数据用，如实报错', () => {
+  assert.equal(vcClosed.apiOk, false);
+  assert.match(vcClosed.error, /旧转发链路已关闭/);
+  assert.equal(vcClosed.systemName, null);
+  assert.deepEqual(vcClosed.services, []);
+});
+test('vibe-code 接口被拦时，也走同一套字段级合并保住旧数据', () => {
+  const m = mergeSnapshot({ ...vcUnreachable, signup: { status: 200, ok: true, ms: 210 } }, vcGood);
+  assert.equal(m.online, true);
+  assert.equal(m.systemName, 'RawChat公益站');
+  assert.deepEqual(m.services, ['Codex']);
+  assert.equal(m.dataStale, true);
+});
+test('panel 缺省是 newapi，未知 panel 直接报错而不是静默出空页', () => {
+  assert.equal(PANELS.newapi.name, 'probeNewApi');
+  assert.equal(PANELS.vibecode.name, 'probeVibeCode');
+  assert.throws(() => probeSite({ id: 'z', panel: 'nope' }), /未知的面板类型/);
 });
 
 console.log('工具函数');

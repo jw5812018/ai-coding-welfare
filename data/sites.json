@@ -6,12 +6,15 @@
       "Claude Code 免费",
       "Claude Code 中转",
       "Codex 中转",
+      "Codex 公益站",
       "AI API 中转站",
       "公益站",
       "免费 API 额度",
+      "每日免费额度",
       "claude-opus-5 API",
       "New API",
-      "AgentRouter"
+      "AgentRouter",
+      "RawChat"
     ],
     "repoUrl": "https://github.com/panxunying/ai-coding-welfare",
     "pagesUrl": "https://panxunying.github.io/ai-coding-welfare/"
@@ -119,6 +122,67 @@
       "caveats": [
         "模型清单与价格需要登录后台才能查看，本页不做承诺",
         "中转站上游随时可能调整，请以站内实际价格与可用模型为准"
+      ],
+      "community": []
+    },
+    {
+      "id": "rawchat",
+      "name": "RawChat 公益站",
+      "subtitle": "Codex 公益站 · 每日 $50 额度池，0 点自动重置",
+      "recommended": false,
+      "panel": "vibecode",
+      "credits": {
+        "signup": null,
+        "invite": null,
+        "dailyCheckin": null,
+        "dailyQuota": 50,
+        "approx": false
+      },
+      "signupUrl": "https://new.sharedchat.cc/list/#/register?i=MaVP1",
+      "homeUrl": "https://new.sharedchat.cc/list/",
+      "docsUrl": null,
+      "statusApi": "https://new.sharedchat.cc/frontend-api/getConfig",
+      "pricingApi": null,
+      "mirrors": [],
+      "tags": ["公益站", "Codex", "每日重置", "免费额度"],
+      "highlights": [
+        "每日 $50 额度池，每天 0 点自动重置，不用签到、不用充值",
+        "专供 Codex：后台「使用教程」直接复制一键安装脚本，自动装依赖并写好环境变量",
+        "邮箱注册即可，没有 GitHub 账号年龄门槛，也没有人机校验",
+        "按额度计费 + 3 小时滚动窗口，日常 vibe coding 基本够用"
+      ],
+      "endpoints": {
+        "anthropic": null,
+        "openai": null
+      },
+      "setup": {
+        "client": "Codex CLI",
+        "note": "Base URL 与 API Key 登录后才由后台下发，本页不做猜测；控制台「使用教程」里选 Codex 就能复制对应平台的一键安装脚本。",
+        "steps": [
+          "从本页邀请链接注册并登录 → 控制台「当前套餐」点一次『领取 Codex 权益』",
+          "打开「使用教程」→ 选择 Codex → 复制对应平台（macOS / Linux / Windows）的安装脚本",
+          "在终端执行脚本，它会装好依赖并写入 Base URL / Key 等环境变量，重开终端后直接跑 codex"
+        ],
+        "dashboardUrl": "https://new.sharedchat.cc/list/#/vibe-code/dashboard"
+      },
+      "modelsNote": "该站走 Codex 官方客户端 + 上游号池，不单独公示模型清单与价格，用量直接从每日 $50 的额度池里扣。",
+      "register": {
+        "methods": ["邮箱注册"],
+        "requirements": [
+          "务必从本页邀请链接进入注册（带 ?i=MaVP1），否则拿不到邀请奖励",
+          "目前只开放邮箱注册，没有 GitHub / Google 登录入口",
+          "注册登录后要在控制台点一次「领取 Codex 权益」，每日额度才会生效"
+        ]
+      },
+      "earnMore": [
+        "每天 0 点额度自动重置，不需要签到",
+        "后台「邀请奖励」邀请他人注册可拿额外奖励"
+      ],
+      "caveats": [
+        "$50 是每日重置的额度池，当天用不完会清零，不会累积到第二天",
+        "额度按 3 小时滚动窗口限速，且全站共用上游号池，高峰期会显示「已触发限速」，等窗口刷新即可",
+        "当前只开放 Codex 方向，要用 Claude Code 请走本页其它站点",
+        "站内挂着付费站推广位，注意区分免费公益入口与付费站入口"
       ],
       "community": []
     }

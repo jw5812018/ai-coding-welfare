@@ -1,6 +1,6 @@
 /** 生成 README.md：全部内容由 data/sites.json + data/live.json 渲染，请勿手改 README。 */
 import { staleHours } from './newapi.mjs';
-import { creditPlan, usd, breakdown } from './credits.mjs';
+import { creditPlan, usd, breakdown, perDay } from './credits.mjs';
 
 /** shields.io 转义：- → --，_ → __，其余走 URI 编码 */
 const shield = (s) => encodeURIComponent(String(s).replace(/-/g, '--').replace(/_/g, '__'));
@@ -33,15 +33,17 @@ function overviewTable(sites, liveById) {
     const first = plan.firstDay != null ? `**${usd(plan.firstDay, plan.approx)}**` : '站内公示';
     const detail = breakdown(plan) ?? '—';
     const checkin =
-      plan.daily != null
-        ? `${usd(plan.daily, plan.approx)}/天`
-        : l.checkinEnabled
-          ? '支持签到'
-          : l.checkinEnabled === false
-            ? '无签到'
-            : '—';
-    const models = l.models?.length ? `${l.models.length} 个可查` : '需登录查看';
-    const proto = [s.endpoints?.anthropic && 'Anthropic', s.endpoints?.openai && 'OpenAI'].filter(Boolean).join(' + ');
+      perDay(plan) ??
+      (l.checkinEnabled
+        ? '支持签到'
+        : l.checkinEnabled === false
+          ? '无签到'
+          : '—');
+    const models = l.models?.length ? `${l.models.length} 个可查` : l.services?.length ? l.services.join(' / ') : '需登录查看';
+    const proto =
+      [s.endpoints?.anthropic && 'Anthropic', s.endpoints?.openai && 'OpenAI'].filter(Boolean).join(' + ') ||
+      s.setup?.client ||
+      '登录后台配置';
     return `| **${s.name}**${s.recommended ? ' 🔥' : ''} | ${state} | ${first} | ${detail} | ${checkin} | ${proto} | ${models} | [点此注册 →](${s.signupUrl}) |`;
   });
   return [
@@ -71,6 +73,7 @@ function liveFacts(snap) {
     staleHours(snap) ? `⚠ 接口已连续 ${staleHours(snap)} 小时没抓到新数据，下列信息为 \`${fmtDate(snap.staleFrom)}\` 的快照` : null,
     `站点名称：**${snap.systemName ?? '—'}**`,
     `面板版本：\`${snap.version ?? '—'}\``,
+    snap.services?.length ? `已开放服务：${snap.services.join(' / ')}` : null,
     snap.inviterBonusUsd ? `邀请他人可得：**$${snap.inviterBonusUsd}**` : null,
     snap.checkinEnabled != null ? `每日签到：${yes(snap.checkinEnabled)}` : null,
     snap.registerOpen != null ? `开放注册：${yes(snap.registerOpen)}` : null,
@@ -85,13 +88,18 @@ function liveFacts(snap) {
 function creditFacts(site, snap) {
   const p = creditPlan(site, snap);
   if (p.firstDay == null) return null;
+  const detail = breakdown(p);
   return [
     p.signup != null ? `- 注册即送：**${usd(p.signup)}**` : null,
     p.invite != null
       ? `- 从本页邀请链接注册额外：**${usd(p.invite)}**${p.apiInvite === p.invite ? '（站点接口实测一致）' : ''}`
       : null,
-    p.daily != null ? `- 每日签到：**${usd(p.daily, p.approx)}/天**（长期续命的关键）` : null,
-    `- 首日合计：**${usd(p.firstDay, p.approx)}**${breakdown(p) ? `　（${breakdown(p)}）` : ''}`,
+    p.daily == null
+      ? null
+      : p.resets
+        ? `- 每日额度池：**${usd(p.daily, p.approx)}/天**（每天重置，当天用不完不累积，也不用签到）`
+        : `- 每日签到：**${usd(p.daily, p.approx)}/天**（长期续命的关键）`,
+    `- 首日合计：**${usd(p.firstDay, p.approx)}**${p.base != null && detail ? `　（${detail}）` : ''}`,
   ]
     .filter(Boolean)
     .join('\n');
@@ -124,7 +132,7 @@ function siteSection(site, snap) {
 
   if (mirror) parts.push('', '**镜像 / 备用入口**', '', mirror);
   if (models) parts.push('', '**当前可用模型**', '', models, '', `<sub>倍率 1 ≈ $2 / 1M tokens，输出价 = 倍率 × 补全倍率 × $2；以站内实时价格为准。</sub>`);
-  else parts.push('', '> 该站模型清单需登录后台查看，注册后在「模型价格」页确认。');
+  else parts.push('', `> ${site.modelsNote ?? '该站模型清单需登录后台查看，注册后在「模型价格」页确认。'}`);
 
   parts.push(
     '',
@@ -134,7 +142,7 @@ function siteSection(site, snap) {
     '',
     '**接入配置**',
     '',
-    codeBlocks(site, cm, om),
+    accessBlock(site, cm, om),
   );
 
   if (site.earnMore?.length) parts.push('', '**如何继续拿额度**', '', site.earnMore.map((t) => `- ${t}`).join('\n'));
@@ -151,6 +159,22 @@ function siteSection(site, snap) {
 }
 
 const F = '```';
+
+/**
+ * 有公开 Base URL 的站点直接给可抄的配置；
+ * Codex 号池那类站点的 Base URL 与 Key 是后台登录后才下发的，只能写清楚去哪儿领，
+ * 硬编一个猜出来的地址比不写更糟。
+ */
+function accessBlock(site, claude, openai) {
+  if (site.endpoints?.anthropic || site.endpoints?.openai) return codeBlocks(site, claude, openai);
+
+  const s = site.setup ?? {};
+  const out = [];
+  if (s.note) out.push(`> ${s.note}`, '');
+  if (s.steps?.length) out.push(s.steps.map((t, i) => `${i + 1}. ${t}`).join('\n'));
+  if (s.dashboardUrl) out.push('', `控制台入口：<${s.dashboardUrl}>`);
+  return out.join('\n') || '> 注册登录后在站内后台查看接入方式。';
+}
 
 function codeBlocks(site, claude, openai) {
   const anth = site.endpoints?.anthropic;
@@ -231,8 +255,10 @@ export function renderReadme({ meta, sites, live }) {
   const byId = new Map((live?.sites ?? []).map((s) => [s.id, s]));
   const onlineCount = sites.filter((s) => byId.get(s.id)?.online).length;
   const staleCount = sites.filter((s) => staleHours(byId.get(s.id))).length;
-  const best = Math.max(0, ...sites.map((s) => creditPlan(s, byId.get(s.id)).firstDay ?? 0));
-  const total = sites.reduce((sum, s) => sum + (creditPlan(s, byId.get(s.id)).firstDay ?? 0), 0);
+  const plans = sites.map((s) => creditPlan(s, byId.get(s.id)));
+  const best = Math.max(0, ...plans.map((p) => p.firstDay ?? 0));
+  const total = plans.reduce((sum, p) => sum + (p.firstDay ?? 0), 0);
+  const resetting = plans.some((p) => p.resets);
 
   const head = [
     `<h1 align="center">${meta.title}</h1>`,
@@ -256,9 +282,11 @@ export function renderReadme({ meta, sites, live }) {
     '',
     overviewTable(sites, byId),
     '',
-    `> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天签到额度；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：\`${fmtDate(live?.generatedAt)}\`。`,
+    `> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：\`${fmtDate(live?.generatedAt)}\`。`,
     total > 0 ? '>' : null,
-    total > 0 ? `> ${sites.length} 个站全注册一遍，第一天手上大约有 **$${total}** 额度可用。` : null,
+    total > 0
+      ? `> ${sites.length} 个站全注册一遍，第一天手上大约有 **$${total}** 额度可用${resetting ? '（其中每日重置的额度池次日会回满，但不累积）' : ''}。`
+      : null,
     staleCount > 0 ? '>' : null,
     staleCount > 0
       ? `> 🟡 有 ${staleCount} 个站点已超过 48 小时没抓到接口数据，其明细为上一次成功抓取的快照；在线状态按注册页实际可访问性判断。`
@@ -266,7 +294,7 @@ export function renderReadme({ meta, sites, live }) {
     '',
     '**只想快点用上 Claude Code？** 三步：',
     '',
-    `1. 点上表的注册链接 → GitHub 授权登录（额度是按邀请链接发放的，别走裸链）`,
+    `1. 点上表的注册链接 → 按站点支持的方式登录（GitHub / 邮箱），额度是按邀请链接发放的，别走裸链`,
     '2. 后台「令牌 / API Keys」新建一个 Key',
     '3. 跑一键脚本，或手抄下面对应站点的环境变量',
     '',

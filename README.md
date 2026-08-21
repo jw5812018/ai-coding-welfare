@@ -3,15 +3,16 @@
 <p align="center">免费额度 · 白嫖 Claude Code / Codex / Cursor 的中转与公益站合集</p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-2%20%E4%B8%AA-blue" alt="收录站点">
-  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-2%2F2-brightgreen" alt="在线">
+  <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-3%20%E4%B8%AA-blue" alt="收录站点">
+  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-3%2F3-brightgreen" alt="在线">
   <img src="https://img.shields.io/badge/%E9%A6%96%E6%97%A5%E5%8F%AF%E5%BE%97-%E6%9C%80%E9%AB%98%20%24175-success" alt="首日可得">
-  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--08--21%2013.12%20UTC-informational" alt="数据更新">
+  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--08--21%2014.49%20UTC-informational" alt="数据更新">
 </p>
 
 <p align="center">
   <a href="https://agentrouter.org/register?aff=szt3"><b>AgentRouter 注册</b></a> ·
-  <a href="https://api.justwoker.icu/sign-up?aff=VTrz"><b>JustDoWork 注册</b></a>
+  <a href="https://api.justwoker.icu/sign-up?aff=VTrz"><b>JustDoWork 注册</b></a> ·
+  <a href="https://new.sharedchat.cc/list/#/register?i=MaVP1"><b>RawChat 公益站 注册</b></a>
 </p>
 
 ---
@@ -22,14 +23,15 @@
 | :-- | :--: | :--: | :-- | :--: | :--: | :--: | :--: |
 | **AgentRouter** 🔥 | 🟢 在线 | **$175** | 注册 $100 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 3 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) |
 | **JustDoWork** | 🟢 在线 | **≈$92** | 注册 $70 + 首签 ≈$22 | ≈$22/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://api.justwoker.icu/sign-up?aff=VTrz) |
+| **RawChat 公益站** | 🟢 在线 | **$50** | 每日额度池 $50（每天重置，不累积） | $50/天（重置） | Codex CLI | Codex | [点此注册 →](https://new.sharedchat.cc/list/#/register?i=MaVP1) |
 
-> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天签到额度；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-08-21 13:12 UTC`。
+> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-08-21 14:49 UTC`。
 >
-> 2 个站全注册一遍，第一天手上大约有 **$267** 额度可用。
+> 3 个站全注册一遍，第一天手上大约有 **$317** 额度可用（其中每日重置的额度池次日会回满，但不累积）。
 
 **只想快点用上 Claude Code？** 三步：
 
-1. 点上表的注册链接 → GitHub 授权登录（额度是按邀请链接发放的，别走裸链）
+1. 点上表的注册链接 → 按站点支持的方式登录（GitHub / 邮箱），额度是按邀请链接发放的，别走裸链
 2. 后台「令牌 / API Keys」新建一个 Key
 3. 跑一键脚本，或手抄下面对应站点的环境变量
 
@@ -72,7 +74,7 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 - 面板版本：`init-20260820-c6931bb5`
 - 邀请他人可得：**$150**
 - 登录方式：GitHub / LinuxDO
-- 接口延迟：316 ms
+- 接口延迟：413 ms
 
 **镜像 / 备用入口**
 
@@ -205,12 +207,12 @@ curl -s https://agentrouter.org/v1/chat/completions \
 **实时数据**（自动抓取站点公开接口）
 
 - 站点名称：**JustDoWork**
-- 面板版本：`test-rc23-20260816-f7eb9fe`
+- 面板版本：`v1.0.0-rc.21`
 - 每日签到：✅
 - 开放注册：✅
 - 登录方式：GitHub / 账号密码
 - GitHub 账号需满 **365 天**
-- 接口延迟：694 ms
+- 接口延迟：146 ms
 
 > 该站模型清单需登录后台查看，注册后在「模型价格」页确认。
 
@@ -294,6 +296,65 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 
 ---
 
+### 🟢 RawChat 公益站
+
+> Codex 公益站 · 每日 $50 额度池，0 点自动重置
+
+<a href="https://new.sharedchat.cc/list/#/register?i=MaVP1"><img src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E6%B3%A8%E5%86%8C-RawChat%20%E5%85%AC%E7%9B%8A%E7%AB%99-brightgreen?style=for-the-badge" alt="注册 RawChat 公益站"></a>
+
+**为什么值得注册**
+
+- 每日 $50 额度池，每天 0 点自动重置，不用签到、不用充值
+- 专供 Codex：后台「使用教程」直接复制一键安装脚本，自动装依赖并写好环境变量
+- 邮箱注册即可，没有 GitHub 账号年龄门槛，也没有人机校验
+- 按额度计费 + 3 小时滚动窗口，日常 vibe coding 基本够用
+
+**能拿多少额度**
+
+- 每日额度池：**$50/天**（每天重置，当天用不完不累积，也不用签到）
+- 首日合计：**$50**
+
+**实时数据**（自动抓取站点公开接口）
+
+- 站点名称：**RawChat公益站**
+- 面板版本：`1.0.0.0`
+- 已开放服务：Codex
+- 开放注册：✅
+- 登录方式：邮箱
+- 接口延迟：478 ms
+
+> 该站走 Codex 官方客户端 + 上游号池，不单独公示模型清单与价格，用量直接从每日 $50 的额度池里扣。
+
+**注册要求**
+
+- 务必从本页邀请链接进入注册（带 ?i=MaVP1），否则拿不到邀请奖励
+- 目前只开放邮箱注册，没有 GitHub / Google 登录入口
+- 注册登录后要在控制台点一次「领取 Codex 权益」，每日额度才会生效
+
+**接入配置**
+
+> Base URL 与 API Key 登录后才由后台下发，本页不做猜测；控制台「使用教程」里选 Codex 就能复制对应平台的一键安装脚本。
+
+1. 从本页邀请链接注册并登录 → 控制台「当前套餐」点一次『领取 Codex 权益』
+2. 打开「使用教程」→ 选择 Codex → 复制对应平台（macOS / Linux / Windows）的安装脚本
+3. 在终端执行脚本，它会装好依赖并写入 Base URL / Key 等环境变量，重开终端后直接跑 codex
+
+控制台入口：<https://new.sharedchat.cc/list/#/vibe-code/dashboard>
+
+**如何继续拿额度**
+
+- 每天 0 点额度自动重置，不需要签到
+- 后台「邀请奖励」邀请他人注册可拿额外奖励
+
+**⚠️ 使用前必读**
+
+- $50 是每日重置的额度池，当天用不完会清零，不会累积到第二天
+- 额度按 3 小时滚动窗口限速，且全站共用上游号池，高峰期会显示「已触发限速」，等窗口刷新即可
+- 当前只开放 Codex 方向，要用 Claude Code 请走本页其它站点
+- 站内挂着付费站推广位，注意区分免费公益入口与付费站入口
+
+---
+
 ## 🧰 仓库里有什么
 
 | 文件 | 作用 |
@@ -364,6 +425,6 @@ npm run check     # 校验链接是否还活着
 
 <p align="center"><b>觉得有用点个 ⭐ Star</b>，福利站有变动时这里会自动更新。</p>
 
-<sub>关键词：Claude Code 免费 · Claude Code 中转 · Codex 中转 · AI API 中转站 · 公益站 · 免费 API 额度 · claude-opus-5 API · New API · AgentRouter</sub>
+<sub>关键词：Claude Code 免费 · Claude Code 中转 · Codex 中转 · Codex 公益站 · AI API 中转站 · 公益站 · 免费 API 额度 · 每日免费额度 · claude-opus-5 API · New API · AgentRouter · RawChat</sub>
 
 <!-- 本文件由 scripts/build.mjs 自动生成，请修改 data/sites.json 或 scripts/lib/render-readme.mjs -->

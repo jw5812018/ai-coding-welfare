@@ -10,11 +10,11 @@ LIVE="$ROOT/data/live.json"
 command -v node >/dev/null 2>&1 || { echo "需要 Node.js 18+，请先安装：https://nodejs.org"; exit 1; }
 [ -f "$SITES" ] || { echo "找不到 $SITES"; exit 1; }
 
-echo "可选站点："
+echo "可选站点（只列出提供 Anthropic 兼容 Base URL、能直连 Claude Code 的站点）："
 node -e '
 const fs=require("fs");
 const {sites}=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));
-sites.forEach((s,i)=>console.log(`  ${i+1}) ${s.name} — ${s.subtitle}`));
+sites.filter(s=>s.endpoints&&s.endpoints.anthropic).forEach((s,i)=>console.log(`  ${i+1}) ${s.name} — ${s.subtitle}`));
 ' "$SITES"
 
 read -r -p "选择站点编号 [1]: " IDX
@@ -24,7 +24,8 @@ read -r -a CFG <<< "$(node -e '
 const fs=require("fs");
 const {sites}=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));
 let live={sites:[]}; try{live=JSON.parse(fs.readFileSync(process.argv[2],"utf8"));}catch{}
-const s=sites[Number(process.argv[3])-1];
+const list=sites.filter(s=>s.endpoints&&s.endpoints.anthropic);
+const s=list[Number(process.argv[3])-1];
 if(!s){console.error("编号无效");process.exit(1);}
 const snap=(live.sites||[]).find(x=>x.id===s.id);
 const model=snap?.defaults?.claude || "claude-opus-4-8";

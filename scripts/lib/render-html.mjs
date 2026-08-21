@@ -26,13 +26,33 @@ function claudeSnippet(site, snap) {
   ].join('\n');
 }
 
+/** 有公开 Base URL 才给可复制的配置；Codex 号池那类站点只能写清楚去后台哪儿领 */
+function accessBlock(site, snap) {
+  if (site.endpoints?.anthropic) {
+    return `<pre><code>${esc(claudeSnippet(site, snap))}</code></pre>
+        <button class="copy" type="button">复制配置</button>`;
+  }
+  const steps = site.setup?.steps ?? [];
+  const note = site.setup?.note ?? '注册登录后在站内后台查看接入方式。';
+  return `<p class="desc">${esc(note)}</p>${
+    steps.length ? `<ol class="hl">${steps.map((t) => `<li>${esc(t)}</li>`).join('')}</ol>` : ''
+  }`;
+}
+
 function siteCard(site, snap) {
   const up = Boolean(snap?.online);
   const p = creditPlan(site, snap);
   const facts = [
     p.firstDay != null ? ['首日可得', `<b>${usd(p.firstDay, p.approx)}</b>${breakdown(p) ? `<small> ${esc(breakdown(p))}</small>` : ''}`] : null,
-    p.daily != null ? ['之后每天', `签到 ${usd(p.daily, p.approx)}`] : snap?.checkinEnabled ? ['每日签到', '支持'] : snap?.checkinEnabled === false ? ['每日签到', '不支持'] : null,
+    p.daily != null
+      ? ['之后每天', p.resets ? `重置额度池 ${usd(p.daily, p.approx)}（不累积）` : `签到 ${usd(p.daily, p.approx)}`]
+      : snap?.checkinEnabled
+        ? ['每日签到', '支持']
+        : snap?.checkinEnabled === false
+          ? ['每日签到', '不支持']
+          : null,
     p.inviter ? ['邀请他人', `$${p.inviter}`] : null,
+    snap?.services?.length ? ['已开放服务', esc(snap.services.join(' / '))] : null,
     snap?.loginMethods?.length ? ['登录方式', esc(snap.loginMethods.join(' / '))] : null,
     snap?.githubMinAccountAgeDays ? ['账号门槛', `GitHub 满 ${snap.githubMinAccountAgeDays} 天`] : null,
     snap?.models?.length ? ['可用模型', snap.models.map((m) => esc(m.name)).join('、')] : ['可用模型', '登录后台查看'],
@@ -49,8 +69,7 @@ function siteCard(site, snap) {
         <div class="tags">${(site.tags ?? []).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
         <dl class="kv">${facts.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join('')}</dl>
         <ul class="hl">${(site.highlights ?? []).slice(0, 3).map((h) => `<li>${esc(h)}</li>`).join('')}</ul>
-        <pre><code>${esc(claudeSnippet(site, snap))}</code></pre>
-        <button class="copy" type="button">复制配置</button>
+        ${accessBlock(site, snap)}
         <div class="mt-auto"></div>
         <a class="btn btn-primary" href="${esc(site.signupUrl)}" target="_blank" rel="noopener">免费注册 ${esc(site.name)} →</a>
         ${(site.mirrors ?? [])

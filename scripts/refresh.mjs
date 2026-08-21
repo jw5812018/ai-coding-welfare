@@ -7,7 +7,8 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { probeSite, fetchJson } from './lib/newapi.mjs';
+import { fetchJson } from './lib/newapi.mjs';
+import { probeSite } from './lib/panels.mjs';
 import { mergeSnapshot } from './lib/merge.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');

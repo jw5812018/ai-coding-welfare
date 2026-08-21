@@ -1,24 +1,53 @@
 {
-  "generatedAt": "2026-08-21T09:01:27.882Z",
+  "generatedAt": "2026-08-21T09:14:08.254Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-08-21T09:01:26.656Z",
-      "online": false,
-      "latencyMs": 1219,
-      "error": "invalid json",
-      "systemName": null,
-      "version": null,
+      "checkedAt": "2026-08-21T09:14:06.969Z",
+      "online": true,
+      "latencyMs": 383,
+      "error": null,
+      "systemName": "Agent Router",
+      "version": "init-20260820-c6931bb5",
       "registerOpen": null,
       "passwordRegister": null,
       "checkinEnabled": null,
-      "loginMethods": [],
+      "loginMethods": [
+        "GitHub",
+        "LinuxDO"
+      ],
       "githubMinAccountAgeDays": null,
-      "quotaPerUnit": null,
-      "inviteeBonusUsd": null,
-      "inviterBonusUsd": null,
-      "topupEnabled": null,
-      "announcements": [],
+      "quotaPerUnit": 500000,
+      "inviteeBonusUsd": 50,
+      "inviterBonusUsd": 150,
+      "topupEnabled": false,
+      "announcements": [
+        {
+          "id": 15,
+          "date": "2026-07-28",
+          "text": "📢 备用域名正式上线 为进一步提升服务可用性，本站现已推出备用域名：🔗 https://ps.air-outer.com 访问不了原域名的中国大陆用户可使用此域名，备用域名支持 API 接口调用 与 官网访问，与原域名功能完全一致。 原域名 https://agentrouter.org 可继续使用。"
+        },
+        {
+          "id": 14,
+          "date": "2026-07-16",
+          "text": "🎁 官方社区平台汇总 欢迎加入或关注以下官方渠道，获取最新动态与支持： 📱 QQ 群 · 1群：1054950616 · 2群：1091388133 · 3群：700583832 💬 Discord https://discord.gg/SXEhNMXsn 🐦 X（Twitter） https://x.com/AgentRouter_0"
+        },
+        {
+          "id": 13,
+          "date": "2026-06-30",
+          "text": "📢 不当使用行为封禁说明 为维护服务公平，平台禁止以下不当行为： · 批量注册/获取额度 · 自动化刷量套利 · 转售、共享账号及额度 · 虚假邀请欺诈 · 恶意绕过限制、干扰服务 违规账号将封禁，名单见 Discord 🚫blocked-history 频道。 申诉请联系：agent_router_org@163.com"
+        },
+        {
+          "id": 12,
+          "date": "2026-05-14",
+          "text": "因受到恶意举报影响，近期服务稳定性遇到巨大挑战，导致Claude系列模型大规模停用。 为保障后续提升服务质量、及时同步信息，我们已启用新的官方 Discord，并在新的官方X更新动态。 为避免走失，请大家有序移步： 新的 Discord： 👉 https://discord.gg/aYq5B4RW3 官方 X： 👉 @AgentRouter_0 https://x.com/AgentRouter_0 且用且珍惜"
+        },
+        {
+          "id": 11,
+          "date": "2025-11-08",
+          "text": "English Announcement see in <b style=\"color: blue;text-decoration: underline;\">[Discord](https://discord.gg/V6kaP6Rg44)<b>"
+        }
+      ],
       "models": [
         {
           "name": "claude-opus-4-8",
@@ -45,9 +74,9 @@
           "inputPerMTok": 2,
           "outputPerMTok": 10,
           "groups": [
-            "svip",
             "core",
-            "default"
+            "default",
+            "svip"
           ],
           "protocols": [
             "anthropic",
@@ -62,38 +91,42 @@
           "inputPerMTok": 4,
           "outputPerMTok": 20,
           "groups": [
+            "core",
             "default",
-            "svip",
-            "core"
+            "svip"
           ],
           "protocols": [
             "openai"
           ]
         }
       ],
-      "modelsSource": "login-required",
+      "modelsSource": "public-api",
       "defaults": {
-        "claude": null,
-        "openai": null
+        "claude": "claude-opus-5",
+        "openai": "gpt-5.6-sol"
       },
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1122
+        "ms": 1270
       },
       "mirrors": [
         {
           "homeUrl": "https://ps.air-outer.com",
-          "online": false
+          "online": true
         }
       ],
-      "staleFrom": "2026-08-21T09:00:04.726Z"
+      "staleFrom": null,
+      "apiOk": true,
+      "pricingOk": true,
+      "dataStale": false,
+      "staleFields": []
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-08-21T09:01:25.782Z",
+      "checkedAt": "2026-08-21T09:14:06.858Z",
       "online": true,
-      "latencyMs": 291,
+      "latencyMs": 154,
       "error": null,
       "systemName": "JustDoWork",
       "version": "test-rc23-20260816-f7eb9fe",
@@ -119,9 +152,14 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 453
+        "ms": 202
       },
-      "mirrors": []
+      "mirrors": [],
+      "apiOk": true,
+      "pricingOk": false,
+      "dataStale": false,
+      "staleFrom": null,
+      "staleFields": []
     }
   ]
 }

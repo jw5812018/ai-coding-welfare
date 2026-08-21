@@ -36,6 +36,7 @@
 2. 重新生成并自检：
 
 ```bash
+npm test          # 单测：抓取失败时的合并逻辑（不联网）
 npm run refresh   # 抓 /api/status 与 /api/pricing，写入 data/live.json
 npm run build     # 重新生成 README.md 与 docs/index.html
 npm run check     # 确认新链接可访问
@@ -48,6 +49,7 @@ npm run check     # 确认新链接可访问
 - README 的结构在 [`scripts/lib/render-readme.mjs`](scripts/lib/render-readme.mjs)
 - 落地页结构在 [`scripts/lib/render-html.mjs`](scripts/lib/render-html.mjs)，样式在 [`docs/assets/style.css`](docs/assets/style.css)（这个是手写文件，可以直接改）
 - 抓取字段的解析在 [`scripts/lib/newapi.mjs`](scripts/lib/newapi.mjs)
+- 抓取失败时的降级策略在 [`scripts/lib/merge.mjs`](scripts/lib/merge.mjs)：内容字段沿用上一次成功的快照，`online` 以注册页能否访问为准（接口被 Cloudflare 拦不等于站点挂了），超过 48 小时还没抓到新数据才在页面上标注。改这里请一并跑 `npm test`。
 
 改完同样跑 `npm run build`，把生成物一起提交，CI 才不会又把它刷回去。
 

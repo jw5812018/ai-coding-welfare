@@ -8,6 +8,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { probeSite, fetchJson } from './lib/newapi.mjs';
+import { mergeSnapshot } from './lib/merge.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SITES = path.join(ROOT, 'data', 'sites.json');
@@ -53,13 +54,8 @@ const snapshots = await Promise.all(
   }),
 );
 
-// 抓失败的站点沿用上一次的详细数据，只把 online 标成 false，避免页面突然空白。
-const merged = snapshots.map((snap) => {
-  if (snap.online) return snap;
-  const old = previous?.sites?.find((s) => s.id === snap.id);
-  if (!old) return snap;
-  return { ...old, ...snap, models: snap.models.length ? snap.models : old.models, staleFrom: old.checkedAt };
-});
+// 字段级合并：抓失败的字段沿用上一次的值，避免一次 Cloudflare 挑战把页面刷空（逻辑见 lib/merge.mjs）
+const merged = snapshots.map((fresh) => mergeSnapshot(fresh, previous?.sites?.find((s) => s.id === fresh.id)));
 
 const out = {
   generatedAt: new Date().toISOString(),
@@ -71,9 +67,10 @@ await writeFile(LIVE, `${JSON.stringify(out, null, 2)}\n`, 'utf8');
 for (const s of merged) {
   const bonus = s.inviteeBonusUsd ? `新用户 $${s.inviteeBonusUsd}` : '邀请额度未公开';
   const signup = s.signup ? `注册页 HTTP ${s.signup.status}` : '注册页未检查';
+  const stale = s.dataStale ? `  ⚠ 沿用 ${String(s.staleFrom).slice(0, 16)} 的 ${s.staleFields.length} 个字段（${s.error ?? 'api 未响应'}）` : '';
   console.log(
     `${s.online ? 'OK  ' : 'DOWN'} ${s.id.padEnd(12)} ${String(s.systemName ?? '-').padEnd(14)} ` +
-      `${bonus.padEnd(18)} 模型 ${String(s.models.length).padStart(2)} 项  ${signup}`,
+      `${bonus.padEnd(18)} 模型 ${String(s.models.length).padStart(2)} 项  ${signup}${stale}`,
   );
 }
 console.log(`\n已写入 ${path.relative(ROOT, LIVE)}`);

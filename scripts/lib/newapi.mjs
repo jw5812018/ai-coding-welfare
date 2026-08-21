@@ -8,10 +8,12 @@
 
 const UA = 'ai-coding-welfare/1.0 (+https://github.com/)';
 const TIMEOUT_MS = 20_000;
+// 公益站前面普遍挂着 Cloudflare，CI 的机房 IP 偶发拿到挑战页（表现为 invalid json / 403），重试基本能救回来
+const RETRIES = 2;
 
-/** 带超时的 JSON 拉取，失败返回 { ok:false }，不抛异常。 */
-export async function fetchJson(url) {
-  if (!url) return { ok: false, error: 'no url' };
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function fetchOnce(url) {
   const started = Date.now();
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
@@ -34,6 +36,18 @@ export async function fetchJson(url) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+/** 带超时 + 重试的 JSON 拉取，失败返回 { ok:false }，不抛异常。 */
+export async function fetchJson(url) {
+  if (!url) return { ok: false, error: 'no url' };
+  let last = { ok: false, error: 'unreachable' };
+  for (let i = 0; i <= RETRIES; i += 1) {
+    if (i) await sleep(1500 * i);
+    last = await fetchOnce(url);
+    if (last.ok) return { ...last, attempts: i + 1 };
+  }
+  return { ...last, attempts: RETRIES + 1 };
 }
 
 /**
@@ -100,6 +114,19 @@ export function pickPreferred(models, re) {
   })[0].name;
 }
 
+/**
+ * 数据沿用旧快照是否需要在页面上提示。
+ * 接口偶发被 Cloudflare 拦（尤其 CI 的机房 IP）是常态，几小时内的快照照常展示；
+ * 只有超过 STALE_WARN_HOURS 还没抓到新数据，才在页面上如实标注。
+ */
+export const STALE_WARN_HOURS = 48;
+
+export function staleHours(snap) {
+  if (!snap?.dataStale || !snap.staleFrom) return null;
+  const h = (Date.now() - new Date(snap.staleFrom).getTime()) / 3_600_000;
+  return Number.isFinite(h) && h > STALE_WARN_HOURS ? Math.round(h) : null;
+}
+
 /** 把 /api/status 与 /api/pricing 合成一条站点实时快照。 */
 export async function probeSite(site) {
   const [statusRes, pricingRes] = await Promise.all([
@@ -110,7 +137,8 @@ export async function probeSite(site) {
   const snapshot = {
     id: site.id,
     checkedAt: new Date().toISOString(),
-    online: Boolean(statusRes.ok),
+    apiOk: Boolean(statusRes.ok),
+    pricingOk: Boolean(pricingRes.ok),
     latencyMs: statusRes.ms ?? null,
     error: statusRes.ok ? null : statusRes.error ?? null,
     systemName: null,

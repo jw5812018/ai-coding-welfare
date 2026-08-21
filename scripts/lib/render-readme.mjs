@@ -1,4 +1,5 @@
 /** 生成 README.md：全部内容由 data/sites.json + data/live.json 渲染，请勿手改 README。 */
+import { staleHours } from './newapi.mjs';
 
 /** shields.io 转义：- → --，_ → __，其余走 URI 编码 */
 const shield = (s) => encodeURIComponent(String(s).replace(/-/g, '--').replace(/_/g, '__'));
@@ -57,6 +58,7 @@ function modelTable(snap) {
 function liveFacts(snap) {
   if (!snap) return '_暂无实时数据_';
   const items = [
+    staleHours(snap) ? `⚠ 接口已连续 ${staleHours(snap)} 小时没抓到新数据，下列信息为 \`${fmtDate(snap.staleFrom)}\` 的快照` : null,
     `站点名称：**${snap.systemName ?? '—'}**`,
     `面板版本：\`${snap.version ?? '—'}\``,
     snap.inviteeBonusUsd ? `邀请注册到账：**$${snap.inviteeBonusUsd}**` : null,
@@ -202,6 +204,7 @@ function codeBlocks(site, claude, openai) {
 export function renderReadme({ meta, sites, live }) {
   const byId = new Map((live?.sites ?? []).map((s) => [s.id, s]));
   const onlineCount = sites.filter((s) => byId.get(s.id)?.online).length;
+  const staleCount = sites.filter((s) => staleHours(byId.get(s.id))).length;
   const best = Math.max(0, ...sites.map((s) => byId.get(s.id)?.inviteeBonusUsd ?? 0));
 
   const head = [
@@ -227,6 +230,9 @@ export function renderReadme({ meta, sites, live }) {
     overviewTable(sites, byId),
     '',
     `> 表格里的额度、模型、在线状态**全部由脚本抓取站点公开接口自动生成**，最后更新：\`${fmtDate(live?.generatedAt)}\`。`,
+    staleCount > 0
+      ? `> 🟡 有 ${staleCount} 个站点已超过 48 小时没抓到接口数据，其明细为上一次成功抓取的快照；在线状态按注册页实际可访问性判断。`
+      : null,
     '',
     '**只想快点用上 Claude Code？** 三步：',
     '',
@@ -263,13 +269,16 @@ function tail(meta, sites, live) {
     '| [`data/sites.json`](data/sites.json) | 唯一数据源：站点信息与推广链接 |',
     '| [`data/live.json`](data/live.json) | 自动抓取的实时快照（额度 / 模型 / 在线状态） |',
     '| [`scripts/refresh.mjs`](scripts/refresh.mjs) | 抓取站点公开接口 |',
+    '| [`scripts/lib/merge.mjs`](scripts/lib/merge.mjs) | 抓取失败时沿用上次快照，页面不会被刷空 |',
     '| [`scripts/build.mjs`](scripts/build.mjs) | 用数据重新生成 README 与落地页 |',
     '| [`scripts/check.mjs`](scripts/check.mjs) | 链接与站点健康检查，失效即 CI 报警 |',
+    '| [`scripts/test.mjs`](scripts/test.mjs) | 合并逻辑的单测（零依赖，`npm test`） |',
     '| [`scripts/quickstart.sh`](scripts/quickstart.sh) / [`.ps1`](scripts/quickstart.ps1) | 交互式配置 Claude Code 环境变量 |',
     '',
     '本地跑一遍：',
     '',
     `${F}bash`,
+    'npm test          # 单测（不联网）',
     'npm run refresh   # 抓最新数据',
     'npm run build     # 重新生成 README + docs/',
     'npm run check     # 校验链接是否还活着',

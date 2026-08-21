@@ -4,8 +4,9 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-2%20%E4%B8%AA-blue" alt="收录站点">
-  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-1%2F2-orange" alt="在线">
-  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--08--21%2009.01%20UTC-informational" alt="数据更新">
+  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-2%2F2-brightgreen" alt="在线">
+  <img src="https://img.shields.io/badge/%E6%B3%A8%E5%86%8C%E5%8F%AF%E5%BE%97-%2450-success" alt="注册可得">
+  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--08--21%2009.14%20UTC-informational" alt="数据更新">
 </p>
 
 <p align="center">
@@ -19,10 +20,10 @@
 
 | 站点 | 状态 | 新用户额度 | 持续领取 | 兼容协议 | 模型 | 注册 |
 | :-- | :--: | :--: | :--: | :--: | :--: | :--: |
-| **AgentRouter** 🔥 | 🔴 异常 | 站内公示 | 签到 $25/天 ✅ | Anthropic + OpenAI | 3 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) |
+| **AgentRouter** 🔥 | 🟢 在线 | **$50** | 签到 $25/天 ✅ | Anthropic + OpenAI | 3 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) |
 | **JustDoWork** | 🟢 在线 | 站内公示 | 每日签到 ✅ | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://api.justwoker.icu/sign-up?aff=VTrz) |
 
-> 表格里的额度、模型、在线状态**全部由脚本抓取站点公开接口自动生成**，最后更新：`2026-08-21 09:01 UTC`。
+> 表格里的额度、模型、在线状态**全部由脚本抓取站点公开接口自动生成**，最后更新：`2026-08-21 09:14 UTC`。
 
 **只想快点用上 Claude Code？** 三步：
 
@@ -43,7 +44,7 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 ## 📚 站点详情
 
 
-### 🔴 AgentRouter 🔥 首推
+### 🟢 AgentRouter 🔥 首推
 
 > AI Coding 公益站 · 注册即送额度，签到每日续命
 
@@ -58,9 +59,12 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 
 **实时数据**（自动抓取站点公开接口）
 
-- 站点名称：**—**
-- 面板版本：`—`
-- 接口延迟：1219 ms
+- 站点名称：**Agent Router**
+- 面板版本：`init-20260820-c6931bb5`
+- 邀请注册到账：**$50**
+- 邀请他人可得：**$150**
+- 登录方式：GitHub / LinuxDO
+- 接口延迟：383 ms
 
 **镜像 / 备用入口**
 
@@ -89,7 +93,7 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 # macOS / Linux
 export ANTHROPIC_BASE_URL=https://agentrouter.org
 export ANTHROPIC_AUTH_TOKEN=你在站点后台创建的 Key
-export ANTHROPIC_MODEL=<登录后台查看可用模型名>
+export ANTHROPIC_MODEL=claude-opus-5
 npm install -g @anthropic-ai/claude-code@latest && claude
 ```
 
@@ -97,7 +101,7 @@ npm install -g @anthropic-ai/claude-code@latest && claude
 # Windows PowerShell
 $env:ANTHROPIC_BASE_URL = "https://agentrouter.org"
 $env:ANTHROPIC_AUTH_TOKEN = "你在站点后台创建的 Key"
-$env:ANTHROPIC_MODEL = "<登录后台查看可用模型名>"
+$env:ANTHROPIC_MODEL = "claude-opus-5"
 claude
 ```
 
@@ -106,7 +110,7 @@ claude
 <details><summary><b>Codex CLI</b>（OpenAI 兼容，写入 <code>~/.codex/config.toml</code>）</summary>
 
 ```toml
-model = "<登录后台查看可用模型名>"
+model = "gpt-5.6-sol"
 model_provider = "agentrouter"
 
 [model_providers.agentrouter]
@@ -124,7 +128,7 @@ wire_api = "chat"
 from openai import OpenAI
 
 client = OpenAI(api_key="你的 Key", base_url="https://agentrouter.org/v1")
-resp = client.chat.completions.create(model="<登录后台查看可用模型名>", messages=[{"role": "user", "content": "ping"}])
+resp = client.chat.completions.create(model="gpt-5.6-sol", messages=[{"role": "user", "content": "ping"}])
 print(resp.choices[0].message.content)
 ```
 
@@ -137,7 +141,7 @@ print(resp.choices[0].message.content)
 ```bash
 curl -s https://agentrouter.org/v1/chat/completions \
   -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
-  -d '{"model":"<登录后台查看可用模型名>","messages":[{"role":"user","content":"只回复 OK"}]}'
+  -d '{"model":"gpt-5.6-sol","messages":[{"role":"user","content":"只回复 OK"}]}'
 ```
 
 </details>
@@ -159,6 +163,14 @@ curl -s https://agentrouter.org/v1/chat/completions \
 - Discord: https://discord.gg/aYq5B4RW3
 - X: https://x.com/AgentRouter_0
 - 邮箱: agent_router_org@163.com
+
+<details><summary><b>站点最新公告</b>（自动同步）</summary>
+
+- `2026-07-28` 📢 备用域名正式上线 为进一步提升服务可用性，本站现已推出备用域名：🔗 https://ps.air-outer.com 访问不了原域名的中国大陆用户可使用此域名，备用域名支持 API 接口调用 与 官网访问，与原域名功能完全一致。 原域名 https://agentrouter.org 可继续使用。
+- `2026-07-16` 🎁 官方社区平台汇总 欢迎加入或关注以下官方渠道，获取最新动态与支持： 📱 QQ 群 · 1群：1054950616 · 2群：1091388133 · 3群：700583832 💬 Discord https://discord.gg/SXEhNMXsn 🐦 X（Twitter） https://x.com/AgentRouter_0
+- `2026-06-30` 📢 不当使用行为封禁说明 为维护服务公平，平台禁止以下不当行为： · 批量注册/获取额度 · 自动化刷量套利 · 转售、共享账号及额度 · 虚假邀请欺诈 · 恶意绕过限制、干扰服务 违规账号将封禁，名单见 Discord 🚫blocked-history 频道。 申诉请联系：agent_router_org@163.com
+
+</details>
 
 ---
 
@@ -183,7 +195,7 @@ curl -s https://agentrouter.org/v1/chat/completions \
 - 开放注册：✅
 - 登录方式：GitHub / 账号密码
 - GitHub 账号需满 **365 天**
-- 接口延迟：291 ms
+- 接口延迟：154 ms
 
 > 该站模型清单需登录后台查看，注册后在「模型价格」页确认。
 
@@ -274,13 +286,16 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 | [`data/sites.json`](data/sites.json) | 唯一数据源：站点信息与推广链接 |
 | [`data/live.json`](data/live.json) | 自动抓取的实时快照（额度 / 模型 / 在线状态） |
 | [`scripts/refresh.mjs`](scripts/refresh.mjs) | 抓取站点公开接口 |
+| [`scripts/lib/merge.mjs`](scripts/lib/merge.mjs) | 抓取失败时沿用上次快照，页面不会被刷空 |
 | [`scripts/build.mjs`](scripts/build.mjs) | 用数据重新生成 README 与落地页 |
 | [`scripts/check.mjs`](scripts/check.mjs) | 链接与站点健康检查，失效即 CI 报警 |
+| [`scripts/test.mjs`](scripts/test.mjs) | 合并逻辑的单测（零依赖，`npm test`） |
 | [`scripts/quickstart.sh`](scripts/quickstart.sh) / [`.ps1`](scripts/quickstart.ps1) | 交互式配置 Claude Code 环境变量 |
 
 本地跑一遍：
 
 ```bash
+npm test          # 单测（不联网）
 npm run refresh   # 抓最新数据
 npm run build     # 重新生成 README + docs/
 npm run check     # 校验链接是否还活着

@@ -24,11 +24,14 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22'
+
+      - name: 单测（合并逻辑不能把页面刷空）
+        run: npm test
 
       - name: 抓取站点实时数据
         run: npm run refresh

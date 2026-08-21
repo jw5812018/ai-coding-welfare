@@ -1,4 +1,5 @@
 /** 生成 docs/index.html（GitHub Pages 落地页）。样式在 docs/assets/style.css，此处只拼结构。 */
+import { staleHours } from './newapi.mjs';
 
 const esc = (s) =>
   String(s ?? '')
@@ -34,6 +35,7 @@ function siteCard(site, snap) {
     snap?.githubMinAccountAgeDays ? ['账号门槛', `GitHub 满 ${snap.githubMinAccountAgeDays} 天`] : null,
     snap?.models?.length ? ['可用模型', snap.models.map((m) => esc(m.name)).join('、')] : ['可用模型', '登录后台查看'],
     ['接口延迟', snap?.latencyMs != null ? `${snap.latencyMs} ms` : '—'],
+    staleHours(snap) ? ['数据快照', `${fmt(snap.staleFrom)}（接口暂未响应，沿用上次结果）`] : null,
   ].filter(Boolean);
 
   return `

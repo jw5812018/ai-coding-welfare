@@ -11,7 +11,8 @@
     "refresh": "node scripts/refresh.mjs",
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
-    "all": "npm run refresh && npm run build && npm run check"
+    "test": "node scripts/test.mjs",
+    "all": "npm test && npm run refresh && npm run build && npm run check"
   },
   "keywords": [
     "claude-code",

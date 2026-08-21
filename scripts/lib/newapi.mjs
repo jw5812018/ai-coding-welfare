@@ -124,6 +124,21 @@ export function pickPreferred(models, re) {
  */
 export const STALE_WARN_HOURS = 48;
 
+/**
+ * 「被 WAF 过滤」而不是「站点挂了」的信号。
+ * 这些响应说明服务器确实答话了，只是把我们这个 IP 拦在门外——
+ * GitHub Actions 的机房 IP 尤其容易吃 403 / 429，家宽访问同一个域名一切正常。
+ * 真下线长的是另一副样子：DNS 解析不了、连接被拒、超时、502 / 504 网关错误。
+ */
+export const FILTERED_STATUS = new Set([403, 429, 451, 503]);
+
+export function looksFiltered(res) {
+  if (!res || res.ok) return false;
+  if (FILTERED_STATUS.has(Number(res.status))) return true;
+  // Cloudflare 挑战页：HTTP 200 却不是 JSON
+  return Number(res.status) === 200 && res.error === 'invalid json';
+}
+
 export function staleHours(snap) {
   if (!snap?.dataStale || !snap.staleFrom) return null;
   const h = (Date.now() - new Date(snap.staleFrom).getTime()) / 3_600_000;

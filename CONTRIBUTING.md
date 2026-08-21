@@ -81,7 +81,7 @@ npm run check     # 确认新链接可访问
 - 落地页结构在 [`scripts/lib/render-html.mjs`](scripts/lib/render-html.mjs)，样式在 [`docs/assets/style.css`](docs/assets/style.css)（这个是手写文件，可以直接改）
 - 抓取字段的解析在 [`scripts/lib/newapi.mjs`](scripts/lib/newapi.mjs)（同时是各面板共用的底座：`fetchJson` / `blankSnapshot` / `pickPreferred`）
 - 额度口径在 [`scripts/lib/credits.mjs`](scripts/lib/credits.mjs)：站点接口只暴露邀请额度，注册基础额度和签到额度是站内公示、只能手工登记在 `credits` 里；`npm run build` 会拿登记值和接口实测值对账，不一致就告警，看到告警就去更新 `data/sites.json`。注意区分两种「每日」——`dailyCheckin` 是签到领到手、会累积；`dailyQuota` 是每天重置的额度池，用不完清零，文案上一律写「重置 / 不累积」，别混着说。
-- 抓取失败时的降级策略在 [`scripts/lib/merge.mjs`](scripts/lib/merge.mjs)：内容字段沿用上一次成功的快照，`online` 以注册页能否访问为准（接口被 Cloudflare 拦不等于站点挂了），超过 48 小时还没抓到新数据才在页面上标注。改这里请一并跑 `npm test`。
+- 抓取失败时的降级策略在 [`scripts/lib/merge.mjs`](scripts/lib/merge.mjs)：内容字段沿用上一次成功的快照，`online` 以注册页能否访问为准（接口被 Cloudflare 拦不等于站点挂了）；连注册页也被拦（403 / 429 / 503 / 挑战页）时按「机房 IP 被 WAF 拦」处理——沿用上次的在线判定并标 `probeBlocked`，页面上写明数据是哪次快照的。超时 / 连不上 / 502 这类信号才算真下线；上次成功探测超过 48 小时也不再兜底，如实标异常。改这里请一并跑 `npm test`。
 
 改完同样跑 `npm run build`，把生成物一起提交，CI 才不会又把它刷回去。
 

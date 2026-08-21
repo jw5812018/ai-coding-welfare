@@ -70,7 +70,7 @@ for (const s of merged) {
   const signup = s.signup ? `注册页 HTTP ${s.signup.status}` : '注册页未检查';
   const stale = s.dataStale ? `  ⚠ 沿用 ${String(s.staleFrom).slice(0, 16)} 的 ${s.staleFields.length} 个字段（${s.error ?? 'api 未响应'}）` : '';
   console.log(
-    `${s.online ? 'OK  ' : 'DOWN'} ${s.id.padEnd(12)} ${String(s.systemName ?? '-').padEnd(14)} ` +
+    `${s.online ? (s.probeBlocked ? 'WAF ' : 'OK  ') : 'DOWN'} ${s.id.padEnd(12)} ${String(s.systemName ?? '-').padEnd(14)} ` +
       `${bonus.padEnd(18)} 模型 ${String(s.models.length).padStart(2)} 项  ${signup}${stale}`,
   );
 }

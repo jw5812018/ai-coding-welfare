@@ -71,6 +71,7 @@ function liveFacts(snap) {
   if (!snap) return '_暂无实时数据_';
   const items = [
     staleHours(snap) ? `⚠ 接口已连续 ${staleHours(snap)} 小时没抓到新数据，下列信息为 \`${fmtDate(snap.staleFrom)}\` 的快照` : null,
+    snap.probeBlocked ? `ℹ️ 本次自动探测被站点 WAF 拦下（GitHub Actions 机房 IP 常见，家宽访问不受影响），状态与下列信息沿用 \`${fmtDate(snap.staleFrom ?? snap.checkedAt)}\` 的成功快照` : null,
     `站点名称：**${snap.systemName ?? '—'}**`,
     `面板版本：\`${snap.version ?? '—'}\``,
     snap.services?.length ? `已开放服务：${snap.services.join(' / ')}` : null,

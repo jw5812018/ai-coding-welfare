@@ -5,7 +5,7 @@
  */
 import assert from 'node:assert/strict';
 import { mergeSnapshot, meaningful } from './lib/merge.mjs';
-import { pickPreferred, staleHours, STALE_WARN_HOURS, blankSnapshot } from './lib/newapi.mjs';
+import { pickPreferred, staleHours, STALE_WARN_HOURS, blankSnapshot, looksFiltered } from './lib/newapi.mjs';
 import { creditPlan, usd, breakdown, perDay, auditCredits } from './lib/credits.mjs';
 import { PANELS, probeSite } from './lib/panels.mjs';
 
@@ -144,6 +144,82 @@ test('首次抓取（没有旧快照）不会因为 old 缺失而炸', () => {
 test('注册页也不通 → 如实标记异常', () => {
   const m = mergeSnapshot({ ...FRESH_BLOCKED, signup: { status: 0, ok: false, ms: 20000, error: 'timeout' } }, OLD_GOOD);
   assert.equal(m.online, false);
+  assert.equal(m.probeBlocked, false);
+});
+
+console.log('mergeSnapshot：区分「被 WAF 拦」和「站点真挂了」');
+/** CI 机房 IP 的典型样子：接口和注册页一起吃 403，本机访问同一个域名全是 200 */
+const ALL_403 = { ...FRESH_BLOCKED, error: 'HTTP 403', signup: { status: 403, ok: false, ms: 210 } };
+
+test('整站 403 且上次是在线的 → 仍算在线，标 probeBlocked', () => {
+  const m = mergeSnapshot(ALL_403, OLD_GOOD);
+  assert.equal(m.online, true);
+  assert.equal(m.probeBlocked, true);
+  assert.equal(m.systemName, 'Agent Router'); // 数据照旧沿用
+  assert.equal(m.dataStale, true);
+});
+test('429 / 503 / 挑战页同样按被拦处理', () => {
+  for (const [error, signup] of [
+    ['HTTP 429', { status: 429, ok: false, ms: 90 }],
+    ['HTTP 503', { status: 503, ok: false, ms: 90 }],
+    ['invalid json', { status: 200, ok: false, ms: 90, error: 'invalid json' }],
+  ]) {
+    const m = mergeSnapshot({ ...ALL_403, error, signup }, OLD_GOOD);
+    assert.equal(m.online, true, error);
+    assert.equal(m.probeBlocked, true, error);
+  }
+});
+test('超时 / 连不上 / 502 是真下线，不许拿「可能被拦」兜底', () => {
+  for (const [error, signup] of [
+    ['timeout', { status: 0, ok: false, ms: 20000, error: 'timeout' }],
+    ['HTTP 502', { status: 502, ok: false, ms: 90 }],
+    ['HTTP 404', { status: 404, ok: false, ms: 90 }],
+  ]) {
+    const m = mergeSnapshot({ ...ALL_403, error, signup }, OLD_GOOD);
+    assert.equal(m.online, false, error);
+    assert.equal(m.probeBlocked, false, error);
+  }
+});
+test('接口被拦但注册页超时 → 混着算真下线', () => {
+  const m = mergeSnapshot({ ...ALL_403, signup: { status: 0, ok: false, ms: 20000, error: 'timeout' } }, OLD_GOOD);
+  assert.equal(m.online, false);
+  assert.equal(m.probeBlocked, false);
+});
+test('旧快照超过 48 小时还是只有 403 → 不再兜底，如实标异常', () => {
+  const m = mergeSnapshot(ALL_403, { ...OLD_GOOD, checkedAt: iso(72 * HOUR) });
+  assert.equal(m.online, false);
+  assert.equal(m.probeBlocked, false);
+});
+test('连续被拦：staleFrom 粘在最后一次成功的时间，不跟着 checkedAt 往后跑', () => {
+  const once = mergeSnapshot(ALL_403, OLD_GOOD);
+  const twice = mergeSnapshot({ ...ALL_403, checkedAt: iso(0) }, once);
+  assert.equal(once.staleFrom, OLD_GOOD.checkedAt);
+  assert.equal(twice.staleFrom, OLD_GOOD.checkedAt);
+  assert.equal(twice.online, true);
+});
+test('连续被拦超过 48 小时（checkedAt 每次都在刷新）→ 依旧会翻成异常', () => {
+  const blockedLong = { ...OLD_GOOD, checkedAt: iso(0), online: true, staleFrom: iso(60 * HOUR), dataStale: true };
+  const m = mergeSnapshot(ALL_403, blockedLong);
+  assert.equal(m.online, false);
+  assert.equal(m.probeBlocked, false);
+  assert.equal(staleHours(m), 60);
+});
+test('从没成功过的站点被 403 → 没有「上次在线」可沿用，标异常', () => {
+  const m = mergeSnapshot(ALL_403, undefined);
+  assert.equal(m.online, false);
+  assert.equal(m.probeBlocked, false);
+});
+test('本次探通了就不该标 probeBlocked', () => {
+  assert.equal(mergeSnapshot(FRESH_BLOCKED, OLD_GOOD).probeBlocked, false); // 注册页 200
+  assert.equal(mergeSnapshot({ ...OLD_GOOD, checkedAt: iso(0) }, OLD_GOOD).probeBlocked, false);
+});
+test('looksFiltered 只认「服务器答话了但把我们拦了」', () => {
+  for (const r of [{ status: 403 }, { status: 429 }, { status: 451 }, { status: 503 }, { status: 200, error: 'invalid json' }]) {
+    assert.equal(looksFiltered(r), true, JSON.stringify(r));
+  }
+  for (const r of [null, { ok: true, status: 200 }, { status: 0, error: 'timeout' }, { status: 502 }, { status: 404 }]) {
+    assert.equal(looksFiltered(r), false, JSON.stringify(r));
+  }
 });
 
 console.log('额度口径 creditPlan');

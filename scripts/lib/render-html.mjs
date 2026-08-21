@@ -58,6 +58,9 @@ function siteCard(site, snap) {
     snap?.models?.length ? ['可用模型', snap.models.map((m) => esc(m.name)).join('、')] : ['可用模型', '登录后台查看'],
     ['接口延迟', snap?.latencyMs != null ? `${snap.latencyMs} ms` : '—'],
     staleHours(snap) ? ['数据快照', `${fmt(snap.staleFrom)}（接口暂未响应，沿用上次结果）`] : null,
+    snap?.probeBlocked && !staleHours(snap)
+      ? ['数据快照', `${fmt(snap.staleFrom ?? snap.checkedAt)}（本次探测被站点 WAF 拦下，机房 IP 常见，不影响家宽访问）`]
+      : null,
   ].filter(Boolean);
 
   return `

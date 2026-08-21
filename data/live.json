@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-21T14:51:27.307Z",
+  "generatedAt": "2026-08-21T14:59:07.543Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-08-21T14:51:21.038Z",
+      "checkedAt": "2026-08-21T14:59:07.175Z",
       "online": true,
-      "latencyMs": 307,
-      "error": "invalid json",
+      "latencyMs": 491,
+      "error": null,
       "systemName": "Agent Router",
       "version": "init-20260820-c6931bb5",
       "registerOpen": null,
@@ -74,9 +74,9 @@
           "inputPerMTok": 2,
           "outputPerMTok": 10,
           "groups": [
-            "default",
             "svip",
-            "core"
+            "core",
+            "default"
           ],
           "protocols": [
             "anthropic",
@@ -100,7 +100,7 @@
           ]
         }
       ],
-      "modelsSource": "cached",
+      "modelsSource": "public-api",
       "defaults": {
         "claude": "claude-opus-5",
         "openai": "gpt-5.6-sol"
@@ -108,37 +108,27 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1046
+        "ms": 271
       },
       "mirrors": [
         {
           "homeUrl": "https://ps.air-outer.com",
-          "online": false
+          "online": true
         }
       ],
-      "staleFrom": "2026-08-21T14:49:01.917Z",
-      "apiOk": false,
-      "pricingOk": false,
-      "dataStale": true,
-      "staleFields": [
-        "systemName",
-        "version",
-        "loginMethods",
-        "quotaPerUnit",
-        "inviteeBonusUsd",
-        "inviterBonusUsd",
-        "topupEnabled",
-        "announcements",
-        "models",
-        "defaults"
-      ],
-      "services": []
+      "staleFrom": null,
+      "apiOk": true,
+      "pricingOk": true,
+      "dataStale": false,
+      "staleFields": [],
+      "services": [],
+      "probeBlocked": false
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-08-21T14:51:14.366Z",
+      "checkedAt": "2026-08-21T14:59:06.993Z",
       "online": true,
-      "latencyMs": 367,
+      "latencyMs": 188,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.21",
@@ -164,7 +154,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 504
+        "ms": 732
       },
       "mirrors": [],
       "apiOk": true,
@@ -172,15 +162,16 @@
       "dataStale": false,
       "staleFrom": null,
       "staleFields": [],
-      "services": []
+      "services": [],
+      "probeBlocked": false
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-08-21T14:51:18.948Z",
-      "apiOk": false,
+      "checkedAt": "2026-08-21T14:59:07.134Z",
+      "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 24,
-      "error": "HTTP 403",
+      "latencyMs": 330,
+      "error": null,
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
       "registerOpen": true,
@@ -205,22 +196,16 @@
         "openai": null
       },
       "signup": {
-        "status": 403,
-        "ok": false,
-        "ms": 400
+        "status": 200,
+        "ok": true,
+        "ms": 329
       },
       "mirrors": [],
-      "online": false,
-      "dataStale": true,
-      "staleFrom": "2026-08-21T14:49:01.722Z",
-      "staleFields": [
-        "systemName",
-        "version",
-        "registerOpen",
-        "passwordRegister",
-        "loginMethods",
-        "services"
-      ]
+      "online": true,
+      "dataStale": false,
+      "staleFrom": null,
+      "staleFields": [],
+      "probeBlocked": false
     }
   ]
 }

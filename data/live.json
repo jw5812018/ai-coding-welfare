@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-21T09:19:02.991Z",
+  "generatedAt": "2026-08-21T11:13:50.760Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-08-21T09:18:56.728Z",
+      "checkedAt": "2026-08-21T11:13:44.586Z",
       "online": true,
-      "latencyMs": 309,
+      "latencyMs": 326,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260820-c6931bb5",
@@ -108,7 +108,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 5824
+        "ms": 1114
       },
       "mirrors": [
         {
@@ -116,7 +116,7 @@
           "online": false
         }
       ],
-      "staleFrom": "2026-08-21T09:14:06.969Z",
+      "staleFrom": "2026-08-21T09:18:56.728Z",
       "apiOk": false,
       "pricingOk": false,
       "dataStale": true,
@@ -135,9 +135,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-08-21T09:18:50.477Z",
+      "checkedAt": "2026-08-21T11:13:38.840Z",
       "online": true,
-      "latencyMs": 4584,
+      "latencyMs": 439,
       "error": null,
       "systemName": "JustDoWork",
       "version": "test-rc23-20260816-f7eb9fe",
@@ -163,7 +163,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 4753
+        "ms": 855
       },
       "mirrors": [],
       "apiOk": true,

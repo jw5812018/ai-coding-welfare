@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-21T09:14:08.254Z",
+  "generatedAt": "2026-08-21T09:19:02.991Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-08-21T09:14:06.969Z",
+      "checkedAt": "2026-08-21T09:18:56.728Z",
       "online": true,
-      "latencyMs": 383,
-      "error": null,
+      "latencyMs": 309,
+      "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260820-c6931bb5",
       "registerOpen": null,
@@ -100,7 +100,7 @@
           ]
         }
       ],
-      "modelsSource": "public-api",
+      "modelsSource": "cached",
       "defaults": {
         "claude": "claude-opus-5",
         "openai": "gpt-5.6-sol"
@@ -108,25 +108,36 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1270
+        "ms": 5824
       },
       "mirrors": [
         {
           "homeUrl": "https://ps.air-outer.com",
-          "online": true
+          "online": false
         }
       ],
-      "staleFrom": null,
-      "apiOk": true,
-      "pricingOk": true,
-      "dataStale": false,
-      "staleFields": []
+      "staleFrom": "2026-08-21T09:14:06.969Z",
+      "apiOk": false,
+      "pricingOk": false,
+      "dataStale": true,
+      "staleFields": [
+        "systemName",
+        "version",
+        "loginMethods",
+        "quotaPerUnit",
+        "inviteeBonusUsd",
+        "inviterBonusUsd",
+        "topupEnabled",
+        "announcements",
+        "models",
+        "defaults"
+      ]
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-08-21T09:14:06.858Z",
+      "checkedAt": "2026-08-21T09:18:50.477Z",
       "online": true,
-      "latencyMs": 154,
+      "latencyMs": 4584,
       "error": null,
       "systemName": "JustDoWork",
       "version": "test-rc23-20260816-f7eb9fe",
@@ -152,7 +163,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 202
+        "ms": 4753
       },
       "mirrors": [],
       "apiOk": true,

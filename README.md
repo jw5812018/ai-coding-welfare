@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-2%20%E4%B8%AA-blue" alt="收录站点">
   <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-2%2F2-brightgreen" alt="在线">
   <img src="https://img.shields.io/badge/%E6%B3%A8%E5%86%8C%E5%8F%AF%E5%BE%97-%2450-success" alt="注册可得">
-  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--08--21%2009.14%20UTC-informational" alt="数据更新">
+  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--08--21%2009.19%20UTC-informational" alt="数据更新">
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@
 | **AgentRouter** 🔥 | 🟢 在线 | **$50** | 签到 $25/天 ✅ | Anthropic + OpenAI | 3 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) |
 | **JustDoWork** | 🟢 在线 | 站内公示 | 每日签到 ✅ | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://api.justwoker.icu/sign-up?aff=VTrz) |
 
-> 表格里的额度、模型、在线状态**全部由脚本抓取站点公开接口自动生成**，最后更新：`2026-08-21 09:14 UTC`。
+> 表格里的额度、模型、在线状态**全部由脚本抓取站点公开接口自动生成**，最后更新：`2026-08-21 09:19 UTC`。
 
 **只想快点用上 Claude Code？** 三步：
 
@@ -64,7 +64,7 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 - 邀请注册到账：**$50**
 - 邀请他人可得：**$150**
 - 登录方式：GitHub / LinuxDO
-- 接口延迟：383 ms
+- 接口延迟：309 ms
 
 **镜像 / 备用入口**
 
@@ -195,7 +195,7 @@ curl -s https://agentrouter.org/v1/chat/completions \
 - 开放注册：✅
 - 登录方式：GitHub / 账号密码
 - GitHub 账号需满 **365 天**
-- 接口延迟：154 ms
+- 接口延迟：4584 ms
 
 > 该站模型清单需登录后台查看，注册后在「模型价格」页确认。
 

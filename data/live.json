@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-25T07:09:49.212Z",
+  "generatedAt": "2026-08-25T13:12:34.723Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-08-25T07:09:42.619Z",
+      "checkedAt": "2026-08-25T13:12:28.284Z",
       "online": true,
-      "latencyMs": 333,
+      "latencyMs": 320,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260820-c6931bb5",
@@ -108,7 +108,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1586
+        "ms": 1250
       },
       "mirrors": [
         {
@@ -137,9 +137,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-08-25T07:09:36.393Z",
+      "checkedAt": "2026-08-25T13:12:22.217Z",
       "online": true,
-      "latencyMs": 494,
+      "latencyMs": 316,
       "error": null,
       "systemName": "JustDoWork",
       "version": "init-20260820-2402fd83",
@@ -165,7 +165,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1571
+        "ms": 579
       },
       "mirrors": [],
       "apiOk": true,
@@ -178,10 +178,10 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-08-25T07:09:40.939Z",
+      "checkedAt": "2026-08-25T13:12:26.758Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 12,
+      "latencyMs": 11,
       "error": "HTTP 403",
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
@@ -209,7 +209,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 507
+        "ms": 342
       },
       "mirrors": [],
       "online": false,

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-26T01:59:49.234Z",
+  "generatedAt": "2026-08-26T07:10:13.317Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-08-26T01:59:43.008Z",
+      "checkedAt": "2026-08-26T07:10:07.445Z",
       "online": true,
-      "latencyMs": 302,
+      "latencyMs": 230,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260820-c6931bb5",
@@ -108,7 +108,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1323
+        "ms": 938
       },
       "mirrors": [
         {
@@ -137,9 +137,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-08-26T01:59:37.041Z",
+      "checkedAt": "2026-08-26T07:10:01.778Z",
       "online": true,
-      "latencyMs": 385,
+      "latencyMs": 187,
       "error": null,
       "systemName": "JustDoWork",
       "version": "init-20260820-2402fd83",
@@ -165,7 +165,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 625
+        "ms": 2238
       },
       "mirrors": [],
       "apiOk": true,
@@ -178,7 +178,7 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-08-26T01:59:41.647Z",
+      "checkedAt": "2026-08-26T07:10:06.323Z",
       "apiOk": false,
       "pricingOk": false,
       "latencyMs": 7,
@@ -209,7 +209,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 471
+        "ms": 212
       },
       "mirrors": [],
       "online": false,

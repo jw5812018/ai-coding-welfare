@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-26T13:17:55.632Z",
+  "generatedAt": "2026-08-26T20:03:49.324Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-08-26T13:17:49.221Z",
+      "checkedAt": "2026-08-26T20:03:43.291Z",
       "online": true,
-      "latencyMs": 308,
+      "latencyMs": 277,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260826-5fdea457",
@@ -142,7 +142,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3289
+        "ms": 1038
       },
       "mirrors": [
         {
@@ -171,12 +171,12 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-08-26T13:17:43.366Z",
+      "checkedAt": "2026-08-26T20:03:37.604Z",
       "online": true,
-      "latencyMs": 2461,
+      "latencyMs": 234,
       "error": null,
       "systemName": "JustDoWork",
-      "version": "init-20260820-2402fd83",
+      "version": "v1.0.0-rc.23",
       "registerOpen": true,
       "passwordRegister": false,
       "checkinEnabled": true,
@@ -199,7 +199,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3402
+        "ms": 390
       },
       "mirrors": [],
       "apiOk": true,
@@ -212,10 +212,10 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-08-26T13:17:47.892Z",
+      "checkedAt": "2026-08-26T20:03:42.278Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 11,
+      "latencyMs": 23,
       "error": "HTTP 403",
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
@@ -243,7 +243,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 2451
+        "ms": 368
       },
       "mirrors": [],
       "online": true,
@@ -261,10 +261,10 @@
     },
     {
       "id": "matrix",
-      "checkedAt": "2026-08-26T13:17:44.383Z",
+      "checkedAt": "2026-08-26T20:03:38.526Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 3483,
+      "latencyMs": 1157,
       "error": null,
       "systemName": null,
       "version": null,
@@ -288,7 +288,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3588
+        "ms": 1230
       },
       "mirrors": [],
       "probeBlocked": false,

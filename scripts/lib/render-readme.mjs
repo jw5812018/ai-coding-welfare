@@ -1,6 +1,6 @@
 /** 生成 README.md：全部内容由 data/sites.json + data/live.json 渲染，请勿手改 README。 */
 import { staleHours } from './newapi.mjs';
-import { creditPlan, usd, breakdown, perDay } from './credits.mjs';
+import { creditPlan, usd, breakdown, perDay, usdTotals, othersNote } from './credits.mjs';
 
 /** shields.io 转义：- → --，_ → __，其余走 URI 编码 */
 const shield = (s) => encodeURIComponent(String(s).replace(/-/g, '--').replace(/_/g, '__'));
@@ -30,7 +30,7 @@ function overviewTable(sites, liveById) {
     const l = liveById.get(s.id) ?? {};
     const plan = creditPlan(s, l);
     const state = l.online ? '🟢 在线' : '🔴 异常';
-    const first = plan.firstDay != null ? `**${usd(plan.firstDay, plan.approx)}**` : '站内公示';
+    const first = plan.firstDay != null ? `**${usd(plan.firstDay, plan.approx, plan.unit)}**` : '站内公示';
     const detail = breakdown(plan) ?? '—';
     const checkin =
       perDay(plan) ??
@@ -72,8 +72,9 @@ function liveFacts(snap) {
   const items = [
     staleHours(snap) ? `⚠ 接口已连续 ${staleHours(snap)} 小时没抓到新数据，下列信息为 \`${fmtDate(snap.staleFrom)}\` 的快照` : null,
     snap.probeBlocked ? `ℹ️ 本次自动探测被站点 WAF 拦下（GitHub Actions 机房 IP 常见，家宽访问不受影响），状态与下列信息沿用 \`${fmtDate(snap.staleFrom ?? snap.checkedAt)}\` 的成功快照` : null,
-    `站点名称：**${snap.systemName ?? '—'}**`,
-    `面板版本：\`${snap.version ?? '—'}\``,
+    // 站名 / 版本不是每种面板都拿得到（Matrix 只有一个健康检查），拿不到就别摆一行「—」占位
+    snap.systemName ? `站点名称：**${snap.systemName}**` : null,
+    snap.version ? `面板版本：\`${snap.version}\`` : null,
     snap.services?.length ? `已开放服务：${snap.services.join(' / ')}` : null,
     snap.inviterBonusUsd ? `邀请他人可得：**$${snap.inviterBonusUsd}**` : null,
     snap.checkinEnabled != null ? `每日签到：${yes(snap.checkinEnabled)}` : null,
@@ -91,16 +92,16 @@ function creditFacts(site, snap) {
   if (p.firstDay == null) return null;
   const detail = breakdown(p);
   return [
-    p.signup != null ? `- 注册即送：**${usd(p.signup)}**` : null,
+    p.signup != null ? `- 注册即送：**${usd(p.signup, false, p.unit)}**` : null,
     p.invite != null
-      ? `- 从本页邀请链接注册额外：**${usd(p.invite)}**${p.apiInvite === p.invite ? '（站点接口实测一致）' : ''}`
+      ? `- 从本页邀请链接注册额外：**${usd(p.invite, false, p.unit)}**${p.apiInvite === p.invite ? '（站点接口实测一致）' : ''}`
       : null,
     p.daily == null
       ? null
       : p.resets
-        ? `- 每日额度池：**${usd(p.daily, p.approx)}/天**（每天重置，当天用不完不累积，也不用签到）`
-        : `- 每日签到：**${usd(p.daily, p.approx)}/天**（长期续命的关键）`,
-    `- 首日合计：**${usd(p.firstDay, p.approx)}**${p.base != null && detail ? `　（${detail}）` : ''}`,
+        ? `- 每日额度池：**${usd(p.daily, p.approx, p.unit)}/天**（每天重置，当天用不完不累积，也不用签到）`
+        : `- 每日签到：**${usd(p.daily, p.approx, p.unit)}/天**（长期续命的关键）`,
+    `- 首日合计：**${usd(p.firstDay, p.approx, p.unit)}**${p.sources > 1 && detail ? `　（${detail}）` : ''}`,
   ]
     .filter(Boolean)
     .join('\n');
@@ -257,9 +258,10 @@ export function renderReadme({ meta, sites, live }) {
   const onlineCount = sites.filter((s) => byId.get(s.id)?.online).length;
   const staleCount = sites.filter((s) => staleHours(byId.get(s.id))).length;
   const plans = sites.map((s) => creditPlan(s, byId.get(s.id)));
-  const best = Math.max(0, ...plans.map((p) => p.firstDay ?? 0));
-  const total = plans.reduce((sum, p) => sum + (p.firstDay ?? 0), 0);
-  const resetting = plans.some((p) => p.resets);
+  // 合计只算美元站：积分与美元没有公开换算，混着加就是编数字（详见 lib/credits.mjs）
+  const { count: usdCount, best, total, resetting, others } = usdTotals(plans);
+  const extra = othersNote(others);
+  const scope = others.length ? `${usdCount} 个按美元计价的站` : `${sites.length} 个站`;
 
   const head = [
     `<h1 align="center">${meta.title}</h1>`,
@@ -286,7 +288,9 @@ export function renderReadme({ meta, sites, live }) {
     `> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：\`${fmtDate(live?.generatedAt)}\`。`,
     total > 0 ? '>' : null,
     total > 0
-      ? `> ${sites.length} 个站全注册一遍，第一天手上大约有 **$${total}** 额度可用${resetting ? '（其中每日重置的额度池次日会回满，但不累积）' : ''}。`
+      ? `> ${scope}全注册一遍，第一天手上大约有 **$${total}** 额度可用${resetting ? '（其中每日重置的额度池次日会回满，但不累积）' : ''}${
+          extra ? `；${extra}，是站内积分、与美元没有公开换算，未计入这个合计` : ''
+        }。`
       : null,
     staleCount > 0 ? '>' : null,
     staleCount > 0

@@ -1,6 +1,6 @@
 /** 生成 docs/index.html（GitHub Pages 落地页）。样式在 docs/assets/style.css，此处只拼结构。 */
 import { staleHours } from './newapi.mjs';
-import { creditPlan, usd, breakdown } from './credits.mjs';
+import { creditPlan, usd, breakdown, usdTotals, othersNote } from './credits.mjs';
 
 const esc = (s) =>
   String(s ?? '')
@@ -43,9 +43,11 @@ function siteCard(site, snap) {
   const up = Boolean(snap?.online);
   const p = creditPlan(site, snap);
   const facts = [
-    p.firstDay != null ? ['首日可得', `<b>${usd(p.firstDay, p.approx)}</b>${breakdown(p) ? `<small> ${esc(breakdown(p))}</small>` : ''}`] : null,
+    p.firstDay != null
+      ? ['首日可得', `<b>${usd(p.firstDay, p.approx, p.unit)}</b>${p.sources > 1 && breakdown(p) ? `<small> ${esc(breakdown(p))}</small>` : ''}`]
+      : null,
     p.daily != null
-      ? ['之后每天', p.resets ? `重置额度池 ${usd(p.daily, p.approx)}（不累积）` : `签到 ${usd(p.daily, p.approx)}`]
+      ? ['之后每天', p.resets ? `重置额度池 ${usd(p.daily, p.approx, p.unit)}（不累积）` : `签到 ${usd(p.daily, p.approx, p.unit)}`]
       : snap?.checkinEnabled
         ? ['每日签到', '支持']
         : snap?.checkinEnabled === false
@@ -118,10 +120,13 @@ export function renderHtml({ meta, sites, live, css }) {
   const byId = new Map((live?.sites ?? []).map((s) => [s.id, s]));
   const online = sites.filter((s) => byId.get(s.id)?.online).length;
   const plans = sites.map((s) => creditPlan(s, byId.get(s.id)));
-  const best = Math.max(0, ...plans.map((p) => p.firstDay ?? 0));
-  const total = plans.reduce((sum, p) => sum + (p.firstDay ?? 0), 0);
+  // 合计只算美元站：积分与美元没有公开换算，混着加就是编数字（详见 lib/credits.mjs）
+  const { best, total, others } = usdTotals(plans);
+  const extra = othersNote(others);
   const first = sites.find((s) => s.recommended) ?? sites[0];
-  const desc = `${meta.tagline}。当前收录 ${sites.length} 个站点，${online} 个在线${best ? `，单站首日最高可得 $${best} 免费额度，全部注册约 $${total}` : ''}。`;
+  const desc = `${meta.tagline}。当前收录 ${sites.length} 个站点，${online} 个在线${
+    best ? `，单站首日最高可得 $${best} 免费额度，按美元计价的站全部注册约 $${total}` : ''
+  }${extra ? `；${extra}` : ''}。`;
 
   return `<!doctype html>
 <html lang="zh-CN">
@@ -148,7 +153,7 @@ ${css ? `<style>\n${css}</style>` : '<link rel="stylesheet" href="assets/style.c
       <span class="pill">收录 <b>${sites.length}</b> 站</span>
       <span class="pill">在线 <b>${online}/${sites.length}</b></span>
       ${best ? `<span class="pill">首日最高 <b>$${best}</b></span>` : ''}
-      ${total > best ? `<span class="pill">全注册约 <b>$${total}</b></span>` : ''}
+      ${total > best ? `<span class="pill">美元站全注册约 <b>$${total}</b></span>` : ''}
       <span class="pill">数据更新 <b>${esc(fmt(live?.generatedAt))}</b></span>
     </div>
     <div class="cta-row">
@@ -160,6 +165,7 @@ ${css ? `<style>\n${css}</style>` : '<link rel="stylesheet" href="assets/style.c
   <section id="sites">
     <h2>站点一览</h2>
     <p class="hint">额度、模型、在线状态由脚本定时抓取站点公开接口自动更新。</p>
+    ${extra ? `<p class="hint">${esc(extra)}——站内积分与美元没有公开换算关系，未计入上面的美元合计。</p>` : ''}
     <div class="grid">${sites.map((s) => siteCard(s, byId.get(s.id))).join('')}
     </div>
   </section>

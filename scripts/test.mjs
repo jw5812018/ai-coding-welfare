@@ -6,7 +6,7 @@
 import assert from 'node:assert/strict';
 import { mergeSnapshot, meaningful } from './lib/merge.mjs';
 import { pickPreferred, staleHours, STALE_WARN_HOURS, blankSnapshot, looksFiltered } from './lib/newapi.mjs';
-import { creditPlan, usd, breakdown, perDay, auditCredits } from './lib/credits.mjs';
+import { creditPlan, usd, breakdown, perDay, auditCredits, usdTotals, othersNote } from './lib/credits.mjs';
 import { PANELS, probeSite } from './lib/panels.mjs';
 
 let passed = 0;
@@ -281,6 +281,44 @@ test('没填 credits 的站点不炸，只告警', () => {
   assert.equal(auditCredits([{ id: 'x', name: 'X' }], { sites: [] }).length, 1);
 });
 
+console.log('计价单位：积分站不能被当成美元站');
+const MX = { id: 'matrix', name: 'Matrix', credits: { signup: null, invite: 600, dailyCheckin: null, approx: false, unit: 'point' } };
+
+test('Matrix：600 积分按积分显示，绝不擅自加 $', () => {
+  const p = creditPlan(MX, null);
+  assert.equal(p.unit, 'point');
+  assert.equal(p.firstDay, 600);
+  assert.equal(usd(p.firstDay, p.approx, p.unit), '600 积分');
+  assert.equal(breakdown(p), '本页邀请 600 积分');
+  assert.equal(perDay(p), null); // 没有签到、也没有每日额度池
+});
+test('sources 数出首日额度由几笔钱凑成，只有一笔时页面不重复说构成', () => {
+  assert.equal(creditPlan(AR, OLD_GOOD).sources, 3);
+  assert.equal(creditPlan(JD, null).sources, 2);
+  assert.equal(creditPlan(RC, null).sources, 1);
+  assert.equal(creditPlan(MX, null).sources, 1);
+  assert.equal(creditPlan({ id: 'x', name: 'X' }, null).sources, 0);
+});
+test('跨站合计只算美元站，积分站单独说一句', () => {
+  const plans = [creditPlan(AR, OLD_GOOD), creditPlan(JD, null), creditPlan(RC, null), creditPlan(MX, null)];
+  const t = usdTotals(plans);
+  assert.equal(t.count, 3);
+  assert.equal(t.best, 175);
+  assert.equal(t.total, 175 + 92 + 50);
+  assert.equal(t.resetting, true);
+  assert.equal(t.others.length, 1);
+  assert.equal(othersNote(t.others), 'Matrix 另发 600 积分');
+  assert.equal(othersNote([]), null);
+});
+test('积分站不拿接口的美元邀请额度对账，避免误报', () => {
+  assert.deepEqual(auditCredits([MX], { sites: [{ id: 'matrix', inviteeBonusUsd: 30 }] }), []);
+});
+test('未登记的单位原样后缀显示，并告警提醒补 UNITS', () => {
+  const odd = { id: 'odd', name: 'Odd', credits: { signup: 5, unit: 'credit' } };
+  assert.equal(usd(5, false, 'credit'), '5 credit');
+  assert.match(auditCredits([odd], { sites: [] }).join(''), /不在已知单位/);
+});
+
 console.log('vibe-code 面板（Codex 公益站，接口不是 New API）');
 /** 2026-08-21 从 new.sharedchat.cc 实测抓到的返回体 */
 const VC_SITE = { id: 'rawchat', panel: 'vibecode', statusApi: 'https://new.sharedchat.cc/frontend-api/getConfig' };
@@ -351,7 +389,56 @@ test('vibe-code 接口被拦时，也走同一套字段级合并保住旧数据'
 test('panel 缺省是 newapi，未知 panel 直接报错而不是静默出空页', () => {
   assert.equal(PANELS.newapi.name, 'probeNewApi');
   assert.equal(PANELS.vibecode.name, 'probeVibeCode');
+  assert.equal(PANELS.matrix.name, 'probeMatrix');
   assert.throws(() => probeSite({ id: 'z', panel: 'nope' }), /未知的面板类型/);
+});
+
+console.log('matrix 面板（公开接口只有一个健康检查，其余一律不猜）');
+/** 2026-08-26 从 matrix.mzsjai.com/api/health 实测抓到的返回体 */
+const MX_SITE = { id: 'matrix', panel: 'matrix', statusApi: 'https://matrix.mzsjai.com/api/health' };
+const MX_HEALTH = { status: 'ok', timestamp: '2026-08-26T11:19:00.504Z' };
+const mxFetch = (res) => async (url) => (String(url) === MX_SITE.statusApi ? res : { ok: false, error: 'unreachable' });
+
+const mxGood = await probeSite(MX_SITE, mxFetch({ ok: true, status: 200, ms: 264, json: MX_HEALTH }));
+const mxDegraded = await probeSite(MX_SITE, mxFetch({ ok: true, status: 200, ms: 311, json: { status: 'degraded' } }));
+const mxNoField = await probeSite(MX_SITE, mxFetch({ ok: true, status: 200, ms: 120, json: { hello: 1 } }));
+const mxDown = await probeSite(MX_SITE, mxFetch({ ok: false, status: 0, ms: 20_000, error: 'timeout' }));
+
+test('health 返回 status=ok → apiOk，延迟如实记录', () => {
+  assert.equal(mxGood.apiOk, true);
+  assert.equal(mxGood.error, null);
+  assert.equal(mxGood.latencyMs, 264);
+});
+test('接口给不出的字段一律留空，不从 sites.json 倒灌假装是探测结果', () => {
+  assert.equal(mxGood.systemName, null);
+  assert.equal(mxGood.version, null);
+  assert.equal(mxGood.registerOpen, null);
+  assert.equal(mxGood.checkinEnabled, null);
+  assert.equal(mxGood.inviteeBonusUsd, null);
+  assert.deepEqual(mxGood.loginMethods, []);
+  assert.deepEqual(mxGood.models, []);
+  assert.equal(mxGood.modelsSource, 'login-required');
+  assert.equal(mxGood.pricingOk, false);
+});
+test('后端自报 degraded / 缺 status 字段 → 不当在线用，原因写进 error', () => {
+  assert.equal(mxDegraded.apiOk, false);
+  assert.match(mxDegraded.error, /degraded/);
+  assert.equal(mxNoField.apiOk, false);
+  assert.match(mxNoField.error, /没有 status 字段/);
+});
+test('连不上就是连不上，错误原样带出来', () => {
+  assert.equal(mxDown.apiOk, false);
+  assert.equal(mxDown.error, 'timeout');
+  assert.equal(mxDown.latencyMs, 20_000);
+});
+test('matrix 快照字段集合与 New API 面板完全一致（否则 merge 会漏字段）', () => {
+  assert.deepEqual(Object.keys(mxGood).sort(), Object.keys(blankSnapshot(MX_SITE, {})).sort());
+});
+test('health 挂了但注册页 200 → 页面仍算在线，不误报异常', () => {
+  const m = mergeSnapshot({ ...mxDown, signup: { status: 200, ok: true, ms: 180 } }, mxGood);
+  assert.equal(m.online, true);
+  assert.equal(m.apiOk, false);
+  assert.equal(m.error, 'timeout');
 });
 
 console.log('工具函数');

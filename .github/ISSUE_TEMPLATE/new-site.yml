@@ -45,7 +45,7 @@ body:
     id: bonus
     attributes:
       label: 新用户能拿多少额度
-      placeholder: 例如 注册送 $50，签到 $25/天
+      placeholder: 例如 注册送 $50，签到 $25/天；发站内积分的写清单位，例如 邀请注册送 600 积分
     validations:
       required: true
 

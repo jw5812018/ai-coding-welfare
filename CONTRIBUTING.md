@@ -13,13 +13,14 @@
   "name": "Example",
   "subtitle": "一句话卖点",
   "recommended": false,                  // true 会被标成「首推」
-  "panel": "newapi",                     // 面板类型，不填即 newapi，另有 vibecode，见下文
+  "panel": "newapi",                     // 面板类型，不填即 newapi，另有 vibecode / matrix，见下文
   "credits": {                           // 额度口径，页面上的「首日可得」由它算出来
-    "signup": 100,                       // 注册基础额度（$）
+    "signup": 100,                       // 注册基础额度
     "invite": 50,                        // 通过本仓库邀请链接额外到账，站点接口没有就填 null
     "dailyCheckin": 25,                  // 每日签到额度（累积），没有签到就填 null
     "dailyQuota": null,                  // 每日重置的额度池（不累积），与 dailyCheckin 二选一
-    "approx": false                      // true 时页面显示 ≈，表示站点公示的是约数
+    "approx": false,                     // true 时页面显示 ≈，表示站点公示的是约数
+    "unit": "usd"                        // 计价单位，不填即 usd；发站内积分的站填 "point"，见下文
   },
   "signupUrl": "https://example.com/register?aff=xxx",
   "homeUrl": "https://example.com",
@@ -68,19 +69,23 @@ npm run check     # 确认新链接可访问
 | --- | --- | --- |
 | `newapi`（默认） | New API / One API 系 | `/api/status` + `/api/pricing` |
 | `vibecode` | RawChat 系 Codex 公益站 | `/frontend-api/getConfig` + `/frontend-api/getLoginConfig` |
+| `matrix` | Matrix（统一网关 + 应用商店） | `/api/health`（公开的只有这一个，站名 / 模型 / 网关地址都要登录） |
 
 新增一种面板：在 `scripts/lib/` 下写一个 `probeXxx(site, get = fetchJson)`，
 返回值必须是 `blankSnapshot()` 的字段集合（多一个少一个都不行，`merge.mjs` 和渲染器按字段取数），
 然后登记到 `PANELS` 里，并在 `scripts/test.mjs` 里贴一份真实返回体做断言——
 参考 [`scripts/lib/vibecode.mjs`](scripts/lib/vibecode.mjs)，那里也顺手记下了这类站点
 「额度 / Base URL 只有登录后才下发」这一事实，公开接口拿不到的东西一律不猜。
+最省的例子是 [`scripts/lib/matrix.mjs`](scripts/lib/matrix.mjs)：那个站公开的只有一个健康检查，
+于是探测就只据实回答「还活着吗、多久答话」，其余字段全留 null，绝不把 `sites.json` 里的登记值
+倒灌进 `live.json` 假装是探测结果。
 
 ## 改版式 / 改文案
 
 - README 的结构在 [`scripts/lib/render-readme.mjs`](scripts/lib/render-readme.mjs)
 - 落地页结构在 [`scripts/lib/render-html.mjs`](scripts/lib/render-html.mjs)，样式在 [`docs/assets/style.css`](docs/assets/style.css)（这个是手写文件，可以直接改）
 - 抓取字段的解析在 [`scripts/lib/newapi.mjs`](scripts/lib/newapi.mjs)（同时是各面板共用的底座：`fetchJson` / `blankSnapshot` / `pickPreferred`）
-- 额度口径在 [`scripts/lib/credits.mjs`](scripts/lib/credits.mjs)：站点接口只暴露邀请额度，注册基础额度和签到额度是站内公示、只能手工登记在 `credits` 里；`npm run build` 会拿登记值和接口实测值对账，不一致就告警，看到告警就去更新 `data/sites.json`。注意区分两种「每日」——`dailyCheckin` 是签到领到手、会累积；`dailyQuota` 是每天重置的额度池，用不完清零，文案上一律写「重置 / 不累积」，别混着说。
+- 额度口径在 [`scripts/lib/credits.mjs`](scripts/lib/credits.mjs)：站点接口只暴露邀请额度，注册基础额度和签到额度是站内公示、只能手工登记在 `credits` 里；`npm run build` 会拿登记值和接口实测值对账，不一致就告警，看到告警就去更新 `data/sites.json`。注意区分两种「每日」——`dailyCheckin` 是签到领到手、会累积；`dailyQuota` 是每天重置的额度池，用不完清零，文案上一律写「重置 / 不累积」，别混着说。还要注意计价单位：`credits.unit` 不填即美元，发站内积分的站（如 Matrix）填 `"point"`，页面会按「600 积分」显示；跨站合计（「首日最高」「全注册约多少」）只统计美元站，积分站单独说一句——积分与美元没有公开换算，加在一起就是编数字。新增单位要同时补 `credits.mjs` 里的 `UNITS`，否则只会原样后缀显示并在 build 时告警。
 - 抓取失败时的降级策略在 [`scripts/lib/merge.mjs`](scripts/lib/merge.mjs)：内容字段沿用上一次成功的快照，`online` 以注册页能否访问为准（接口被 Cloudflare 拦不等于站点挂了）；连注册页也被拦（403 / 429 / 503 / 挑战页）时按「机房 IP 被 WAF 拦」处理——沿用上次的在线判定并标 `probeBlocked`，页面上写明数据是哪次快照的。超时 / 连不上 / 502 这类信号才算真下线；上次成功探测超过 48 小时也不再兜底，如实标异常。改这里请一并跑 `npm test`。
 
 改完同样跑 `npm run build`，把生成物一起提交，CI 才不会又把它刷回去。

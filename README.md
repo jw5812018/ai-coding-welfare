@@ -3,16 +3,17 @@
 <p align="center">免费额度 · 白嫖 Claude Code / Codex / Cursor 的中转与公益站合集</p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-3%20%E4%B8%AA-blue" alt="收录站点">
-  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-2%2F3-orange" alt="在线">
+  <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-4%20%E4%B8%AA-blue" alt="收录站点">
+  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-4%2F4-brightgreen" alt="在线">
   <img src="https://img.shields.io/badge/%E9%A6%96%E6%97%A5%E5%8F%AF%E5%BE%97-%E6%9C%80%E9%AB%98%20%24175-success" alt="首日可得">
-  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--08--26%2007.10%20UTC-informational" alt="数据更新">
+  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--08--26%2011.42%20UTC-informational" alt="数据更新">
 </p>
 
 <p align="center">
   <a href="https://agentrouter.org/register?aff=szt3"><b>AgentRouter 注册</b></a> ·
   <a href="https://api.justwoker.icu/sign-up?aff=VTrz"><b>JustDoWork 注册</b></a> ·
-  <a href="https://new.sharedchat.cc/list/#/register?i=MaVP1"><b>RawChat 公益站 注册</b></a>
+  <a href="https://new.sharedchat.cc/list/#/register?i=MaVP1"><b>RawChat 公益站 注册</b></a> ·
+  <a href="https://matrix.mzsjai.com/login?redirect=%2Fapp%2Fgrowth%3FinviteCode%3DMX0OTR-_H8HM"><b>Matrix 注册</b></a>
 </p>
 
 ---
@@ -21,15 +22,14 @@
 
 | 站点 | 状态 | 首日可得 | 额度构成 | 之后每天 | 兼容协议 | 模型 | 注册 |
 | :-- | :--: | :--: | :-- | :--: | :--: | :--: | :--: |
-| **AgentRouter** 🔥 | 🟢 在线 | **$175** | 注册 $100 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 3 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) |
+| **AgentRouter** 🔥 | 🟢 在线 | **$175** | 注册 $100 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 5 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) |
 | **JustDoWork** | 🟢 在线 | **≈$92** | 注册 $70 + 首签 ≈$22 | ≈$22/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://api.justwoker.icu/sign-up?aff=VTrz) |
-| **RawChat 公益站** | 🔴 异常 | **$50** | 每日额度池 $50（每天重置，不累积） | $50/天（重置） | Codex CLI | Codex | [点此注册 →](https://new.sharedchat.cc/list/#/register?i=MaVP1) |
+| **RawChat 公益站** | 🟢 在线 | **$50** | 每日额度池 $50（每天重置，不累积） | $50/天（重置） | Codex CLI | Codex | [点此注册 →](https://new.sharedchat.cc/list/#/register?i=MaVP1) |
+| **Matrix** | 🟢 在线 | **600 积分** | 本页邀请 600 积分 | — | OpenAI 兼容 | 需登录查看 | [点此注册 →](https://matrix.mzsjai.com/login?redirect=%2Fapp%2Fgrowth%3FinviteCode%3DMX0OTR-_H8HM) |
 
-> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-08-26 07:10 UTC`。
+> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-08-26 11:42 UTC`。
 >
-> 3 个站全注册一遍，第一天手上大约有 **$317** 额度可用（其中每日重置的额度池次日会回满，但不累积）。
->
-> 🟡 有 2 个站点已超过 48 小时没抓到接口数据，其明细为上一次成功抓取的快照；在线状态按注册页实际可访问性判断。
+> 3 个按美元计价的站全注册一遍，第一天手上大约有 **$317** 额度可用（其中每日重置的额度池次日会回满，但不累积）；Matrix 另发 600 积分，是站内积分、与美元没有公开换算，未计入这个合计。
 
 **只想快点用上 Claude Code？** 三步：
 
@@ -72,12 +72,11 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 
 **实时数据**（自动抓取站点公开接口）
 
-- ⚠ 接口已连续 112 小时没抓到新数据，下列信息为 `2026-08-21 14:59 UTC` 的快照
 - 站点名称：**Agent Router**
-- 面板版本：`init-20260820-c6931bb5`
-- 邀请他人可得：**$150**
+- 面板版本：`init-20260826-5fdea457`
+- 邀请他人可得：**$50**
 - 登录方式：GitHub / LinuxDO
-- 接口延迟：230 ms
+- 接口延迟：437 ms
 
 **镜像 / 备用入口**
 
@@ -87,9 +86,11 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 
 | 模型 | 倍率 | 输入 / 1M tokens | 输出 / 1M tokens | 协议 |
 | :-- | :--: | :--: | :--: | :--: |
-| `claude-opus-4-8` | 1.5 | $3 | $15 | anthropic / openai |
-| `claude-opus-5` | 1 | $2 | $10 | anthropic / openai |
-| `gpt-5.6-sol` | 2 | $4 | $20 | openai |
+| `claude-opus-4-8` | 4 | $8 | $40 | anthropic / openai |
+| `claude-opus-5` | 4 | $8 | $40 | anthropic / openai |
+| `deepseek-v4-flash` | 1 | $2 | $6 | openai / anthropic |
+| `glm-5.3` | 1.5 | $3 | $12 | anthropic / openai |
+| `gpt-5.6-sol` | 1.5 | $3 | $15 | openai |
 
 <sub>倍率 1 ≈ $2 / 1M tokens，输出价 = 倍率 × 补全倍率 × $2；以站内实时价格为准。</sub>
 
@@ -215,7 +216,7 @@ curl -s https://agentrouter.org/v1/chat/completions \
 - 开放注册：✅
 - 登录方式：GitHub / 账号密码
 - GitHub 账号需满 **365 天**
-- 接口延迟：187 ms
+- 接口延迟：147 ms
 
 > 该站模型清单需登录后台查看，注册后在「模型价格」页确认。
 
@@ -299,7 +300,7 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 
 ---
 
-### 🔴 RawChat 公益站
+### 🟢 RawChat 公益站
 
 > Codex 公益站 · 每日 $50 额度池，0 点自动重置
 
@@ -319,13 +320,12 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 
 **实时数据**（自动抓取站点公开接口）
 
-- ⚠ 接口已连续 112 小时没抓到新数据，下列信息为 `2026-08-21 14:59 UTC` 的快照
 - 站点名称：**RawChat公益站**
 - 面板版本：`1.0.0.0`
 - 已开放服务：Codex
 - 开放注册：✅
 - 登录方式：邮箱
-- 接口延迟：7 ms
+- 接口延迟：405 ms
 
 > 该站走 Codex 官方客户端 + 上游号池，不单独公示模型清单与价格，用量直接从每日 $50 的额度池里扣。
 
@@ -356,6 +356,70 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 - 额度按 3 小时滚动窗口限速，且全站共用上游号池，高峰期会显示「已触发限速」，等窗口刷新即可
 - 当前只开放 Codex 方向，要用 Claude Code 请走本页其它站点
 - 站内挂着付费站推广位，注意区分免费公益入口与付费站入口
+
+---
+
+### 🟢 Matrix
+
+> 统一 API 网关 + 开源应用商店 · 邀请注册送 600 积分，实名再送 2000
+
+<a href="https://matrix.mzsjai.com/login?redirect=%2Fapp%2Fgrowth%3FinviteCode%3DMX0OTR-_H8HM"><img src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E6%B3%A8%E5%86%8C-Matrix-brightgreen?style=for-the-badge" alt="注册 Matrix"></a>
+
+**为什么值得注册**
+
+- 从本页邀请链接注册即得 600 获赠积分，注册就发、不用实名、不用充值
+- 完成个人实名认证再领 2,000 积分，是这个站拿额度最快的一步
+- 一把 Key 调通 OpenAI / Anthropic / Google / DeepSeek / Moonshot / 智谱 / 阿里 等多家模型，OpenAI 兼容协议直连 Cursor / Cherry Studio / Open WebUI / Aider
+- 自带开源应用商店，登录后一键拉起独立容器实例，容器内的 AI 调用自动走你的 Matrix Key
+
+**能拿多少额度**
+
+- 从本页邀请链接注册额外：**600 积分**
+- 首日合计：**600 积分**
+
+**实时数据**（自动抓取站点公开接口）
+
+- 接口延迟：151 ms
+
+> 模型清单与价格需登录后在控制台「模型列表」查看（按每百万 Tokens 计价，可按厂商 / 上下文窗口筛选），站点没有公开的模型与定价接口，本页不做承诺。
+
+**注册要求**
+
+- 务必从本页邀请链接进入注册（带 inviteCode），奖励仅对新用户首次注册有效，否则 600 积分不发放
+- 被邀请者注册即得 600 获赠积分，不要求先实名；2,000 积分的实名奖励要自己去钱包页领取
+- 同一用户 / 同一实名主体只能领一次实名奖励；异常注册、重复绑定邀请关系不发奖
+
+**接入配置**
+
+> 官方文档把网关地址写成占位符「<Matrix 网关地址>/v1」，并注明当前地址只显示在登录后的 API Key 详情页，本页不做猜测。
+
+1. 从本页邀请链接注册并登录（杭电统一身份认证 / 手机验证码 / 邮箱 + 密码 任选一种）
+2. 进入控制台「API Key」新建一把 Key：Token 以 mat- 开头且只显示一次，复制好；同一页面能看到当前网关地址
+3. 客户端里填 Base URL = 网关地址 + /v1、API Key = 刚复制的 mat- Key，模型名到控制台「模型列表」页确认
+
+控制台入口：<https://matrix.mzsjai.com/app/apikey>
+
+**如何继续拿额度**
+
+- 完成个人实名认证，在钱包页领 2,000 积分（一次性）
+- 邀请好友注册，邀请者与被邀请者各得 600 积分 / 人
+- 站内「反馈赢兑换码」：建议被采纳会送额度
+- 注册后钱包里还有一笔初始体验额度，站方没公示具体数目，本页不计入合计
+
+**⚠️ 使用前必读**
+
+- 额度是站内积分，站方没有公开积分与美元的换算，本页按积分原样显示，不折算美元、也不并入跨站的美元合计
+- 活动奖励发的是「获赠积分」，长期有效，但只能调用支持获赠积分的模型与平台服务
+- 增长活动官方写明有效期至 2026 年 12 月 31 日，之后规则可能调整
+- 只提供 OpenAI 兼容协议，官方文档没有 Anthropic 原生接口，Claude Code 不能直连（要用得自己做协议转换）
+- 应用商店的容器实例按规格 × 运行时长计费，体验完记得在控制台关停 / 删除，否则会一直扣额度
+- 站内的 Qoder 订阅、充值等是付费商品，注意与免费活动奖励区分
+- 实名认证要提交个人身份信息，为 2,000 积分做不做这一步请自行判断
+
+**官方渠道**
+
+- 文档: https://matrix.mzsjai.com/docs/quickstart
+- 反馈: https://matrix.mzsjai.com/docs/contact
 
 ---
 
@@ -429,6 +493,6 @@ npm run check     # 校验链接是否还活着
 
 <p align="center"><b>觉得有用点个 ⭐ Star</b>，福利站有变动时这里会自动更新。</p>
 
-<sub>关键词：Claude Code 免费 · Claude Code 中转 · Codex 中转 · Codex 公益站 · AI API 中转站 · 公益站 · 免费 API 额度 · 每日免费额度 · claude-opus-5 API · New API · AgentRouter · RawChat</sub>
+<sub>关键词：Claude Code 免费 · Claude Code 中转 · Codex 中转 · Codex 公益站 · AI API 中转站 · 公益站 · 免费 API 额度 · 每日免费额度 · claude-opus-5 API · New API · AgentRouter · RawChat · Matrix 统一网关</sub>
 
 <!-- 本文件由 scripts/build.mjs 自动生成，请修改 data/sites.json 或 scripts/lib/render-readme.mjs -->

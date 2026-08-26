@@ -5,10 +5,12 @@
  */
 import { probeNewApi } from './newapi.mjs';
 import { probeVibeCode } from './vibecode.mjs';
+import { probeMatrix } from './matrix.mjs';
 
 export const PANELS = {
   newapi: probeNewApi,
   vibecode: probeVibeCode,
+  matrix: probeMatrix,
 };
 
 export const DEFAULT_PANEL = 'newapi';

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T07:06:57.898Z",
+  "generatedAt": "2026-08-29T16:44:27.791Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-08-29T07:06:51.653Z",
+      "checkedAt": "2026-08-29T16:44:21.843Z",
       "online": true,
-      "latencyMs": 303,
+      "latencyMs": 265,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260826-5fdea457",
@@ -142,7 +142,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1232
+        "ms": 1109
       },
       "mirrors": [
         {
@@ -171,9 +171,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-08-29T07:06:46.586Z",
+      "checkedAt": "2026-08-29T16:44:16.165Z",
       "online": true,
-      "latencyMs": 1247,
+      "latencyMs": 469,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.23",
@@ -199,7 +199,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1247
+        "ms": 623
       },
       "mirrors": [],
       "apiOk": true,
@@ -212,10 +212,10 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-08-29T07:06:50.310Z",
+      "checkedAt": "2026-08-29T16:44:20.725Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 25,
+      "latencyMs": 23,
       "error": "HTTP 403",
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
@@ -243,7 +243,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 388
+        "ms": 492
       },
       "mirrors": [],
       "online": false,
@@ -261,10 +261,10 @@
     },
     {
       "id": "matrix",
-      "checkedAt": "2026-08-29T07:06:46.912Z",
+      "checkedAt": "2026-08-29T16:44:17.152Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1570,
+      "latencyMs": 1470,
       "error": null,
       "systemName": null,
       "version": null,
@@ -288,7 +288,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1577
+        "ms": 1482
       },
       "mirrors": [],
       "probeBlocked": false,

@@ -10,6 +10,8 @@
  */
 
 const UA = 'ai-coding-welfare/1.0 (+https://github.com/)';
+// 探测注册页 / 备用域名首页时用的标识，和拉接口区分开，方便站长在日志里认出来
+const LINK_UA = 'ai-coding-welfare/1.0 link-check';
 const TIMEOUT_MS = 20_000;
 // 公益站前面普遍挂着 Cloudflare，CI 的机房 IP 偶发拿到挑战页（表现为 invalid json / 403），重试基本能救回来
 const RETRIES = 2;
@@ -51,6 +53,37 @@ export async function fetchJson(url) {
     if (last.ok) return { ...last, attempts: i + 1 };
   }
   return { ...last, attempts: RETRIES + 1 };
+}
+
+/**
+ * 探测一个网页是否可访问（注册页 / 备用域名首页），返回 { status, ok, ms }。
+ *
+ * 和 fetchJson 一样带重试，理由是 online 按「接口或注册页有一个通」算：
+ * 网络抖一下就把注册页判成 HTTP 0，遇上接口同时被 WAF 拦的站点就会被误标异常。
+ * 但只重试「连接层面的异常」——服务器给了 HTTP 响应就立刻返回，
+ * 403 / 429 是 looksFiltered 判断「被拦而非下线」的依据，重试反而会把它抹掉。
+ *
+ * fetchImpl / backoffMs 可注入，单测不联网也不用等退避。
+ */
+export async function probeUrl(url, { ua = LINK_UA, retries = RETRIES, backoffMs = 1500, fetchImpl = fetch } = {}) {
+  if (!url) return null;
+  let last = null;
+  for (let i = 0; i <= retries; i += 1) {
+    if (i) await sleep(backoffMs * i);
+    const started = Date.now();
+    try {
+      const res = await fetchImpl(url, {
+        method: 'GET',
+        redirect: 'follow',
+        headers: { 'user-agent': ua },
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+      });
+      return { status: res.status, ok: res.ok, ms: Date.now() - started, attempts: i + 1 };
+    } catch (err) {
+      last = { status: 0, ok: false, ms: Date.now() - started, error: String(err.message || err), attempts: i + 1 };
+    }
+  }
+  return last;
 }
 
 /**

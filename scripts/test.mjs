@@ -5,7 +5,7 @@
  */
 import assert from 'node:assert/strict';
 import { mergeSnapshot, meaningful } from './lib/merge.mjs';
-import { pickPreferred, staleHours, STALE_WARN_HOURS, blankSnapshot, looksFiltered } from './lib/newapi.mjs';
+import { pickPreferred, staleHours, STALE_WARN_HOURS, blankSnapshot, looksFiltered, probeUrl } from './lib/newapi.mjs';
 import { creditPlan, usd, breakdown, perDay, auditCredits, usdTotals, othersNote } from './lib/credits.mjs';
 import { PANELS, probeSite } from './lib/panels.mjs';
 
@@ -591,6 +591,59 @@ test('pickPreferred 按数字段比大小，不是字典序', () => {
   const ms = [{ name: 'claude-opus-4-8' }, { name: 'claude-opus-5' }, { name: 'claude-sonnet-4-5' }];
   assert.equal(pickPreferred(ms, /^claude/i), 'claude-opus-5');
   assert.equal(pickPreferred([], /^claude/i), null);
+});
+
+console.log('注册页探测（online 有一半靠它，不能被网络抖动带偏）');
+// 前两次连接层面失败、第三次才通：本机与 CI 都见过，注册页不该因此判成 HTTP 0
+let flakyCalls = 0;
+const flakyProbe = await probeUrl('https://example.test/sign-up', {
+  backoffMs: 0,
+  fetchImpl: async () => {
+    flakyCalls += 1;
+    if (flakyCalls < 3) throw new Error('connect EADDRNOTAVAIL 198.18.0.5:443');
+    return { status: 200, ok: true };
+  },
+});
+// 服务器答话了就是答话了：403 是 looksFiltered 判「被拦而非下线」的依据，不许被重试抹掉
+let blockedCalls = 0;
+const blockedProbe = await probeUrl('https://example.test/sign-up', {
+  backoffMs: 0,
+  fetchImpl: async () => {
+    blockedCalls += 1;
+    return { status: 403, ok: false };
+  },
+});
+let deadCalls = 0;
+const deadProbe = await probeUrl('https://example.test/sign-up', {
+  backoffMs: 0,
+  fetchImpl: async () => {
+    deadCalls += 1;
+    throw new Error('getaddrinfo ENOTFOUND example.test');
+  },
+});
+const emptyProbe = await probeUrl(null);
+
+test('连接抖动会重试，第三次通了就算通', () => {
+  assert.equal(flakyProbe.status, 200);
+  assert.equal(flakyProbe.ok, true);
+  assert.equal(flakyProbe.attempts, 3);
+  assert.equal(flakyCalls, 3);
+});
+test('HTTP 403 原样返回且不重试，WAF 判定才不会被抹掉', () => {
+  assert.equal(blockedProbe.status, 403);
+  assert.equal(blockedProbe.ok, false);
+  assert.equal(blockedCalls, 1);
+  assert.equal(looksFiltered(blockedProbe), true);
+});
+test('真连不上才报 HTTP 0，且把重试次数用完', () => {
+  assert.equal(deadProbe.status, 0);
+  assert.equal(deadProbe.ok, false);
+  assert.match(deadProbe.error, /ENOTFOUND/);
+  assert.equal(deadCalls, 3);
+});
+test('没有 URL 就不探测', () => {
+  // test() 是同步的，异步断言得在外面 await 好再进来
+  assert.equal(emptyProbe, null);
 });
 
 console.log(`\n${process.exitCode ? '✘ 有用例失败' : `✔ 全部通过（${passed} 项）`}`);

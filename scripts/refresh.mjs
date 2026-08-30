@@ -7,29 +7,13 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { fetchJson } from './lib/newapi.mjs';
+import { fetchJson, probeUrl } from './lib/newapi.mjs';
 import { probeSite } from './lib/panels.mjs';
 import { mergeSnapshot } from './lib/merge.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SITES = path.join(ROOT, 'data', 'sites.json');
 const LIVE = path.join(ROOT, 'data', 'live.json');
-
-async function headOk(url) {
-  if (!url) return null;
-  const started = Date.now();
-  try {
-    const res = await fetch(url, {
-      method: 'GET',
-      redirect: 'follow',
-      headers: { 'user-agent': 'ai-coding-welfare/1.0 link-check' },
-      signal: AbortSignal.timeout(20_000),
-    });
-    return { status: res.status, ok: res.ok, ms: Date.now() - started };
-  } catch (err) {
-    return { status: 0, ok: false, ms: Date.now() - started, error: String(err.message || err) };
-  }
-}
 
 async function loadPrevious() {
   try {
@@ -44,7 +28,7 @@ const previous = await loadPrevious();
 
 const snapshots = await Promise.all(
   sites.map(async (site) => {
-    const [snap, signup] = await Promise.all([probeSite(site), headOk(site.signupUrl)]);
+    const [snap, signup] = await Promise.all([probeSite(site), probeUrl(site.signupUrl)]);
     const mirrors = await Promise.all(
       (site.mirrors ?? []).map(async (m) => ({
         homeUrl: m.homeUrl,

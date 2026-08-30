@@ -15,7 +15,9 @@
       "New API",
       "AgentRouter",
       "RawChat",
-      "Matrix 统一网关"
+      "Matrix 统一网关",
+      "TaBiAI",
+      "claude-opus-5 按次计费"
     ],
     "repoUrl": "https://github.com/panxunying/ai-coding-welfare",
     "pagesUrl": "https://panxunying.github.io/ai-coding-welfare/"
@@ -255,6 +257,55 @@
         "文档: https://matrix.mzsjai.com/docs/quickstart",
         "反馈: https://matrix.mzsjai.com/docs/contact"
       ]
+    },
+    {
+      "id": "tabitoken",
+      "name": "TaBiAI",
+      "subtitle": "New API 中转站 · 注册送 $100，本页邀请码再加 $20，专供 Claude Opus",
+      "recommended": false,
+      "credits": {
+        "signup": 100,
+        "invite": 20,
+        "dailyCheckin": null,
+        "approx": false
+      },
+      "signupUrl": "https://tabitoken.com/sign-up?aff=EQIT",
+      "homeUrl": "https://tabitoken.com",
+      "docsUrl": null,
+      "statusApi": "https://tabitoken.com/api/status",
+      "pricingApi": "https://tabitoken.com/api/pricing",
+      "mirrors": [],
+      "tags": ["New API", "免费额度", "Claude Code", "Anthropic 兼容", "按次计费"],
+      "highlights": [
+        "新用户注册送 $100，从本页邀请链接进入再加 $20，首日 $120（2026-08-30 实测到账）",
+        "Anthropic 与 OpenAI 两种协议都开着，Claude Code 填个 Base URL 就能直连",
+        "只放 Claude Opus 四个型号（opus-5 / opus-5-thinking / opus-4-8 / 4-8-thinking），定价接口公开可查",
+        "面板开着每日签到，可以持续领额度"
+      ],
+      "endpoints": {
+        "anthropic": "https://tabitoken.com",
+        "openai": "https://tabitoken.com/v1"
+      },
+      "register": {
+        "methods": ["GitHub OAuth"],
+        "requirements": [
+          "务必从本页邀请链接进入注册（带 ?aff=EQIT），$20 在注册那一刻结算，事后补不上",
+          "已关闭账号密码注册，只能用 GitHub 授权；注册完成后可以再设密码用于登录",
+          "注册页有 Cloudflare Turnstile 人机校验，需要能正常加载 Cloudflare 脚本"
+        ]
+      },
+      "earnMore": [
+        "面板已开启每日签到，登录后台点签到即可（每次给多少站点没公示，以站内为准）",
+        "邀请他人注册也有奖励，金额站点未公开，登录后台「邀请」页确认"
+      ],
+      "caveats": [
+        "按次计费而不是按 token：claude-opus-5 / -thinking 每次 $0.8，claude-opus-4-8 系每次 $0.5。首日 $120 约等于 150 次 opus-5 请求，Claude Code 里一问一答就算一次，比按 token 的站消耗快得多",
+        "只有 Claude Opus 四个模型，没有 GPT / Gemini；OpenAI 兼容协议虽然开着，但能填的模型名只有 claude-*（下面 Codex CLI 示例就是这么配的），想拿它跑 GPT / Codex 原生模型是不行的",
+        "站点支持 Stripe 在线充值（站内标 $1 ≈ ¥7.3），是中转站不是纯公益站，免费额度用完要付费才能续",
+        "模型分 default / vip 两个分组，同一模型在不同分组的可用性可能不同，以站内为准",
+        "站点前面挂着 Cloudflare，机房 IP 容易被拦，本页的自动探测偶尔会标「被 WAF 拦下」，不代表站点对你不可用"
+      ],
+      "community": []
     }
   ]
 }

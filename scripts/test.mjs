@@ -441,6 +441,147 @@ test('health 挂了但注册页 200 → 页面仍算在线，不误报异常', (
   assert.equal(m.error, 'timeout');
 });
 
+console.log('tabitoken：按次计费的 New API 站（model_price，不是倍率）');
+/**
+ * 2026-08-30 从 tabitoken.com 实测抓到的返回体（status 只留探测会读的字段）。
+ * 这个站是「按次计费」的典型：quota_type=1 + model_price，model_ratio 与 completion_ratio 全是 0，
+ * 倍率照抄接口就等于在页面上写「免费」，所以这里把 fixedPrice 钉死。
+ */
+const TB_SITE = {
+  id: 'tabitoken',
+  name: 'TaBiAI',
+  panel: 'newapi',
+  statusApi: 'https://tabitoken.com/api/status',
+  pricingApi: 'https://tabitoken.com/api/pricing',
+  credits: { signup: 100, invite: 20, dailyCheckin: null, approx: false },
+};
+const TB_STATUS = {
+  success: true,
+  data: {
+    system_name: 'TaBiAI',
+    version: 'init-20260817-f880a343',
+    register_enabled: true,
+    password_register_enabled: false,
+    password_login_enabled: true,
+    github_oauth: true,
+    linuxdo_oauth: false,
+    discord_oauth: false,
+    telegram_oauth: false,
+    wechat_login: false,
+    oidc_enabled: false,
+    passkey_login: false,
+    checkin_enabled: true,
+    quota_per_unit: 500000,
+    turnstile_check: true,
+    price: 7.3,
+    announcements: [],
+  },
+};
+const tbModel = (name, price) => ({
+  model_name: name,
+  quota_type: 1,
+  model_ratio: 0,
+  model_price: price,
+  completion_ratio: 0,
+  enable_groups: ['vip', 'default'],
+  supported_endpoint_types: ['anthropic', 'openai'],
+});
+const TB_PRICING = {
+  success: true,
+  data: [
+    tbModel('claude-opus-5-thinking', 0.8),
+    tbModel('claude-opus-5', 0.8),
+    tbModel('claude-opus-4-8', 0.5),
+    tbModel('claude-opus-4-8-thinking', 0.5),
+  ],
+};
+const tb = await probeSite(
+  TB_SITE,
+  vcFetch({
+    'https://tabitoken.com/api/status': { ok: true, status: 200, ms: 431, json: TB_STATUS },
+    'https://tabitoken.com/api/pricing': { ok: true, status: 200, ms: 288, json: TB_PRICING },
+  }),
+);
+
+test('站名 / 版本 / 签到开关 / 登录方式 都按接口原样取到', () => {
+  assert.equal(tb.apiOk, true);
+  assert.equal(tb.pricingOk, true);
+  assert.equal(tb.systemName, 'TaBiAI');
+  assert.equal(tb.version, 'init-20260817-f880a343');
+  assert.equal(tb.registerOpen, true);
+  assert.equal(tb.passwordRegister, false); // 只能 GitHub 授权注册
+  assert.equal(tb.checkinEnabled, true);
+  assert.deepEqual(tb.loginMethods, ['GitHub', '账号密码']);
+  assert.equal(tb.quotaPerUnit, 500000);
+  assert.equal(tb.latencyMs, 431);
+});
+test('接口没给 quota_for_invitee → 邀请额度留 null，不拿 sites.json 的 $20 冒充探测值', () => {
+  assert.equal(tb.inviteeBonusUsd, null);
+  assert.equal(tb.inviterBonusUsd, null);
+  assert.equal(creditPlan(TB_SITE, tb).apiInvite, null);
+  assert.deepEqual(auditCredits([TB_SITE], { sites: [tb] }), []); // 拿不到实测值就不该报「不一致」
+});
+test('注册 $100 + 本页邀请 $20 = 首日 $120，签到金额未公示所以不进合计', () => {
+  const p = creditPlan(TB_SITE, tb);
+  assert.equal(p.firstDay, 120);
+  assert.equal(usd(p.firstDay, p.approx), '$120');
+  assert.equal(breakdown(p), '注册 $100 + 本页邀请 $20');
+  assert.equal(p.daily, null);
+  assert.equal(perDay(p), null);
+});
+test('4 个模型都是按次计价：fixedPrice 有值，per-1M 单价一律 null', () => {
+  assert.equal(tb.models.length, 4);
+  const byName = new Map(tb.models.map((m) => [m.name, m]));
+  assert.deepEqual([...byName.keys()], ['claude-opus-4-8', 'claude-opus-4-8-thinking', 'claude-opus-5', 'claude-opus-5-thinking']);
+  for (const [name, price] of [
+    ['claude-opus-5', 0.8],
+    ['claude-opus-5-thinking', 0.8],
+    ['claude-opus-4-8', 0.5],
+    ['claude-opus-4-8-thinking', 0.5],
+  ]) {
+    const m = byName.get(name);
+    assert.equal(m.fixedPrice, price, name);
+    assert.equal(m.inputPerMTok, null, name); // ratio 0 换算出的 $0 是假的，必须留空
+    assert.equal(m.outputPerMTok, null, name);
+    assert.equal(m.ratio, 0, name);
+    assert.deepEqual(m.protocols, ['anthropic', 'openai'], name);
+    assert.deepEqual(m.groups, ['vip', 'default'], name);
+  }
+});
+test('示例配置的默认模型取版本最新的 opus-5，两个协议都不许退回字母序第一个', () => {
+  assert.equal(tb.defaults.claude, 'claude-opus-5');
+  // 全站只有 claude-*，OpenAI 协议没有 gpt 系可挑；兜底若用 models[0] 会得到 claude-opus-4-8
+  assert.equal(tb.defaults.openai, 'claude-opus-5');
+});
+test('tabitoken 快照字段集合与面板骨架完全一致', () => {
+  assert.deepEqual(Object.keys(tb).sort(), Object.keys(blankSnapshot(TB_SITE, {})).sort());
+});
+
+// 只有 /api/pricing 吃了 403（机房 IP 的常见样子），status 照常通
+const tbPricingBlocked = await probeSite(
+  TB_SITE,
+  vcFetch({
+    'https://tabitoken.com/api/status': { ok: true, status: 200, ms: 402, json: TB_STATUS },
+    'https://tabitoken.com/api/pricing': { ok: false, status: 403, ms: 190, error: 'HTTP 403' },
+  }),
+);
+const TB_OLD = { ...tb, checkedAt: iso(6 * HOUR), online: true, signup: { status: 200, ok: true, ms: 240 } };
+const tbMerged = mergeSnapshot({ ...tbPricingBlocked, signup: { status: 200, ok: true, ms: 260 } }, TB_OLD);
+
+test('pricing 被拦时，按次价格沿用旧快照而不是变成空表', () => {
+  assert.equal(tbMerged.models.length, 4);
+  assert.equal(tbMerged.models[0].name, 'claude-opus-4-8');
+  assert.equal(tbMerged.models[0].fixedPrice, 0.5);
+  assert.equal(tbMerged.modelsSource, 'cached');
+  assert.equal(tbMerged.online, true);
+  assert.equal(tbMerged.dataStale, true);
+  assert.equal(tbMerged.staleFrom, TB_OLD.checkedAt);
+});
+test('合并后重算默认模型，仍然是 opus-5（merge 的兜底也不许退回字母序）', () => {
+  assert.equal(tbMerged.defaults.claude, 'claude-opus-5');
+  assert.equal(tbMerged.defaults.openai, 'claude-opus-5');
+});
+
 console.log('工具函数');
 test('meaningful 认得空值', () => {
   for (const v of [null, undefined, '', '   ', [], {}, { a: null }]) assert.equal(meaningful(v), false, JSON.stringify(v));

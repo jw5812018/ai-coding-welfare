@@ -66,10 +66,11 @@ export function mergeSnapshot(fresh, old) {
 
   // 模型清单是页面主体内容，沿用旧数据时如实标注来源
   if (reused.includes('models')) out.modelsSource = 'cached';
-  // 默认模型名按「最终生效的模型清单」重算，否则示例配置会退化成占位符
+  // 默认模型名按「最终生效的模型清单」重算，否则示例配置会退化成占位符。
+  // 兜底与 probeNewApi 保持一致：走 pickPreferred 挑版本最新的，不能用 models[0]（字母序会挑到旧型号）
   out.defaults = {
     claude: pickPreferred(out.models, /^claude/i),
-    openai: pickPreferred(out.models, /^(gpt|o\d|glm|deepseek|qwen|kimi)/i) ?? out.models?.[0]?.name ?? null,
+    openai: pickPreferred(out.models, /^(gpt|o\d|glm|deepseek|qwen|kimi)/i) ?? pickPreferred(out.models, /./) ?? null,
   };
 
   const answered = Boolean(fresh.apiOk || fresh.signup?.ok);

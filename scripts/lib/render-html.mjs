@@ -85,21 +85,28 @@ function siteCard(site, snap) {
 
 function modelsTable(sites, byId) {
   const rows = [];
+  let fixedAny = false;
   for (const s of sites) {
     for (const m of byId.get(s.id)?.models ?? []) {
+      // 按次计费的模型没有倍率，接口里的 0 不能照抄（会被读成免费），价格挪到输入列
+      const fixed = m.fixedPrice != null;
+      if (fixed) fixedAny = true;
       rows.push(
-        `<tr><td>${esc(s.name)}</td><td><code>${esc(m.name)}</code></td><td>${m.ratio ?? '—'}</td>` +
-          `<td>${m.inputPerMTok != null ? `$${m.inputPerMTok}` : '按次'}</td>` +
-          `<td>${m.outputPerMTok != null ? `$${m.outputPerMTok}` : '—'}</td>` +
+        `<tr><td>${esc(s.name)}</td><td><code>${esc(m.name)}</code></td><td>${fixed ? '按次' : (m.ratio ?? '—')}</td>` +
+          `<td>${fixed ? `<b>$${m.fixedPrice} / 次</b>` : m.inputPerMTok != null ? `$${m.inputPerMTok}` : '—'}</td>` +
+          `<td>${fixed ? '—' : m.outputPerMTok != null ? `$${m.outputPerMTok}` : '—'}</td>` +
           `<td>${esc((m.protocols ?? []).join(' / '))}</td></tr>`,
       );
     }
   }
   if (!rows.length) return '';
+  const hint = fixedAny
+    ? '抓取自各站点公开的定价接口；标「按次」的模型按请求次数计费，与 tokens 无关，其余倍率 1 ≈ $2 / 1M tokens，一切以站内实时公示为准。'
+    : '抓取自各站点公开的定价接口；倍率 1 ≈ $2 / 1M tokens，一切以站内实时公示为准。';
   return `
     <section id="models">
       <h2>可用模型与价格</h2>
-      <p class="hint">抓取自各站点公开的定价接口；倍率 1 ≈ $2 / 1M tokens，一切以站内实时公示为准。</p>
+      <p class="hint">${hint}</p>
       <div class="table-wrap">
       <table>
         <thead><tr><th>站点</th><th>模型</th><th>倍率</th><th>输入 /1M</th><th>输出 /1M</th><th>协议</th></tr></thead>

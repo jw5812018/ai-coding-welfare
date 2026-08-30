@@ -221,7 +221,10 @@ export async function probeNewApi(site, get = fetchJson) {
   // 给 README / 落地页 / 一键脚本用的默认模型名，抓不到就留 null 由调用方兜底
   snapshot.defaults = {
     claude: pickPreferred(snapshot.models, /^claude/i),
-    openai: pickPreferred(snapshot.models, /^(gpt|o\d|glm|deepseek|qwen|kimi)/i) ?? snapshot.models[0]?.name ?? null,
+    // 站点只上了 claude 系（如 TaBiAI）时也得给 OpenAI 协议一个示例模型名：
+    // 兜底同样走 pickPreferred 挑版本最新的，不能用 models[0]——那是字母序，
+    // claude-opus-4-8 会排在 claude-opus-5 前面，示例配置就成了旧型号。
+    openai: pickPreferred(snapshot.models, /^(gpt|o\d|glm|deepseek|qwen|kimi)/i) ?? pickPreferred(snapshot.models, /./) ?? null,
   };
 
   return snapshot;

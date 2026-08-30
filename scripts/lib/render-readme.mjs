@@ -56,9 +56,13 @@ function overviewTable(sites, liveById) {
 function modelTable(snap) {
   if (!snap?.models?.length) return null;
   const rows = snap.models.map((m) => {
-    const inp = m.inputPerMTok != null ? `$${m.inputPerMTok}` : '按次计费';
-    const out = m.outputPerMTok != null ? `$${m.outputPerMTok}` : '—';
-    return `| \`${m.name}\` | ${m.ratio ?? '—'} | ${inp} | ${out} | ${(m.protocols ?? []).join(' / ') || '—'} |`;
+    // 按次计费的模型（New API 的 model_price）没有倍率概念，倍率栏照抄接口的 0 会被读成「免费」，
+    // 真正有用的是每次多少钱，所以这类模型把价格放到输入列、倍率列写「按次」。
+    const fixed = m.fixedPrice != null;
+    const ratio = fixed ? '按次' : (m.ratio ?? '—');
+    const inp = fixed ? `**$${m.fixedPrice} / 次**` : m.inputPerMTok != null ? `$${m.inputPerMTok}` : '—';
+    const out = fixed ? '—' : m.outputPerMTok != null ? `$${m.outputPerMTok}` : '—';
+    return `| \`${m.name}\` | ${ratio} | ${inp} | ${out} | ${(m.protocols ?? []).join(' / ') || '—'} |`;
   });
   return [
     '| 模型 | 倍率 | 输入 / 1M tokens | 输出 / 1M tokens | 协议 |',
@@ -133,8 +137,13 @@ function siteSection(site, snap) {
   ];
 
   if (mirror) parts.push('', '**镜像 / 备用入口**', '', mirror);
-  if (models) parts.push('', '**当前可用模型**', '', models, '', `<sub>倍率 1 ≈ $2 / 1M tokens，输出价 = 倍率 × 补全倍率 × $2；以站内实时价格为准。</sub>`);
-  else parts.push('', `> ${site.modelsNote ?? '该站模型清单需登录后台查看，注册后在「模型价格」页确认。'}`);
+  if (models) {
+    const fixedAny = (snap?.models ?? []).some((m) => m.fixedPrice != null);
+    const note = fixedAny
+      ? '标「按次」的模型按请求次数计费，与 tokens 用量无关；其余倍率 1 ≈ $2 / 1M tokens。以站内实时价格为准。'
+      : '倍率 1 ≈ $2 / 1M tokens，输出价 = 倍率 × 补全倍率 × $2；以站内实时价格为准。';
+    parts.push('', '**当前可用模型**', '', models, '', `<sub>${note}</sub>`);
+  } else parts.push('', `> ${site.modelsNote ?? '该站模型清单需登录后台查看，注册后在「模型价格」页确认。'}`);
 
   parts.push(
     '',

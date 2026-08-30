@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-6%20%E4%B8%AA-blue" alt="收录站点">
   <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-6%2F6-brightgreen" alt="在线">
   <img src="https://img.shields.io/badge/%E9%A6%96%E6%97%A5%E5%8F%AF%E5%BE%97-%E6%9C%80%E9%AB%98%20%24175-success" alt="首日可得">
-  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--08--30%2010.28%20UTC-informational" alt="数据更新">
+  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--08--30%2011.56%20UTC-informational" alt="数据更新">
 </p>
 
 <p align="center">
@@ -31,7 +31,7 @@
 | **TaBiAI** | 🟢 在线 | **$120** | 注册 $100 + 本页邀请 $20 | 支持签到 | Anthropic + OpenAI | 4 个可查 | [点此注册 →](https://tabitoken.com/sign-up?aff=EQIT) |
 | **GoRouter** | 🟢 在线 | **$70** | 注册 $50 + 本页邀请 $20 | 支持签到 | Anthropic + OpenAI | 4 个可查 | [点此注册 →](https://gorouter.app/sign-up?aff=PZDx) |
 
-> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-08-30 10:28 UTC`。
+> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-08-30 11:56 UTC`。
 >
 > 5 个按美元计价的站全注册一遍，第一天手上大约有 **$507** 额度可用（其中每日重置的额度池次日会回满，但不累积）；Matrix 另发 600 积分，是站内积分、与美元没有公开换算，未计入这个合计。
 
@@ -80,7 +80,7 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 - 面板版本：`init-20260828-37a398bd`
 - 邀请他人可得：**$50**
 - 登录方式：GitHub / LinuxDO
-- 接口延迟：265 ms
+- 接口延迟：295 ms
 
 **镜像 / 备用入口**
 
@@ -220,7 +220,7 @@ curl -s https://agentrouter.org/v1/chat/completions \
 - 开放注册：✅
 - 登录方式：GitHub / 账号密码
 - GitHub 账号需满 **365 天**
-- 接口延迟：413 ms
+- 接口延迟：627 ms
 
 > 该站模型清单需登录后台查看，注册后在「模型价格」页确认。
 
@@ -330,7 +330,7 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 - 已开放服务：Codex
 - 开放注册：✅
 - 登录方式：邮箱
-- 接口延迟：15 ms
+- 接口延迟：14 ms
 
 > 该站走 Codex 官方客户端 + 上游号池，不单独公示模型清单与价格，用量直接从每日 $50 的额度池里扣。
 
@@ -384,7 +384,7 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 
 **实时数据**（自动抓取站点公开接口）
 
-- 接口延迟：1548 ms
+- 接口延迟：2639 ms
 
 > 模型清单与价格需登录后在控制台「模型列表」查看（按每百万 Tokens 计价，可按厂商 / 上下文窗口筛选），站点没有公开的模型与定价接口，本页不做承诺。
 
@@ -454,7 +454,7 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 - 每日签到：✅
 - 开放注册：✅
 - 登录方式：GitHub / 账号密码
-- 接口延迟：160 ms
+- 接口延迟：202 ms
 
 **当前可用模型**
 
@@ -575,7 +575,7 @@ curl -s https://tabitoken.com/v1/chat/completions \
 - 每日签到：✅
 - 开放注册：✅
 - 登录方式：GitHub / 账号密码
-- 接口延迟：46 ms
+- 接口延迟：93 ms
 
 **当前可用模型**
 

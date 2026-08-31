@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-31T13:54:28.052Z",
+  "generatedAt": "2026-08-31T22:52:34.957Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-08-31T13:54:21.771Z",
+      "checkedAt": "2026-08-31T22:52:29.179Z",
       "online": true,
-      "latencyMs": 315,
+      "latencyMs": 250,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260828-37a398bd",
@@ -147,7 +147,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1504,
+        "ms": 1146,
         "attempts": 1
       },
       "mirrors": [
@@ -177,9 +177,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-08-31T13:54:16.905Z",
+      "checkedAt": "2026-08-31T22:52:23.523Z",
       "online": true,
-      "latencyMs": 1732,
+      "latencyMs": 504,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.23",
@@ -205,7 +205,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 833,
+        "ms": 655,
         "attempts": 1
       },
       "mirrors": [],
@@ -219,10 +219,10 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-08-31T13:54:20.420Z",
+      "checkedAt": "2026-08-31T22:52:28.042Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 23,
+      "latencyMs": 9,
       "error": "HTTP 403",
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
@@ -250,7 +250,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 683,
+        "ms": 513,
         "attempts": 1
       },
       "mirrors": [],
@@ -269,10 +269,10 @@
     },
     {
       "id": "matrix",
-      "checkedAt": "2026-08-31T13:54:16.711Z",
+      "checkedAt": "2026-08-31T22:52:24.348Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1533,
+      "latencyMs": 1341,
       "error": null,
       "systemName": null,
       "version": null,
@@ -296,7 +296,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1570,
+        "ms": 1357,
         "attempts": 1
       },
       "mirrors": [],
@@ -308,10 +308,10 @@
     },
     {
       "id": "tabitoken",
-      "checkedAt": "2026-08-31T13:54:18.473Z",
+      "checkedAt": "2026-08-31T22:52:25.505Z",
       "apiOk": true,
       "pricingOk": true,
-      "latencyMs": 683,
+      "latencyMs": 174,
       "error": null,
       "systemName": "TaBiAI",
       "version": "init-20260817-f880a343",
@@ -403,7 +403,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 1076,
+        "ms": 817,
         "attempts": 1
       },
       "mirrors": [],
@@ -415,10 +415,10 @@
     },
     {
       "id": "gorouter",
-      "checkedAt": "2026-08-31T13:54:18.535Z",
+      "checkedAt": "2026-08-31T22:52:25.573Z",
       "apiOk": true,
       "pricingOk": true,
-      "latencyMs": 91,
+      "latencyMs": 32,
       "error": null,
       "systemName": "GoRouter",
       "version": "init-20260813-3cd90886",
@@ -506,7 +506,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 1113,
+        "ms": 910,
         "attempts": 1
       },
       "mirrors": [],

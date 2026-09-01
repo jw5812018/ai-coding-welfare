@@ -16,14 +16,6 @@
     <content type="html">&lt;ul&gt;&lt;li&gt;➖ GoRouter 下线模型：claude-opus-4-8、claude-opus-4-8-thinking&lt;/li&gt;&lt;li&gt;🆕 新收录 KKtoken AI：注册送 $75，邀请再加 $25，每日签到 $20&lt;/li&gt;&lt;/ul&gt;</content>
   </entry>
   <entry>
-    <title>2026-08-31 · 2 项变动</title>
-    <link href="https://panxunying.github.io/ai-coding-welfare/changelog/#2026-08-31"/>
-    <id>tag:panxunying.github.io,2026-08-31:changelog</id>
-    <updated>2026-08-31T17:02:40.631Z</updated>
-    <summary>GoRouter 关闭了新用户注册（接口 register_enabled=false，老用户不受影响）（另有 1 项变动）</summary>
-    <content type="html">&lt;ul&gt;&lt;li&gt;🚫 GoRouter 关闭了新用户注册（接口 register_enabled=false，老用户不受影响）&lt;/li&gt;&lt;li&gt;🚫 TaBiAI 关闭了新用户注册（接口 register_enabled=false，老用户不受影响）&lt;/li&gt;&lt;/ul&gt;</content>
-  </entry>
-  <entry>
     <title>2026-08-30 · 3 项变动</title>
     <link href="https://panxunying.github.io/ai-coding-welfare/changelog/#2026-08-30"/>
     <id>tag:panxunying.github.io,2026-08-30:changelog</id>

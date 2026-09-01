@@ -11,11 +11,6 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 - ➖ GoRouter 下线模型：claude-opus-4-8、claude-opus-4-8-thinking <sub>12:54 UTC</sub>
 - 🆕 新收录 KKtoken AI：注册送 $75，邀请再加 $25，每日签到 $20 <sub>12:54 UTC</sub>
 
-## 2026-08-31
-
-- 🚫 GoRouter 关闭了新用户注册（接口 register_enabled=false，老用户不受影响） <sub>17:02 UTC</sub>
-- 🚫 TaBiAI 关闭了新用户注册（接口 register_enabled=false，老用户不受影响） <sub>17:02 UTC</sub>
-
 ## 2026-08-30
 
 - 🆕 新收录 GoRouter：注册送 $50，邀请再加 $20 <sub>10:21 UTC</sub>

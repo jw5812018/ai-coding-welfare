@@ -786,7 +786,7 @@ curl -s https://kktoken.cc/v1/chat/completions \
 
 ## 🔔 额度变了，这里会通知你
 
-CI 每 6 小时抓一次各站接口，与上一次快照逐字段比对，目前已攒下 47 个样本、覆盖约 11.2 天。额度调整、掉线与恢复、模型上下线、价格变动都会自动记一条：
+CI 每 6 小时抓一次各站接口，与上一次快照逐字段比对，目前已攒下 46 个样本、覆盖约 11.2 天。额度调整、掉线与恢复、模型上下线、价格变动都会自动记一条：
 
 - 点仓库右上角 **Watch → Custom → Releases**：有重要变动时 GitHub 直接发邮件
 - 订阅 [Atom feed](https://panxunying.github.io/ai-coding-welfare/feed.xml)：RSS 阅读器 / Feedly / Telegram 机器人都能读
@@ -796,10 +796,10 @@ CI 每 6 小时抓一次各站接口，与上一次快照逐字段比对，目�
 
 - `2026-09-01` ➖ GoRouter 下线模型：claude-opus-4-8、claude-opus-4-8-thinking
 - `2026-09-01` 🆕 新收录 KKtoken AI：注册送 $75，邀请再加 $25，每日签到 $20
-- `2026-08-31` 🚫 GoRouter 关闭了新用户注册（接口 register_enabled=false，老用户不受影响）
-- `2026-08-31` 🚫 TaBiAI 关闭了新用户注册（接口 register_enabled=false，老用户不受影响）
 - `2026-08-30` 🆕 新收录 GoRouter：注册送 $50，邀请再加 $20
 - `2026-08-30` 🟢 RawChat 公益站 恢复在线
+- `2026-08-30` 🆕 新收录 TaBiAI：注册送 $100，邀请再加 $20
+- `2026-08-28` 🔴 RawChat 公益站 探测不到了：注册页与公开接口都没响应
 
 完整记录见 [CHANGELOG.md](CHANGELOG.md)。
 

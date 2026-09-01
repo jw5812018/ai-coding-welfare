@@ -36,17 +36,45 @@ jobs:
       - name: 抓取站点实时数据
         run: npm run refresh
 
-      - name: 重新生成 README 与落地页
+      # 必须在 build 之前：这一步比对 HEAD 里的旧快照与刚抓到的新快照，
+      # 产出 data/history.json + data/changelog.json，落地页要读它们
+      - name: 归档历史 + 比对变动
+        id: history
+        run: npm run history
+
+      - name: 重新生成 README 与全站页面
         run: npm run build
 
       - name: 提交变更
+        id: commit
         run: |
           if [ -z "$(git status --porcelain)" ]; then
             echo "数据没有变化，跳过提交。"
+            echo "pushed=0" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md docs data/live.json
+          git add README.md CHANGELOG.md docs data/live.json data/history.json data/changelog.json
           git commit -m "chore: 自动刷新福利站数据 $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
+          echo "pushed=1" >> "$GITHUB_OUTPUT"
+
+      # 只有「影响值不值得注册」的变动才发 Release：
+      # Watch → Custom → Releases 的人会收到邮件，6 小时一次的小抖动不配打扰他们
+      - name: 发 Release（仅重要变动）
+        if: steps.history.outputs.major != '0' && steps.commit.outputs.pushed == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.history.outputs.tag }}" \
+            --title "${{ steps.history.outputs.title }}" \
+            --notes-file .tmp/release-notes.md
+
+      # 没配 secret 时脚本自己安静退出，不会把 CI 弄红
+      - name: 推送到 Telegram（可选）
+        if: steps.history.outputs.major != '0'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: npm run notify

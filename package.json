@@ -9,10 +9,13 @@
   },
   "scripts": {
     "refresh": "node scripts/refresh.mjs",
+    "history": "node scripts/history.mjs",
+    "backfill": "node scripts/history.mjs --backfill",
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
+    "notify": "node scripts/notify.mjs",
     "test": "node scripts/test.mjs",
-    "all": "npm test && npm run refresh && npm run build && npm run check"
+    "all": "npm test && npm run refresh && npm run history && npm run build && npm run check"
   },
   "keywords": [
     "claude-code",

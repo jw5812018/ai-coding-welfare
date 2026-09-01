@@ -8,6 +8,14 @@ import { mergeSnapshot, meaningful } from './lib/merge.mjs';
 import { pickPreferred, staleHours, STALE_WARN_HOURS, blankSnapshot, looksFiltered, probeUrl } from './lib/newapi.mjs';
 import { creditPlan, usd, breakdown, perDay, auditCredits, usdTotals, othersNote } from './lib/credits.mjs';
 import { PANELS, probeSite } from './lib/panels.mjs';
+import { diffSite, diffSnapshots, majorOnly, priceLabel } from './lib/diff.mjs';
+import { appendSample, compact, uptime, byDay, coverage, EMPTY_HISTORY } from './lib/history.mjs';
+import { groupByDay, renderAtom, summarize, icon } from './lib/changelog.mjs';
+import { renderSitePage } from './lib/render-site-page.mjs';
+import { renderComparePage, renderStatusPage, renderChangelogPage, estimateTurns } from './lib/render-aux-pages.mjs';
+import { renderHtml } from './lib/render-html.mjs';
+import { renderReadme } from './lib/render-readme.mjs';
+import { signupRoute, acceptsNew } from './lib/signup.mjs';
 
 let passed = 0;
 function test(name, fn) {
@@ -644,6 +652,343 @@ test('真连不上才报 HTTP 0，且把重试次数用完', () => {
 test('没有 URL 就不探测', () => {
   // test() 是同步的，异步断言得在外面 await 好再进来
   assert.equal(emptyProbe, null);
+});
+
+// ──────────────────────────────────────────────────────────────────────
+// 变动日志 / 历史 / 多页渲染
+// ──────────────────────────────────────────────────────────────────────
+
+/** 一份最小可用的快照，只带 diff 会看的字段 */
+const snap = (over = {}) => ({
+  id: 'agentrouter',
+  online: true,
+  probeBlocked: false,
+  registerOpen: true,
+  checkinEnabled: true,
+  inviteeBonusUsd: 50,
+  inviterBonusUsd: 50,
+  models: [{ name: 'claude-opus-5', ratio: 1, inputPerMTok: 2, outputPerMTok: 10, protocols: ['Anthropic'] }],
+  announcements: [],
+  latencyMs: 300,
+  checkedAt: iso(0),
+  ...over,
+});
+const SITES_FIXTURE = [{ id: 'agentrouter', name: 'AgentRouter', credits: { signup: 100, invite: 50, dailyCheckin: 25 } }];
+const D = (prev, next) => diffSite({ prev, next, site: SITES_FIXTURE[0], at: iso(0) });
+const types = (events) => events.map((e) => e.type);
+
+console.log('diff：只报会影响「值不值得注册」的变动');
+
+test('每 6 小时都在动的字段不产生事件（延迟 / 探测时间 / 版本）', () => {
+  assert.deepEqual(types(D(snap(), snap({ latencyMs: 999, checkedAt: iso(0), version: 'x' }))), []);
+});
+test('本次探测被 WAF 拦下时不报掉线：online 是沿用值，不是观测值', () => {
+  assert.deepEqual(types(D(snap({ online: true }), snap({ online: false, probeBlocked: true }))), []);
+});
+test('上次被拦、这次探通了 → 如实报掉线，否则日志里会只有恢复没有掉线', () => {
+  const prev = snap({ online: true, probeBlocked: true });
+  const next = snap({ online: false, probeBlocked: false });
+  assert.deepEqual(types(D(prev, next)), ['offline']);
+});
+test('掉线与恢复成对出现', () => {
+  assert.deepEqual(types(D(snap({ online: false }), snap({ online: true }))), ['online']);
+});
+test('邀请注册额度变化算 major，邀请他人的奖励只算 minor', () => {
+  const e1 = D(snap(), snap({ inviteeBonusUsd: 20 }));
+  const e2 = D(snap(), snap({ inviterBonusUsd: 20 }));
+  assert.equal(e1[0].type, 'invite_change');
+  assert.equal(e1[0].severity, 'major');
+  assert.equal(e2[0].type, 'inviter_change');
+  assert.equal(e2[0].severity, 'minor');
+});
+test('接口没给邀请额度（null）不报「$50 → $null」这种假变动', () => {
+  assert.deepEqual(types(D(snap(), snap({ inviteeBonusUsd: null }))), []);
+});
+
+test('模型上下线与价格变化都要认，按次计费的价格用「/ 次」口径', () => {
+  const added = D(snap(), snap({ models: [...snap().models, { name: 'glm-5.3', ratio: 1 }] }));
+  const gone = D(snap(), snap({ models: [] }));
+  const priced = D(snap(), snap({ models: [{ name: 'claude-opus-5', inputPerMTok: 8, outputPerMTok: 40 }] }));
+  assert.deepEqual(types(added), ['models_added']);
+  assert.deepEqual(types(gone), ['models_removed']);
+  assert.deepEqual(types(priced), ['price_change']);
+  assert.match(priced[0].text, /\$2 入 \/ \$10 出（每 1M） → \$8 入 \/ \$40 出（每 1M）/);
+  assert.equal(priceLabel({ fixedPrice: 0.3 }), '$0.3 / 次');
+});
+test('模型一次上十几个时标题不爆：超过 4 个折成「等 N 个」', () => {
+  const many = ['a', 'b', 'c', 'd', 'e', 'f'].map((name) => ({ name, ratio: 1 }));
+  const e = D(snap({ models: [] }), snap({ models: many }));
+  assert.match(e[0].text, /等 6 个/);
+});
+test('老公告不重复报，新公告截断到 140 字', () => {
+  const old = { id: 1, text: '旧公告' };
+  const long = { id: 2, text: '啊'.repeat(300) };
+  assert.deepEqual(types(D(snap({ announcements: [old] }), snap({ announcements: [old] }))), []);
+  const e = D(snap({ announcements: [old] }), snap({ announcements: [old, long] }));
+  assert.deepEqual(types(e), ['announcement']);
+  assert.ok(e[0].text.length <= 140 + 'AgentRouter 发了公告：'.length);
+});
+test('新站按 sites.json 的额度口径记一条收录事件，移除站点也记一条', () => {
+  const added = diffSnapshots({ sites: [] }, { generatedAt: iso(0), sites: [snap()] }, SITES_FIXTURE);
+  assert.deepEqual(types(added), ['site_added']);
+  assert.equal(added[0].text, '新收录 AgentRouter：注册送 $100，邀请再加 $50，每日签到 $25');
+  const removed = diffSnapshots({ sites: [snap()] }, { generatedAt: iso(0), sites: [] }, SITES_FIXTURE);
+  assert.deepEqual(types(removed), ['site_removed']);
+});
+test('majorOnly 只放行值得发 Release 的类型', () => {
+  const mixed = [...D(snap(), snap({ inviterBonusUsd: 20 })), ...D(snap(), snap({ inviteeBonusUsd: 20 }))];
+  assert.deepEqual(types(majorOnly(mixed)), ['invite_change']);
+});
+
+console.log('history：可用性时间序列');
+
+const DAY = 24 * HOUR;
+const liveAt = (msAgo, over = {}) => ({
+  generatedAt: iso(msAgo),
+  sites: [{ id: 'agentrouter', online: true, probeBlocked: false, models: [{ name: 'm' }], latencyMs: 300, ...over }],
+});
+/** 6 小时一个点，攒 n 个 */
+const seed = (n, over = () => ({})) => {
+  let h = EMPTY_HISTORY;
+  for (let i = n - 1; i >= 0; i -= 1) h = appendSample(h, liveAt(i * 6 * HOUR, over(i))).history;
+  return h;
+};
+
+test('样本只留判断可用性必需的字段，被拦要如实标注', () => {
+  const s = compact(liveAt(0, { online: true, probeBlocked: true }));
+  assert.deepEqual(Object.keys(s.sites.agentrouter).sort(), ['blocked', 'latency', 'models', 'up']);
+  assert.equal(s.sites.agentrouter.blocked, true);
+});
+test('同一个 generatedAt 只留一条：CI 重跑不该在历史里留重复点', () => {
+  const one = appendSample(EMPTY_HISTORY, liveAt(0));
+  const again = appendSample(one.history, liveAt(0));
+  assert.equal(one.added, true);
+  assert.equal(again.added, false);
+  assert.equal(again.history.samples.length, 1);
+});
+test('样本按时间升序存，且按上限截断', () => {
+  const h = seed(5);
+  const ats = h.samples.map((s) => s.at);
+  assert.deepEqual(ats, [...ats].sort());
+  assert.equal(appendSample(seed(3), liveAt(0), { limit: 2 }).history.samples.length, 2);
+});
+test('样本不足一天（< 4 个点）时不给可用性百分比，页面据此说「样本还不够」', () => {
+  assert.equal(uptime(seed(3), 'agentrouter', 7).enough, false);
+  assert.equal(uptime(seed(8), 'agentrouter', 7).enough, true);
+  assert.equal(uptime(seed(8), 'agentrouter', 7).percent, 100);
+});
+test('被拦的样本单独计数，不从在线数里扣', () => {
+  const h = seed(8, (i) => (i < 2 ? { probeBlocked: true } : {}));
+  const u = uptime(h, 'agentrouter', 7);
+  assert.equal(u.blocked, 2);
+  assert.equal(u.up, 8);
+});
+test('没有样本的那天 total = 0，状态页画成空档而不是掉线', () => {
+  const days = byDay(appendSample(EMPTY_HISTORY, liveAt(3 * DAY)).history, 'agentrouter', 7);
+  assert.equal(days.length, 7);
+  assert.equal(days.filter((d) => d.total === 0).length, 6);
+  assert.equal(days.filter((d) => d.total > 0)[0].ratio, 1);
+});
+test('没这个站的历史时不报错，返回空口径', () => {
+  const u = uptime(seed(8), 'not-exists', 7);
+  assert.deepEqual([u.total, u.ratio, u.percent, u.enough], [0, null, null, false]);
+  assert.deepEqual(coverage(EMPTY_HISTORY), { samples: 0, from: null, to: null, days: 0 });
+});
+
+console.log('changelog / Atom：订阅出口');
+
+const META = {
+  title: 'AI Coding 福利站导航',
+  tagline: '免费额度合集',
+  keywords: ['claude code'],
+  repoUrl: 'https://github.com/panxunying/ai-coding-welfare',
+  pagesUrl: 'https://panxunying.github.io/ai-coding-welfare/',
+};
+const EVENTS = [
+  { at: '2026-08-30T08:56:00.000Z', siteId: 'rawchat', type: 'online', severity: 'major', text: 'RawChat 恢复在线' },
+  { at: '2026-08-30T10:21:00.000Z', siteId: 'gorouter', type: 'site_added', severity: 'major', text: '新收录 GoRouter' },
+  { at: '2026-08-26T11:42:00.000Z', siteId: 'agentrouter', type: 'price_change', severity: 'major', text: '价格变了 <b>' },
+];
+const GROUPS = groupByDay(EVENTS);
+
+test('按天分组：天倒序、天内也倒序', () => {
+  assert.deepEqual(GROUPS.map((g) => g.date), ['2026-08-30', '2026-08-26']);
+  assert.deepEqual(GROUPS[0].events.map((e) => e.siteId), ['gorouter', 'rawchat']);
+  assert.equal(GROUPS[0].updated, '2026-08-30T10:21:00.000Z');
+});
+test('Atom 一天一条 entry，不是一条事件一条推送（6 小时一次会淹掉订阅者）', () => {
+  const xml = renderAtom({ meta: META, groups: GROUPS, updated: EVENTS[1].at });
+  assert.equal(xml.match(/<entry>/g).length, 2);
+  assert.match(xml, /<title>2026-08-30 · 2 项变动<\/title>/);
+  assert.match(xml, /<id>tag:panxunying\.github\.io,2026-08-30:changelog<\/id>/);
+});
+test('Atom 正文里的 HTML 必须转义，否则 feed 是坏的 XML', () => {
+  const xml = renderAtom({ meta: META, groups: GROUPS, updated: EVENTS[1].at });
+  assert.ok(!/<b>/.test(xml));
+  assert.match(xml, /&lt;b&gt;/);
+});
+test('空日志也能生成合法 feed', () => {
+  const xml = renderAtom({ meta: META, groups: [], updated: null });
+  assert.match(xml, /<feed xmlns="http:\/\/www\.w3\.org\/2005\/Atom">/);
+  assert.ok(!/<entry>/.test(xml));
+});
+test('Release 标题一句话概括，多条时带「另有 N 项」', () => {
+  assert.equal(summarize([EVENTS[1]]), '新收录 GoRouter');
+  assert.match(summarize(EVENTS), /（另有 2 项变动）$/);
+  assert.equal(summarize([]), '没有变动');
+  assert.equal(icon('offline'), '🔴');
+  assert.equal(icon('unknown_type'), '·');
+});
+
+console.log('落地页：按次 vs 按量折算、结构化数据、转义');
+
+const SITE = {
+  id: 'demo',
+  name: 'Demo 站',
+  subtitle: '注册送额度的示例站',
+  signupUrl: 'https://demo.test/register?aff=abc',
+  recommended: true,
+  tags: ['GitHub 登录'],
+  credits: { signup: 100, invite: 20 },
+  endpoints: { anthropic: 'https://demo.test', openai: 'https://demo.test/v1' },
+  highlights: ['额度大方'],
+  caveats: ['规则随时变'],
+};
+const FIXED_SNAP = {
+  id: 'demo',
+  online: true,
+  probeBlocked: false,
+  checkedAt: iso(0),
+  models: [
+    { name: 'claude-opus-5', fixedPrice: 0.3, protocols: ['Anthropic'] },
+    { name: 'claude-haiku', fixedPrice: 0.1, protocols: ['Anthropic'] },
+  ],
+  defaults: { claude: 'claude-opus-5', openai: 'gpt-5.6' },
+};
+const TOKEN_SNAP = {
+  ...FIXED_SNAP,
+  models: [{ name: 'claude-opus-5', ratio: 1, inputPerMTok: 2, outputPerMTok: 10, protocols: ['Anthropic'] }],
+};
+const LIVE = { generatedAt: iso(0), sites: [FIXED_SNAP] };
+const HIST = seed(8);
+/** 把页面里的所有 JSON-LD 抠出来解析：坏掉的结构化数据在浏览器里是静默失效的 */
+const jsonLd = (html) =>
+  [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+
+test('按次计费用站内单价折算，按量计费按 15k 入 / 2k 出折算，两者落到同一个单位', () => {
+  const fixed = estimateTurns(SITE, FIXED_SNAP);
+  const token = estimateTurns(SITE, TOKEN_SNAP);
+  // 首日 $120：按次挑最便宜的 $0.1 → 1200 次；按量 (2×15000 + 10×2000)/1M = $0.05 → 2400 次
+  assert.deepEqual([fixed.billing, fixed.per, fixed.turns], ['按次', 0.1, 1200]);
+  assert.deepEqual([token.billing, token.per, token.turns], ['按量', 0.05, 2400]);
+});
+test('积分站没有公开换算，不参与折算（宁可留空也不编数字）', () => {
+  assert.equal(estimateTurns({ ...SITE, credits: { invite: 600, unit: 'point' } }, TOKEN_SNAP), null);
+  assert.equal(estimateTurns(SITE, { ...FIXED_SNAP, models: [] }), null);
+});
+
+test('每一页的 JSON-LD 都必须是合法 JSON，且带面包屑', () => {
+  const pages = [
+    renderSitePage({ meta: META, site: SITE, snap: FIXED_SNAP, live: LIVE, css: '', history: HIST, siblings: [] }),
+    renderComparePage({ meta: META, sites: [SITE], live: LIVE, css: '' }),
+    renderStatusPage({ meta: META, sites: [SITE], live: LIVE, css: '', history: HIST }),
+    renderChangelogPage({ meta: META, groups: GROUPS, live: LIVE, css: '' }),
+    renderHtml({ meta: META, sites: [SITE], live: LIVE, css: '', groups: GROUPS, history: HIST }),
+  ];
+  for (const html of pages) {
+    const blobs = jsonLd(html);
+    assert.ok(blobs.length, 'JSON-LD 缺失');
+    assert.match(html, /<link rel="canonical"/);
+    assert.match(html, /rel="alternate" type="application\/atom\+xml"/);
+  }
+  const types = jsonLd(pages[0])[0].map((x) => x['@type']);
+  assert.deepEqual(types, ['BreadcrumbList', 'FAQPage']);
+});
+test('数据里的 HTML / 引号不许原样进页面（sites.json 是手工维护的，迟早会有尖括号）', () => {
+  const evil = { ...SITE, name: '<img src=x onerror=alert(1)>', subtitle: '带"引号"的副标题' };
+  const html = renderSitePage({ meta: META, site: evil, snap: FIXED_SNAP, live: LIVE, css: '', history: HIST, siblings: [] });
+  assert.ok(!/<img src=x/.test(html));
+  assert.match(html, /&lt;img src=x/);
+});
+test('JSON-LD 里的 </script> 要被打断，否则脚本块提前闭合、整页结构化数据失效', () => {
+  const evil = { ...SITE, subtitle: '收工 </script><script>alert(1)</script>' };
+  const html = renderSitePage({ meta: META, site: evil, snap: FIXED_SNAP, live: LIVE, css: '', history: HIST, siblings: [] });
+  const ld = html.slice(html.indexOf('application/ld+json'), html.indexOf('</script>', html.indexOf('application/ld+json')));
+  assert.ok(!ld.includes('</script>'));
+  assert.equal(jsonLd(html).length, 1);
+});
+test('站点详情页给得出可复制的两套配置，Anthropic 的 Base URL 不带 /v1', () => {
+  const html = renderSitePage({ meta: META, site: SITE, snap: FIXED_SNAP, live: LIVE, css: '', history: HIST, siblings: [] });
+  assert.match(html, /export ANTHROPIC_BASE_URL=https:\/\/demo\.test\n/);
+  assert.match(html, /ANTHROPIC_MODEL=claude-opus-5/);
+  // config.toml 是写在 HTML 里的，引号已经被转义成 &quot;，这里按渲染后的样子断言
+  assert.match(html, /base_url = &quot;https:\/\/demo\.test\/v1&quot;/);
+  assert.match(html, /wire_api = &quot;chat&quot;/);
+  assert.equal(html.match(/<button class="copy"/g).length, 2);
+});
+test('状态页把「没样本」和「掉线」画成两种格子', () => {
+  const sparse = appendSample(EMPTY_HISTORY, liveAt(2 * DAY, { id: 'demo' })).history;
+  const html = renderStatusPage({ meta: META, sites: [SITE], live: LIVE, css: '', history: sparse });
+  assert.match(html, /class="bar nodata"/);
+});
+test('首页把 6 个站点写进 ItemList，每项指向自己的详情页', () => {
+  const html = renderHtml({ meta: META, sites: [SITE], live: LIVE, css: '', groups: GROUPS, history: HIST });
+  const list = jsonLd(html)[0].find((x) => x['@type'] === 'ItemList');
+  assert.equal(list.numberOfItems, 1);
+  assert.equal(list.itemListElement[0].url, `${META.pagesUrl}sites/demo/`);
+  assert.match(html, /href="sites\/demo\/"/);
+});
+
+console.log('停注：站点还在跑但不收新用户，页面不许继续吆喝额度');
+
+const SHUT_SNAP = { ...FIXED_SNAP, registerOpen: false, passwordRegister: false, loginMethods: ['GitHub'] };
+const OAUTH_SNAP = { ...FIXED_SNAP, registerOpen: true, passwordRegister: false, loginMethods: ['GitHub', '账号密码'] };
+const OPEN_SNAP = { ...FIXED_SNAP, registerOpen: true, passwordRegister: true, loginMethods: ['GitHub', '账号密码'] };
+
+test('总闸关了是「暂停注册」，只关邮箱注册是「仅 GitHub 注册」，两者不能混为一谈', () => {
+  assert.equal(signupRoute(SHUT_SNAP).state, 'closed');
+  assert.equal(signupRoute(OAUTH_SNAP).state, 'oauth');
+  assert.equal(signupRoute(OAUTH_SNAP).short, '仅 GitHub 注册');
+  assert.equal(signupRoute(OPEN_SNAP).state, 'open');
+  // 账号密码不是 OAuth 通道，不能出现在「仅 X 注册」里
+  assert.deepEqual(signupRoute(OAUTH_SNAP).oauth, ['GitHub']);
+});
+test('接口没给 register_enabled（旧版面板）就什么都不声称', () => {
+  const r = signupRoute(FIXED_SNAP);
+  assert.deepEqual([r.state, r.short, r.note], ['unknown', null, null]);
+  assert.equal(acceptsNew(FIXED_SNAP), true, '拿不到字段不等于停注');
+  assert.equal(acceptsNew(SHUT_SNAP), false);
+});
+test('停注的站点不算进「全注册能拿多少」，否则是虚报', () => {
+  const shutLive = { generatedAt: iso(0), sites: [{ ...SHUT_SNAP, id: 'demo' }] };
+  const openLive = { generatedAt: iso(0), sites: [{ ...OPEN_SNAP, id: 'demo' }] };
+  const shutHtml = renderHtml({ meta: META, sites: [SITE], live: shutLive, css: '', groups: [], history: HIST });
+  const openHtml = renderHtml({ meta: META, sites: [SITE], live: openLive, css: '', groups: [], history: HIST });
+  assert.match(openHtml, /首日最高 <b>\$120<\/b>/);
+  assert.doesNotMatch(shutHtml, /首日最高/, '唯一的站停注了，就不该再有「首日最高」这个数');
+  assert.match(shutHtml, /可注册 <b>0\/1<\/b>/);
+  // 卡片留在页面上（老用户还用得着），但额度划掉、主按钮降级
+  assert.match(shutHtml, /class="card[^"]*shut"/);
+  assert.match(shutHtml, /<b class="struck">\$120<\/b>/);
+  assert.doesNotMatch(shutHtml, /免费注册 Demo 站/);
+});
+test('停注的站不参与「最耐用」排序，README 里额度划掉、状态写停注', () => {
+  const shutLive = { generatedAt: iso(0), sites: [{ ...SHUT_SNAP, id: 'demo' }] };
+  const cmp = renderComparePage({ meta: META, sites: [SITE], live: shutLive, css: '' });
+  assert.doesNotMatch(cmp, /最耐用 <b>/, '唯一候选停注了就没有「最划算」的答案');
+  assert.match(cmp, /<tr class="shut">/);
+  const md = renderReadme({ meta: META, sites: [SITE], live: shutLive, groups: [], history: HIST });
+  assert.match(md, /🟡 停注/);
+  assert.match(md, /~~\$120~~/);
+  assert.match(md, /已停注 · 仍可打开/);
+  assert.doesNotMatch(md, /全注册一遍/, '没有还收人的站时不该给合计');
+});
+test('停注变动进日志时带上接口口径，别让人以为是我们猜的', () => {
+  const [ev] = D({ ...snap(), registerOpen: true }, { ...snap(), registerOpen: false });
+  assert.equal(ev.type, 'register_closed');
+  assert.match(ev.text, /register_enabled=false/);
+  assert.match(ev.text, /老用户不受影响/);
+  assert.equal(ev.severity, 'major', '停注必须能触发 Release / 推送');
 });
 
 console.log(`\n${process.exitCode ? '✘ 有用例失败' : `✔ 全部通过（${passed} 项）`}`);

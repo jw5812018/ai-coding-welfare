@@ -1,6 +1,9 @@
 /** 生成 README.md：全部内容由 data/sites.json + data/live.json 渲染，请勿手改 README。 */
 import { staleHours } from './newapi.mjs';
 import { creditPlan, usd, breakdown, perDay, usdTotals, othersNote } from './credits.mjs';
+import { signupRoute, acceptsNew } from './signup.mjs';
+import { icon } from './changelog.mjs';
+import { coverage } from './history.mjs';
 
 /** shields.io 转义：- → --，_ → __，其余走 URI 编码 */
 const shield = (s) => encodeURIComponent(String(s).replace(/-/g, '--').replace(/_/g, '__'));
@@ -29,8 +32,16 @@ function overviewTable(sites, liveById) {
   const rows = sites.map((s) => {
     const l = liveById.get(s.id) ?? {};
     const plan = creditPlan(s, l);
-    const state = l.online ? '🟢 在线' : '🔴 异常';
-    const first = plan.firstDay != null ? `**${usd(plan.firstDay, plan.approx, plan.unit)}**` : '站内公示';
+    const route = signupRoute(l);
+    // 「在线」和「收不收新用户」是两件事：站点活得好好的但停注了，对新用户就是死路，
+    // 状态栏必须说出来，否则下面那个「首日可得 $120」是在骗人点链接
+    const state = l.online ? (route.state === 'closed' ? '🟡 停注' : '🟢 在线') : '🔴 异常';
+    const first =
+      plan.firstDay != null
+        ? route.state === 'closed'
+          ? `~~${usd(plan.firstDay, plan.approx, plan.unit)}~~`
+          : `**${usd(plan.firstDay, plan.approx, plan.unit)}**`
+        : '站内公示';
     const detail = breakdown(plan) ?? '—';
     const checkin =
       perDay(plan) ??
@@ -44,7 +55,13 @@ function overviewTable(sites, liveById) {
       [s.endpoints?.anthropic && 'Anthropic', s.endpoints?.openai && 'OpenAI'].filter(Boolean).join(' + ') ||
       s.setup?.client ||
       '登录后台配置';
-    return `| **${s.name}**${s.recommended ? ' 🔥' : ''} | ${state} | ${first} | ${detail} | ${checkin} | ${proto} | ${models} | [点此注册 →](${s.signupUrl}) |`;
+    const cta =
+      route.state === 'closed'
+        ? `[已停注 · 仍可打开 →](${s.signupUrl})`
+        : route.state === 'oauth'
+          ? `[${route.oauth[0]} 注册 →](${s.signupUrl})`
+          : `[点此注册 →](${s.signupUrl})`;
+    return `| **${s.name}**${s.recommended ? ' 🔥' : ''} | ${state} | ${first} | ${detail} | ${checkin} | ${proto} | ${models} | ${cta} |`;
   });
   return [
     '| 站点 | 状态 | 首日可得 | 额度构成 | 之后每天 | 兼容协议 | 模型 | 注册 |',
@@ -82,7 +99,7 @@ function liveFacts(snap) {
     snap.services?.length ? `已开放服务：${snap.services.join(' / ')}` : null,
     snap.inviterBonusUsd ? `邀请他人可得：**$${snap.inviterBonusUsd}**` : null,
     snap.checkinEnabled != null ? `每日签到：${yes(snap.checkinEnabled)}` : null,
-    snap.registerOpen != null ? `开放注册：${yes(snap.registerOpen)}` : null,
+    snap.registerOpen != null ? `开放注册：${yes(snap.registerOpen)}${signupRoute(snap).note ? `（${signupRoute(snap).note}）` : ''}` : null,
     snap.loginMethods?.length ? `登录方式：${snap.loginMethods.join(' / ')}` : null,
     snap.githubMinAccountAgeDays ? `GitHub 账号需满 **${snap.githubMinAccountAgeDays} 天**` : null,
     snap.latencyMs != null ? `接口延迟：${snap.latencyMs} ms` : null,
@@ -262,15 +279,19 @@ function codeBlocks(site, claude, openai) {
   return out.join('\n');
 }
 
-export function renderReadme({ meta, sites, live }) {
+export function renderReadme({ meta, sites, live, groups = [], history }) {
   const byId = new Map((live?.sites ?? []).map((s) => [s.id, s]));
   const onlineCount = sites.filter((s) => byId.get(s.id)?.online).length;
   const staleCount = sites.filter((s) => staleHours(byId.get(s.id))).length;
-  const plans = sites.map((s) => creditPlan(s, byId.get(s.id)));
+  // 「全注册一遍能拿多少」这句话是对新用户说的，把停注的站点算进去就是虚报额度（详见 lib/signup.mjs）
+  const openSites = sites.filter((s) => acceptsNew(byId.get(s.id)));
+  const closedSites = sites.filter((s) => !acceptsNew(byId.get(s.id)));
+  const plans = openSites.map((s) => creditPlan(s, byId.get(s.id)));
   // 合计只算美元站：积分与美元没有公开换算，混着加就是编数字（详见 lib/credits.mjs）
   const { count: usdCount, best, total, resetting, others } = usdTotals(plans);
   const extra = othersNote(others);
-  const scope = others.length ? `${usdCount} 个按美元计价的站` : `${sites.length} 个站`;
+  const scope = others.length ? `${usdCount} 个按美元计价、且还收新用户的站` : `${openSites.length} 个还收新用户的站`;
+  const pages = (meta.pagesUrl ?? '').replace(/\/?$/, '/');
 
   const head = [
     `<h1 align="center">${meta.title}</h1>`,
@@ -280,6 +301,9 @@ export function renderReadme({ meta, sites, live }) {
     '<p align="center">',
     `  <img src="${B('收录站点', `${sites.length} 个`, 'blue')}" alt="收录站点">`,
     `  <img src="${B('在线', `${onlineCount}/${sites.length}`, onlineCount === sites.length ? 'brightgreen' : 'orange')}" alt="在线">`,
+    closedSites.length
+      ? `  <img src="${B('可注册', `${openSites.length}/${sites.length}`, 'yellow')}" alt="可注册">`
+      : null,
     best > 0 ? `  <img src="${B('首日可得', `最高 $${best}`, 'success')}" alt="首日可得">` : null,
     `  <img src="${B('数据更新', fmtDate(live?.generatedAt).replace(/:/g, '.'), 'informational')}" alt="数据更新">`,
     '</p>',
@@ -287,6 +311,8 @@ export function renderReadme({ meta, sites, live }) {
     '<p align="center">',
     sites.map((s) => `  <a href="${s.signupUrl}"><b>${s.name} 注册</b></a>`).join(' ·\n'),
     '</p>',
+    '',
+    `<p align="center"><a href="${pages}compare/">📊 按次 vs 按量折算横评</a> · <a href="${pages}status/">🩺 可用性历史</a> · <a href="${pages}changelog/">🗓 变动日志</a> · <a href="${pages}feed.xml">🔔 Atom 订阅</a></p>`,
     '',
     '---',
     '',
@@ -300,6 +326,12 @@ export function renderReadme({ meta, sites, live }) {
       ? `> ${scope}全注册一遍，第一天手上大约有 **$${total}** 额度可用${resetting ? '（其中每日重置的额度池次日会回满，但不累积）' : ''}${
           extra ? `；${extra}，是站内积分、与美元没有公开换算，未计入这个合计` : ''
         }。`
+      : null,
+    closedSites.length ? '>' : null,
+    closedSites.length
+      ? `> 🟡 ${closedSites
+          .map((s) => `**${s.name}**`)
+          .join('、')} 的接口自报已关闭新用户注册（\`register_enabled=false\`），表里额度已划掉、也没算进上面的合计；站点本身还在跑，老用户不受影响，重新开放会记进[变动日志](${pages}changelog/)。`
       : null,
     staleCount > 0 ? '>' : null,
     staleCount > 0
@@ -327,7 +359,49 @@ export function renderReadme({ meta, sites, live }) {
   ];
 
   const body = sites.map((s) => siteSection(s, byId.get(s.id))).join('\n\n---\n\n');
-  return [head.filter((l) => l !== null).join('\n'), body, tail(meta, sites, live)].join('\n\n');
+  return [
+    head.filter((l) => l !== null).join('\n'),
+    body,
+    changesBlock({ groups, history, pages }),
+    tail(meta, sites, live),
+  ]
+    .filter(Boolean)
+    .join('\n\n');
+}
+
+/**
+ * 「最近变动 + 怎么订阅」。
+ *
+ * 导航类仓库最大的问题是没人会来第二次：给出 Watch → Releases 和 Atom 两个出口，
+ * 让 CI 主动把变动推到用户面前，而不是等用户回来刷 README。
+ */
+function changesBlock({ groups, history, pages }) {
+  const events = groups.flatMap((g) => g.events).slice(0, 6);
+  const cov = coverage(history ?? { samples: [] });
+  const lines = [
+    '---',
+    '',
+    '## 🔔 额度变了，这里会通知你',
+    '',
+    `CI 每 6 小时抓一次各站接口，与上一次快照逐字段比对${
+      cov.samples ? `，目前已攒下 ${cov.samples} 个样本、覆盖约 ${cov.days} 天` : ''
+    }。额度调整、掉线与恢复、模型上下线、价格变动都会自动记一条：`,
+    '',
+    '- 点仓库右上角 **Watch → Custom → Releases**：有重要变动时 GitHub 直接发邮件',
+    `- 订阅 [Atom feed](${pages}feed.xml)：RSS 阅读器 / Feedly / Telegram 机器人都能读`,
+    `- 在线看：[变动日志](${pages}changelog/) · [可用性历史](${pages}status/)`,
+  ];
+  if (events.length) {
+    lines.push(
+      '',
+      '最近几条：',
+      '',
+      ...events.map((e) => `- \`${String(e.at ?? '').slice(0, 10)}\` ${icon(e.type)} ${e.text}`),
+      '',
+      '完整记录见 [CHANGELOG.md](CHANGELOG.md)。',
+    );
+  }
+  return lines.join('\n');
 }
 
 function tail(meta, sites, live) {
@@ -340,10 +414,15 @@ function tail(meta, sites, live) {
     '| :-- | :-- |',
     '| [`data/sites.json`](data/sites.json) | 唯一数据源：站点信息与推广链接 |',
     '| [`data/live.json`](data/live.json) | 自动抓取的实时快照（额度 / 模型 / 在线状态） |',
+    '| [`data/history.json`](data/history.json) | 每 6 小时一个样本的可用性时间序列 |',
+    '| [`data/changelog.json`](data/changelog.json) | 快照比对出来的变动事件流 |',
     '| [`scripts/refresh.mjs`](scripts/refresh.mjs) | 抓取站点公开接口 |',
     '| [`scripts/lib/merge.mjs`](scripts/lib/merge.mjs) | 抓取失败时沿用上次快照，页面不会被刷空 |',
     '| [`scripts/lib/credits.mjs`](scripts/lib/credits.mjs) | 额度口径：注册 + 邀请 + 签到 = 首日可得 |',
-    '| [`scripts/build.mjs`](scripts/build.mjs) | 用数据重新生成 README 与落地页 |',
+    '| [`scripts/lib/diff.mjs`](scripts/lib/diff.mjs) | 比对两份快照，只挑「影响值不值得注册」的变动 |',
+    '| [`scripts/history.mjs`](scripts/history.mjs) | 归档历史 + 生成 CHANGELOG / Release / 推送素材 |',
+    '| [`scripts/build.mjs`](scripts/build.mjs) | 用数据重新生成 README 与 docs/ 全站 |',
+    '| [`scripts/notify.mjs`](scripts/notify.mjs) | 重要变动推到 Telegram（没配 secret 就跳过） |',
     '| [`scripts/check.mjs`](scripts/check.mjs) | 链接与站点健康检查，失效即 CI 报警 |',
     '| [`scripts/test.mjs`](scripts/test.mjs) | 合并逻辑与额度口径的单测（零依赖，`npm test`） |',
     '| [`scripts/quickstart.sh`](scripts/quickstart.sh) / [`.ps1`](scripts/quickstart.ps1) | 交互式配置 Claude Code 环境变量 |',
@@ -353,6 +432,7 @@ function tail(meta, sites, live) {
     `${F}bash`,
     'npm test          # 单测（不联网）',
     'npm run refresh   # 抓最新数据',
+    'npm run history   # 归档历史 + 生成变动日志',
     'npm run build     # 重新生成 README + docs/',
     'npm run check     # 校验链接是否还活着',
     F,

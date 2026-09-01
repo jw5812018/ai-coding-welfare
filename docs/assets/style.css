@@ -123,5 +123,64 @@ footer { padding: 40px 0 64px; border-top: 1px solid var(--line); color: var(--f
 footer ul { padding-left: 18px; }
 footer a { color: var(--accent-2); }
 
+/* ---------- 站内导航（多页之后加的） ---------- */
+.nav { border-bottom: 1px solid var(--line); background: rgba(10, 12, 17, 0.72); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 20; }
+.navrow { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; padding: 10px 20px; }
+.navlink {
+  padding: 7px 12px; border-radius: 9px; text-decoration: none;
+  color: var(--fg-dim); font-size: 14px; white-space: nowrap;
+}
+.navlink:hover { color: var(--fg); background: rgba(255, 255, 255, 0.05); }
+.navlink.active { color: var(--fg); background: rgba(124, 92, 255, 0.16); }
+.navspace { flex: 1 1 auto; }
+
+/* 面包屑：详情页比首页深两层，给个回头路 */
+.crumb { margin: 0 0 10px; font-size: 13px; color: var(--fg-dim); }
+.crumb a { color: var(--accent-2); text-decoration: none; }
+
+/* ---------- 可用性色条 ---------- */
+.bars { display: flex; gap: 3px; align-items: flex-end; min-width: 120px; }
+.bar { display: block; width: 9px; height: 22px; border-radius: 3px; background: var(--line); }
+.bar.ok { background: var(--ok); }
+.bar.part { background: linear-gradient(to top, var(--bad) 50%, var(--ok) 50%); }
+.bar.bad { background: var(--bad); }
+/* 没有样本 ≠ 掉线：留一格暗底，别让空档看着像故障 */
+.bar.nodata { background: repeating-linear-gradient(45deg, #1b1f2b, #1b1f2b 2px, #232838 2px, #232838 4px); }
+
+/* ---------- 变动日志 ---------- */
+section.day { padding: 22px 0; border-top: 1px solid var(--line); }
+section.day h2 { font-size: 18px; }
+section.day h2 a { color: var(--fg); text-decoration: none; }
+ul.events { list-style: none; margin: 12px 0 0; padding: 0; font-size: 14px; }
+ul.events li { display: flex; align-items: baseline; gap: 8px; padding: 6px 0; color: var(--fg-dim); flex-wrap: wrap; }
+.ev-ico { flex: none; width: 18px; text-align: center; }
+.ev-site { color: var(--accent-2); text-decoration: none; font-size: 12px; }
+.muted { color: #6b7385; font-size: 12px; font-weight: 400; }
+
 .mt-auto { margin-top: auto; }
-@media (max-width: 640px) { header.hero { padding: 56px 0 36px; } .card { padding: 18px; } }
+
+/* ---------- 停注：站点还在跑，但不收新用户 ---------- */
+/* 这类站点仍然留在页面上（老用户还看得上、也方便看它什么时候回来），
+   但额度对新人不成立，所以视觉上必须一眼区分，不能和还能注册的站长得一样。 */
+.tag.warn { background: rgba(251, 191, 36, 0.16); color: #fbbf24; }
+.pill.warn { border-color: rgba(251, 191, 36, 0.45); color: #fbbf24; }
+.card.shut { border-color: rgba(251, 191, 36, 0.34); }
+.card.shut .kv b.struck,
+.kv b.struck { text-decoration: line-through; color: var(--fg-dim); }
+tr.shut td { color: var(--fg-dim); }
+.notice {
+  margin: 0;
+  padding: 9px 12px;
+  border-left: 3px solid #fbbf24;
+  border-radius: 0 8px 8px 0;
+  background: rgba(251, 191, 36, 0.08);
+  color: #f3d38a;
+  font-size: 13px;
+  line-height: 1.6;
+}
+@media (max-width: 640px) {
+  header.hero { padding: 40px 0 36px; }
+  .card { padding: 18px; }
+  .navrow { padding: 8px 12px; gap: 2px; }
+  .navlink { padding: 6px 9px; font-size: 13px; }
+}

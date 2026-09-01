@@ -43,9 +43,26 @@ async function fetchOnce(url) {
   }
 }
 
+/**
+ * 出网前先钉死协议：只走 https。
+ *
+ * data/sites.json 是外部 PR 能改的文件，里面每个 URL 都会被 CI 拿去 fetch
+ * （CodeQL 的 js/file-access-to-http 指的就是这条「文件数据流进网络请求」的链）。
+ * 这些请求不带任何密钥，所以漏不了东西；但把协议钉死能一次挡掉 file: 读本地文件、
+ * http: 明文回落、以及拿它去探运行器内网这一类玩法，成本只有一次 URL 解析。
+ */
+export function isHttpsUrl(url) {
+  try {
+    return new URL(String(url)).protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
 /** 带超时 + 重试的 JSON 拉取，失败返回 { ok:false }，不抛异常。 */
 export async function fetchJson(url) {
   if (!url) return { ok: false, error: 'no url' };
+  if (!isHttpsUrl(url)) return { ok: false, status: 0, error: '只允许 https 出网' };
   let last = { ok: false, error: 'unreachable' };
   for (let i = 0; i <= RETRIES; i += 1) {
     if (i) await sleep(1500 * i);
@@ -67,6 +84,7 @@ export async function fetchJson(url) {
  */
 export async function probeUrl(url, { ua = LINK_UA, retries = RETRIES, backoffMs = 1500, fetchImpl = fetch } = {}) {
   if (!url) return null;
+  if (!isHttpsUrl(url)) return { status: 0, ok: false, ms: 0, error: '只允许 https 出网', attempts: 0 };
   let last = null;
   for (let i = 0; i <= retries; i += 1) {
     if (i) await sleep(backoffMs * i);

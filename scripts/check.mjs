@@ -11,13 +11,15 @@
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { looksFiltered } from './lib/newapi.mjs';
+import { looksFiltered, isHttpsUrl } from './lib/newapi.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const { sites } = JSON.parse(await readFile(path.join(ROOT, 'data', 'sites.json'), 'utf8'));
 
 async function probe(url) {
   const t = Date.now();
+  // 和 lib/newapi.mjs 同一条口径：sites.json 里的 URL 只允许 https
+  if (!isHttpsUrl(url)) return { ok: false, status: 0, ms: 0, error: '只允许 https 出网' };
   try {
     const res = await fetch(url, {
       redirect: 'follow',

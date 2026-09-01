@@ -5,7 +5,7 @@
  */
 import assert from 'node:assert/strict';
 import { mergeSnapshot, meaningful } from './lib/merge.mjs';
-import { pickPreferred, staleHours, STALE_WARN_HOURS, blankSnapshot, looksFiltered, probeUrl } from './lib/newapi.mjs';
+import { pickPreferred, staleHours, STALE_WARN_HOURS, blankSnapshot, looksFiltered, probeUrl, isHttpsUrl, fetchJson } from './lib/newapi.mjs';
 import { creditPlan, usd, breakdown, perDay, auditCredits, usdTotals, othersNote } from './lib/credits.mjs';
 import { PANELS, probeSite } from './lib/panels.mjs';
 import { diffSite, diffSnapshots, majorOnly, priceLabel } from './lib/diff.mjs';
@@ -16,6 +16,7 @@ import { renderComparePage, renderStatusPage, renderChangelogPage, estimateTurns
 import { renderHtml } from './lib/render-html.mjs';
 import { renderReadme } from './lib/render-readme.mjs';
 import { signupRoute, acceptsNew } from './lib/signup.mjs';
+import { telegramText } from './lib/telegram.mjs';
 
 let passed = 0;
 function test(name, fn) {
@@ -1040,6 +1041,61 @@ test('停注变动进日志时带上接口口径，别让人以为是我们猜�
   assert.match(ev.text, /register_enabled=false/);
   assert.match(ev.text, /老用户不受影响/);
   assert.equal(ev.severity, 'major', '停注必须能触发 Release / 推送');
+});
+
+console.log('安全：出网协议与 Telegram 转义（issue #3 的安全报告）');
+let blockedFetchCalls = 0;
+const httpJson = await fetchJson('http://example.test/api/status');
+const fileProbe = await probeUrl('file:///etc/passwd', {
+  fetchImpl: async () => {
+    blockedFetchCalls += 1;
+    return { status: 200, ok: true };
+  },
+});
+
+test('sites.json 里的 URL 只允许 https，file: / http: / 垃圾串一律不出网', () => {
+  assert.equal(isHttpsUrl('https://example.test/a'), true);
+  assert.equal(isHttpsUrl('http://example.test/a'), false);
+  assert.equal(isHttpsUrl('file:///etc/passwd'), false);
+  assert.equal(isHttpsUrl('javascript:alert(1)'), false);
+  assert.equal(isHttpsUrl('//example.test/a'), false);
+  assert.equal(isHttpsUrl(''), false);
+  assert.equal(isHttpsUrl(null), false);
+});
+test('非 https 在 fetchJson / probeUrl 里就被挡下，根本不发请求', () => {
+  assert.equal(httpJson.ok, false);
+  assert.match(httpJson.error, /https/);
+  assert.equal(fileProbe.ok, false);
+  assert.equal(blockedFetchCalls, 0, '被挡住的 URL 不该真的发出去');
+});
+test('Telegram 正文把双引号也转义掉，别让人从 href="…" 里逃出去', () => {
+  const t = telegramText({
+    meta: { title: 'T', pagesUrl: 'https://ok.test/', repoUrl: 'https://ok.test/r" onmouseover="x' },
+    events: [],
+  });
+  assert.match(t, /&quot; onmouseover=&quot;x/, '引号必须变成实体');
+  assert.ok(!t.includes('" onmouseover="'), '属性值里不许留活引号');
+  assert.equal((t.match(/<a href="/g) ?? []).length, 2, '还是两个链接，没被撑出第三个属性');
+});
+test('Telegram 正文里的 < > & 照常转义，且不多转 &apos;（Telegram 不认这个实体）', () => {
+  const t = telegramText({
+    meta: { title: 'A & B', pagesUrl: 'https://ok.test/', repoUrl: 'https://ok.test/r' },
+    events: [{ type: 'site_added', text: `<b>x</b> & it's` }],
+    icon: () => '🆕',
+  });
+  assert.match(t, /A &amp; B/);
+  assert.match(t, /&lt;b&gt;x&lt;\/b&gt; &amp; it's/);
+  assert.ok(!t.includes('&apos;'));
+});
+test('超过 12 条折成「另有 N 项」，6 小时一次不该把频道刷满', () => {
+  const many = Array.from({ length: 15 }, (_, i) => ({ type: 'online', text: `e${i}` }));
+  const t = telegramText({
+    meta: { title: 'T', pagesUrl: 'https://ok.test/', repoUrl: 'https://ok.test/r' },
+    events: many,
+    icon: () => '🟢',
+  });
+  assert.match(t, /另有 3 项/);
+  assert.equal((t.match(/^🟢 e\d+$/gm) ?? []).length, 12);
 });
 
 console.log(`\n${process.exitCode ? '✘ 有用例失败' : `✔ 全部通过（${passed} 项）`}`);

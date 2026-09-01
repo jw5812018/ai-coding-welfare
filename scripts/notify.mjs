@@ -11,6 +11,7 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { icon } from './lib/changelog.mjs';
+import { telegramText } from './lib/telegram.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -33,22 +34,7 @@ const { meta } = JSON.parse(await readFile(path.join(ROOT, 'data', 'sites.json')
 const events = payload.events ?? [];
 if (!events.length) process.exit(0);
 
-const esc = (s) =>
-  String(s ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-
-const text = [
-  `<b>${esc(meta.title)} · 变动</b>`,
-  '',
-  ...events.slice(0, 12).map((e) => `${icon(e.type)} ${esc(e.text)}`),
-  events.length > 12 ? `… 另有 ${events.length - 12} 项` : null,
-  '',
-  `<a href="${esc(`${meta.pagesUrl}changelog/`)}">完整变动日志</a> · <a href="${esc(meta.repoUrl)}">GitHub</a>`,
-]
-  .filter((l) => l !== null)
-  .join('\n');
+const text = telegramText({ meta, events, icon });
 
 // token 只出现在 URL 里，任何情况下都不要把它 console.log 出来
 const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {

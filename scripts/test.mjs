@@ -760,8 +760,11 @@ test('样本只留判断可用性必需的字段，被拦要如实标注', () =>
   assert.equal(s.sites.agentrouter.blocked, true);
 });
 test('同一个 generatedAt 只留一条：CI 重跑不该在历史里留重复点', () => {
-  const one = appendSample(EMPTY_HISTORY, liveAt(0));
-  const again = appendSample(one.history, liveAt(0));
+  // 时间戳只取一次：liveAt(0) 调两次会差 1ms，那测的就不是「同一个 generatedAt」了，
+  // 恰好跨过毫秒边界时这条会随机挂（实测约 5% 的运行），CI 的自动刷新会跟着变红
+  const sample = liveAt(0);
+  const one = appendSample(EMPTY_HISTORY, sample);
+  const again = appendSample(one.history, sample);
   assert.equal(one.added, true);
   assert.equal(again.added, false);
   assert.equal(again.history.samples.length, 1);

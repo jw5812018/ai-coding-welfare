@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-8%20%E4%B8%AA-blue" alt="收录站点">
   <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-8%2F8-brightgreen" alt="在线">
   <img src="https://img.shields.io/badge/%E9%A6%96%E6%97%A5%E5%8F%AF%E5%BE%97-%E6%9C%80%E9%AB%98%20%24175-success" alt="首日可得">
-  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--09--01%2013.26%20UTC-informational" alt="数据更新">
+  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--09--01%2013.30%20UTC-informational" alt="数据更新">
 </p>
 
 <p align="center">
@@ -37,7 +37,7 @@
 | **GoRouter** | 🟢 在线 | **$70** | 注册 $50 + 本页邀请 $20 | 支持签到 | Anthropic + OpenAI | 2 个可查 | [GitHub 注册 →](https://gorouter.app/sign-up?aff=PZDx) |
 | **AnyRouter** | 🟢 在线 | **$150** | 注册 $75 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://anyrouter.top/register?aff=Z24N) |
 
-> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-09-01 13:26 UTC`。
+> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-09-01 13:30 UTC`。
 >
 > 7 个按美元计价、且还收新用户的站全注册一遍，第一天手上大约有 **$777** 额度可用（其中每日重置的额度池次日会回满，但不累积）；Matrix 另发 600 积分，是站内积分、与美元没有公开换算，未计入这个合计。
 
@@ -86,7 +86,7 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 - 面板版本：`init-20260901-138138e7`
 - 邀请他人可得：**$50**
 - 登录方式：GitHub / LinuxDO
-- 接口延迟：1573 ms
+- 接口延迟：311 ms
 
 **镜像 / 备用入口**
 
@@ -226,7 +226,7 @@ curl -s https://agentrouter.org/v1/chat/completions \
 - 开放注册：✅（站点关掉了邮箱密码注册，得用 GitHub 登录建号（防批量注册的常规做法）。）
 - 登录方式：GitHub / 账号密码
 - GitHub 账号需满 **365 天**
-- 接口延迟：1027 ms
+- 接口延迟：374 ms
 
 > 该站模型清单需登录后台查看，注册后在「模型价格」页确认。
 
@@ -337,7 +337,7 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 - 每日签到：✅
 - 开放注册：✅（站点关掉了邮箱密码注册，得用 GitHub 登录建号（防批量注册的常规做法）。）
 - 登录方式：GitHub / 账号密码
-- 接口延迟：1068 ms
+- 接口延迟：630 ms
 
 > 该站把价格页设成了登录可见（`/api/pricing` 返回 401），本页不列模型表。站内公示的计价口径是输入 $1 / 百万 tokens、输出 $1 / 百万 tokens，按 token 而不是按次，注册后在控制台「模型价格」页确认实际清单与倍率。
 
@@ -443,7 +443,7 @@ curl -s https://kktoken.cc/v1/chat/completions \
 
 **实时数据**（自动抓取站点公开接口）
 
-- 接口延迟：188 ms
+- 接口延迟：1342 ms
 
 > 模型清单与价格需登录后在控制台「模型列表」查看（按每百万 Tokens 计价，可按厂商 / 上下文窗口筛选），站点没有公开的模型与定价接口，本页不做承诺。
 
@@ -513,7 +513,7 @@ curl -s https://kktoken.cc/v1/chat/completions \
 - 每日签到：✅
 - 开放注册：✅（站点关掉了邮箱密码注册，得用 GitHub 登录建号（防批量注册的常规做法）。）
 - 登录方式：GitHub / 账号密码
-- 接口延迟：1081 ms
+- 接口延迟：213 ms
 
 **当前可用模型**
 
@@ -628,12 +628,13 @@ curl -s https://tabitoken.com/v1/chat/completions \
 
 **实时数据**（自动抓取站点公开接口）
 
+- ℹ️ 本次自动探测被站点 WAF 拦下（GitHub Actions 机房 IP 常见，家宽访问不受影响），状态与下列信息沿用 `2026-09-01 13:26 UTC` 的成功快照
 - 站点名称：**RawChat公益站**
 - 面板版本：`1.0.0.0`
 - 已开放服务：Codex
 - 开放注册：✅
 - 登录方式：邮箱
-- 接口延迟：826 ms
+- 接口延迟：19 ms
 
 > 该站走 Codex 官方客户端 + 上游号池，不单独公示模型清单与价格，用量直接从每日 $50 的额度池里扣。
 
@@ -693,7 +694,7 @@ curl -s https://tabitoken.com/v1/chat/completions \
 - 每日签到：✅
 - 开放注册：✅（站点关掉了邮箱密码注册，得用 GitHub 登录建号（防批量注册的常规做法）。）
 - 登录方式：GitHub / 账号密码
-- 接口延迟：622 ms
+- 接口延迟：59 ms
 
 **当前可用模型**
 
@@ -808,7 +809,7 @@ curl -s https://gorouter.app/v1/chat/completions \
 
 **实时数据**（自动抓取站点公开接口）
 
-- 接口延迟：244 ms
+- 接口延迟：16 ms
 
 > 整站（含 `/api/status`、`/api/pricing`、robots.txt 与注册页）都挂在 JS 人机挑战后面，返回的是 `var arg1=...` 的挑战页而不是 JSON，公开接口读不到模型清单，本页不列模型表。站内公示的计价口径是输入 $5 / 百万 tokens、输出 $25 / 百万 tokens，并公示支持 GPT-5.6 Sol，注册后在控制台「模型价格」页确认实际清单与倍率。
 
@@ -896,7 +897,7 @@ curl -s https://anyrouter.top/v1/chat/completions \
 
 ## 🔔 额度变了，这里会通知你
 
-CI 每 6 小时抓一次各站接口，与上一次快照逐字段比对，目前已攒下 48 个样本、覆盖约 11.2 天。额度调整、掉线与恢复、模型上下线、价格变动都会自动记一条：
+CI 每 6 小时抓一次各站接口，与上一次快照逐字段比对，目前已攒下 49 个样本、覆盖约 11.2 天。额度调整、掉线与恢复、模型上下线、价格变动都会自动记一条：
 
 - 点仓库右上角 **Watch → Custom → Releases**：有重要变动时 GitHub 直接发邮件
 - 订阅 [Atom feed](https://panxunying.github.io/ai-coding-welfare/feed.xml)：RSS 阅读器 / Feedly / Telegram 机器人都能读

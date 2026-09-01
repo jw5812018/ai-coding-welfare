@@ -19,6 +19,8 @@
       "TaBiAI",
       "GoRouter",
       "KKtoken",
+      "AnyRouter",
+      "GPT-5.6 Sol 中转",
       "claude-opus-5 按次计费"
     ],
     "repoUrl": "https://github.com/panxunying/ai-coding-welfare",
@@ -131,49 +133,50 @@
       "community": []
     },
     {
-      "id": "gorouter",
-      "name": "GoRouter",
-      "subtitle": "New API 中转站 · 注册送 $50，本页邀请码再加 $20，按次计费里最便宜的一档",
+      "id": "kktoken",
+      "name": "KKtoken AI",
+      "subtitle": "New API 中转站 · 注册送 $75，本页邀请码再加 $25，按 token 计费输入输出各 $1/M",
       "recommended": false,
       "credits": {
-        "signup": 50,
-        "invite": 20,
-        "dailyCheckin": null,
+        "signup": 75,
+        "invite": 25,
+        "dailyCheckin": 20,
         "approx": false
       },
-      "signupUrl": "https://gorouter.app/sign-up?aff=PZDx",
-      "homeUrl": "https://gorouter.app",
-      "docsUrl": null,
-      "statusApi": "https://gorouter.app/api/status",
-      "pricingApi": "https://gorouter.app/api/pricing",
+      "signupUrl": "https://kktoken.cc/sign-up?aff=MzG9",
+      "homeUrl": "https://kktoken.cc",
+      "docsUrl": "https://kktoken.cc/dashboard/overview",
+      "statusApi": "https://kktoken.cc/api/status",
+      "pricingApi": null,
       "mirrors": [],
-      "tags": ["New API", "免费额度", "Claude Code", "Anthropic 兼容", "按次计费"],
+      "tags": ["New API", "免费额度", "签到", "按 token 计费", "Anthropic 兼容", "OpenAI 兼容"],
       "highlights": [
-        "新用户注册送 $50，从本页邀请链接进入再加 $20，首日 $70（2026-08-11 实测到账）",
-        "按次计费里单价最低的一档：claude-opus-5 每次 $0.3，opus-4-8 每次 $0.2，首日 $70 够跑两百多次",
-        "Anthropic 与 OpenAI 两种协议都开着，Claude Code 填个 Base URL 就能直连",
-        "面板开着每日签到，可以持续领额度"
+        "注册送 $75，从本页邀请链接进入再加 $25，每日签到再领 $20，首日合计 $120",
+        "按 token 计费：输入 $1 / 百万 tokens、输出 $1 / 百万 tokens，和本页那几个「每次 $0.3」的按次站不是一套口径，长对话更划算",
+        "Anthropic 与 OpenAI 两条原生路由都开着（未鉴权探测 /v1/messages 与 /v1/chat/completions 都已就位），Claude Code 填个 Base URL 就能直连——具体上了哪些模型要登录后台确认",
+        "面板开着每日签到、绘图与异步任务接口，控制台就是熟悉的 New API（站点自报 KKtoken AI v1.0.0-rc.25）"
       ],
       "endpoints": {
-        "anthropic": "https://gorouter.app",
-        "openai": "https://gorouter.app/v1"
+        "anthropic": "https://kktoken.cc",
+        "openai": "https://kktoken.cc/v1"
       },
+      "modelsNote": "该站把价格页设成了登录可见（`/api/pricing` 返回 401），本页不列模型表。站内公示的计价口径是输入 $1 / 百万 tokens、输出 $1 / 百万 tokens，按 token 而不是按次，注册后在控制台「模型价格」页确认实际清单与倍率。",
       "register": {
         "methods": ["GitHub OAuth"],
         "requirements": [
-          "务必从本页邀请链接进入注册（带 ?aff=PZDx），$20 在注册那一刻结算，事后补不上",
+          "务必从本页邀请链接进入注册（带 ?aff=MzG9），$25 在注册那一刻结算，事后补不上",
+          "GitHub 账号注册满 1 年（365 天）才允许绑定，小号会被拒绝",
           "已关闭账号密码注册，只能用 GitHub 授权；注册完成后可以再设密码用于登录",
           "注册页有 Cloudflare Turnstile 人机校验，需要能正常加载 Cloudflare 脚本"
         ]
       },
       "earnMore": [
-        "面板已开启每日签到，登录后台点签到即可（每次给多少站点没公示，以站内为准）",
-        "邀请他人注册：每成功邀请一人到账 $40（2026-08-11 实测两笔；站点公开接口没公示这个数字）"
+        "每日签到领 $20（登录后台点签到）",
+        "邀请他人注册也有奖励，金额站点公开接口没公示，登录后台「邀请」页确认"
       ],
       "caveats": [
-        "按次计费而不是按 token：claude-opus-5 / -thinking 每次 $0.3，claude-opus-4-8 系每次 $0.2。首日 $70 约等于 233 次 opus-5 请求，Claude Code 里一问一答就算一次，与按 token 的站没法直接比",
-        "只有 Claude Opus 四个模型，没有 GPT / Gemini；OpenAI 兼容协议虽然开着，但能填的模型名只有 claude-*（下面 Codex CLI 示例就是这么配的），想拿它跑 GPT / Codex 原生模型是不行的",
-        "只有一个 default 分组，没有 vip 分组可切，遇到上游拥塞只能等",
+        "额度数字（注册 $75 / 邀请 $25 / 签到 $20）站点公开接口没有暴露——它的 /api/status 里既没有 quota_for_new_user 也没有 quota_for_invitee，本页登记的是站内公示口径，进后台核对一下再算账",
+        "模型清单与价格要登录才能看（/api/pricing 返回 401），$1/M 的输入输出价同样以站内为准，本页不做承诺",
         "站点支持在线充值（站内公示 $1 ≈ ¥7.3，Stripe 通道 ¥8），是中转站不是纯公益站，免费额度用完要付费才能续",
         "站点前面挂着 Cloudflare，机房 IP 容易被拦，本页的自动探测偶尔会标「被 WAF 拦下」，不代表站点对你不可用"
       ],
@@ -359,52 +362,101 @@
       "community": []
     },
     {
-      "id": "kktoken",
-      "name": "KKtoken AI",
-      "subtitle": "New API 中转站 · 注册送 $75，本页邀请码再加 $25，按 token 计费输入输出各 $1/M",
+      "id": "gorouter",
+      "name": "GoRouter",
+      "subtitle": "New API 中转站 · 注册送 $50，本页邀请码再加 $20，按次计费里最便宜的一档",
       "recommended": false,
       "credits": {
-        "signup": 75,
-        "invite": 25,
-        "dailyCheckin": 20,
+        "signup": 50,
+        "invite": 20,
+        "dailyCheckin": null,
         "approx": false
       },
-      "signupUrl": "https://kktoken.cc/sign-up?aff=MzG9",
-      "homeUrl": "https://kktoken.cc",
-      "docsUrl": "https://kktoken.cc/dashboard/overview",
-      "statusApi": "https://kktoken.cc/api/status",
-      "pricingApi": null,
+      "signupUrl": "https://gorouter.app/sign-up?aff=PZDx",
+      "homeUrl": "https://gorouter.app",
+      "docsUrl": null,
+      "statusApi": "https://gorouter.app/api/status",
+      "pricingApi": "https://gorouter.app/api/pricing",
       "mirrors": [],
-      "tags": ["New API", "免费额度", "签到", "按 token 计费", "Anthropic 兼容", "OpenAI 兼容"],
+      "tags": ["New API", "免费额度", "Claude Code", "Anthropic 兼容", "按次计费"],
       "highlights": [
-        "注册送 $75，从本页邀请链接进入再加 $25，每日签到再领 $20，首日合计 $120",
-        "按 token 计费：输入 $1 / 百万 tokens、输出 $1 / 百万 tokens，和本页那几个「每次 $0.3」的按次站不是一套口径，长对话更划算",
-        "Anthropic 与 OpenAI 两条原生路由都开着（未鉴权探测 /v1/messages 与 /v1/chat/completions 都已就位），Claude Code 填个 Base URL 就能直连——具体上了哪些模型要登录后台确认",
-        "面板开着每日签到、绘图与异步任务接口，控制台就是熟悉的 New API（站点自报 KKtoken AI v1.0.0-rc.25）"
+        "新用户注册送 $50，从本页邀请链接进入再加 $20，首日 $70（2026-08-11 实测到账）",
+        "按次计费里单价最低的一档：claude-opus-5 每次 $0.3，opus-4-8 每次 $0.2，首日 $70 够跑两百多次",
+        "Anthropic 与 OpenAI 两种协议都开着，Claude Code 填个 Base URL 就能直连",
+        "面板开着每日签到，可以持续领额度"
       ],
       "endpoints": {
-        "anthropic": "https://kktoken.cc",
-        "openai": "https://kktoken.cc/v1"
+        "anthropic": "https://gorouter.app",
+        "openai": "https://gorouter.app/v1"
       },
-      "modelsNote": "该站把价格页设成了登录可见（`/api/pricing` 返回 401），本页不列模型表。站内公示的计价口径是输入 $1 / 百万 tokens、输出 $1 / 百万 tokens，按 token 而不是按次，注册后在控制台「模型价格」页确认实际清单与倍率。",
       "register": {
         "methods": ["GitHub OAuth"],
         "requirements": [
-          "务必从本页邀请链接进入注册（带 ?aff=MzG9），$25 在注册那一刻结算，事后补不上",
-          "GitHub 账号注册满 1 年（365 天）才允许绑定，小号会被拒绝",
+          "务必从本页邀请链接进入注册（带 ?aff=PZDx），$20 在注册那一刻结算，事后补不上",
           "已关闭账号密码注册，只能用 GitHub 授权；注册完成后可以再设密码用于登录",
           "注册页有 Cloudflare Turnstile 人机校验，需要能正常加载 Cloudflare 脚本"
         ]
       },
       "earnMore": [
-        "每日签到领 $20（登录后台点签到）",
-        "邀请他人注册也有奖励，金额站点公开接口没公示，登录后台「邀请」页确认"
+        "面板已开启每日签到，登录后台点签到即可（每次给多少站点没公示，以站内为准）",
+        "邀请他人注册：每成功邀请一人到账 $40（2026-08-11 实测两笔；站点公开接口没公示这个数字）"
       ],
       "caveats": [
-        "额度数字（注册 $75 / 邀请 $25 / 签到 $20）站点公开接口没有暴露——它的 /api/status 里既没有 quota_for_new_user 也没有 quota_for_invitee，本页登记的是站内公示口径，进后台核对一下再算账",
-        "模型清单与价格要登录才能看（/api/pricing 返回 401），$1/M 的输入输出价同样以站内为准，本页不做承诺",
+        "按次计费而不是按 token：claude-opus-5 / -thinking 每次 $0.3，claude-opus-4-8 系每次 $0.2。首日 $70 约等于 233 次 opus-5 请求，Claude Code 里一问一答就算一次，与按 token 的站没法直接比",
+        "只有 Claude Opus 四个模型，没有 GPT / Gemini；OpenAI 兼容协议虽然开着，但能填的模型名只有 claude-*（下面 Codex CLI 示例就是这么配的），想拿它跑 GPT / Codex 原生模型是不行的",
+        "只有一个 default 分组，没有 vip 分组可切，遇到上游拥塞只能等",
         "站点支持在线充值（站内公示 $1 ≈ ¥7.3，Stripe 通道 ¥8），是中转站不是纯公益站，免费额度用完要付费才能续",
         "站点前面挂着 Cloudflare，机房 IP 容易被拦，本页的自动探测偶尔会标「被 WAF 拦下」，不代表站点对你不可用"
+      ],
+      "community": []
+    },
+    {
+      "id": "anyrouter",
+      "name": "AnyRouter",
+      "subtitle": "New API 中转站 · 注册送 $75，本页邀请码再加 $50，Anthropic 与 OpenAI 两条原生路由都开着",
+      "recommended": false,
+      "credits": {
+        "signup": 75,
+        "invite": 50,
+        "dailyCheckin": 25,
+        "approx": false
+      },
+      "signupUrl": "https://anyrouter.top/register?aff=Z24N",
+      "homeUrl": "https://anyrouter.top",
+      "docsUrl": null,
+      "statusApi": "https://anyrouter.top/api/status",
+      "pricingApi": null,
+      "mirrors": [],
+      "tags": ["New API", "免费额度", "签到", "Claude Code", "按 token 计费", "Anthropic 兼容", "OpenAI 兼容"],
+      "highlights": [
+        "注册送 $75，从本页邀请链接进入再加 $50，每日签到再领 $25，首日合计 $150",
+        "Anthropic 与 OpenAI 两条原生路由都开着：未鉴权 POST /v1/messages 与 /v1/chat/completions 都由 New API 亲自回「无效的令牌」，Claude Code 与 Codex 填个 Base URL 就能直连",
+        "站内公示按 token 计价：输入 $5 / 百万 tokens、输出 $25 / 百万 tokens，按量扣不是按次，短问答很省",
+        "站内公示支持 GPT-5.6 Sol；GitHub 账号不满 5 年的可以改用 LinuxDO 登录，绕开年龄门槛"
+      ],
+      "endpoints": {
+        "anthropic": "https://anyrouter.top",
+        "openai": "https://anyrouter.top/v1"
+      },
+      "modelsNote": "整站（含 `/api/status`、`/api/pricing`、robots.txt 与注册页）都挂在 JS 人机挑战后面，返回的是 `var arg1=...` 的挑战页而不是 JSON，公开接口读不到模型清单，本页不列模型表。站内公示的计价口径是输入 $5 / 百万 tokens、输出 $25 / 百万 tokens，并公示支持 GPT-5.6 Sol，注册后在控制台「模型价格」页确认实际清单与倍率。",
+      "register": {
+        "methods": ["GitHub OAuth", "LinuxDO OAuth"],
+        "requirements": [
+          "务必从本页邀请链接进入注册（带 ?aff=Z24N），$50 在注册那一刻结算，事后补不上",
+          "GitHub 账号注册满 5 年才允许绑定——门槛比本页其它站高得多，小号一律被拒",
+          "GitHub 不满 5 年就改走 LinuxDO 登录，这条路没有账号年龄要求",
+          "签到领的 $25 要退出再重新登录一次才会刷新到额度上"
+        ]
+      },
+      "earnMore": [
+        "每日签到领 $25（登录后台点签到，之后退出重新登录一次刷新额度）",
+        "邀请他人注册也有奖励，金额站点公开接口读不到，登录后台「邀请」页确认"
+      ],
+      "caveats": [
+        "整站挂着 JS 人机挑战，连 robots.txt 与注册页都返回挑战页，本页的自动探测读不到它的 /api/status——所以上面「实时数据」一栏除了接口延迟基本是空的，站名、面板版本、模型数都拿不到。那是我们读不到，不代表你打不开",
+        "额度数字（注册 $75 / 邀请 $50 / 签到 $25）与 $5 / $25 的价格都是站内公示口径，公开接口无法核对，进后台自己确认一遍再算账",
+        "GitHub 满 5 年这条门槛卡掉的人不少，注册前先看一眼自己账号的创建年份，不够就走 LinuxDO",
+        "只有 /v1/* 的中转接口不吃挑战，网页端偶发挑战失败时换个浏览器或稍后再试"
       ],
       "community": []
     }

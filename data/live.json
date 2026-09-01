@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-01T13:11:58.441Z",
+  "generatedAt": "2026-09-01T13:26:46.900Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-09-01T13:11:52.387Z",
+      "checkedAt": "2026-09-01T13:26:42.086Z",
       "online": true,
-      "latencyMs": 230,
-      "error": "invalid json",
+      "latencyMs": 1573,
+      "error": null,
       "systemName": "Agent Router",
       "version": "init-20260901-138138e7",
       "registerOpen": null,
@@ -57,10 +57,10 @@
           "inputPerMTok": 8,
           "outputPerMTok": 40,
           "groups": [
-            "core",
-            "default",
             "svip",
-            "test"
+            "test",
+            "core",
+            "default"
           ],
           "protocols": [
             "anthropic",
@@ -75,10 +75,10 @@
           "inputPerMTok": 8,
           "outputPerMTok": 40,
           "groups": [
-            "core",
-            "default",
             "svip",
-            "test"
+            "test",
+            "core",
+            "default"
           ],
           "protocols": [
             "anthropic",
@@ -111,10 +111,10 @@
           "inputPerMTok": 3,
           "outputPerMTok": 12,
           "groups": [
-            "test",
             "core",
             "default",
-            "svip"
+            "svip",
+            "test"
           ],
           "protocols": [
             "anthropic",
@@ -139,7 +139,7 @@
           ]
         }
       ],
-      "modelsSource": "cached",
+      "modelsSource": "public-api",
       "defaults": {
         "claude": "claude-opus-5",
         "openai": "gpt-5.6-sol"
@@ -147,39 +147,28 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1200,
+        "ms": 1310,
         "attempts": 1
       },
       "mirrors": [
         {
           "homeUrl": "https://ps.air-outer.com",
-          "online": false
+          "online": true
         }
       ],
-      "staleFrom": "2026-09-01T12:54:08.955Z",
-      "apiOk": false,
-      "pricingOk": false,
-      "dataStale": true,
-      "staleFields": [
-        "systemName",
-        "version",
-        "loginMethods",
-        "quotaPerUnit",
-        "inviteeBonusUsd",
-        "inviterBonusUsd",
-        "topupEnabled",
-        "announcements",
-        "models",
-        "defaults"
-      ],
+      "staleFrom": null,
+      "apiOk": true,
+      "pricingOk": true,
+      "dataStale": false,
+      "staleFields": [],
       "services": [],
       "probeBlocked": false
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-09-01T13:11:46.726Z",
+      "checkedAt": "2026-09-01T13:26:41.562Z",
       "online": true,
-      "latencyMs": 370,
+      "latencyMs": 1027,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.23",
@@ -205,7 +194,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 522,
+        "ms": 821,
         "attempts": 1
       },
       "mirrors": [],
@@ -218,14 +207,14 @@
       "probeBlocked": false
     },
     {
-      "id": "gorouter",
-      "checkedAt": "2026-09-01T13:11:48.416Z",
+      "id": "kktoken",
+      "checkedAt": "2026-09-01T13:26:41.603Z",
       "apiOk": true,
-      "pricingOk": true,
-      "latencyMs": 33,
+      "pricingOk": false,
+      "latencyMs": 1068,
       "error": null,
-      "systemName": "GoRouter",
-      "version": "init-20260813-3cd90886",
+      "systemName": "KKtoken AI",
+      "version": "v1.0.0-rc.25",
       "registerOpen": true,
       "passwordRegister": false,
       "checkinEnabled": true,
@@ -240,47 +229,16 @@
       "topupEnabled": null,
       "services": [],
       "announcements": [],
-      "models": [
-        {
-          "name": "claude-opus-5",
-          "ratio": 0,
-          "completionRatio": 0,
-          "fixedPrice": 0.3,
-          "inputPerMTok": null,
-          "outputPerMTok": null,
-          "groups": [
-            "default"
-          ],
-          "protocols": [
-            "anthropic",
-            "openai"
-          ]
-        },
-        {
-          "name": "claude-opus-5-thinking",
-          "ratio": 0,
-          "completionRatio": 0,
-          "fixedPrice": 0.3,
-          "inputPerMTok": null,
-          "outputPerMTok": null,
-          "groups": [
-            "default"
-          ],
-          "protocols": [
-            "anthropic",
-            "openai"
-          ]
-        }
-      ],
-      "modelsSource": "public-api",
+      "models": [],
+      "modelsSource": "login-required",
       "defaults": {
-        "claude": "claude-opus-5",
-        "openai": "claude-opus-5"
+        "claude": null,
+        "openai": null
       },
       "signup": {
-        "status": 403,
-        "ok": false,
-        "ms": 410,
+        "status": 200,
+        "ok": true,
+        "ms": 793,
         "attempts": 1
       },
       "mirrors": [],
@@ -292,10 +250,10 @@
     },
     {
       "id": "matrix",
-      "checkedAt": "2026-09-01T13:11:47.783Z",
+      "checkedAt": "2026-09-01T13:26:40.722Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1428,
+      "latencyMs": 188,
       "error": null,
       "systemName": null,
       "version": null,
@@ -319,7 +277,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1451,
+        "ms": 206,
         "attempts": 1
       },
       "mirrors": [],
@@ -331,10 +289,10 @@
     },
     {
       "id": "tabitoken",
-      "checkedAt": "2026-09-01T13:11:49.243Z",
+      "checkedAt": "2026-09-01T13:26:41.624Z",
       "apiOk": true,
       "pricingOk": true,
-      "latencyMs": 128,
+      "latencyMs": 1081,
       "error": null,
       "systemName": "TaBiAI",
       "version": "init-20260817-f880a343",
@@ -424,9 +382,9 @@
         "openai": "claude-opus-5"
       },
       "signup": {
-        "status": 403,
-        "ok": false,
-        "ms": 899,
+        "status": 200,
+        "ok": true,
+        "ms": 832,
         "attempts": 1
       },
       "mirrors": [],
@@ -438,11 +396,11 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-09-01T13:11:51.839Z",
-      "apiOk": false,
+      "checkedAt": "2026-09-01T13:26:41.736Z",
+      "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 7,
-      "error": "HTTP 403",
+      "latencyMs": 826,
+      "error": null,
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
       "registerOpen": true,
@@ -467,34 +425,27 @@
         "openai": null
       },
       "signup": {
-        "status": 403,
-        "ok": false,
-        "ms": 955,
+        "status": 200,
+        "ok": true,
+        "ms": 1249,
         "attempts": 1
       },
       "mirrors": [],
       "online": true,
-      "dataStale": true,
-      "staleFrom": "2026-09-01T12:54:08.920Z",
-      "staleFields": [
-        "systemName",
-        "version",
-        "registerOpen",
-        "passwordRegister",
-        "loginMethods",
-        "services"
-      ],
-      "probeBlocked": true
+      "dataStale": false,
+      "staleFrom": null,
+      "staleFields": [],
+      "probeBlocked": false
     },
     {
-      "id": "kktoken",
-      "checkedAt": "2026-09-01T13:11:47.566Z",
+      "id": "gorouter",
+      "checkedAt": "2026-09-01T13:26:41.840Z",
       "apiOk": true,
-      "pricingOk": false,
-      "latencyMs": 1205,
+      "pricingOk": true,
+      "latencyMs": 622,
       "error": null,
-      "systemName": "KKtoken AI",
-      "version": "v1.0.0-rc.25",
+      "systemName": "GoRouter",
+      "version": "init-20260813-3cd90886",
       "registerOpen": true,
       "passwordRegister": false,
       "checkinEnabled": true,
@@ -509,6 +460,76 @@
       "topupEnabled": null,
       "services": [],
       "announcements": [],
+      "models": [
+        {
+          "name": "claude-opus-5",
+          "ratio": 0,
+          "completionRatio": 0,
+          "fixedPrice": 0.3,
+          "inputPerMTok": null,
+          "outputPerMTok": null,
+          "groups": [
+            "default"
+          ],
+          "protocols": [
+            "anthropic",
+            "openai"
+          ]
+        },
+        {
+          "name": "claude-opus-5-thinking",
+          "ratio": 0,
+          "completionRatio": 0,
+          "fixedPrice": 0.3,
+          "inputPerMTok": null,
+          "outputPerMTok": null,
+          "groups": [
+            "default"
+          ],
+          "protocols": [
+            "anthropic",
+            "openai"
+          ]
+        }
+      ],
+      "modelsSource": "public-api",
+      "defaults": {
+        "claude": "claude-opus-5",
+        "openai": "claude-opus-5"
+      },
+      "signup": {
+        "status": 200,
+        "ok": true,
+        "ms": 837,
+        "attempts": 1
+      },
+      "mirrors": [],
+      "probeBlocked": false,
+      "online": true,
+      "dataStale": false,
+      "staleFrom": null,
+      "staleFields": []
+    },
+    {
+      "id": "anyrouter",
+      "checkedAt": "2026-09-01T13:26:46.899Z",
+      "apiOk": false,
+      "pricingOk": false,
+      "latencyMs": 244,
+      "error": "invalid json",
+      "systemName": null,
+      "version": null,
+      "registerOpen": null,
+      "passwordRegister": null,
+      "checkinEnabled": null,
+      "loginMethods": [],
+      "githubMinAccountAgeDays": null,
+      "quotaPerUnit": null,
+      "inviteeBonusUsd": null,
+      "inviterBonusUsd": null,
+      "topupEnabled": null,
+      "services": [],
+      "announcements": [],
       "models": [],
       "modelsSource": "login-required",
       "defaults": {
@@ -518,7 +539,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1188,
+        "ms": 1611,
         "attempts": 1
       },
       "mirrors": [],

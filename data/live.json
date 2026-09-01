@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-01T05:12:16.057Z",
+  "generatedAt": "2026-09-01T11:41:34.956Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-09-01T05:12:09.793Z",
+      "checkedAt": "2026-09-01T11:41:28.985Z",
       "online": true,
-      "latencyMs": 303,
+      "latencyMs": 245,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260828-37a398bd",
@@ -147,7 +147,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1363,
+        "ms": 1072,
         "attempts": 1
       },
       "mirrors": [
@@ -177,9 +177,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-09-01T05:12:03.876Z",
+      "checkedAt": "2026-09-01T11:41:23.310Z",
       "online": true,
-      "latencyMs": 459,
+      "latencyMs": 326,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.23",
@@ -205,7 +205,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 662,
+        "ms": 473,
         "attempts": 1
       },
       "mirrors": [],
@@ -219,10 +219,10 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-09-01T05:12:08.393Z",
+      "checkedAt": "2026-09-01T11:41:27.872Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 8,
+      "latencyMs": 14,
       "error": "HTTP 403",
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
@@ -250,11 +250,11 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 454,
+        "ms": 369,
         "attempts": 1
       },
       "mirrors": [],
-      "online": true,
+      "online": false,
       "dataStale": true,
       "staleFrom": "2026-08-30T10:21:17.709Z",
       "staleFields": [
@@ -265,14 +265,14 @@
         "loginMethods",
         "services"
       ],
-      "probeBlocked": true
+      "probeBlocked": false
     },
     {
       "id": "matrix",
-      "checkedAt": "2026-09-01T05:12:05.432Z",
+      "checkedAt": "2026-09-01T11:41:24.407Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 2017,
+      "latencyMs": 1428,
       "error": null,
       "systemName": null,
       "version": null,
@@ -296,7 +296,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1354,
+        "ms": 1446,
         "attempts": 1
       },
       "mirrors": [],
@@ -308,14 +308,14 @@
     },
     {
       "id": "tabitoken",
-      "checkedAt": "2026-09-01T05:12:06.457Z",
+      "checkedAt": "2026-09-01T11:41:25.535Z",
       "apiOk": true,
       "pricingOk": true,
-      "latencyMs": 733,
+      "latencyMs": 150,
       "error": null,
       "systemName": "TaBiAI",
       "version": "init-20260817-f880a343",
-      "registerOpen": false,
+      "registerOpen": true,
       "passwordRegister": false,
       "checkinEnabled": true,
       "loginMethods": [
@@ -338,8 +338,8 @@
           "inputPerMTok": null,
           "outputPerMTok": null,
           "groups": [
-            "vip",
-            "default"
+            "default",
+            "vip"
           ],
           "protocols": [
             "anthropic",
@@ -403,7 +403,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 806,
+        "ms": 890,
         "attempts": 1
       },
       "mirrors": [],
@@ -415,14 +415,14 @@
     },
     {
       "id": "gorouter",
-      "checkedAt": "2026-09-01T05:12:06.255Z",
+      "checkedAt": "2026-09-01T11:41:25.603Z",
       "apiOk": true,
       "pricingOk": true,
-      "latencyMs": 20,
+      "latencyMs": 51,
       "error": null,
       "systemName": "GoRouter",
       "version": "init-20260813-3cd90886",
-      "registerOpen": false,
+      "registerOpen": true,
       "passwordRegister": false,
       "checkinEnabled": true,
       "loginMethods": [
@@ -437,36 +437,6 @@
       "services": [],
       "announcements": [],
       "models": [
-        {
-          "name": "claude-opus-4-8",
-          "ratio": 0,
-          "completionRatio": 0,
-          "fixedPrice": 0.2,
-          "inputPerMTok": null,
-          "outputPerMTok": null,
-          "groups": [
-            "default"
-          ],
-          "protocols": [
-            "anthropic",
-            "openai"
-          ]
-        },
-        {
-          "name": "claude-opus-4-8-thinking",
-          "ratio": 0,
-          "completionRatio": 0,
-          "fixedPrice": 0.2,
-          "inputPerMTok": null,
-          "outputPerMTok": null,
-          "groups": [
-            "default"
-          ],
-          "protocols": [
-            "anthropic",
-            "openai"
-          ]
-        },
         {
           "name": "claude-opus-5",
           "ratio": 0,
@@ -506,7 +476,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 809,
+        "ms": 959,
         "attempts": 1
       },
       "mirrors": [],

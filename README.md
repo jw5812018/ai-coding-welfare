@@ -4,9 +4,9 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-6%20%E4%B8%AA-blue" alt="收录站点">
-  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-6%2F6-brightgreen" alt="在线">
+  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-5%2F6-orange" alt="在线">
   <img src="https://img.shields.io/badge/%E9%A6%96%E6%97%A5%E5%8F%AF%E5%BE%97-%E6%9C%80%E9%AB%98%20%24175-success" alt="首日可得">
-  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--09--01%2005.12%20UTC-informational" alt="数据更新">
+  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--09--01%2011.41%20UTC-informational" alt="数据更新">
 </p>
 
 <p align="center">
@@ -26,14 +26,16 @@
 | :-- | :--: | :--: | :-- | :--: | :--: | :--: | :--: |
 | **AgentRouter** 🔥 | 🟢 在线 | **$175** | 注册 $100 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 5 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) |
 | **JustDoWork** | 🟢 在线 | **≈$92** | 注册 $70 + 首签 ≈$22 | ≈$22/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://api.justwoker.icu/sign-up?aff=VTrz) |
-| **RawChat 公益站** | 🟢 在线 | **$50** | 每日额度池 $50（每天重置，不累积） | $50/天（重置） | Codex CLI | Codex | [点此注册 →](https://new.sharedchat.cc/list/#/register?i=MaVP1) |
+| **RawChat 公益站** | 🔴 异常 | **$50** | 每日额度池 $50（每天重置，不累积） | $50/天（重置） | Codex CLI | Codex | [点此注册 →](https://new.sharedchat.cc/list/#/register?i=MaVP1) |
 | **Matrix** | 🟢 在线 | **600 积分** | 本页邀请 600 积分 | — | OpenAI 兼容 | 需登录查看 | [点此注册 →](https://matrix.mzsjai.com/login?redirect=%2Fapp%2Fgrowth%3FinviteCode%3DMX0OTR-_H8HM) |
 | **TaBiAI** | 🟢 在线 | **$120** | 注册 $100 + 本页邀请 $20 | 支持签到 | Anthropic + OpenAI | 4 个可查 | [点此注册 →](https://tabitoken.com/sign-up?aff=EQIT) |
-| **GoRouter** | 🟢 在线 | **$70** | 注册 $50 + 本页邀请 $20 | 支持签到 | Anthropic + OpenAI | 4 个可查 | [点此注册 →](https://gorouter.app/sign-up?aff=PZDx) |
+| **GoRouter** | 🟢 在线 | **$70** | 注册 $50 + 本页邀请 $20 | 支持签到 | Anthropic + OpenAI | 2 个可查 | [点此注册 →](https://gorouter.app/sign-up?aff=PZDx) |
 
-> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-09-01 05:12 UTC`。
+> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-09-01 11:41 UTC`。
 >
 > 5 个按美元计价的站全注册一遍，第一天手上大约有 **$507** 额度可用（其中每日重置的额度池次日会回满，但不累积）；Matrix 另发 600 积分，是站内积分、与美元没有公开换算，未计入这个合计。
+>
+> 🟡 有 2 个站点已超过 48 小时没抓到接口数据，其明细为上一次成功抓取的快照；在线状态按注册页实际可访问性判断。
 
 **只想快点用上 Claude Code？** 三步：
 
@@ -76,11 +78,12 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 
 **实时数据**（自动抓取站点公开接口）
 
+- ⚠ 接口已连续 49 小时没抓到新数据，下列信息为 `2026-08-30 10:21 UTC` 的快照
 - 站点名称：**Agent Router**
 - 面板版本：`init-20260828-37a398bd`
 - 邀请他人可得：**$50**
 - 登录方式：GitHub / LinuxDO
-- 接口延迟：303 ms
+- 接口延迟：245 ms
 
 **镜像 / 备用入口**
 
@@ -220,7 +223,7 @@ curl -s https://agentrouter.org/v1/chat/completions \
 - 开放注册：✅
 - 登录方式：GitHub / 账号密码
 - GitHub 账号需满 **365 天**
-- 接口延迟：459 ms
+- 接口延迟：326 ms
 
 > 该站模型清单需登录后台查看，注册后在「模型价格」页确认。
 
@@ -304,7 +307,7 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 
 ---
 
-### 🟢 RawChat 公益站
+### 🔴 RawChat 公益站
 
 > Codex 公益站 · 每日 $50 额度池，0 点自动重置
 
@@ -324,13 +327,13 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 
 **实时数据**（自动抓取站点公开接口）
 
-- ℹ️ 本次自动探测被站点 WAF 拦下（GitHub Actions 机房 IP 常见，家宽访问不受影响），状态与下列信息沿用 `2026-08-30 10:21 UTC` 的成功快照
+- ⚠ 接口已连续 49 小时没抓到新数据，下列信息为 `2026-08-30 10:21 UTC` 的快照
 - 站点名称：**RawChat公益站**
 - 面板版本：`1.0.0.0`
 - 已开放服务：Codex
 - 开放注册：✅
 - 登录方式：邮箱
-- 接口延迟：8 ms
+- 接口延迟：14 ms
 
 > 该站走 Codex 官方客户端 + 上游号池，不单独公示模型清单与价格，用量直接从每日 $50 的额度池里扣。
 
@@ -384,7 +387,7 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 
 **实时数据**（自动抓取站点公开接口）
 
-- 接口延迟：2017 ms
+- 接口延迟：1428 ms
 
 > 模型清单与价格需登录后在控制台「模型列表」查看（按每百万 Tokens 计价，可按厂商 / 上下文窗口筛选），站点没有公开的模型与定价接口，本页不做承诺。
 
@@ -452,9 +455,9 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 - 站点名称：**TaBiAI**
 - 面板版本：`init-20260817-f880a343`
 - 每日签到：✅
-- 开放注册：❌
+- 开放注册：✅
 - 登录方式：GitHub / 账号密码
-- 接口延迟：733 ms
+- 接口延迟：150 ms
 
 **当前可用模型**
 
@@ -573,16 +576,14 @@ curl -s https://tabitoken.com/v1/chat/completions \
 - 站点名称：**GoRouter**
 - 面板版本：`init-20260813-3cd90886`
 - 每日签到：✅
-- 开放注册：❌
+- 开放注册：✅
 - 登录方式：GitHub / 账号密码
-- 接口延迟：20 ms
+- 接口延迟：51 ms
 
 **当前可用模型**
 
 | 模型 | 倍率 | 输入 / 1M tokens | 输出 / 1M tokens | 协议 |
 | :-- | :--: | :--: | :--: | :--: |
-| `claude-opus-4-8` | 按次 | **$0.2 / 次** | — | anthropic / openai |
-| `claude-opus-4-8-thinking` | 按次 | **$0.2 / 次** | — | anthropic / openai |
 | `claude-opus-5` | 按次 | **$0.3 / 次** | — | anthropic / openai |
 | `claude-opus-5-thinking` | 按次 | **$0.3 / 次** | — | anthropic / openai |
 

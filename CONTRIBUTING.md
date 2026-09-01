@@ -70,6 +70,10 @@ npm run check     # 确认新链接可访问
 | `newapi`（默认） | New API / One API 系 | `/api/status` + `/api/pricing` |
 | `vibecode` | RawChat 系 Codex 公益站 | `/frontend-api/getConfig` + `/frontend-api/getLoginConfig` |
 | `matrix` | Matrix（统一网关 + 应用商店） | `/api/health`（公开的只有这一个，站名 / 模型 / 网关地址都要登录） |
+| `relay` | 自研网关 / 任务制积分站（CheapCodex、NOFX） | robots 放行的任意一个「还活着」URL：CheapCodex 探 `/v1/models`（不带 key 回 401 就算活着），NOFX 探 `sitemap.xml`。这两家的 robots.txt 直接禁掉 `/api`，面板接口一律不碰 |
+
+`statusApi` 这个字段名是历史包袱：`relay` 面板下它不必是「状态接口」，填 robots 允许抓、
+且能代表站点活着的任意一个 URL 即可，`probeRelay` 只回答「还活着吗、多久答话」。
 
 新增一种面板：在 `scripts/lib/` 下写一个 `probeXxx(site, get = fetchJson)`，
 返回值必须是 `blankSnapshot()` 的字段集合（多一个少一个都不行，`merge.mjs` 和渲染器按字段取数），
@@ -78,7 +82,10 @@ npm run check     # 确认新链接可访问
 「额度 / Base URL 只有登录后才下发」这一事实，公开接口拿不到的东西一律不猜。
 最省的例子是 [`scripts/lib/matrix.mjs`](scripts/lib/matrix.mjs)：那个站公开的只有一个健康检查，
 于是探测就只据实回答「还活着吗、多久答话」，其余字段全留 null，绝不把 `sites.json` 里的登记值
-倒灌进 `live.json` 假装是探测结果。
+倒灌进 `live.json` 假装是探测结果。比它还省的是 [`scripts/lib/relay.mjs`](scripts/lib/relay.mjs)：
+连健康检查都没有，只能拿一个 robots 放行的 URL 判存活；它默认注入的是 `probeUrl` 而不是
+`fetchJson`，因为 `fetchJson` 会把预期之内的 401 当失败连打三次，每 6 小时探一次的东西
+没理由一次敲三下人家的门。
 
 ## 改版式 / 改文案
 

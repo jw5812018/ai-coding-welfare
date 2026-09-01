@@ -449,6 +449,54 @@ test('health 挂了但注册页 200 → 页面仍算在线，不误报异常', (
   assert.equal(m.error, 'timeout');
 });
 
+console.log('relay 面板（robots 禁 /api，只能探中转口或落地页）');
+/**
+ * 2026-09-01 实测：api.cheapcodex.online 的 robots.txt 是 Allow: / + Disallow: /api，
+ * 面板接口按规矩不碰；robots 放行的 /v1/models 不带 key 必然回 401：
+ *   {"code":"API_KEY_REQUIRED","message":"API key is required in Authorization header (Bearer scheme), …"}
+ * probeUrl 只给 { status, ok, ms }，看不到 body——所以口径就是「401 = 活着且要鉴权」。
+ */
+const RL_SITE = { id: 'cheapcodex', panel: 'relay', statusApi: 'https://api.cheapcodex.online/v1/models' };
+const rlFetch = (res) => async (url) => (String(url) === RL_SITE.statusApi ? res : { status: 0, ok: false, error: 'unreachable' });
+
+const rlKeyRequired = await probeSite(RL_SITE, rlFetch({ status: 401, ok: false, ms: 233, attempts: 1 }));
+const rlOpen = await probeSite(RL_SITE, rlFetch({ status: 200, ok: true, ms: 180, attempts: 1 }));
+const rl500 = await probeSite(RL_SITE, rlFetch({ status: 500, ok: false, ms: 90, attempts: 1 }));
+const rlDown = await probeSite(RL_SITE, rlFetch({ status: 0, ok: false, ms: 20_000, error: 'timeout', attempts: 3 }));
+const rlBlocked = await probeSite(RL_SITE, rlFetch({ status: 403, ok: false, ms: 140, attempts: 1 }));
+
+test('401 是中转口的预期答案，算活着而不是算失败', () => {
+  assert.equal(rlKeyRequired.apiOk, true);
+  assert.equal(rlKeyRequired.error, null);
+  assert.equal(rlKeyRequired.latencyMs, 233);
+  assert.equal(rlOpen.apiOk, true);
+});
+test('relay 探到的东西只有「活着 + 延迟」，其余字段一律留空', () => {
+  assert.equal(rlKeyRequired.systemName, null);
+  assert.equal(rlKeyRequired.version, null);
+  assert.equal(rlKeyRequired.registerOpen, null);
+  assert.equal(rlKeyRequired.checkinEnabled, null);
+  assert.equal(rlKeyRequired.inviteeBonusUsd, null);
+  assert.deepEqual(rlKeyRequired.models, []);
+  assert.equal(rlKeyRequired.modelsSource, 'login-required');
+  assert.equal(rlKeyRequired.pricingOk, false);
+});
+test('500 / 超时如实报错，403 留给 merge 判「被 WAF 拦」而不是在这里吞掉', () => {
+  assert.equal(rl500.apiOk, false);
+  assert.equal(rl500.error, 'HTTP 500');
+  assert.equal(rlDown.apiOk, false);
+  assert.equal(rlDown.error, 'timeout');
+  assert.equal(rlBlocked.apiOk, false);
+  assert.equal(rlBlocked.error, 'HTTP 403');
+  assert.equal(looksFiltered({ ok: false, status: 403 }), true);
+});
+test('relay 快照字段集合与 New API 面板完全一致（否则 merge 会漏字段）', () => {
+  assert.deepEqual(Object.keys(rlKeyRequired).sort(), Object.keys(blankSnapshot(RL_SITE, {})).sort());
+});
+test('panel 注册表里有 relay，缺省仍是 newapi', () => {
+  assert.equal(PANELS.relay.name, 'probeRelay');
+});
+
 console.log('tabitoken：按次计费的 New API 站（model_price，不是倍率）');
 /**
  * 2026-08-30 从 tabitoken.com 实测抓到的返回体（status 只留探测会读的字段）。

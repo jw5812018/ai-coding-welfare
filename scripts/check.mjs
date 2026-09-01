@@ -34,7 +34,17 @@ const targets = [];
 for (const s of sites) {
   targets.push({ site: s.name, kind: '注册链接', url: s.signupUrl, critical: true });
   targets.push({ site: s.name, kind: '站点首页', url: s.homeUrl, critical: true });
-  if (s.statusApi) targets.push({ site: s.name, kind: '状态接口', url: s.statusApi, critical: false });
+  // relay 面板的 statusApi 是个「要鉴权的中转口」，不带 key 回 401 才是正常的（见 lib/relay.mjs）。
+  // 不把这一类算进告警，否则每次 check 都固定挂一条噪音，久了就没人看告警了。
+  if (s.statusApi) {
+    targets.push({
+      site: s.name,
+      kind: '状态接口',
+      url: s.statusApi,
+      critical: false,
+      expect401: s.panel === 'relay',
+    });
+  }
   if (s.docsUrl) targets.push({ site: s.name, kind: '文档', url: s.docsUrl, critical: false });
   for (const m of s.mirrors ?? []) {
     targets.push({ site: s.name, kind: '备用注册', url: m.signupUrl, critical: false });
@@ -47,9 +57,11 @@ let failed = 0;
 let warned = 0;
 let blocked = 0;
 for (const r of results) {
-  const filtered = looksFiltered(r.res);
-  const mark = r.res.ok ? '✔' : filtered ? '≡' : r.critical ? '✖' : '!';
-  if (!r.res.ok) {
+  const needsKey = r.expect401 && r.res.status === 401;
+  const alive = r.res.ok || needsKey;
+  const filtered = !alive && looksFiltered(r.res);
+  const mark = alive ? '✔' : filtered ? '≡' : r.critical ? '✖' : '!';
+  if (!alive) {
     if (filtered) blocked += 1;
     else if (r.critical) failed += 1;
     else warned += 1;
@@ -57,6 +69,7 @@ for (const r of results) {
   console.log(
     `${mark} ${r.site.padEnd(13)} ${r.kind.padEnd(10)} HTTP ${String(r.res.status).padEnd(4)} ` +
       `${String(r.res.ms).padStart(5)}ms  ${r.url}${r.res.error ? `  (${r.res.error})` : ''}` +
+      `${needsKey ? '  ← 中转口要鉴权，401 是预期答案' : ''}` +
       `${filtered ? '  ← 被 WAF 拦（本机 IP 的问题，不算死链）' : ''}`,
   );
 }

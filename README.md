@@ -3,10 +3,10 @@
 <p align="center">免费额度 · 白嫖 Claude Code / Codex / Cursor 的中转与公益站合集</p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-8%20%E4%B8%AA-blue" alt="收录站点">
-  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-8%2F8-brightgreen" alt="在线">
+  <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-10%20%E4%B8%AA-blue" alt="收录站点">
+  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-10%2F10-brightgreen" alt="在线">
   <img src="https://img.shields.io/badge/%E9%A6%96%E6%97%A5%E5%8F%AF%E5%BE%97-%E6%9C%80%E9%AB%98%20%24175-success" alt="首日可得">
-  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--09--01%2013.30%20UTC-informational" alt="数据更新">
+  <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--09--01%2014.01%20UTC-informational" alt="数据更新">
 </p>
 
 <p align="center">
@@ -17,7 +17,9 @@
   <a href="https://tabitoken.com/sign-up?aff=EQIT"><b>TaBiAI 注册</b></a> ·
   <a href="https://new.sharedchat.cc/list/#/register?i=MaVP1"><b>RawChat 公益站 注册</b></a> ·
   <a href="https://gorouter.app/sign-up?aff=PZDx"><b>GoRouter 注册</b></a> ·
-  <a href="https://anyrouter.top/register?aff=Z24N"><b>AnyRouter 注册</b></a>
+  <a href="https://anyrouter.top/register?aff=Z24N"><b>AnyRouter 注册</b></a> ·
+  <a href="https://api.cheapcodex.online/register?aff=U7SSQZSDB36S"><b>CheapCodex 注册</b></a> ·
+  <a href="https://nofx.one/zh-CN/sign-in?ref=J369GHY4"><b>NOFX 注册</b></a>
 </p>
 
 <p align="center"><a href="https://panxunying.github.io/ai-coding-welfare/compare/">📊 按次 vs 按量折算横评</a> · <a href="https://panxunying.github.io/ai-coding-welfare/status/">🩺 可用性历史</a> · <a href="https://panxunying.github.io/ai-coding-welfare/changelog/">🗓 变动日志</a> · <a href="https://panxunying.github.io/ai-coding-welfare/feed.xml">🔔 Atom 订阅</a></p>
@@ -36,10 +38,12 @@
 | **RawChat 公益站** | 🟢 在线 | **$50** | 每日额度池 $50（每天重置，不累积） | $50/天（重置） | Codex CLI | Codex | [点此注册 →](https://new.sharedchat.cc/list/#/register?i=MaVP1) |
 | **GoRouter** | 🟢 在线 | **$70** | 注册 $50 + 本页邀请 $20 | 支持签到 | Anthropic + OpenAI | 2 个可查 | [GitHub 注册 →](https://gorouter.app/sign-up?aff=PZDx) |
 | **AnyRouter** | 🟢 在线 | **$150** | 注册 $75 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://anyrouter.top/register?aff=Z24N) |
+| **CheapCodex** | 🟢 在线 | **$40** | 本页邀请 $20 + 首签 $20 | $20/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://api.cheapcodex.online/register?aff=U7SSQZSDB36S) |
+| **NOFX** | 🟢 在线 | **15 积分** | 本页邀请 10 积分 + 首签 5 积分 | 5 积分/天 | OpenAI 兼容 | 需登录查看 | [点此注册 →](https://nofx.one/zh-CN/sign-in?ref=J369GHY4) |
 
-> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-09-01 13:30 UTC`。
+> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-09-01 14:01 UTC`。
 >
-> 7 个按美元计价、且还收新用户的站全注册一遍，第一天手上大约有 **$777** 额度可用（其中每日重置的额度池次日会回满，但不累积）；Matrix 另发 600 积分，是站内积分、与美元没有公开换算，未计入这个合计。
+> 8 个按美元计价、且还收新用户的站全注册一遍，第一天手上大约有 **$817** 额度可用（其中每日重置的额度池次日会回满，但不累积）；Matrix 另发 600 积分，NOFX 另发 15 积分，是站内积分、与美元没有公开换算，未计入这个合计。
 
 **只想快点用上 Claude Code？** 三步：
 
@@ -86,7 +90,7 @@ powershell -ExecutionPolicy Bypass -File scripts/quickstart.ps1
 - 面板版本：`init-20260901-138138e7`
 - 邀请他人可得：**$50**
 - 登录方式：GitHub / LinuxDO
-- 接口延迟：311 ms
+- 接口延迟：2269 ms
 
 **镜像 / 备用入口**
 
@@ -226,7 +230,7 @@ curl -s https://agentrouter.org/v1/chat/completions \
 - 开放注册：✅（站点关掉了邮箱密码注册，得用 GitHub 登录建号（防批量注册的常规做法）。）
 - 登录方式：GitHub / 账号密码
 - GitHub 账号需满 **365 天**
-- 接口延迟：374 ms
+- 接口延迟：1348 ms
 
 > 该站模型清单需登录后台查看，注册后在「模型价格」页确认。
 
@@ -337,7 +341,7 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 - 每日签到：✅
 - 开放注册：✅（站点关掉了邮箱密码注册，得用 GitHub 登录建号（防批量注册的常规做法）。）
 - 登录方式：GitHub / 账号密码
-- 接口延迟：630 ms
+- 接口延迟：1436 ms
 
 > 该站把价格页设成了登录可见（`/api/pricing` 返回 401），本页不列模型表。站内公示的计价口径是输入 $1 / 百万 tokens、输出 $1 / 百万 tokens，按 token 而不是按次，注册后在控制台「模型价格」页确认实际清单与倍率。
 
@@ -443,7 +447,7 @@ curl -s https://kktoken.cc/v1/chat/completions \
 
 **实时数据**（自动抓取站点公开接口）
 
-- 接口延迟：1342 ms
+- 接口延迟：477 ms
 
 > 模型清单与价格需登录后在控制台「模型列表」查看（按每百万 Tokens 计价，可按厂商 / 上下文窗口筛选），站点没有公开的模型与定价接口，本页不做承诺。
 
@@ -513,7 +517,7 @@ curl -s https://kktoken.cc/v1/chat/completions \
 - 每日签到：✅
 - 开放注册：✅（站点关掉了邮箱密码注册，得用 GitHub 登录建号（防批量注册的常规做法）。）
 - 登录方式：GitHub / 账号密码
-- 接口延迟：213 ms
+- 接口延迟：831 ms
 
 **当前可用模型**
 
@@ -628,13 +632,12 @@ curl -s https://tabitoken.com/v1/chat/completions \
 
 **实时数据**（自动抓取站点公开接口）
 
-- ℹ️ 本次自动探测被站点 WAF 拦下（GitHub Actions 机房 IP 常见，家宽访问不受影响），状态与下列信息沿用 `2026-09-01 13:26 UTC` 的成功快照
 - 站点名称：**RawChat公益站**
 - 面板版本：`1.0.0.0`
 - 已开放服务：Codex
 - 开放注册：✅
 - 登录方式：邮箱
-- 接口延迟：19 ms
+- 接口延迟：1069 ms
 
 > 该站走 Codex 官方客户端 + 上游号池，不单独公示模型清单与价格，用量直接从每日 $50 的额度池里扣。
 
@@ -694,7 +697,7 @@ curl -s https://tabitoken.com/v1/chat/completions \
 - 每日签到：✅
 - 开放注册：✅（站点关掉了邮箱密码注册，得用 GitHub 登录建号（防批量注册的常规做法）。）
 - 登录方式：GitHub / 账号密码
-- 接口延迟：59 ms
+- 接口延迟：593 ms
 
 **当前可用模型**
 
@@ -809,7 +812,7 @@ curl -s https://gorouter.app/v1/chat/completions \
 
 **实时数据**（自动抓取站点公开接口）
 
-- 接口延迟：16 ms
+- 接口延迟：243 ms
 
 > 整站（含 `/api/status`、`/api/pricing`、robots.txt 与注册页）都挂在 JS 人机挑战后面，返回的是 `var arg1=...` 的挑战页而不是 JSON，公开接口读不到模型清单，本页不列模型表。站内公示的计价口径是输入 $5 / 百万 tokens、输出 $25 / 百万 tokens，并公示支持 GPT-5.6 Sol，注册后在控制台「模型价格」页确认实际清单与倍率。
 
@@ -895,9 +898,177 @@ curl -s https://anyrouter.top/v1/chat/completions \
 
 ---
 
+### 🟢 CheapCodex
+
+> 自研 AI 网关 · 本页邀请码送 $20，每日签到再 $20，OpenAI / Anthropic / Codex 三条协议一把 Key
+
+<a href="https://api.cheapcodex.online/register?aff=U7SSQZSDB36S"><img src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E6%B3%A8%E5%86%8C-CheapCodex-brightgreen?style=for-the-badge" alt="注册 CheapCodex"></a>
+
+**为什么值得注册**
+
+- 从本页邀请链接注册送 $20，每日签到再领 $20，首日合计 $40
+- 三条原生路由都开着：带无效 key 探 /v1/chat/completions、/v1/messages、/v1/responses 一律回 INVALID_API_KEY，而 /v1/bogus 回 404 —— Claude Code 与 Codex CLI 都能直连
+- /v1/responses 在线意味着 Codex CLI 能走它原生的 responses 协议，不用退回 chat
+- 鉴权头收三种：Authorization: Bearer、x-api-key、x-goog-api-key —— 站点自己的 401 报错里列的，OpenAI / Anthropic / Gemini 三家客户端的习惯都照顾到了
+- 站内公示可以用 GPT-5.6 Sol
+
+**能拿多少额度**
+
+- 从本页邀请链接注册额外：**$20**
+- 每日签到：**$20/天**（长期续命的关键）
+- 首日合计：**$40**　（本页邀请 $20 + 首签 $20）
+
+**实时数据**（自动抓取站点公开接口）
+
+- 接口延迟：1622 ms
+
+> 这个站的面板接口在它自己的 robots.txt 里是 `Disallow: /api`，本页按规矩不碰，所以拿不到模型清单与单价，只探 robots 放行的 `/v1/models`（不带 key 必然回 `API_KEY_REQUIRED`，能回就说明网关活着）。站内公示可以用 GPT-5.6 Sol，完整清单与价格注册后在控制台确认。
+
+**注册要求**
+
+- 务必从本页邀请链接进入注册（带 ?aff=U7SSQZSDB36S），$20 在注册那一刻结算，事后补不上
+- 只能用邮箱建号：站点前端自带的公开配置里 github / google / linuxdo / 微信 / 钉钉 / OIDC 的 oauth 开关全是 false，没有第三方登录入口
+- 注册页的人机校验目前是关的（配了 Turnstile site key 但 turnstile_enabled=false），加载不出 Cloudflare 脚本也能注册
+
+**接入配置**
+
+<details open><summary><b>Claude Code</b>（Anthropic 兼容，Base URL 不带 <code>/v1</code>）</summary>
+
+```bash
+# macOS / Linux
+export ANTHROPIC_BASE_URL=https://api.cheapcodex.online
+export ANTHROPIC_AUTH_TOKEN=你在站点后台创建的 Key
+export ANTHROPIC_MODEL=<登录后台查看可用模型名>
+npm install -g @anthropic-ai/claude-code@latest && claude
+```
+
+```powershell
+# Windows PowerShell
+$env:ANTHROPIC_BASE_URL = "https://api.cheapcodex.online"
+$env:ANTHROPIC_AUTH_TOKEN = "你在站点后台创建的 Key"
+$env:ANTHROPIC_MODEL = "<登录后台查看可用模型名>"
+claude
+```
+
+</details>
+
+<details><summary><b>Codex CLI</b>（OpenAI 兼容，写入 <code>~/.codex/config.toml</code>）</summary>
+
+```toml
+model = "<登录后台查看可用模型名>"
+model_provider = "cheapcodex"
+
+[model_providers.cheapcodex]
+name = "CheapCodex"
+base_url = "https://api.cheapcodex.online/v1"
+env_key = "CHEAPCODEX_API_KEY"
+wire_api = "chat"
+```
+
+</details>
+
+<details><summary><b>OpenAI SDK / Cherry Studio / Cursor 等通用客户端</b></summary>
+
+```python
+from openai import OpenAI
+
+client = OpenAI(api_key="你的 Key", base_url="https://api.cheapcodex.online/v1")
+resp = client.chat.completions.create(model="<登录后台查看可用模型名>", messages=[{"role": "user", "content": "ping"}])
+print(resp.choices[0].message.content)
+```
+
+通用客户端只需填两项：**Base URL** = `https://api.cheapcodex.online/v1`，**API Key** = 站点后台创建的 Key。
+
+</details>
+
+<details><summary><b>连通性自测</b></summary>
+
+```bash
+curl -s https://api.cheapcodex.online/v1/chat/completions \
+  -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
+  -d '{"model":"<登录后台查看可用模型名>","messages":[{"role":"user","content":"只回复 OK"}]}'
+```
+
+</details>
+
+**如何继续拿额度**
+
+- 每日签到领 $20（登录后台点签到）
+- 邀请他人注册也有奖励（站点前端配置里 affiliate_enabled=true），金额没公示，登录后台「邀请」页确认
+
+**⚠️ 使用前必读**
+
+- 额度数字（邀请 $20 / 签到 $20）与 GPT-5.6 Sol 都是站内公示口径，面板接口 robots 禁爬、本页无法自动核对，进后台自己确认一遍再算账
+- 上面「实时数据」一栏只有接口延迟：本页只对 /v1/models 做存活探测，站名、面板版本、模型数一概拿不到
+- 站内挂着付费订阅商品、收单走站外的 pay.ldxp.cn，前端配置里 payment_enabled 目前是 false（站内直充没开）——是付费网关不是纯公益站，免费额度用完要付费才能续
+- 另一个域名 api.cheapcodex.ccwu.cc 提供同一套应用（.online 的 robots.txt 里声明的 sitemap 就指向它），但邀请码在那边是否同样结算无法从公开接口确认，建议就走本页链接
+
+---
+
+### 🟢 NOFX
+
+> 任务制积分站 · 做任务领 API 积分，签到 / Discord / 邀请 / 发推都给分，免密码登录、无需绑卡
+
+<a href="https://nofx.one/zh-CN/sign-in?ref=J369GHY4"><img src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E6%B3%A8%E5%86%8C-NOFX-brightgreen?style=for-the-badge" alt="注册 NOFX"></a>
+
+**为什么值得注册**
+
+- 从本页邀请链接注册得 10 积分，之后每天签到 +$5 积分，站点自报「第一笔积分，30 秒就能到账」
+- 积分是靠做任务领的，不是充值买的：加入 Discord +$5、每日签到 +$5、邀请一位好友 +$5（不限每日人数）、在 X 发一条带邀请码的推文过审 +$20
+- 免密码登录：邮箱 magic link 或 GitHub 授权，站点明确写着「不签发或保存登录密码」，也支持两步验证
+- 一个 Key 调用主流模型，站内公示可以用 gpt-5.6-sol；据反馈约 5 积分能换 7M tokens 左右
+- 无需绑卡，注册后立刻能签到领第一笔
+
+**能拿多少额度**
+
+- 从本页邀请链接注册额外：**10 积分**
+- 每日签到：**5 积分/天**（长期续命的关键）
+- 首日合计：**15 积分**　（本页邀请 10 积分 + 首签 5 积分）
+
+**实时数据**（自动抓取站点公开接口）
+
+- 接口延迟：2037 ms
+
+> 站点公开面只有落地页和法律条款两类页面（sitemap 里就这几条），模型清单、单价与中转地址都在登录后的「接入文档」里，所以本页既不列模型表也不猜 Base URL。计费单位是站内积分，站点界面把它写成「$5 积分」；据反馈约 5 积分换 7M tokens 左右，并公示可以用 gpt-5.6-sol —— 都以站内实际为准。
+
+**注册要求**
+
+- 务必从本页邀请链接进入注册（带 ?ref=J369GHY4），邀请关系在注册那一刻绑定，事后补不上
+- 免密码登录：填邮箱收一条登录链接，或直接用 GitHub 授权；站点隐私条款写明「不签发或保存登录密码」
+- 签到和 Discord 验证这两笔要在 Discord 里做（/checkin 与 /verify，命令得从弹出列表里选，不能直接粘贴），不进 Discord 就领不到
+
+**接入配置**
+
+> 中转地址（Base URL）与 Key 只在登录后的「接入文档」/「API Key」页下发，落地页与 sitemap 都没有，本页不做猜测。
+
+1. 从本页邀请链接注册并登录（输入邮箱收 magic link，或直接用 GitHub 授权）
+2. 进「任务中心」把能领的先领掉：加入 Discord 后在任意频道输入 /verify 填验证码拿 $5，再输入 /checkin 拿当日签到的 $5
+3. 在「API Key」页建一把 Key，「接入文档」页拿当前中转地址，客户端里填 Base URL + Key，模型名到控制台确认
+
+控制台入口：<https://nofx.one/zh-CN/tasks>
+
+**如何继续拿额度**
+
+- 每日签到 +$5 积分（Discord 里输入 /checkin，每日刷新）
+- 加入 Discord 并用 /verify 验证 +$5 积分（一次性，验证码领取后 30 分钟内有效）
+- 邀请好友注册，邀请者每人 +$5 积分，不限每日人数
+- 在 X 发一条带邀请码的推文、上传截图过审 +$20 积分（一次性）
+- 体验合作 APP 的任务另有积分，由合作方 HMAC 回调自动确认
+
+**⚠️ 使用前必读**
+
+- 额度是站内积分，站方没有公开积分与美元的换算，本页按积分原样显示，不折算美元、也不并入跨站的美元合计——站点界面写的「$5 积分」是它自己的单位，别当成 5 美元
+- 积分有 30 天有效期：从首次奖励入账起算，期间有真实 API 消耗会重新计算 30 天，到期前 7 天 / 1 天有站内和邮件提醒。领了不用会过期，这点和本页其它站不一样
+- 每日签到「剩余积分超过 $50 时暂停」，攒不到很高，是设计成让你边领边用的
+- 落地页的 CTA 写「注册领取 $20 积分」，而本页登记的邀请注册是 10 积分——两个口径站点没在公开页面上对齐，进后台看实际到账数
+- 「分享到 X」那 $20 要发带自己邀请码的推文并上传截图过审，本质是替站点做推广，要不要做自己判断
+- 站点公开面读不到任何机器可读的状态：robots.txt 禁掉了 /api/ 与控制台各页，本页只探 sitemap.xml 判断站点还活着，所以「实时数据」一栏只有延迟
+
+---
+
 ## 🔔 额度变了，这里会通知你
 
-CI 每 6 小时抓一次各站接口，与上一次快照逐字段比对，目前已攒下 49 个样本、覆盖约 11.2 天。额度调整、掉线与恢复、模型上下线、价格变动都会自动记一条：
+CI 每 6 小时抓一次各站接口，与上一次快照逐字段比对，目前已攒下 50 个样本、覆盖约 11.2 天。额度调整、掉线与恢复、模型上下线、价格变动都会自动记一条：
 
 - 点仓库右上角 **Watch → Custom → Releases**：有重要变动时 GitHub 直接发邮件
 - 订阅 [Atom feed](https://panxunying.github.io/ai-coding-welfare/feed.xml)：RSS 阅读器 / Feedly / Telegram 机器人都能读
@@ -905,12 +1076,12 @@ CI 每 6 小时抓一次各站接口，与上一次快照逐字段比对，目�
 
 最近几条：
 
+- `2026-09-01` 🆕 新收录 CheapCodex：邀请再加 $20，每日签到 $20
+- `2026-09-01` 🆕 新收录 NOFX：邀请再加 10 积分，每日签到 $5
 - `2026-09-01` 🆕 新收录 AnyRouter：注册送 $75，邀请再加 $50，每日签到 $25
 - `2026-09-01` ➖ GoRouter 下线模型：claude-opus-4-8、claude-opus-4-8-thinking
 - `2026-09-01` 🆕 新收录 KKtoken AI：注册送 $75，邀请再加 $25，每日签到 $20
 - `2026-08-30` 🆕 新收录 GoRouter：注册送 $50，邀请再加 $20
-- `2026-08-30` 🟢 RawChat 公益站 恢复在线
-- `2026-08-30` 🆕 新收录 TaBiAI：注册送 $100，邀请再加 $20
 
 完整记录见 [CHANGELOG.md](CHANGELOG.md)。
 
@@ -992,6 +1163,6 @@ npm run check     # 校验链接是否还活着
 
 <p align="center"><b>觉得有用点个 ⭐ Star</b>，福利站有变动时这里会自动更新。</p>
 
-<sub>关键词：Claude Code 免费 · Claude Code 中转 · Codex 中转 · Codex 公益站 · AI API 中转站 · 公益站 · 免费 API 额度 · 每日免费额度 · claude-opus-5 API · New API · AgentRouter · RawChat · Matrix 统一网关 · TaBiAI · GoRouter · KKtoken · AnyRouter · GPT-5.6 Sol 中转 · claude-opus-5 按次计费</sub>
+<sub>关键词：Claude Code 免费 · Claude Code 中转 · Codex 中转 · Codex 公益站 · AI API 中转站 · 公益站 · 免费 API 额度 · 每日免费额度 · claude-opus-5 API · New API · AgentRouter · RawChat · Matrix 统一网关 · TaBiAI · GoRouter · KKtoken · AnyRouter · CheapCodex · NOFX 积分 · GPT-5.6 Sol 中转 · claude-opus-5 按次计费</sub>
 
 <!-- 本文件由 scripts/build.mjs 自动生成，请修改 data/sites.json 或 scripts/lib/render-readme.mjs -->

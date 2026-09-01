@@ -8,6 +8,8 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 
 ## 2026-09-01
 
+- 🆕 新收录 CheapCodex：邀请再加 $20，每日签到 $20 <sub>14:01 UTC</sub>
+- 🆕 新收录 NOFX：邀请再加 10 积分，每日签到 $5 <sub>14:01 UTC</sub>
 - 🆕 新收录 AnyRouter：注册送 $75，邀请再加 $50，每日签到 $25 <sub>13:26 UTC</sub>
 - ➖ GoRouter 下线模型：claude-opus-4-8、claude-opus-4-8-thinking <sub>12:54 UTC</sub>
 - 🆕 新收录 KKtoken AI：注册送 $75，邀请再加 $25，每日签到 $20 <sub>12:54 UTC</sub>

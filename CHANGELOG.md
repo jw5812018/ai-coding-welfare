@@ -8,6 +8,7 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 
 ## 2026-09-03
 
+- 🟢 KKtoken AI 恢复在线 <sub>21:03 UTC</sub>
 - 🔴 KKtoken AI 探测不到了：注册页与公开接口都没响应 <sub>16:28 UTC</sub>
 - 🔴 RawChat 公益站 探测不到了：注册页与公开接口都没响应 <sub>16:28 UTC</sub>
 

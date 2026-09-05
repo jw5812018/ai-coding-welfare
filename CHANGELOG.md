@@ -8,6 +8,7 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 
 ## 2026-09-05
 
+- ➕ TaBiAI 上线模型：claude-opus-4-8、claude-opus-4-8-thinking <sub>15:16 UTC</sub>
 - ➖ TaBiAI 下线模型：claude-opus-4-8、claude-opus-4-8-thinking <sub>10:37 UTC</sub>
 - ➕ TaBiAI 上线模型：claude-opus-4-8、claude-opus-4-8-thinking <sub>04:32 UTC</sub>
 

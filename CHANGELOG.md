@@ -6,6 +6,10 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 
 > 只记录会影响「值不值得注册」的字段。探测被站点 WAF 拦下时不记在线状态变化，避免机房 IP 被拦被误报成掉线。
 
+## 2026-09-08
+
+- 🔴 CheapCodex 探测不到了：注册页与公开接口都没响应 <sub>04:39 UTC</sub>
+
 ## 2026-09-05
 
 - ➕ TaBiAI 上线模型：claude-opus-4-8、claude-opus-4-8-thinking <sub>15:16 UTC</sub>

@@ -1053,6 +1053,22 @@ test('停注的站不参与「最耐用」排序，README 里额度划掉、状�
   assert.match(md, /已停注 · 仍可打开/);
   assert.doesNotMatch(md, /全注册一遍/, '没有还收人的站时不该给合计');
 });
+test('邀请码要手填的站才出「邀请码」列，且写清 — 不等于没有邀请额度', () => {
+  const live = { generatedAt: iso(0), sites: [{ id: 'demo', online: true, registerOpen: true }] };
+  const plain = renderReadme({ meta: META, sites: [SITE], live, groups: [], history: HIST });
+  assert.doesNotMatch(plain, /\| 邀请码 \|/, '没有站需要手填时不该多出一个空列');
+
+  const coded = { ...SITE, inviteCode: 'zMRe' };
+  const md = renderReadme({ meta: META, sites: [coded], live, groups: [], history: HIST });
+  assert.match(md, /\| 模型 \| 注册 \| 邀请码 \|/, '邀请码列排在最后');
+  assert.match(md, /`zMRe` \|$/m);
+  assert.match(md, /注册表单里有一栏要\*\*自己填\*\*/);
+  // 表头、分隔行、数据行的列数必须一致，否则 GitHub 上整张表会散架
+  const [head, sep, row] = md.split('\n').filter((l) => l.startsWith('| ')).slice(0, 3);
+  const cols = (l) => l.split('|').length;
+  assert.equal(cols(head), cols(sep));
+  assert.equal(cols(head), cols(row));
+});
 test('停注变动进日志时带上接口口径，别让人以为是我们猜的', () => {
   const [ev] = D({ ...snap(), registerOpen: true }, { ...snap(), registerOpen: false });
   assert.equal(ev.type, 'register_closed');

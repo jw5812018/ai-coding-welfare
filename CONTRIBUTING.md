@@ -24,6 +24,8 @@
                                          // 也写「刀」但充值比例离谱的站（DoCode 1 元 = 50 刀）填 "site-usd"，见下文
   },
   "signupUrl": "https://example.com/register?aff=xxx",
+  "inviteCode": "xxx",                   // 只在「注册表单里有一栏邀请码要手填」时写；
+                                         // 写了才会在 README 总表末尾出「邀请码」列，没有站需要手填就不出这一列
   "homeUrl": "https://example.com",
   "docsUrl": "https://example.com/docs",
   "statusApi": "https://example.com/api/status",   // New API / One API 系都有

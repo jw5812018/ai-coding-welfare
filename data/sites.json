@@ -99,6 +99,7 @@
         "unit": "site-usd"
       },
       "signupUrl": "https://docode.cc/register?aff=zMRe",
+      "inviteCode": "zMRe",
       "homeUrl": "https://docode.cc",
       "docsUrl": null,
       "statusApi": "https://docode.cc/api/status",

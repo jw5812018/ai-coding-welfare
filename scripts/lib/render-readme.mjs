@@ -29,6 +29,9 @@ function openaiModel(snap) {
 }
 
 function overviewTable(sites, liveById) {
+  // 多数站的邀请额度是邀请链接自己带的，用户不用手打；只有个别站（DoCode）注册表单里
+  // 有一栏「邀请码」要自己填，漏填就只拿注册额度。没有任何站需要手填时不出这一列。
+  const hasCode = sites.some((s) => s.inviteCode);
   const rows = sites.map((s) => {
     const l = liveById.get(s.id) ?? {};
     const plan = creditPlan(s, l);
@@ -61,11 +64,15 @@ function overviewTable(sites, liveById) {
         : route.state === 'oauth'
           ? `[${route.oauth[0]} 注册 →](${s.signupUrl})`
           : `[点此注册 →](${s.signupUrl})`;
-    return `| **${s.name}**${s.recommended ? ' 🔥' : ''} | ${state} | ${first} | ${detail} | ${checkin} | ${proto} | ${models} | ${cta} |`;
+    const code = s.inviteCode ? ` \`${s.inviteCode}\` |` : ' — |';
+    return (
+      `| **${s.name}**${s.recommended ? ' 🔥' : ''} | ${state} | ${first} | ${detail} | ${checkin} | ${proto} | ${models} | ${cta} |` +
+      (hasCode ? code : '')
+    );
   });
   return [
-    '| 站点 | 状态 | 首日可得 | 额度构成 | 之后每天 | 兼容协议 | 模型 | 注册 |',
-    '| :-- | :--: | :--: | :-- | :--: | :--: | :--: | :--: |',
+    `| 站点 | 状态 | 首日可得 | 额度构成 | 之后每天 | 兼容协议 | 模型 | 注册 |${hasCode ? ' 邀请码 |' : ''}`,
+    `| :-- | :--: | :--: | :-- | :--: | :--: | :--: | :--: |${hasCode ? ' :--: |' : ''}`,
     ...rows,
   ].join('\n');
 }
@@ -289,6 +296,7 @@ export function renderReadme({ meta, sites, live, groups = [], history }) {
   const plans = openSites.map((s) => creditPlan(s, byId.get(s.id)));
   // 合计只算美元站：积分与美元没有公开换算，混着加就是编数字（详见 lib/credits.mjs）
   const { count: usdCount, best, total, resetting, others } = usdTotals(plans);
+  const codeSites = sites.filter((s) => s.inviteCode);
   const extra = othersNote(others);
   const scope = others.length ? `${usdCount} 个按美元计价、且还收新用户的站` : `${openSites.length} 个还收新用户的站`;
   const pages = (meta.pagesUrl ?? '').replace(/\/?$/, '/');
@@ -321,6 +329,13 @@ export function renderReadme({ meta, sites, live, groups = [], history }) {
     overviewTable(sites, byId),
     '',
     `> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：\`${fmtDate(live?.generatedAt)}\`。`,
+    codeSites.length ? '>' : null,
+    // 「—」不等于没有邀请额度，只是不用手打；这一句不写清楚，读者会以为那些站白嫖不到邀请额度
+    codeSites.length
+      ? `> 「邀请码」列写了码的站（${codeSites
+          .map((s) => `${s.name} \`${s.inviteCode}\``)
+          .join('、')}），注册表单里有一栏要**自己填**，漏填就只拿得到注册基础额度、事后补不上；其余站写 — 是因为邀请额度由链接自带，不用手打。`
+      : null,
     total > 0 ? '>' : null,
     total > 0
       ? `> ${scope}全注册一遍，第一天手上大约有 **$${total}** 额度可用${resetting ? '（其中每日重置的额度池次日会回满，但不累积）' : ''}${

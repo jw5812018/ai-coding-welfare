@@ -8,6 +8,7 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 
 ## 2026-09-15
 
+- 🟢 GoRouter 恢复在线 <sub>17:01 UTC</sub>
 - 📢 DoCode 发了公告：国模分组倍率下调，其中deepseek仅保留DeepSeek-V4.1-Flash与DeepSeek-V4-Pro-0813。 <sub>11:46 UTC</sub>
 - 🔴 GoRouter 探测不到了：注册页与公开接口都没响应 <sub>11:46 UTC</sub>
 - ➕ AgentRouter 上线模型：gpt-6-astra <sub>01:49 UTC</sub>

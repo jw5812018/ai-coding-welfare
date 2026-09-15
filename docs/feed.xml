@@ -5,15 +5,15 @@
   <link rel="self" href="https://panxunying.github.io/ai-coding-welfare/feed.xml"/>
   <link href="https://panxunying.github.io/ai-coding-welfare/"/>
   <id>https://panxunying.github.io/ai-coding-welfare/</id>
-  <updated>2026-09-15T11:46:31.101Z</updated>
+  <updated>2026-09-15T17:01:10.749Z</updated>
   <author><name>AI Coding 福利站导航</name></author>
   <entry>
-    <title>2026-09-15 · 7 项变动</title>
+    <title>2026-09-15 · 8 项变动</title>
     <link href="https://panxunying.github.io/ai-coding-welfare/changelog/#2026-09-15"/>
     <id>tag:panxunying.github.io,2026-09-15:changelog</id>
-    <updated>2026-09-15T11:46:31.101Z</updated>
-    <summary>DoCode 发了公告：国模分组倍率下调，其中deepseek仅保留DeepSeek-V4.1-Flash与DeepSeek-V4-Pro-0813。（另有 6 项变动）</summary>
-    <content type="html">&lt;ul&gt;&lt;li&gt;📢 DoCode 发了公告：国模分组倍率下调，其中deepseek仅保留DeepSeek-V4.1-Flash与DeepSeek-V4-Pro-0813。&lt;/li&gt;&lt;li&gt;🔴 GoRouter 探测不到了：注册页与公开接口都没响应&lt;/li&gt;&lt;li&gt;➕ AgentRouter 上线模型：gpt-6-astra&lt;/li&gt;&lt;li&gt;🏷️ AgentRouter deepseek-v4-flash 价格 $2 入 / $6 出（每 1M） → $4 入 / $12 出（每 1M）&lt;/li&gt;&lt;li&gt;🏷️ AgentRouter glm-5.3 价格 $3 入 / $12 出（每 1M） → $5 入 / $25 出（每 1M）&lt;/li&gt;&lt;li&gt;📢 AgentRouter 发了公告：为保障服务长期运行，Claude 和 GPT 模型已调整为限量供应，每日分批次发放，用完即止。目前暂定每日两批：北京时间 07:00 和 19:00（UTC 23:00 和 11:00），后续可能调整。 额度用完后会报错“402 Budget pool quota has bee&lt;/li&gt;&lt;li&gt;🆕 新收录 DoCode：注册送 50 站内刀，邀请再加 250 站内刀&lt;/li&gt;&lt;/ul&gt;</content>
+    <updated>2026-09-15T17:01:10.749Z</updated>
+    <summary>GoRouter 恢复在线（另有 7 项变动）</summary>
+    <content type="html">&lt;ul&gt;&lt;li&gt;🟢 GoRouter 恢复在线&lt;/li&gt;&lt;li&gt;📢 DoCode 发了公告：国模分组倍率下调，其中deepseek仅保留DeepSeek-V4.1-Flash与DeepSeek-V4-Pro-0813。&lt;/li&gt;&lt;li&gt;🔴 GoRouter 探测不到了：注册页与公开接口都没响应&lt;/li&gt;&lt;li&gt;➕ AgentRouter 上线模型：gpt-6-astra&lt;/li&gt;&lt;li&gt;🏷️ AgentRouter deepseek-v4-flash 价格 $2 入 / $6 出（每 1M） → $4 入 / $12 出（每 1M）&lt;/li&gt;&lt;li&gt;🏷️ AgentRouter glm-5.3 价格 $3 入 / $12 出（每 1M） → $5 入 / $25 出（每 1M）&lt;/li&gt;&lt;li&gt;📢 AgentRouter 发了公告：为保障服务长期运行，Claude 和 GPT 模型已调整为限量供应，每日分批次发放，用完即止。目前暂定每日两批：北京时间 07:00 和 19:00（UTC 23:00 和 11:00），后续可能调整。 额度用完后会报错“402 Budget pool quota has bee&lt;/li&gt;&lt;li&gt;🆕 新收录 DoCode：注册送 50 站内刀，邀请再加 250 站内刀&lt;/li&gt;&lt;/ul&gt;</content>
   </entry>
   <entry>
     <title>2026-09-08 · 2 项变动</title>

@@ -327,6 +327,24 @@ test('未登记的单位原样后缀显示，并告警提醒补 UNITS', () => {
   assert.equal(usd(5, false, 'credit'), '5 credit');
   assert.match(auditCredits([odd], { sites: [] }).join(''), /不在已知单位/);
 });
+/** DoCode 的「刀」是站内计价单位：面板 price=0.02（1 元 = 50 刀），和 ¥7.3 ≈ $1 的站差两个数量级 */
+const DC = { id: 'docode', name: 'DoCode', credits: { signup: 50, invite: 250, dailyCheckin: null, approx: false, unit: 'site-usd' } };
+
+test('站内刀按「站内刀」显示，不加 $、不并进美元合计', () => {
+  const p = creditPlan(DC, null);
+  assert.equal(p.firstDay, 300);
+  assert.equal(usd(p.firstDay, p.approx, p.unit), '300 站内刀');
+  assert.equal(breakdown(p), '注册 50 站内刀 + 本页邀请 250 站内刀');
+  const t = usdTotals([creditPlan(AR, OLD_GOOD), creditPlan(DC, null)]);
+  assert.equal(t.count, 1);
+  assert.equal(t.total, 175); // 300 站内刀不许加进来
+  assert.equal(othersNote(t.others), 'DoCode 另发 300 站内刀');
+  assert.deepEqual(auditCredits([DC], { sites: [] }), []); // 已登记的单位不该告警
+});
+test('新收录事件按站点自己的单位写额度，不硬拼 $', () => {
+  const [ev] = diffSnapshots({ sites: [] }, { generatedAt: iso(0), sites: [{ id: 'docode' }] }, [DC]);
+  assert.equal(ev.text, '新收录 DoCode：注册送 50 站内刀，邀请再加 250 站内刀');
+});
 
 console.log('vibe-code 面板（Codex 公益站，接口不是 New API）');
 /** 2026-08-21 从 new.sharedchat.cc 实测抓到的返回体 */

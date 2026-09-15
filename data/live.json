@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-14T21:51:00.317Z",
+  "generatedAt": "2026-09-15T01:49:17.158Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-09-14T21:50:54.422Z",
+      "checkedAt": "2026-09-15T01:48:59.261Z",
       "online": true,
-      "latencyMs": 244,
-      "error": "invalid json",
+      "latencyMs": 1585,
+      "error": null,
       "systemName": "Agent Router",
-      "version": "init-20260901-138138e7",
+      "version": "init-20260915-25158da5",
       "registerOpen": null,
       "passwordRegister": null,
       "checkinEnabled": null,
@@ -23,6 +23,11 @@
       "topupEnabled": false,
       "announcements": [
         {
+          "id": 16,
+          "date": "2026-08-28",
+          "text": "为保障服务长期运行，Claude 和 GPT 模型已调整为限量供应，每日分批次发放，用完即止。目前暂定每日两批：北京时间 07:00 和 19:00（UTC 23:00 和 11:00），后续可能调整。 额度用完后会报错“402 Budget pool quota has been exhausted.”，等待下一批或切换至 DeepSeek / GLM 即可继续使用。"
+        },
+        {
           "id": 15,
           "date": "2026-07-28",
           "text": "📢 备用域名正式上线 为进一步提升服务可用性，本站现已推出备用域名：🔗 https://ps.air-outer.com 访问不了原域名的中国大陆用户可使用此域名，备用域名支持 API 接口调用 与 官网访问，与原域名功能完全一致。 原域名 https://agentrouter.org 可继续使用。"
@@ -30,7 +35,7 @@
         {
           "id": 14,
           "date": "2026-07-16",
-          "text": "🎁 官方社区平台汇总 欢迎加入或关注以下官方渠道，获取最新动态与支持： 📱 QQ 群（会定期清人，没进多试几次） · 1群：1054950616 · 2群：1091388133 · 3群：700583832 💬 Discord https://discord.gg/HgekCyHJqB 🐦 X（Twitter） https://x.com/AgentRouter_0"
+          "text": "🎁 官方社区平台汇总 欢迎加入或关注以下官方渠道，获取最新动态与支持： 📱 QQ 群（会定期清人，没进多试几次） · 1群：1054950616 · 2群：1091388133 · 3群：700583832 💬 Discord（有中文交流频道） https://discord.gg/HgekCyHJqB 🐦 X（Twitter） https://x.com/AgentRouter_0"
         },
         {
           "id": 13,
@@ -41,11 +46,6 @@
           "id": 12,
           "date": "2026-05-14",
           "text": "因受到恶意举报影响，近期服务稳定性遇到巨大挑战，导致Claude系列模型大规模停用。 为保障后续提升服务质量、及时同步信息，我们已启用新的官方 Discord，并在新的官方X更新动态。 为避免走失，请大家有序移步： 新的 Discord： 👉 https://discord.gg/aYq5B4RW3 官方 X： 👉 @AgentRouter_0 https://x.com/AgentRouter_0 且用且珍惜"
-        },
-        {
-          "id": 11,
-          "date": "2025-11-08",
-          "text": "English Announcement see in <b style=\"color: blue;text-decoration: underline;\">[Discord](https://discord.gg/V6kaP6Rg44)<b>"
         }
       ],
       "models": [
@@ -75,10 +75,10 @@
           "inputPerMTok": 8,
           "outputPerMTok": 40,
           "groups": [
-            "core",
-            "default",
             "svip",
-            "test"
+            "test",
+            "core",
+            "default"
           ],
           "protocols": [
             "anthropic",
@@ -87,11 +87,11 @@
         },
         {
           "name": "deepseek-v4-flash",
-          "ratio": 1,
+          "ratio": 2,
           "completionRatio": 3,
           "fixedPrice": null,
-          "inputPerMTok": 2,
-          "outputPerMTok": 6,
+          "inputPerMTok": 4,
+          "outputPerMTok": 12,
           "groups": [
             "test",
             "core",
@@ -105,16 +105,16 @@
         },
         {
           "name": "glm-5.3",
-          "ratio": 1.5,
-          "completionRatio": 4,
+          "ratio": 2.5,
+          "completionRatio": 5,
           "fixedPrice": null,
-          "inputPerMTok": 3,
-          "outputPerMTok": 12,
+          "inputPerMTok": 5,
+          "outputPerMTok": 25,
           "groups": [
-            "svip",
-            "test",
             "core",
-            "default"
+            "default",
+            "svip",
+            "test"
           ],
           "protocols": [
             "anthropic",
@@ -123,6 +123,23 @@
         },
         {
           "name": "gpt-5.6-sol",
+          "ratio": 1.5,
+          "completionRatio": 5,
+          "fixedPrice": null,
+          "inputPerMTok": 3,
+          "outputPerMTok": 15,
+          "groups": [
+            "test",
+            "core",
+            "default",
+            "svip"
+          ],
+          "protocols": [
+            "openai"
+          ]
+        },
+        {
+          "name": "gpt-6-astra",
           "ratio": 1.5,
           "completionRatio": 5,
           "fixedPrice": null,
@@ -139,47 +156,108 @@
           ]
         }
       ],
-      "modelsSource": "cached",
+      "modelsSource": "public-api",
       "defaults": {
         "claude": "claude-opus-5",
-        "openai": "gpt-5.6-sol"
+        "openai": "gpt-6-astra"
       },
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1446,
+        "ms": 1672,
         "attempts": 1
       },
       "mirrors": [
         {
           "homeUrl": "https://ps.air-outer.com",
-          "online": false
+          "online": true
         }
       ],
-      "staleFrom": "2026-09-01T14:01:53.577Z",
-      "apiOk": false,
-      "pricingOk": false,
-      "dataStale": true,
-      "staleFields": [
-        "systemName",
-        "version",
-        "loginMethods",
-        "quotaPerUnit",
-        "inviteeBonusUsd",
-        "inviterBonusUsd",
-        "topupEnabled",
-        "announcements",
-        "models",
-        "defaults"
-      ],
+      "staleFrom": null,
+      "apiOk": true,
+      "pricingOk": true,
+      "dataStale": false,
+      "staleFields": [],
       "services": [],
       "probeBlocked": false
     },
     {
-      "id": "justdowork",
-      "checkedAt": "2026-09-14T21:50:49.025Z",
+      "id": "docode",
+      "checkedAt": "2026-09-15T01:48:58.586Z",
+      "apiOk": true,
+      "pricingOk": false,
+      "latencyMs": 1005,
+      "error": null,
+      "systemName": "DoCode",
+      "version": "",
+      "registerOpen": true,
+      "passwordRegister": true,
+      "checkinEnabled": false,
+      "loginMethods": [
+        "账号密码"
+      ],
+      "githubMinAccountAgeDays": null,
+      "quotaPerUnit": 500000,
+      "inviteeBonusUsd": null,
+      "inviterBonusUsd": null,
+      "topupEnabled": null,
+      "services": [],
+      "announcements": [
+        {
+          "id": 27,
+          "date": "2026-09-10",
+          "text": "今天openai炸了，gpt全线都不太行，推荐用grok或者cc特殊分组"
+        },
+        {
+          "id": 26,
+          "date": "2026-08-29",
+          "text": "已上架按次收费的分组，有gemini和opus4.6，价格详情可以查看定价页面。"
+        },
+        {
+          "id": 25,
+          "date": "2026-08-06",
+          "text": "基本稳定，相关分组倍率已回落"
+        },
+        {
+          "id": 24,
+          "date": "2026-08-06",
+          "text": "号源暂时全断了，全网价格都上涨，gpt每个vip等级都上调了1-2点。"
+        },
+        {
+          "id": 23,
+          "date": "2026-07-21",
+          "text": "经过openai一顿厮杀，暂时稳定了，站点的gpt pro价格扛不住了，vip10-vip500的倍率都上调了+2倍率。如vip10由11倍上调13倍，vip500由7倍上调至9倍。如后续市场价格回落，我站也会对应调整。"
+        }
+      ],
+      "models": [],
+      "modelsSource": "login-required",
+      "defaults": {
+        "claude": null,
+        "openai": null
+      },
+      "signup": {
+        "status": 200,
+        "ok": true,
+        "ms": 967,
+        "attempts": 1
+      },
+      "mirrors": [
+        {
+          "homeUrl": "https://api.docode.cc",
+          "online": true
+        }
+      ],
+      "probeBlocked": false,
       "online": true,
-      "latencyMs": 1028,
+      "dataStale": false,
+      "staleFrom": null,
+      "staleFields": []
+    },
+    {
+      "id": "justdowork",
+      "checkedAt": "2026-09-15T01:48:58.880Z",
+      "online": true,
+      "latencyMs": 1299,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.23",
@@ -205,7 +283,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1687,
+        "ms": 2164,
         "attempts": 1
       },
       "mirrors": [],
@@ -219,10 +297,10 @@
     },
     {
       "id": "kktoken",
-      "checkedAt": "2026-09-14T21:50:49.541Z",
+      "checkedAt": "2026-09-15T01:48:59.132Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1548,
+      "latencyMs": 1550,
       "error": null,
       "systemName": "KKtoken AI",
       "version": "v1.0.0-rc.25",
@@ -249,7 +327,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1538,
+        "ms": 1501,
         "attempts": 1
       },
       "mirrors": [],
@@ -261,10 +339,10 @@
     },
     {
       "id": "gorouter",
-      "checkedAt": "2026-09-14T21:50:51.009Z",
+      "checkedAt": "2026-09-15T01:48:58.946Z",
       "apiOk": true,
       "pricingOk": true,
-      "latencyMs": 70,
+      "latencyMs": 1016,
       "error": null,
       "systemName": "GoRouter",
       "version": "init-20260813-3cd90886",
@@ -320,9 +398,9 @@
         "openai": "claude-opus-5"
       },
       "signup": {
-        "status": 403,
-        "ok": false,
-        "ms": 1120,
+        "status": 200,
+        "ok": true,
+        "ms": 1396,
         "attempts": 1
       },
       "mirrors": [],
@@ -376,10 +454,10 @@
     },
     {
       "id": "tabitoken",
-      "checkedAt": "2026-09-14T21:50:51.329Z",
+      "checkedAt": "2026-09-15T01:48:59.051Z",
       "apiOk": true,
       "pricingOk": true,
-      "latencyMs": 185,
+      "latencyMs": 1468,
       "error": null,
       "systemName": "TaBiAI",
       "version": "init-20260817-f880a343",
@@ -469,9 +547,9 @@
         "openai": "claude-opus-5"
       },
       "signup": {
-        "status": 403,
-        "ok": false,
-        "ms": 1643,
+        "status": 200,
+        "ok": true,
+        "ms": 1466,
         "attempts": 1
       },
       "mirrors": [],
@@ -486,10 +564,10 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-09-14T21:50:54.205Z",
+      "checkedAt": "2026-09-15T01:49:05.467Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 21,
+      "latencyMs": 354,
       "error": "HTTP 403",
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
@@ -517,7 +595,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 1665,
+        "ms": 2652,
         "attempts": 1
       },
       "mirrors": [],
@@ -536,10 +614,10 @@
     },
     {
       "id": "anyrouter",
-      "checkedAt": "2026-09-14T21:50:55.537Z",
+      "checkedAt": "2026-09-15T01:49:04.484Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 160,
+      "latencyMs": 363,
       "error": "invalid json",
       "systemName": null,
       "version": null,
@@ -563,7 +641,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 2699,
+        "ms": 1820,
         "attempts": 1
       },
       "mirrors": [],
@@ -575,10 +653,10 @@
     },
     {
       "id": "cheapcodex",
-      "checkedAt": "2026-09-14T21:50:50.289Z",
+      "checkedAt": "2026-09-15T01:48:58.575Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 2288,
+      "latencyMs": 992,
       "error": null,
       "systemName": null,
       "version": null,
@@ -602,7 +680,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 2291,
+        "ms": 984,
         "attempts": 1
       },
       "mirrors": [],
@@ -614,10 +692,10 @@
     },
     {
       "id": "nofx",
-      "checkedAt": "2026-09-14T21:50:51.081Z",
+      "checkedAt": "2026-09-15T01:48:59.233Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 3079,
+      "latencyMs": 1650,
       "error": null,
       "systemName": null,
       "version": null,
@@ -641,7 +719,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3613,
+        "ms": 1157,
         "attempts": 1
       },
       "mirrors": [],

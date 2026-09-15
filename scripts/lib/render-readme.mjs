@@ -324,7 +324,7 @@ export function renderReadme({ meta, sites, live, groups = [], history }) {
     total > 0 ? '>' : null,
     total > 0
       ? `> ${scope}全注册一遍，第一天手上大约有 **$${total}** 额度可用${resetting ? '（其中每日重置的额度池次日会回满，但不累积）' : ''}${
-          extra ? `；${extra}，是站内积分、与美元没有公开换算，未计入这个合计` : ''
+          extra ? `；${extra}，都是各站自己的计价单位、与美元没有公开换算，未计入这个合计` : ''
         }。`
       : null,
     closedSites.length ? '>' : null,

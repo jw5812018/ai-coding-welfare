@@ -13,6 +13,8 @@
  * 计价单位也不是只有美元：Matrix 这类平台发的是站内积分，积分与美元的换算关系
  * 站方没公开，所以只能按各站自己的单位显示，跨站合计（首日最高 / 全注册约多少）
  * 一律只算美元站，见 usdTotals——把积分和美元加在一起就是编数字。
+ * 同理，DoCode 这类站虽然也写「刀」，但它的刀是站内计价单位（充值比例 1 元 = 50 刀），
+ * 和按 ¥7.3 ≈ $1 发额度的站不是一个量级，登记成 site-usd 一样排除在合计之外。
  */
 
 const num = (v) => (Number.isFinite(Number(v)) && Number(v) > 0 ? Number(v) : null);
@@ -21,6 +23,11 @@ const num = (v) => (Number.isFinite(Number(v)) && Number(v) > 0 ? Number(v) : nu
 const UNITS = {
   usd: { prefix: '$', suffix: '' },
   point: { prefix: '', suffix: ' 积分' },
+  // 也有站点用「刀」计价，但那个刀不是美元：New API 面板的 price 字段是充值比例，
+  // 本页多数站是 7.3（¥7.3 ≈ $1），DoCode 是 0.02（1 元 = 50 刀），差两个数量级，
+  // 扣费时还要再乘站内倍率。把它和美元站加在一起同样是编数字，所以单列一个单位，
+  // 由 usdTotals 排除在跨站合计之外、页面上按「站内刀」如实显示。
+  'site-usd': { prefix: '', suffix: ' 站内刀' },
 };
 
 export const DEFAULT_UNIT = 'usd';

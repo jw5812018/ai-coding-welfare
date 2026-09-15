@@ -11,6 +11,7 @@
  *     机房 IP 被拦不等于站点掉线，报了就是天天喊狼来了，真掉线时也没人信了
  *   - 内容字段沿用旧值时两边本来就相等，不会产生事件，不需要额外判断
  */
+import { usd, DEFAULT_UNIT } from './credits.mjs';
 
 /**
  * 数字字段取值。
@@ -136,11 +137,13 @@ export function diffSnapshots(prevLive, nextLive, sites = []) {
     const site = meta.get(id);
     if (!A.has(id)) {
       const c = site?.credits ?? {};
+      // 单位一律走 credits.mjs 的 usd()：站内积分、站内刀都不是美元，这里自己拼 $ 就会写出假数字
+      const amount = (n) => usd(n, false, c.unit ?? DEFAULT_UNIT);
       const bits = [
-        c.signup ? `注册送 $${c.signup}` : null,
-        c.invite ? `邀请再加 ${c.unit === 'point' ? `${c.invite} 积分` : `$${c.invite}`}` : null,
-        c.dailyCheckin ? `每日签到 $${c.dailyCheckin}` : null,
-        c.dailyQuota ? `每日额度池 $${c.dailyQuota}` : null,
+        c.signup ? `注册送 ${amount(c.signup)}` : null,
+        c.invite ? `邀请再加 ${amount(c.invite)}` : null,
+        c.dailyCheckin ? `每日签到 ${amount(c.dailyCheckin)}` : null,
+        c.dailyQuota ? `每日额度池 ${amount(c.dailyQuota)}` : null,
       ].filter(Boolean);
       events.push({
         at,

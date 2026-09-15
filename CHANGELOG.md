@@ -6,6 +6,14 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 
 > 只记录会影响「值不值得注册」的字段。探测被站点 WAF 拦下时不记在线状态变化，避免机房 IP 被拦被误报成掉线。
 
+## 2026-09-15
+
+- ➕ AgentRouter 上线模型：gpt-6-astra <sub>01:49 UTC</sub>
+- 🏷️ AgentRouter deepseek-v4-flash 价格 $2 入 / $6 出（每 1M） → $4 入 / $12 出（每 1M） <sub>01:49 UTC</sub>
+- 🏷️ AgentRouter glm-5.3 价格 $3 入 / $12 出（每 1M） → $5 入 / $25 出（每 1M） <sub>01:49 UTC</sub>
+- 📢 AgentRouter 发了公告：为保障服务长期运行，Claude 和 GPT 模型已调整为限量供应，每日分批次发放，用完即止。目前暂定每日两批：北京时间 07:00 和 19:00（UTC 23:00 和 11:00），后续可能调整。 额度用完后会报错“402 Budget pool quota has bee <sub>01:49 UTC</sub>
+- 🆕 新收录 DoCode：注册送 50 站内刀，邀请再加 250 站内刀 <sub>01:49 UTC</sub>
+
 ## 2026-09-08
 
 - 🟢 CheapCodex 恢复在线 <sub>11:22 UTC</sub>

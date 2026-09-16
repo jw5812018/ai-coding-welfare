@@ -8,6 +8,7 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 
 ## 2026-09-16
 
+- 🔴 GoRouter 探测不到了：注册页与公开接口都没响应 <sub>21:20 UTC</sub>
 - 📢 DoCode 发了公告：现在免费用户体验期，可用模型作出如下调整，下架gpt模型，新上架grok，如有使用问题请联系管理 <sub>11:37 UTC</sub>
 - 🟢 GoRouter 恢复在线 <sub>11:37 UTC</sub>
 - 🔴 GoRouter 探测不到了：注册页与公开接口都没响应 <sub>04:51 UTC</sub>

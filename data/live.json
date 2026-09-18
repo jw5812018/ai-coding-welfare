@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-17T21:24:38.127Z",
+  "generatedAt": "2026-09-18T04:46:21.688Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-09-17T21:24:18.881Z",
+      "checkedAt": "2026-09-18T04:46:15.853Z",
       "online": true,
-      "latencyMs": 240,
+      "latencyMs": 248,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260915-25158da5",
@@ -164,7 +164,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1058,
+        "ms": 1076,
         "attempts": 1
       },
       "mirrors": [
@@ -194,10 +194,10 @@
     },
     {
       "id": "docode",
-      "checkedAt": "2026-09-17T21:24:13.617Z",
+      "checkedAt": "2026-09-18T04:46:13.181Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 749,
+      "latencyMs": 3389,
       "error": null,
       "systemName": "DoCode",
       "version": "",
@@ -249,7 +249,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 654,
+        "ms": 3293,
         "attempts": 1
       },
       "mirrors": [
@@ -266,9 +266,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-09-17T21:24:13.499Z",
+      "checkedAt": "2026-09-18T04:46:13.417Z",
       "online": true,
-      "latencyMs": 649,
+      "latencyMs": 3626,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.23",
@@ -294,7 +294,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1178,
+        "ms": 3782,
         "attempts": 1
       },
       "mirrors": [],
@@ -308,10 +308,10 @@
     },
     {
       "id": "kktoken",
-      "checkedAt": "2026-09-17T21:24:13.656Z",
+      "checkedAt": "2026-09-18T04:46:13.753Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 813,
+      "latencyMs": 3968,
       "error": null,
       "systemName": "KKtoken AI",
       "version": "v1.0.0-rc.25",
@@ -338,7 +338,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 817,
+        "ms": 3978,
         "attempts": 1
       },
       "mirrors": [],
@@ -350,11 +350,11 @@
     },
     {
       "id": "gorouter",
-      "checkedAt": "2026-09-17T21:24:38.119Z",
-      "apiOk": false,
+      "checkedAt": "2026-09-18T04:46:20.481Z",
+      "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 12,
-      "error": "HTTP 403",
+      "latencyMs": 2105,
+      "error": null,
       "systemName": "GoRouter",
       "version": "init-20260813-3cd90886",
       "registerOpen": true,
@@ -411,32 +411,25 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 760,
+        "ms": 3874,
         "attempts": 1
       },
       "mirrors": [],
       "probeBlocked": false,
-      "online": false,
+      "online": true,
       "dataStale": true,
       "staleFrom": "2026-09-05T20:22:54.779Z",
       "staleFields": [
-        "systemName",
-        "version",
-        "registerOpen",
-        "passwordRegister",
-        "checkinEnabled",
-        "loginMethods",
-        "quotaPerUnit",
         "models",
         "defaults"
       ]
     },
     {
       "id": "matrix",
-      "checkedAt": "2026-09-17T21:24:14.270Z",
+      "checkedAt": "2026-09-18T04:46:14.690Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1422,
+      "latencyMs": 4903,
       "error": null,
       "systemName": null,
       "version": null,
@@ -460,7 +453,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1493,
+        "ms": 4955,
         "attempts": 1
       },
       "mirrors": [],
@@ -472,10 +465,10 @@
     },
     {
       "id": "tabitoken",
-      "checkedAt": "2026-09-17T21:24:15.845Z",
+      "checkedAt": "2026-09-18T04:46:15.861Z",
       "apiOk": true,
       "pricingOk": true,
-      "latencyMs": 413,
+      "latencyMs": 198,
       "error": null,
       "systemName": "TaBiAI",
       "version": "init-20260817-f880a343",
@@ -567,7 +560,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 1015,
+        "ms": 4421,
         "attempts": 1
       },
       "mirrors": [],
@@ -582,10 +575,10 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-09-17T21:24:18.461Z",
+      "checkedAt": "2026-09-18T04:46:18.781Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 13,
+      "latencyMs": 22,
       "error": "HTTP 403",
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
@@ -613,7 +606,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 1057,
+        "ms": 4446,
         "attempts": 1
       },
       "mirrors": [],
@@ -632,10 +625,10 @@
     },
     {
       "id": "anyrouter",
-      "checkedAt": "2026-09-17T21:24:19.660Z",
+      "checkedAt": "2026-09-18T04:46:20.435Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 142,
+      "latencyMs": 160,
       "error": "invalid json",
       "systemName": null,
       "version": null,
@@ -659,7 +652,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 2015,
+        "ms": 5795,
         "attempts": 1
       },
       "mirrors": [],
@@ -671,10 +664,10 @@
     },
     {
       "id": "cheapcodex",
-      "checkedAt": "2026-09-17T21:24:14.654Z",
+      "checkedAt": "2026-09-18T04:46:15.189Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1801,
+      "latencyMs": 5399,
       "error": null,
       "systemName": null,
       "version": null,
@@ -698,7 +691,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1811,
+        "ms": 5403,
         "attempts": 1
       },
       "mirrors": [],
@@ -710,10 +703,10 @@
     },
     {
       "id": "nofx",
-      "checkedAt": "2026-09-17T21:24:15.417Z",
+      "checkedAt": "2026-09-18T04:46:15.485Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 2563,
+      "latencyMs": 5694,
       "error": null,
       "systemName": null,
       "version": null,
@@ -737,7 +730,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3151,
+        "ms": 6226,
         "attempts": 1
       },
       "mirrors": [],

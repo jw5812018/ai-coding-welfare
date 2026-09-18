@@ -8,6 +8,8 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 
 ## 2026-09-18
 
+- 📢 DoCode 发了公告：免费期间，可选择gpt与grok模型，总量为2W额度，用完即止，次日9点恢复，如使用问题请进群联系管理. <sub>20:55 UTC</sub>
+- 🟢 GoRouter 恢复在线 <sub>20:55 UTC</sub>
 - 🔴 GoRouter 探测不到了：注册页与公开接口都没响应 <sub>16:26 UTC</sub>
 - 🔴 RawChat 公益站 探测不到了：注册页与公开接口都没响应 <sub>11:17 UTC</sub>
 - 🟢 GoRouter 恢复在线 <sub>04:46 UTC</sub>

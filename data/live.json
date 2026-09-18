@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-18T16:26:10.816Z",
+  "generatedAt": "2026-09-18T20:55:58.050Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-09-18T16:25:49.210Z",
+      "checkedAt": "2026-09-18T20:55:52.112Z",
       "online": true,
-      "latencyMs": 283,
+      "latencyMs": 246,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260915-25158da5",
@@ -164,7 +164,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1372,
+        "ms": 996,
         "attempts": 1
       },
       "mirrors": [
@@ -194,10 +194,10 @@
     },
     {
       "id": "docode",
-      "checkedAt": "2026-09-18T16:25:46.275Z",
+      "checkedAt": "2026-09-18T20:55:46.930Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 3399,
+      "latencyMs": 806,
       "error": null,
       "systemName": "DoCode",
       "version": "",
@@ -215,14 +215,14 @@
       "services": [],
       "announcements": [
         {
-          "id": 29,
-          "date": "2026-09-16",
-          "text": "现在免费用户体验期，可用模型作出如下调整，下架gpt模型，新上架grok，如有使用问题请联系管理"
+          "id": 30,
+          "date": "2026-09-18",
+          "text": "免费期间，可选择gpt与grok模型，总量为2W额度，用完即止，次日9点恢复，如使用问题请进群联系管理."
         },
         {
           "id": 28,
           "date": "2026-09-15",
-          "text": "国模分组倍率下调，其中deepseek仅保留DeepSeek-V4.1-Flash与DeepSeek-V4-Pro-0813。"
+          "text": "国模分组倍率下调，其中deepseek仅保留DeepSeek-V4.1-Flash与DeepSeek-V4-Pro。"
         },
         {
           "id": 27,
@@ -249,7 +249,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3307,
+        "ms": 712,
         "attempts": 1
       },
       "mirrors": [
@@ -266,9 +266,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-09-18T16:25:46.155Z",
+      "checkedAt": "2026-09-18T20:55:47.096Z",
       "online": true,
-      "latencyMs": 3311,
+      "latencyMs": 948,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.23",
@@ -294,7 +294,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3916,
+        "ms": 1122,
         "attempts": 1
       },
       "mirrors": [],
@@ -308,10 +308,10 @@
     },
     {
       "id": "kktoken",
-      "checkedAt": "2026-09-18T16:25:46.737Z",
+      "checkedAt": "2026-09-18T20:55:47.593Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 3891,
+      "latencyMs": 1476,
       "error": null,
       "systemName": "KKtoken AI",
       "version": "v1.0.0-rc.25",
@@ -338,7 +338,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3905,
+        "ms": 1474,
         "attempts": 1
       },
       "mirrors": [],
@@ -350,11 +350,11 @@
     },
     {
       "id": "gorouter",
-      "checkedAt": "2026-09-18T16:26:10.808Z",
-      "apiOk": false,
+      "checkedAt": "2026-09-18T20:55:55.059Z",
+      "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 23,
-      "error": "HTTP 403",
+      "latencyMs": 3183,
+      "error": null,
       "systemName": "GoRouter",
       "version": "init-20260813-3cd90886",
       "registerOpen": true,
@@ -411,32 +411,25 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 3422,
+        "ms": 1153,
         "attempts": 1
       },
       "mirrors": [],
       "probeBlocked": false,
-      "online": false,
+      "online": true,
       "dataStale": true,
       "staleFrom": "2026-09-05T20:22:54.779Z",
       "staleFields": [
-        "systemName",
-        "version",
-        "registerOpen",
-        "passwordRegister",
-        "checkinEnabled",
-        "loginMethods",
-        "quotaPerUnit",
         "models",
         "defaults"
       ]
     },
     {
       "id": "matrix",
-      "checkedAt": "2026-09-18T16:25:47.299Z",
+      "checkedAt": "2026-09-18T20:55:48.286Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 4450,
+      "latencyMs": 2166,
       "error": null,
       "systemName": null,
       "version": null,
@@ -460,7 +453,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 4510,
+        "ms": 2236,
         "attempts": 1
       },
       "mirrors": [],
@@ -472,10 +465,10 @@
     },
     {
       "id": "tabitoken",
-      "checkedAt": "2026-09-18T16:25:48.931Z",
+      "checkedAt": "2026-09-18T20:55:49.836Z",
       "apiOk": true,
       "pricingOk": true,
-      "latencyMs": 686,
+      "latencyMs": 449,
       "error": null,
       "systemName": "TaBiAI",
       "version": "init-20260817-f880a343",
@@ -567,7 +560,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 3973,
+        "ms": 1712,
         "attempts": 1
       },
       "mirrors": [],
@@ -582,10 +575,10 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-09-18T16:25:51.359Z",
+      "checkedAt": "2026-09-18T20:55:52.469Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 24,
+      "latencyMs": 14,
       "error": "HTTP 403",
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
@@ -613,7 +606,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 3958,
+        "ms": 1782,
         "attempts": 1
       },
       "mirrors": [],
@@ -632,10 +625,10 @@
     },
     {
       "id": "anyrouter",
-      "checkedAt": "2026-09-18T16:25:53.160Z",
+      "checkedAt": "2026-09-18T20:55:54.306Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 163,
+      "latencyMs": 165,
       "error": "invalid json",
       "systemName": null,
       "version": null,
@@ -659,7 +652,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 5466,
+        "ms": 3329,
         "attempts": 1
       },
       "mirrors": [],
@@ -671,10 +664,10 @@
     },
     {
       "id": "cheapcodex",
-      "checkedAt": "2026-09-18T16:25:47.994Z",
+      "checkedAt": "2026-09-18T20:55:49.217Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 5140,
+      "latencyMs": 3092,
       "error": null,
       "systemName": null,
       "version": null,
@@ -698,7 +691,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 5143,
+        "ms": 3096,
         "attempts": 1
       },
       "mirrors": [],
@@ -710,10 +703,10 @@
     },
     {
       "id": "nofx",
-      "checkedAt": "2026-09-18T16:25:49.122Z",
+      "checkedAt": "2026-09-18T20:55:49.907Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 6267,
+      "latencyMs": 3782,
       "error": null,
       "systemName": null,
       "version": null,
@@ -737,7 +730,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 6051,
+        "ms": 4618,
         "attempts": 1
       },
       "mirrors": [],

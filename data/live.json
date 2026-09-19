@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-19T15:54:10.470Z",
+  "generatedAt": "2026-09-19T20:43:36.411Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-09-19T15:54:04.285Z",
+      "checkedAt": "2026-09-19T20:43:30.252Z",
       "online": true,
-      "latencyMs": 333,
+      "latencyMs": 298,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260915-25158da5",
@@ -164,7 +164,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1399,
+        "ms": 1417,
         "attempts": 1
       },
       "mirrors": [
@@ -194,10 +194,10 @@
     },
     {
       "id": "docode",
-      "checkedAt": "2026-09-19T15:53:58.858Z",
+      "checkedAt": "2026-09-19T20:43:25.105Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 999,
+      "latencyMs": 1272,
       "error": null,
       "systemName": "DoCode",
       "version": "",
@@ -249,7 +249,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 901,
+        "ms": 1169,
         "attempts": 1
       },
       "mirrors": [
@@ -266,9 +266,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-09-19T15:53:58.565Z",
+      "checkedAt": "2026-09-19T20:43:24.816Z",
       "online": true,
-      "latencyMs": 760,
+      "latencyMs": 1029,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.23",
@@ -294,7 +294,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 996,
+        "ms": 1774,
         "attempts": 1
       },
       "mirrors": [],
@@ -308,10 +308,10 @@
     },
     {
       "id": "kktoken",
-      "checkedAt": "2026-09-19T15:53:59.280Z",
+      "checkedAt": "2026-09-19T20:43:25.095Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1477,
+      "latencyMs": 1316,
       "error": null,
       "systemName": "KKtoken AI",
       "version": "v1.0.0-rc.25",
@@ -338,7 +338,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1455,
+        "ms": 1768,
         "attempts": 1
       },
       "mirrors": [],
@@ -350,10 +350,10 @@
     },
     {
       "id": "gorouter",
-      "checkedAt": "2026-09-19T15:54:06.467Z",
+      "checkedAt": "2026-09-19T20:43:33.187Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 3099,
+      "latencyMs": 3599,
       "error": null,
       "systemName": "GoRouter",
       "version": "init-20260813-3cd90886",
@@ -411,7 +411,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 796,
+        "ms": 1121,
         "attempts": 1
       },
       "mirrors": [],
@@ -426,10 +426,10 @@
     },
     {
       "id": "matrix",
-      "checkedAt": "2026-09-19T15:53:59.889Z",
+      "checkedAt": "2026-09-19T20:43:27.273Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 2083,
+      "latencyMs": 3490,
       "error": null,
       "systemName": null,
       "version": null,
@@ -453,7 +453,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3720,
+        "ms": 7516,
         "attempts": 1
       },
       "mirrors": [],
@@ -465,10 +465,10 @@
     },
     {
       "id": "tabitoken",
-      "checkedAt": "2026-09-19T15:54:01.477Z",
+      "checkedAt": "2026-09-19T20:43:27.268Z",
       "apiOk": true,
       "pricingOk": true,
-      "latencyMs": 723,
+      "latencyMs": 203,
       "error": null,
       "systemName": "TaBiAI",
       "version": "init-20260817-f880a343",
@@ -560,7 +560,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 1395,
+        "ms": 1780,
         "attempts": 1
       },
       "mirrors": [],
@@ -575,10 +575,10 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-09-19T15:54:03.762Z",
+      "checkedAt": "2026-09-19T20:43:30.118Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 7,
+      "latencyMs": 8,
       "error": "HTTP 403",
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
@@ -606,7 +606,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 1423,
+        "ms": 1820,
         "attempts": 1
       },
       "mirrors": [],
@@ -625,10 +625,10 @@
     },
     {
       "id": "anyrouter",
-      "checkedAt": "2026-09-19T15:54:05.524Z",
+      "checkedAt": "2026-09-19T20:43:32.032Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 202,
+      "latencyMs": 200,
       "error": "invalid json",
       "systemName": null,
       "version": null,
@@ -652,7 +652,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 2802,
+        "ms": 3333,
         "attempts": 1
       },
       "mirrors": [],
@@ -664,10 +664,10 @@
     },
     {
       "id": "cheapcodex",
-      "checkedAt": "2026-09-19T15:54:00.318Z",
+      "checkedAt": "2026-09-19T20:43:26.808Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 2507,
+      "latencyMs": 3019,
       "error": null,
       "systemName": null,
       "version": null,
@@ -691,7 +691,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 2480,
+        "ms": 3022,
         "attempts": 1
       },
       "mirrors": [],
@@ -703,10 +703,10 @@
     },
     {
       "id": "nofx",
-      "checkedAt": "2026-09-19T15:54:00.933Z",
+      "checkedAt": "2026-09-19T20:43:27.116Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 3121,
+      "latencyMs": 3327,
       "error": null,
       "systemName": null,
       "version": null,
@@ -730,7 +730,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3712,
+        "ms": 4087,
         "attempts": 1
       },
       "mirrors": [],

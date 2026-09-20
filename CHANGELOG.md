@@ -8,6 +8,7 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 
 ## 2026-09-20
 
+- 🔴 GoRouter 探测不到了：注册页与公开接口都没响应 <sub>20:51 UTC</sub>
 - 🟢 GoRouter 恢复在线 <sub>16:09 UTC</sub>
 - 🔴 TaBiAI 探测不到了：注册页与公开接口都没响应 <sub>16:09 UTC</sub>
 - 🔴 GoRouter 探测不到了：注册页与公开接口都没响应 <sub>11:27 UTC</sub>

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-21T04:59:19.781Z",
+  "generatedAt": "2026-09-21T12:51:53.928Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-09-21T04:58:40.817Z",
+      "checkedAt": "2026-09-21T12:51:35.086Z",
       "online": true,
-      "latencyMs": 301,
+      "latencyMs": 316,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260915-25158da5",
@@ -164,7 +164,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1311,
+        "ms": 1318,
         "attempts": 1
       },
       "mirrors": [
@@ -194,10 +194,10 @@
     },
     {
       "id": "docode",
-      "checkedAt": "2026-09-21T04:58:35.452Z",
+      "checkedAt": "2026-09-21T12:51:29.331Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1014,
+      "latencyMs": 682,
       "error": null,
       "systemName": "DoCode",
       "version": "",
@@ -214,6 +214,11 @@
       "topupEnabled": null,
       "services": [],
       "announcements": [
+        {
+          "id": 31,
+          "date": "2026-09-21",
+          "text": "gptpro+分组即将下线，请及时切换至其他分组，推荐gpt不降智分组！！！"
+        },
         {
           "id": 30,
           "date": "2026-09-18",
@@ -233,11 +238,6 @@
           "id": 26,
           "date": "2026-08-29",
           "text": "已上架按次收费的分组，有gemini和opus4.6，价格详情可以查看定价页面。"
-        },
-        {
-          "id": 25,
-          "date": "2026-08-06",
-          "text": "基本稳定，相关分组倍率已回落"
         }
       ],
       "models": [],
@@ -249,7 +249,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 875,
+        "ms": 584,
         "attempts": 1
       },
       "mirrors": [
@@ -266,9 +266,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-09-21T04:58:35.137Z",
+      "checkedAt": "2026-09-21T12:51:29.277Z",
       "online": true,
-      "latencyMs": 758,
+      "latencyMs": 676,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.23",
@@ -294,7 +294,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1470,
+        "ms": 1305,
         "attempts": 1
       },
       "mirrors": [],
@@ -308,10 +308,10 @@
     },
     {
       "id": "kktoken",
-      "checkedAt": "2026-09-21T04:58:35.856Z",
+      "checkedAt": "2026-09-21T12:51:29.938Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1482,
+      "latencyMs": 1337,
       "error": null,
       "systemName": "KKtoken AI",
       "version": "v1.0.0-rc.25",
@@ -338,7 +338,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1541,
+        "ms": 1381,
         "attempts": 1
       },
       "mirrors": [],
@@ -350,10 +350,10 @@
     },
     {
       "id": "gorouter",
-      "checkedAt": "2026-09-21T04:58:59.721Z",
+      "checkedAt": "2026-09-21T12:51:53.923Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 9,
+      "latencyMs": 18,
       "error": "HTTP 403",
       "systemName": "GoRouter",
       "version": "init-20260813-3cd90886",
@@ -411,7 +411,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 820,
+        "ms": 828,
         "attempts": 1
       },
       "mirrors": [],
@@ -433,10 +433,10 @@
     },
     {
       "id": "matrix",
-      "checkedAt": "2026-09-21T04:58:36.225Z",
+      "checkedAt": "2026-09-21T12:51:30.391Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1846,
+      "latencyMs": 1789,
       "error": null,
       "systemName": null,
       "version": null,
@@ -460,7 +460,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1914,
+        "ms": 1856,
         "attempts": 1
       },
       "mirrors": [],
@@ -472,11 +472,11 @@
     },
     {
       "id": "tabitoken",
-      "checkedAt": "2026-09-21T04:59:19.773Z",
+      "checkedAt": "2026-09-21T12:51:34.734Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 19526,
-      "error": "HTTP 522",
+      "latencyMs": 213,
+      "error": "HTTP 521",
       "systemName": "TaBiAI",
       "version": "init-20260817-f880a343",
       "registerOpen": true,
@@ -567,7 +567,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 1119,
+        "ms": 1204,
         "attempts": 1
       },
       "mirrors": [],
@@ -589,10 +589,10 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-09-21T04:58:40.042Z",
+      "checkedAt": "2026-09-21T12:51:34.410Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 11,
+      "latencyMs": 17,
       "error": "HTTP 403",
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
@@ -620,7 +620,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 1135,
+        "ms": 1275,
         "attempts": 1
       },
       "mirrors": [],
@@ -639,10 +639,10 @@
     },
     {
       "id": "anyrouter",
-      "checkedAt": "2026-09-21T04:58:42.725Z",
+      "checkedAt": "2026-09-21T12:51:36.120Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 204,
+      "latencyMs": 185,
       "error": "invalid json",
       "systemName": null,
       "version": null,
@@ -666,7 +666,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3423,
+        "ms": 2614,
         "attempts": 1
       },
       "mirrors": [],
@@ -678,10 +678,10 @@
     },
     {
       "id": "cheapcodex",
-      "checkedAt": "2026-09-21T04:58:37.561Z",
+      "checkedAt": "2026-09-21T12:51:30.918Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 3178,
+      "latencyMs": 2312,
       "error": null,
       "systemName": null,
       "version": null,
@@ -705,7 +705,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3180,
+        "ms": 2268,
         "attempts": 1
       },
       "mirrors": [],
@@ -717,10 +717,10 @@
     },
     {
       "id": "nofx",
-      "checkedAt": "2026-09-21T04:58:38.126Z",
+      "checkedAt": "2026-09-21T12:51:31.164Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 3740,
+      "latencyMs": 2557,
       "error": null,
       "systemName": null,
       "version": null,
@@ -744,7 +744,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 4109,
+        "ms": 3585,
         "attempts": 1
       },
       "mirrors": [],

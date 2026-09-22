@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-22T04:59:33.782Z",
+  "generatedAt": "2026-09-22T11:42:37.049Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-09-22T04:59:27.255Z",
+      "checkedAt": "2026-09-22T11:41:39.640Z",
       "online": true,
-      "latencyMs": 317,
+      "latencyMs": 336,
       "error": "invalid json",
       "systemName": "Agent Router",
       "version": "init-20260915-25158da5",
@@ -164,7 +164,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1201,
+        "ms": 1639,
         "attempts": 1
       },
       "mirrors": [
@@ -194,10 +194,10 @@
     },
     {
       "id": "docode",
-      "checkedAt": "2026-09-22T04:59:21.587Z",
+      "checkedAt": "2026-09-22T11:41:33.672Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 695,
+      "latencyMs": 1137,
       "error": null,
       "systemName": "DoCode",
       "version": "",
@@ -214,6 +214,11 @@
       "topupEnabled": null,
       "services": [],
       "announcements": [
+        {
+          "id": 32,
+          "date": "2026-09-22",
+          "text": "中秋节活动预告：中秋节当天凡是 vip500，赠送 1500 额度；vip1000，赠送 3000 额度，；vip2000，赠送 5000 额度。中秋节三天，充值加赠 5-20%。"
+        },
         {
           "id": 31,
           "date": "2026-09-21",
@@ -233,11 +238,6 @@
           "id": 27,
           "date": "2026-09-10",
           "text": "今天openai炸了，gpt全线都不太行，推荐用grok或者cc特殊分组"
-        },
-        {
-          "id": 26,
-          "date": "2026-08-29",
-          "text": "已上架按次收费的分组，有gemini和opus4.6，价格详情可以查看定价页面。"
         }
       ],
       "models": [],
@@ -249,7 +249,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 597,
+        "ms": 935,
         "attempts": 1
       },
       "mirrors": [
@@ -266,9 +266,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-09-22T04:59:21.421Z",
+      "checkedAt": "2026-09-22T11:41:33.483Z",
       "online": true,
-      "latencyMs": 570,
+      "latencyMs": 953,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.23",
@@ -294,7 +294,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 785,
+        "ms": 1142,
         "attempts": 1
       },
       "mirrors": [],
@@ -308,10 +308,10 @@
     },
     {
       "id": "kktoken",
-      "checkedAt": "2026-09-22T04:59:22.085Z",
+      "checkedAt": "2026-09-22T11:41:34.192Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1242,
+      "latencyMs": 1663,
       "error": null,
       "systemName": "KKtoken AI",
       "version": "v1.0.0-rc.25",
@@ -338,7 +338,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1259,
+        "ms": 1571,
         "attempts": 1
       },
       "mirrors": [],
@@ -350,10 +350,10 @@
     },
     {
       "id": "gorouter",
-      "checkedAt": "2026-09-22T04:59:32.488Z",
+      "checkedAt": "2026-09-22T11:41:42.808Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 3273,
+      "latencyMs": 3271,
       "error": "HTTP 502",
       "systemName": "GoRouter",
       "version": "init-20260813-3cd90886",
@@ -411,7 +411,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 671,
+        "ms": 1015,
         "attempts": 1
       },
       "mirrors": [],
@@ -433,10 +433,10 @@
     },
     {
       "id": "matrix",
-      "checkedAt": "2026-09-22T04:59:22.433Z",
+      "checkedAt": "2026-09-22T11:41:34.642Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1588,
+      "latencyMs": 2109,
       "error": null,
       "systemName": null,
       "version": null,
@@ -460,7 +460,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1682,
+        "ms": 2181,
         "attempts": 1
       },
       "mirrors": [],
@@ -472,10 +472,10 @@
     },
     {
       "id": "tabitoken",
-      "checkedAt": "2026-09-22T04:59:26.863Z",
+      "checkedAt": "2026-09-22T11:41:39.013Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 201,
+      "latencyMs": 195,
       "error": "HTTP 521",
       "systemName": "TaBiAI",
       "version": "init-20260817-f880a343",
@@ -567,7 +567,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 1108,
+        "ms": 1588,
         "attempts": 1
       },
       "mirrors": [],
@@ -589,10 +589,10 @@
     },
     {
       "id": "rawchat",
-      "checkedAt": "2026-09-22T04:59:26.537Z",
+      "checkedAt": "2026-09-22T11:41:38.765Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 30,
+      "latencyMs": 25,
       "error": "HTTP 403",
       "systemName": "RawChat公益站",
       "version": "1.0.0.0",
@@ -620,7 +620,7 @@
       "signup": {
         "status": 403,
         "ok": false,
-        "ms": 1125,
+        "ms": 1653,
         "attempts": 1
       },
       "mirrors": [],
@@ -639,10 +639,10 @@
     },
     {
       "id": "anyrouter",
-      "checkedAt": "2026-09-22T04:59:28.171Z",
+      "checkedAt": "2026-09-22T11:41:40.549Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 182,
+      "latencyMs": 185,
       "error": "invalid json",
       "systemName": null,
       "version": null,
@@ -666,7 +666,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 2445,
+        "ms": 3122,
         "attempts": 1
       },
       "mirrors": [],
@@ -678,11 +678,11 @@
     },
     {
       "id": "cheapcodex",
-      "checkedAt": "2026-09-22T04:59:23.158Z",
-      "apiOk": true,
+      "checkedAt": "2026-09-22T11:42:37.043Z",
+      "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 2310,
-      "error": null,
+      "latencyMs": 20001,
+      "error": "The operation was aborted due to timeout",
       "systemName": null,
       "version": null,
       "registerOpen": null,
@@ -703,24 +703,25 @@
         "openai": null
       },
       "signup": {
-        "status": 200,
-        "ok": true,
-        "ms": 2311,
-        "attempts": 1
+        "status": 0,
+        "ok": false,
+        "ms": 20001,
+        "error": "The operation was aborted due to timeout",
+        "attempts": 3
       },
       "mirrors": [],
       "probeBlocked": false,
-      "online": true,
+      "online": false,
       "dataStale": false,
       "staleFrom": null,
       "staleFields": []
     },
     {
       "id": "nofx",
-      "checkedAt": "2026-09-22T04:59:24.301Z",
+      "checkedAt": "2026-09-22T11:41:35.533Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 3452,
+      "latencyMs": 2995,
       "error": null,
       "systemName": null,
       "version": null,
@@ -744,7 +745,7 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 3820,
+        "ms": 3644,
         "attempts": 1
       },
       "mirrors": [],

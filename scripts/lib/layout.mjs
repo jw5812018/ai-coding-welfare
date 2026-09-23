@@ -47,13 +47,14 @@ function navBar(base, current) {
 const ld = (data) =>
   JSON.stringify(data).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
 
-export function pageShell({ meta, css, title, desc, canonical, base = '', current = '', jsonLd = [], body, live }) {
+export function pageShell({ meta, css, title, desc, canonical, base = '', current = '', jsonLd = [], body, live, noindex = false }) {
   const feed = `${meta.pagesUrl}feed.xml`;
   return `<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+${noindex ? '<meta name="robots" content="noindex,follow">' : ''}
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <meta name="keywords" content="${esc((meta.keywords ?? []).join(','))}">
@@ -73,7 +74,7 @@ ${navBar(base, current)}
 ${body}
   <footer>
     <ul>
-      <li>本页注册链接为<strong>邀请链接</strong>，通过它注册双方都会获得站点发放的额度，不影响你的注册流程。</li>
+      <li>本页包含<strong>邀请链接</strong>，邀请奖励、领取条件与免费范围以各站活动规则为准，不保证注册即有奖励。</li>
       <li>本站只做信息聚合，与各站点无隶属关系，不代收费用、不承诺可用性；公益站可能随时改规则或关站。</li>
       <li>请勿把生产密钥、隐私数据、企业代码交给来源不明的中转服务；重要项目请使用官方 API。</li>
       <li>请遵守各站点与上游服务商条款，禁止批量注册、刷量、转售额度。</li>

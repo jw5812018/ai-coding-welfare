@@ -63,6 +63,8 @@ export function creditPlan(site, snap) {
     daily,
     resets,
     approx,
+    // 非数值权益（如自带 Key 免费）单独说明，不折成赠送额度。
+    note: c.note || null,
     base,
     sources,
     firstDay,
@@ -105,7 +107,7 @@ export function breakdown(plan) {
  * 绝不把 600 积分和 $175 加成 $775。
  */
 export function usdTotals(plans) {
-  const inUsd = plans.filter((p) => p.unit === DEFAULT_UNIT);
+  const inUsd = plans.filter((p) => p.unit === DEFAULT_UNIT && p.firstDay != null);
   return {
     count: inUsd.length,
     best: Math.max(0, ...inUsd.map((p) => p.firstDay ?? 0)),
@@ -139,7 +141,7 @@ export function auditCredits(sites, live) {
     if (site.credits?.dailyCheckin && site.credits?.dailyQuota) {
       warns.push(`${site.name}：dailyCheckin 与 dailyQuota 同时填了，两者口径不同，请只留一个`);
     }
-    if (plan.firstDay == null) warns.push(`${site.name}：credits 没填，页面只能显示「站内公示」`);
+    if (plan.firstDay == null && !plan.note) warns.push(`${site.name}：credits 没填，页面只能显示「站内公示」`);
   }
   return warns;
 }

@@ -4,6 +4,7 @@ import { creditPlan, usd, breakdown, perDay, usdTotals, othersNote } from './cre
 import { signupRoute, acceptsNew } from './signup.mjs';
 import { icon } from './changelog.mjs';
 import { coverage } from './history.mjs';
+import { activeSites, archivedSites, archivedAt, archivedReason } from './archived.mjs';
 
 /** shields.io 转义：- → --，_ → __，其余走 URI 编码 */
 const shield = (s) => encodeURIComponent(String(s).replace(/-/g, '--').replace(/_/g, '__'));
@@ -44,7 +45,7 @@ function overviewTable(sites, liveById) {
         ? route.state === 'closed'
           ? `~~${usd(plan.firstDay, plan.approx, plan.unit)}~~`
           : `**${usd(plan.firstDay, plan.approx, plan.unit)}**`
-        : '站内公示';
+        : plan.note ?? '站内公示';
     const detail = breakdown(plan) ?? '—';
     const checkin =
       perDay(plan) ??
@@ -117,7 +118,7 @@ function liveFacts(snap) {
 /** 额度明细：接口只给邀请额度，注册基础额度与签到额度来自 sites.json 登记 */
 function creditFacts(site, snap) {
   const p = creditPlan(site, snap);
-  if (p.firstDay == null) return null;
+  if (p.firstDay == null) return p.note ? `- 免费范围：${p.note}` : null;
   const detail = breakdown(p);
   return [
     p.signup != null ? `- 注册即送：**${usd(p.signup, false, p.unit)}**` : null,
@@ -286,7 +287,10 @@ function codeBlocks(site, claude, openai) {
   return out.join('\n');
 }
 
-export function renderReadme({ meta, sites, live, groups = [], history }) {
+export function renderReadme({ meta, sites: allSites, live, groups = [], history }) {
+  // 挂掉的站点不进主列表与任何合计，只进底部「历史挂掉的站点」——死了的站不许再吆喝额度
+  const sites = activeSites(allSites);
+  const dead = archivedSites(allSites);
   const byId = new Map((live?.sites ?? []).map((s) => [s.id, s]));
   const onlineCount = sites.filter((s) => byId.get(s.id)?.online).length;
   const staleCount = sites.filter((s) => staleHours(byId.get(s.id))).length;
@@ -298,7 +302,7 @@ export function renderReadme({ meta, sites, live, groups = [], history }) {
   const { count: usdCount, best, total, resetting, others } = usdTotals(plans);
   const codeSites = sites.filter((s) => s.inviteCode);
   const extra = othersNote(others);
-  const scope = others.length ? `${usdCount} 个按美元计价、且还收新用户的站` : `${openSites.length} 个还收新用户的站`;
+  const scope = `${usdCount} 个有明确美元额度、且还收新用户的站`;
   const pages = (meta.pagesUrl ?? '').replace(/\/?$/, '/');
 
   const head = [
@@ -334,7 +338,7 @@ export function renderReadme({ meta, sites, live, groups = [], history }) {
     codeSites.length
       ? `> 「邀请码」列写了码的站（${codeSites
           .map((s) => `${s.name} \`${s.inviteCode}\``)
-          .join('、')}），注册表单里有一栏要**自己填**，漏填就只拿得到注册基础额度、事后补不上；其余站写 — 是因为邀请额度由链接自带，不用手打。`
+          .join('、')}），注册表单里有一栏要**自己填**，漏填就只拿得到注册基础额度、事后补不上；其余站写 — 表示未登记需要手填的邀请码，邀请奖励与条件请看站点详情。`
       : null,
     total > 0 ? '>' : null,
     total > 0
@@ -377,11 +381,30 @@ export function renderReadme({ meta, sites, live, groups = [], history }) {
   return [
     head.filter((l) => l !== null).join('\n'),
     body,
+    graveyardBlock(dead, pages),
     changesBlock({ groups, history, pages }),
     tail(meta, sites, live),
   ]
     .filter(Boolean)
     .join('\n\n');
+}
+
+/** 「历史挂掉的站点」：曾经收录、现已确认挂掉的站。只记名与死因，不再给注册链接 */
+function graveyardBlock(dead, pages) {
+  if (!dead.length) return null;
+  const lines = dead.map((s) => {
+    const when = archivedAt(s);
+    return `- **${s.name}**${when ? `（\`${when}\` 归档）` : ''} — ${archivedReason(s)}`;
+  });
+  return [
+    '---',
+    '',
+    '## 📦 历史区 · 已停用站点',
+    '',
+    `这些站已反馈不可用，保留名称与归档原因，不再推荐注册、展示额度或进行定时探测。历史记录仍可在[变动日志](${pages}changelog/)中查看；确认恢复可用后可人工重新收录。`,
+    '',
+    ...lines,
+  ].join('\n');
 }
 
 /**
@@ -495,7 +518,7 @@ function tailFooter(meta, sites) {
     '',
     '## ⚠️ 免责声明',
     '',
-    '- 本页注册链接为**邀请链接**，通过它注册双方都会获得站点发放的额度；不影响你的注册流程与额度多少。',
+    '- 本页包含**邀请链接**，邀请奖励、领取条件与免费范围以各站活动规则为准；不保证注册即有奖励。',
     '- 本仓库只做信息聚合，**与各站点无隶属关系**，不代收费用、不承诺可用性。公益站随时可能改规则、限速或关站。',
     '- 请勿把生产密钥、隐私数据、企业代码丢给来源不明的中转服务；重要项目请用官方 API。',
     '- 请遵守各站点与上游模型服务商的使用条款，禁止批量注册、刷量、转售额度等行为，封号自负。',

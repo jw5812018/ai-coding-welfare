@@ -4,6 +4,7 @@
  * 盯的是线上真实踩过的坑——CI 机房 IP 被 Cloudflare 拦时，页面不能退化成「异常 + 无数据」。
  */
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import { mergeSnapshot, meaningful } from './lib/merge.mjs';
 import { pickPreferred, staleHours, STALE_WARN_HOURS, blankSnapshot, looksFiltered, probeUrl, isHttpsUrl, fetchJson } from './lib/newapi.mjs';
 import { creditPlan, usd, breakdown, perDay, auditCredits, usdTotals, othersNote } from './lib/credits.mjs';
@@ -15,7 +16,8 @@ import { renderSitePage } from './lib/render-site-page.mjs';
 import { renderComparePage, renderStatusPage, renderChangelogPage, estimateTurns } from './lib/render-aux-pages.mjs';
 import { renderHtml } from './lib/render-html.mjs';
 import { renderReadme } from './lib/render-readme.mjs';
-import { signupRoute, acceptsNew } from './lib/signup.mjs';
+import { signupRoute, acceptsNew, signupProbeUrl } from './lib/signup.mjs';
+import { isArchived, activeSites, archivedSites, archivedAt, archivedReason } from './lib/archived.mjs';
 import { telegramText } from './lib/telegram.mjs';
 
 let passed = 0;
@@ -1075,6 +1077,124 @@ test('停注变动进日志时带上接口口径，别让人以为是我们猜�
   assert.match(ev.text, /register_enabled=false/);
   assert.match(ev.text, /老用户不受影响/);
   assert.equal(ev.severity, 'major', '停注必须能触发 Release / 推送');
+});
+
+console.log('历史区与非数值权益：归档不能继续推荐，新站不虚报额度');
+const ARCHIVED = {
+  ...SITE, id: 'retired', name: '已停用示例', recommended: false,
+  signupUrl: 'https://retired.test/register?aff=old',
+  archived: { at: '2026-09-21', reason: '用户反馈不可用 <不可当 HTML>' },
+  credits: { signup: 9000 },
+};
+const ARCHIVED_LIVE = {
+  ...LIVE,
+  sites: [...LIVE.sites, { ...FIXED_SNAP, id: ARCHIVED.id, models: [{ name: 'retired-only-model', fixedPrice: 0.1 }] }],
+};
+test('归档分组不改变源数组；活跃顺序保留，历史按日期倒序', () => {
+  const later = { ...ARCHIVED, id: 'later', archived: { at: '2026-09-23' } };
+  const input = [ARCHIVED, SITE, later];
+  assert.deepEqual(activeSites(input).map((s) => s.id), ['demo']);
+  assert.deepEqual(archivedSites(input).map((s) => s.id), ['later', 'retired']);
+  assert.deepEqual(input.map((s) => s.id), ['retired', 'demo', 'later']);
+  assert.equal(isArchived({ archived: false }), false);
+  assert.equal(archivedAt(SITE), null);
+  assert.equal(archivedReason(later), '站点已不可用');
+  assert.deepEqual(activeSites(), []);
+  assert.deepEqual(archivedSites(), []);
+});
+test('首页只在历史区展示归档站，不留卡片、注册入口、模型和额度', () => {
+  const html = renderHtml({ meta: META, sites: [SITE, ARCHIVED], live: ARCHIVED_LIVE, css: '', groups: [], history: HIST });
+  const main = html.slice(html.indexOf('<body>'), html.indexOf('<section id="graveyard">'));
+  assert.ok(!main.includes(ARCHIVED.name));
+  assert.ok(!html.includes(ARCHIVED.signupUrl));
+  assert.ok(!html.includes('retired-only-model'));
+  assert.ok(!html.includes('$9000'));
+  assert.match(html, /历史区 · 已停用站点/);
+  assert.match(html, /用户反馈不可用 &lt;不可当 HTML&gt;/);
+  const items = jsonLd(html).flat().find((x) => x['@type'] === 'ItemList').itemListElement;
+  assert.deepEqual(items.map((x) => x.name), [SITE.name]);
+});
+test('README 归档站只留历史条目，不进总表与美元合计', () => {
+  const md = renderReadme({ meta: META, sites: [SITE, ARCHIVED], live: ARCHIVED_LIVE, groups: [], history: HIST });
+  const main = md.slice(0, md.indexOf('## 📦 历史区'));
+  assert.ok(!main.includes(ARCHIVED.name));
+  assert.ok(!md.includes(ARCHIVED.signupUrl));
+  assert.ok(!md.includes('$9000'));
+  assert.match(md, /\*\*\$120\*\*/);
+  assert.ok(md.includes(`[变动日志](${META.pagesUrl}changelog/)`));
+});
+test('横评与当前可用性也过滤归档站；旧快照不能把它加回来', () => {
+  assert.equal(estimateTurns(ARCHIVED, FIXED_SNAP), null);
+  for (const render of [renderComparePage, renderStatusPage]) {
+    const html = render({ meta: META, sites: [SITE, ARCHIVED], live: ARCHIVED_LIVE, css: '', history: HIST });
+    assert.ok(!html.includes(ARCHIVED.name));
+    assert.ok(!html.includes('sites/retired/'));
+  }
+});
+test('旧详情页改成 noindex 归档说明，不留过期注册和配置', () => {
+  const html = renderSitePage({ meta: META, site: ARCHIVED, snap: FIXED_SNAP, live: ARCHIVED_LIVE, css: '', history: HIST });
+  assert.match(html, /name="robots" content="noindex,follow"/);
+  assert.match(html, /已归档/);
+  assert.match(html, /href="\.\.\/\.\.\/#graveyard"/);
+  assert.ok(!html.includes(ARCHIVED.signupUrl));
+  assert.ok(!html.includes('ANTHROPIC_BASE_URL'));
+  assert.ok(!html.includes('$9000'));
+});
+test('归档事件写清移入历史区，而不是把保留的记录说成已删除', () => {
+  const [event] = diffSnapshots({ sites: [{ id: ARCHIVED.id }] }, { generatedAt: iso(0), sites: [] }, [ARCHIVED]);
+  assert.equal(event.type, 'site_removed');
+  assert.match(event.text, /移入历史区 已停用示例：用户反馈不可用/);
+});
+test('所有站点都归档时，首页和 README 仍可正常生成', () => {
+  const args = { meta: META, sites: [ARCHIVED], live: ARCHIVED_LIVE, css: '', groups: [], history: HIST };
+  assert.match(renderHtml(args), /历史区 · 已停用站点/);
+  assert.match(renderReadme(args), /历史区 · 已停用站点/);
+});
+test('变动日志保留历史事件，但只给未归档站提供推荐详情入口', () => {
+  const html = renderChangelogPage({ meta: META, groups: GROUPS, live: LIVE, css: '', siteIds: ['agentrouter'] });
+  assert.match(html, /新收录 GoRouter/);
+  assert.match(html, /sites\/agentrouter\//);
+  assert.ok(!html.includes('href="../sites/gorouter/"'));
+});
+const CATALOG = JSON.parse(await readFile(new URL('../data/sites.json', import.meta.url), 'utf8')).sites;
+const MIRASIM = CATALOG.find((s) => s.id === 'mirasim');
+test('Mirasim 排第四，三个已确认不可用的站保持归档', () => {
+  assert.deepEqual(activeSites(CATALOG).slice(0, 4).map((s) => s.id), ['agentrouter', 'docode', 'justdowork', 'mirasim']);
+  for (const id of ['gorouter', 'tabitoken', 'rawchat']) assert.equal(isArchived(CATALOG.find((s) => s.id === id)), true);
+  assert.equal(new Set(CATALOG.map((s) => s.id)).size, CATALOG.length);
+  assert.equal(MIRASIM.signupUrl, 'https://mirasim.ai/r/go-kx9cd5');
+});
+test('不抓 robots 禁止的邀请路径，展示链接仍保持原样', () => {
+  assert.equal(signupProbeUrl(MIRASIM), 'https://mirasim.ai/pricing');
+  assert.equal(signupProbeUrl(SITE), SITE.signupUrl);
+  assert.equal(MIRASIM.statusApi, 'https://mirasim.ai/pricing');
+  assert.equal(MIRASIM.panel, 'relay');
+});
+test('自带 Key 免费不是赠送 API 额度，不增加美元合计或站点数', () => {
+  const plan = creditPlan(MIRASIM);
+  assert.equal(plan.firstDay, null);
+  assert.equal(plan.invite, null);
+  assert.match(plan.note, /赠额未公示/);
+  assert.deepEqual(usdTotals([creditPlan(SITE), plan]), usdTotals([creditPlan(SITE)]));
+  assert.deepEqual(auditCredits([MIRASIM], LIVE), []);
+  assert.equal(estimateTurns(MIRASIM, TOKEN_SNAP), null);
+});
+test('Mirasim 收录事件说明免费范围，不捏造美元额度', () => {
+  const [event] = diffSnapshots({ sites: [] }, { generatedAt: iso(0), sites: [{ id: MIRASIM.id }] }, [MIRASIM]);
+  assert.equal(event.text, `新收录 Mirasim：${MIRASIM.credits.note}`);
+});
+test('Mirasim 的免费范围与有条件赠月显示到页面，不套用注册即送的 FAQ', () => {
+  const args = { meta: META, sites: [MIRASIM], live: LIVE, css: '', groups: [], history: HIST };
+  for (const output of [renderHtml(args), renderReadme(args), renderComparePage(args)]) {
+    assert.ok(output.includes(MIRASIM.credits.note));
+  }
+  const html = renderSitePage({ ...args, site: MIRASIM, history: HIST });
+  assert.match(html, /模型与套餐说明/);
+  assert.match(html, /三人都开通 Go 后/);
+  assert.ok(!html.includes('退出登录再重新登录一次通常就到账'));
+  assert.ok(!html.includes('ANTHROPIC_BASE_URL'));
+  const faq = jsonLd(html).flat().find((x) => x['@type'] === 'FAQPage');
+  assert.equal(faq.mainEntity.length, MIRASIM.faq.length);
 });
 
 console.log('安全：出网协议与 Telegram 转义（issue #3 的安全报告）');

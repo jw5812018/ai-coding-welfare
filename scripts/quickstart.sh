@@ -14,7 +14,7 @@ echo "可选站点（只列出提供 Anthropic 兼容 Base URL、能直连 Claud
 node -e '
 const fs=require("fs");
 const {sites}=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));
-sites.filter(s=>s.endpoints&&s.endpoints.anthropic).forEach((s,i)=>console.log(`  ${i+1}) ${s.name} — ${s.subtitle}`));
+sites.filter(s=>s.endpoints&&s.endpoints.anthropic&&!s.archived).forEach((s,i)=>console.log(`  ${i+1}) ${s.name} — ${s.subtitle}`));
 ' "$SITES"
 
 read -r -p "选择站点编号 [1]: " IDX
@@ -24,7 +24,7 @@ read -r -a CFG <<< "$(node -e '
 const fs=require("fs");
 const {sites}=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));
 let live={sites:[]}; try{live=JSON.parse(fs.readFileSync(process.argv[2],"utf8"));}catch{}
-const list=sites.filter(s=>s.endpoints&&s.endpoints.anthropic);
+const list=sites.filter(s=>s.endpoints&&s.endpoints.anthropic&&!s.archived);
 const s=list[Number(process.argv[3])-1];
 if(!s){console.error("编号无效");process.exit(1);}
 const snap=(live.sites||[]).find(x=>x.id===s.id);

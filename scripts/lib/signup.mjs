@@ -14,6 +14,9 @@
 /** 账号密码是「登录方式」里唯一不算 OAuth 的一项，注册通道要把它排掉 */
 const PASSWORD = '账号密码';
 
+/** 邀请路径禁止自动抓取时，保留展示链接，只替换机器探测入口。 */
+export const signupProbeUrl = (site) => site.signupProbeUrl ?? site.signupUrl;
+
 export function signupRoute(snap) {
   const open = snap?.registerOpen;
   const oauth = (snap?.loginMethods ?? []).filter((m) => m !== PASSWORD);

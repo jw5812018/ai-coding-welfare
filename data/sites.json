@@ -22,6 +22,7 @@
       "AnyRouter",
       "CheapCodex",
       "NOFX 积分",
+      "Mirasim Go",
       "GPT-5.6 Sol 中转",
       "claude-opus-5 按次计费"
     ],
@@ -199,6 +200,79 @@
       "community": []
     },
     {
+      "id": "mirasim",
+      "name": "Mirasim",
+      "subtitle": "多智能体工作台 · 自带账号 / Key 免费，Go 当前 $1/月，邀 3 位好友开通 Go 送 1 个月",
+      "recommended": false,
+      "panel": "relay",
+      "credits": {
+        "signup": null,
+        "invite": null,
+        "dailyCheckin": null,
+        "approx": false,
+        "note": "自带 Key 免费；赠额未公示"
+      },
+      "signupUrl": "https://mirasim.ai/r/go-kx9cd5",
+      "signupProbeUrl": "https://mirasim.ai/pricing",
+      "homeUrl": "https://mirasim.ai",
+      "docsUrl": "https://mirasim.ai/docs/zh/quickstart",
+      "statusApi": "https://mirasim.ai/pricing",
+      "pricingApi": null,
+      "mirrors": [],
+      "tags": ["多智能体", "自带 Key", "Go 订阅", "邀请活动", "Claude Code", "Codex"],
+      "highlights": [
+        "本地工作台与自带账号 / Key 的接入能力免费开放；第三方订阅和 API 调用费用仍由你承担，不等于免费模型额度",
+        "Go 套餐在 2026-09-23 定价页标价 $1/月（划线价 $18），列出的模型是 Kimi K3、GLM 5.3 Flash 与 DS 4.1 Flash",
+        "邀请活动：在应用内取得自己的邀请链接，邀请 3 位好友且三人都开通 Go 后，邀请者可获赠 1 个月 Go；公开规则未承诺被邀请人注册即送",
+        "桌面端提供 macOS / Windows / Linux，支持多模型、并行会话与独立 worktree，也有命令行入口"
+      ],
+      "endpoints": {
+        "anthropic": null,
+        "openai": null
+      },
+      "setup": {
+        "client": "Mirasim 客户端 / CLI",
+        "note": "这是带云端中转选项的多智能体工作台，不是公开给出通用 Base URL 的 New API 面板。本页不猜测中转地址，也不把 Go 套餐等同于 Claude / GPT 权益。",
+        "steps": [
+          "从本页邀请链接进入账号页，用 GitHub 或邮箱验证码登录，确认页面展示的 Go 活动规则",
+          "在官网「下载」页安装适合系统的客户端，或按官方文档使用 Mirasim CLI",
+          "免费路径：接入自有账号 / API Key 或本地模型；如需 Mirasim 云端 Go 服务，在账号页确认价格、支持模型与额度后自行开通",
+          "参加赠月活动时，在应用内获取自己的邀请链接；受邀的 3 位好友全部开通 Go 后，再到账号页核对权益"
+        ],
+        "dashboardUrl": "https://mirasim.ai/account"
+      },
+      "modelsNote": "公开定价页的 Go 模型为 Kimi K3、GLM 5.3 Flash、DS 4.1 Flash。页面同时写着特定模型不限请求，并给出每 5 小时约 130 / 1,900 / 7,800 次的估算；本页不将这些估算当成保证用量。Claude / Codex 对应的 Basic、Pro、Max 是另列的套餐，不属于 $1 Go 的承诺。",
+      "register": {
+        "methods": ["GitHub OAuth", "邮箱验证码"],
+        "requirements": [
+          "保留本页完整邀请链接 https://mirasim.ai/r/go-kx9cd5；公开定价页未承诺被邀请人注册即得额度，具体权益以账号页为准",
+          "官方命令行文档支持 GitHub 授权或邮箱验证码登录；没有公开账号年龄门槛，本页不额外作承诺",
+          "使用自有账号 / Key 无需邀请码；Go 订阅与邀请赠月按站内活动规则办理"
+        ]
+      },
+      "earnMore": [
+        "邀请 3 位好友且三人均开通 Go，邀请者获得 1 个月 Go（官方定价页 Invite offer）",
+        "未查到公开的每日签到或注册赠送 API 额度规则，本页不登记美元额度，也不计入跨站合计"
+      ],
+      "caveats": [
+        "免费的是自带账号 / Key 的工作台接入能力，第三方模型费用另算；Go 是付费套餐，邀请赠月也有开通条件",
+        "$1/月与模型清单来自 2026-09-23 公开定价页 https://mirasim.ai/pricing，后续可能变动，以开通时页面为准",
+        "官网仍标注 Alpha：模型可能响应缓慢、会话可能中断，版本之间规则也可能调整，不承诺稳定性",
+        "8 月公告提到的早期内测 Pro 赠送 / 补偿针对特定旧用户，不能当成现在通过此链接注册的普遍权益",
+        "robots.txt 禁止自动抓取 /r/ 邀请路径，因此定时检查只访问允许抓取的定价页；在线仅说明官网可访问，不代表登录、支付或模型调用已经实测"
+      ],
+      "faq": [
+        ["Mirasim 免费的是哪些部分？", "自带账号 / API Key 或本地模型的工作台接入能力免费；第三方订阅和 API 费用另算。Go 云端套餐在本次核对时标价 $1/月，不是免费 API 额度。"],
+        ["通过本页链接注册就送一个月 Go 吗？", "公开定价页没有这样的承诺。已公开的赠月活动是邀请者邀请 3 位好友，且三人都开通 Go 后，邀请者获得 1 个月 Go；被邀请人的权益以账号页为准。"],
+        ["能直接复制 Base URL 到其它客户端吗？", "本页核对的公开资料没有提供可直接使用的通用中转地址。请按官方文档使用 Mirasim 客户端或 CLI，并在账号页确认可用服务，不要把官网域名猜成 API 地址。"]
+      ],
+      "community": [
+        "Discord: https://discord.gg/ECexTPJrj",
+        "X: https://x.com/Mirasim_ADE",
+        "邮箱: support@mirasim.ai"
+      ]
+    },
+    {
       "id": "kktoken",
       "name": "KKtoken AI",
       "subtitle": "New API 中转站 · 注册送 $75，本页邀请码再加 $25，按 token 计费输入输出各 $1/M",
@@ -253,6 +327,10 @@
       "name": "GoRouter",
       "subtitle": "New API 中转站 · 注册送 $50，本页邀请码再加 $20，按次计费里最便宜的一档",
       "recommended": false,
+      "archived": {
+        "at": "2026-09-21",
+        "reason": "用户反馈已无法使用，移入历史区，不再推荐注册"
+      },
       "credits": {
         "signup": 50,
         "invite": 20,
@@ -371,6 +449,10 @@
       "name": "TaBiAI",
       "subtitle": "New API 中转站 · 注册送 $100，本页邀请码再加 $20，专供 Claude Opus",
       "recommended": false,
+      "archived": {
+        "at": "2026-09-21",
+        "reason": "用户反馈已无法使用，移入历史区，不再推荐注册"
+      },
       "credits": {
         "signup": 100,
         "invite": 20,
@@ -420,6 +502,10 @@
       "name": "RawChat 公益站",
       "subtitle": "Codex 公益站 · 每日 $50 额度池，0 点自动重置",
       "recommended": false,
+      "archived": {
+        "at": "2026-09-21",
+        "reason": "用户反馈已无法使用，移入历史区，不再推荐注册"
+      },
       "panel": "vibecode",
       "credits": {
         "signup": null,

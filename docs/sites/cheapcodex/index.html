@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>CheapCodex 免费额度 / 邀请链接 / Claude Code 配置 — AI Coding 福利站导航</title>
-<meta name="description" content="CheapCodex：自研 AI 网关 · 本页邀请码送 $20，每日签到再 $20，OpenAI / Anthropic / Codex 三条协议一把 Key。首日可得 $40（本页邀请 $20 + 首签 $20）。含实时在线状态、模型价格、Claude Code / Codex 接入配置与踩坑清单，数据快照 2026-09-23 11:40 UTC。">
-<meta name="keywords" content="Claude Code 免费,Claude Code 中转,Codex 中转,Codex 公益站,AI API 中转站,公益站,免费 API 额度,每日免费额度,claude-opus-5 API,New API,AgentRouter,RawChat,Matrix 统一网关,TaBiAI,GoRouter,KKtoken,AnyRouter,CheapCodex,NOFX 积分,GPT-5.6 Sol 中转,claude-opus-5 按次计费">
+<meta name="description" content="CheapCodex：自研 AI 网关 · 本页邀请码送 $20，每日签到再 $20，OpenAI / Anthropic / Codex 三条协议一把 Key。首日可得 $40（本页邀请 $20 + 首签 $20）。含实时在线状态、模型价格、Claude Code / Codex 接入配置与踩坑清单，数据快照 2026-09-23 14:55 UTC。">
+<meta name="keywords" content="Claude Code 免费,Claude Code 中转,Codex 中转,Codex 公益站,AI API 中转站,公益站,免费 API 额度,每日免费额度,claude-opus-5 API,New API,AgentRouter,RawChat,Matrix 统一网关,TaBiAI,GoRouter,KKtoken,AnyRouter,CheapCodex,NOFX 积分,Mirasim Go,GPT-5.6 Sol 中转,claude-opus-5 按次计费">
 <meta property="og:type" content="website">
 <meta property="og:title" content="CheapCodex 免费额度 / 邀请链接 / Claude Code 配置 — AI Coding 福利站导航">
-<meta property="og:description" content="CheapCodex：自研 AI 网关 · 本页邀请码送 $20，每日签到再 $20，OpenAI / Anthropic / Codex 三条协议一把 Key。首日可得 $40（本页邀请 $20 + 首签 $20）。含实时在线状态、模型价格、Claude Code / Codex 接入配置与踩坑清单，数据快照 2026-09-23 11:40 UTC。">
+<meta property="og:description" content="CheapCodex：自研 AI 网关 · 本页邀请码送 $20，每日签到再 $20，OpenAI / Anthropic / Codex 三条协议一把 Key。首日可得 $40（本页邀请 $20 + 首签 $20）。含实时在线状态、模型价格、Claude Code / Codex 接入配置与踩坑清单，数据快照 2026-09-23 14:55 UTC。">
 <meta property="og:url" content="https://panxunying.github.io/ai-coding-welfare/sites/cheapcodex/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://panxunying.github.io/ai-coding-welfare/sites/cheapcodex/">
@@ -43,6 +44,7 @@ body {
   color: var(--fg);
   font: 16px/1.7 ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-wrap: anywhere;
 }
 
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
@@ -86,11 +88,11 @@ section { padding: 44px 0; }
 h2 { font-size: clamp(21px, 3vw, 28px); margin: 0 0 6px; letter-spacing: -0.01em; }
 h2 + .hint { margin: 0 0 26px; color: var(--fg-dim); font-size: 14px; }
 
-.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
 
 .card {
   border: 1px solid var(--line); border-radius: var(--radius); background: var(--card);
-  padding: 22px; display: flex; flex-direction: column; gap: 14px;
+  padding: 22px; display: flex; flex-direction: column; gap: 14px; min-width: 0;
 }
 .card.featured { border-color: rgba(124, 92, 255, 0.55); box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.18) inset; }
 .card h3 { margin: 0; font-size: 20px; display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
@@ -103,7 +105,7 @@ h2 + .hint { margin: 0 0 26px; color: var(--fg-dim); font-size: 14px; }
 .tag { font-size: 12px; padding: 3px 9px; border-radius: 6px; background: rgba(124, 92, 255, 0.14); color: #c4b5fd; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
-.kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 14px; margin: 0; }
+.kv { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; font-size: 14px; margin: 0; }
 .kv dt { color: var(--fg-dim); }
 .kv dd { margin: 0; }
 .kv dd b { color: var(--ok); }
@@ -173,6 +175,7 @@ ul.events li { display: flex; align-items: baseline; gap: 8px; padding: 6px 0; c
 .ev-ico { flex: none; width: 18px; text-align: center; }
 .ev-site { color: var(--accent-2); text-decoration: none; font-size: 12px; }
 .muted { color: #6b7385; font-size: 12px; font-weight: 400; }
+#graveyard .muted { color: var(--fg-dim); }
 
 .mt-auto { margin-top: auto; }
 
@@ -212,25 +215,26 @@ tr.shut td { color: var(--fg-dim); }
     <p class="sub">自研 AI 网关 · 本页邀请码送 $20，每日签到再 $20，OpenAI / Anthropic / Codex 三条协议一把 Key</p>
     <div class="pills">
       <span class="pill"><span class="dot up"></span> 在线</span>
-      
+
       <span class="pill">首日可得 <b>$40</b></span>
-      
-      <span class="pill">数据更新 <b>2026-09-23 11:40 UTC</b></span>
+
+      <span class="pill">数据更新 <b>2026-09-23 14:55 UTC</b></span>
     </div>
     <div class="cta-row">
       <a class="btn btn-primary" href="https://api.cheapcodex.online/register?aff=U7SSQZSDB36S" target="_blank" rel="noopener">免费注册 CheapCodex →</a>
       <a class="btn btn-ghost" href="#config">直接看接入配置</a>
     </div>
-    
-    
+
+
   </header>
 
   <section><h2>能拿多少额度</h2>
-    <dl class="kv"><dt>首日可得</dt><dd><b>$40</b></dd><dt>额度构成</dt><dd>本页邀请 $20 + 首签 $20</dd><dt>之后每天</dt><dd>签到 $20</dd><dt>接口延迟</dt><dd>2566 ms</dd><dt>数据快照</dt><dd>2026-09-23 11:40 UTC</dd></dl>
+    <dl class="kv"><dt>首日可得</dt><dd><b>$40</b></dd><dt>额度构成</dt><dd>本页邀请 $20 + 首签 $20</dd><dt>之后每天</dt><dd>签到 $20</dd><dt>接口延迟</dt><dd>6365 ms</dd><dt>数据快照</dt><dd>2026-09-23 14:55 UTC</dd></dl>
   </section>
 
   <section><h2>为什么值得注册</h2><ul class="hl"><li>从本页邀请链接注册送 $20，每日签到再领 $20，首日合计 $40</li><li>三条原生路由都开着：带无效 key 探 /v1/chat/completions、/v1/messages、/v1/responses 一律回 INVALID_API_KEY，而 /v1/bogus 回 404 —— Claude Code 与 Codex CLI 都能直连</li><li>/v1/responses 在线意味着 Codex CLI 能走它原生的 responses 协议，不用退回 chat</li><li>鉴权头收三种：Authorization: Bearer、x-api-key、x-goog-api-key —— 站点自己的 401 报错里列的，OpenAI / Anthropic / Gemini 三家客户端的习惯都照顾到了</li><li>站内公示可以用 GPT-5.6 Sol</li></ul></section>
-  
+
+  <section><h2>模型与套餐说明</h2><p class="hint">这个站的面板接口在它自己的 robots.txt 里是 `Disallow: /api`，本页按规矩不碰，所以拿不到模型清单与单价，只探 robots 放行的 `/v1/models`（不带 key 必然回 `API_KEY_REQUIRED`，能回就说明网关活着）。站内公示可以用 GPT-5.6 Sol，完整清单与价格注册后在控制台确认。</p></section>
   <section><h2>注册要求</h2><ul class="hl"><li>务必从本页邀请链接进入注册（带 ?aff=U7SSQZSDB36S），$20 在注册那一刻结算，事后补不上</li><li>只能用邮箱建号：站点前端自带的公开配置里 github / google / linuxdo / 微信 / 钉钉 / OIDC 的 oauth 开关全是 false，没有第三方登录入口</li><li>注册页的人机校验目前是关的（配了 Turnstile site key 但 turnstile_enabled=false），加载不出 Cloudflare 脚本也能注册</li></ul></section>
   <section id="config"><h2>接入配置</h2><h3>Claude Code（Anthropic 兼容，Base URL 不带 <code>/v1</code>）</h3>
       <pre><code>export ANTHROPIC_BASE_URL=https://api.cheapcodex.online
@@ -250,10 +254,10 @@ wire_api = &quot;chat&quot;</code></pre><button class="copy" type="button">复�
       <p class="hint">只需两项：Base URL = <code>https://api.cheapcodex.online/v1</code>，API Key = 站点后台创建的 Key。</p></section>
   <section><h2>如何继续拿额度</h2><ul class="hl"><li>每日签到领 $20（登录后台点签到）</li><li>邀请他人注册也有奖励（站点前端配置里 affiliate_enabled=true），金额没公示，登录后台「邀请」页确认</li></ul></section>
   <section><h2>⚠️ 使用前必读</h2><ul class="hl"><li>额度数字（邀请 $20 / 签到 $20）与 GPT-5.6 Sol 都是站内公示口径，面板接口 robots 禁爬、本页无法自动核对，进后台自己确认一遍再算账</li><li>上面「实时数据」一栏只有接口延迟：本页只对 /v1/models 做存活探测，站名、面板版本、模型数一概拿不到</li><li>站内挂着付费订阅商品、收单走站外的 pay.ldxp.cn，前端配置里 payment_enabled 目前是 false（站内直充没开）——是付费网关不是纯公益站，免费额度用完要付费才能续</li><li>另一个域名 api.cheapcodex.ccwu.cc 提供同一套应用（.online 的 robots.txt 里声明的 sitemap 就指向它），但邀请码在那边是否同样结算无法从公开接口确认，建议就走本页链接</li></ul></section>
-  <section><h2>最近 7 天可用性</h2><p class="hint">最近 7 天自动探测 27 次，在线 26 次（<b>96.3%</b>）。</p>
+  <section><h2>最近 7 天可用性</h2><p class="hint">最近 7 天自动探测 28 次，在线 27 次（<b>96.4%</b>）。</p>
     <p><a class="navlink" href="../../status/">看全部站点的可用性 →</a></p></section>
-  
-  
+
+
 
   <section><h2>常见问题</h2>
     <details><summary>CheapCodex 注册完为什么看不到额度？</summary><p>公益站额度多在登录时结算，退出登录再重新登录一次通常就到账；余额短暂显示 $0 属于前端展示问题，稍后刷新即可。</p></details>
@@ -263,7 +267,7 @@ wire_api = &quot;chat&quot;</code></pre><button class="copy" type="button">复�
 
   <section><h2>其它福利站</h2>
     <p class="hint">额度用完了就换一家，各站额度互不影响。</p>
-    <ul class="hl"><li><a href="../agentrouter/">AgentRouter</a> — AI Coding 公益站 · 注册即送额度，签到每日续命</li><li><a href="../docode/">DoCode</a> — New API 中转站 · 注册送 50 站内刀，注册时填邀请码 zMRe 再加 250，首日 300 刀，Claude 与 GPT 都在架上</li><li><a href="../justdowork/">JustDoWork</a> — New API 中转站 · GitHub 一键登录，支持签到与绘图</li><li><a href="../kktoken/">KKtoken AI</a> — New API 中转站 · 注册送 $75，本页邀请码再加 $25，按 token 计费输入输出各 $1/M</li><li><a href="../gorouter/">GoRouter</a> — New API 中转站 · 注册送 $50，本页邀请码再加 $20，按次计费里最便宜的一档</li><li><a href="../matrix/">Matrix</a> — 统一 API 网关 + 开源应用商店 · 邀请注册送 600 积分，实名再送 2000</li><li><a href="../tabitoken/">TaBiAI</a> — New API 中转站 · 注册送 $100，本页邀请码再加 $20，专供 Claude Opus</li><li><a href="../rawchat/">RawChat 公益站</a> — Codex 公益站 · 每日 $50 额度池，0 点自动重置</li><li><a href="../anyrouter/">AnyRouter</a> — New API 中转站 · 注册送 $75，本页邀请码再加 $50，Anthropic 与 OpenAI 两条原生路由都开着</li><li><a href="../nofx/">NOFX</a> — 任务制积分站 · 做任务领 API 积分，签到 / Discord / 邀请 / 发推都给分，免密码登录、无需绑卡</li></ul>
+    <ul class="hl"><li><a href="../agentrouter/">AgentRouter</a> — AI Coding 公益站 · 注册即送额度，签到每日续命</li><li><a href="../docode/">DoCode</a> — New API 中转站 · 注册送 50 站内刀，注册时填邀请码 zMRe 再加 250，首日 300 刀，Claude 与 GPT 都在架上</li><li><a href="../justdowork/">JustDoWork</a> — New API 中转站 · GitHub 一键登录，支持签到与绘图</li><li><a href="../mirasim/">Mirasim</a> — 多智能体工作台 · 自带账号 / Key 免费，Go 当前 $1/月，邀 3 位好友开通 Go 送 1 个月</li><li><a href="../kktoken/">KKtoken AI</a> — New API 中转站 · 注册送 $75，本页邀请码再加 $25，按 token 计费输入输出各 $1/M</li><li><a href="../matrix/">Matrix</a> — 统一 API 网关 + 开源应用商店 · 邀请注册送 600 积分，实名再送 2000</li><li><a href="../anyrouter/">AnyRouter</a> — New API 中转站 · 注册送 $75，本页邀请码再加 $50，Anthropic 与 OpenAI 两条原生路由都开着</li><li><a href="../nofx/">NOFX</a> — 任务制积分站 · 做任务领 API 积分，签到 / Discord / 邀请 / 发推都给分，免密码登录、无需绑卡</li></ul>
   </section>
 <script>
 document.querySelectorAll('.copy').forEach(function (btn) {
@@ -277,12 +281,12 @@ document.querySelectorAll('.copy').forEach(function (btn) {
 </script>
   <footer>
     <ul>
-      <li>本页注册链接为<strong>邀请链接</strong>，通过它注册双方都会获得站点发放的额度，不影响你的注册流程。</li>
+      <li>本页包含<strong>邀请链接</strong>，邀请奖励、领取条件与免费范围以各站活动规则为准，不保证注册即有奖励。</li>
       <li>本站只做信息聚合，与各站点无隶属关系，不代收费用、不承诺可用性；公益站可能随时改规则或关站。</li>
       <li>请勿把生产密钥、隐私数据、企业代码交给来源不明的中转服务；重要项目请使用官方 API。</li>
       <li>请遵守各站点与上游服务商条款，禁止批量注册、刷量、转售额度。</li>
     </ul>
-    <p>数据快照时间：2026-09-23 11:40 UTC · 由 <a href="https://github.com/panxunying/ai-coding-welfare">github.com/panxunying/ai-coding-welfare</a> 自动生成 · <a href="https://panxunying.github.io/ai-coding-welfare/feed.xml">Atom 订阅</a></p>
+    <p>数据快照时间：2026-09-23 14:56 UTC · 由 <a href="https://github.com/panxunying/ai-coding-welfare">github.com/panxunying/ai-coding-welfare</a> 自动生成 · <a href="https://panxunying.github.io/ai-coding-welfare/feed.xml">Atom 订阅</a></p>
   </footer>
 </div>
 </body>

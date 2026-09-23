@@ -21,6 +21,7 @@ import { renderComparePage, renderStatusPage, renderChangelogPage } from './lib/
 import { groupByDay, renderAtom } from './lib/changelog.mjs';
 import { EMPTY_HISTORY } from './lib/history.mjs';
 import { auditCredits } from './lib/credits.mjs';
+import { activeSites, archivedSites } from './lib/archived.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const p = (...s) => path.join(ROOT, ...s);
@@ -32,8 +33,12 @@ const readJson = async (rel, fallback) => {
   }
 };
 
-const { meta, sites } = JSON.parse(await readFile(p('data', 'sites.json'), 'utf8'));
-if (!sites.length) throw new Error('data/sites.json 里没有任何站点');
+const { meta, sites: allSites } = JSON.parse(await readFile(p('data', 'sites.json'), 'utf8'));
+if (!allSites.length) throw new Error('data/sites.json 里没有任何站点');
+// 归档站不算合计、不进 sitemap；旧详情页覆盖为归档说明，避免旧链接继续推荐注册。
+const sites = activeSites(allSites);
+const dead = archivedSites(allSites);
+if (dead.length) console.warn(`📦 ${dead.length} 个站点已归档：${dead.map((s) => s.name).join('、')} → 历史区`);
 
 const live = await readJson('data/live.json', { generatedAt: null, sites: [] });
 if (!live.generatedAt) console.warn('⚠ 找不到 data/live.json，先跑 `npm run refresh` 才有实时数据，本次按空数据生成。');
@@ -42,9 +47,10 @@ const changelog = await readJson('data/changelog.json', { events: [] });
 const groups = groupByDay(changelog.events ?? []);
 
 // 额度是手工登记的，站点改政策时不会自己变；和接口实测值对不上就提醒一声
+// 归档站已死、不再探测，登记值与接口值对不上也没有意义，跳过
 for (const w of auditCredits(sites, live)) console.warn(`⚠ ${w}`);
 
-await writeFile(p('README.md'), renderReadme({ meta, sites, live, groups, history }), 'utf8');
+await writeFile(p('README.md'), renderReadme({ meta, sites: allSites, live, groups, history }), 'utf8');
 
 // 样式内联进 HTML：每一页都变成单文件，直接丢给别人打开、或转发到社群都不会掉样式
 const css = await readFile(p('docs', 'assets', 'style.css'), 'utf8');
@@ -52,13 +58,13 @@ const byId = new Map((live.sites ?? []).map((s) => [s.id, s]));
 
 const write = async (rel, content) => {
   await mkdir(path.dirname(p('docs', rel)), { recursive: true });
-  await writeFile(p('docs', rel), content, 'utf8');
+  await writeFile(p('docs', rel), content.replace(/[ \t]+$/gm, ''), 'utf8');
 };
 
-await write('index.html', renderHtml({ meta, sites, live, css, groups, history }));
+await write('index.html', renderHtml({ meta, sites: allSites, live, css, groups, history }));
 await write('.nojekyll', '');
 
-for (const site of sites) {
+for (const site of allSites) {
   await write(
     `sites/${site.id}/index.html`,
     renderSitePage({
@@ -75,7 +81,7 @@ for (const site of sites) {
 
 await write('compare/index.html', renderComparePage({ meta, sites, live, css }));
 await write('status/index.html', renderStatusPage({ meta, sites, live, css, history }));
-await write('changelog/index.html', renderChangelogPage({ meta, groups, live, css }));
+await write('changelog/index.html', renderChangelogPage({ meta, groups, live, css, siteIds: sites.map((s) => s.id) }));
 await write('feed.xml', renderAtom({ meta, groups, updated: changelog.updatedAt ?? live.generatedAt }));
 
 // 落地页要被搜到才有推广价值：robots + 把每一页都写进 sitemap
@@ -109,4 +115,4 @@ if (/USERNAME/.test(`${meta.repoUrl}${meta.pagesUrl}`)) {
 }
 
 console.log(`✔ README.md 已生成（${sites.length} 个站点）`);
-console.log(`✔ docs/ 已生成 ${urls.length} 个页面 + feed.xml + sitemap.xml`);
+console.log(`✔ docs/ 已生成 ${urls.length} 个页面 + ${dead.length} 个归档说明页 + feed.xml + sitemap.xml`);

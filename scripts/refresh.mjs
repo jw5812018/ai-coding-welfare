@@ -10,6 +10,8 @@ import path from 'node:path';
 import { fetchJson, probeUrl } from './lib/newapi.mjs';
 import { probeSite } from './lib/panels.mjs';
 import { mergeSnapshot } from './lib/merge.mjs';
+import { activeSites } from './lib/archived.mjs';
+import { signupProbeUrl } from './lib/signup.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SITES = path.join(ROOT, 'data', 'sites.json');
@@ -23,19 +25,22 @@ async function loadPrevious() {
   }
 }
 
-const { sites } = JSON.parse(await readFile(SITES, 'utf8'));
+// 归档（已挂掉）的站点不再探测：死站没有「实时状态」可言，天天探只会让日志充满重复告警
+const { sites: allSites } = JSON.parse(await readFile(SITES, 'utf8'));
+const sites = activeSites(allSites);
+const skipped = allSites.length - sites.length;
 const previous = await loadPrevious();
 
 const snapshots = await Promise.all(
   sites.map(async (site) => {
-    const [snap, signup] = await Promise.all([probeSite(site), probeUrl(site.signupUrl)]);
+    const [snap, signup] = await Promise.all([probeSite(site), probeUrl(signupProbeUrl(site))]);
     const mirrors = await Promise.all(
       (site.mirrors ?? []).map(async (m) => ({
         homeUrl: m.homeUrl,
         online: (await fetchJson(`${m.homeUrl.replace(/\/$/, '')}/api/status`)).ok,
       })),
     );
-    return { ...snap, signup, mirrors };
+    return { ...snap, signup: { ...signup, url: signupProbeUrl(site) }, mirrors };
   }),
 );
 
@@ -51,11 +56,12 @@ await writeFile(LIVE, `${JSON.stringify(out, null, 2)}\n`, 'utf8');
 
 for (const s of merged) {
   const bonus = s.inviteeBonusUsd ? `新用户 $${s.inviteeBonusUsd}` : '邀请额度未公开';
-  const signup = s.signup ? `注册页 HTTP ${s.signup.status}` : '注册页未检查';
+  const signup = s.signup ? `公开入口 HTTP ${s.signup.status}` : '公开入口未检查';
   const stale = s.dataStale ? `  ⚠ 沿用 ${String(s.staleFrom).slice(0, 16)} 的 ${s.staleFields.length} 个字段（${s.error ?? 'api 未响应'}）` : '';
   console.log(
     `${s.online ? (s.probeBlocked ? 'WAF ' : 'OK  ') : 'DOWN'} ${s.id.padEnd(12)} ${String(s.systemName ?? '-').padEnd(14)} ` +
       `${bonus.padEnd(18)} 模型 ${String(s.models.length).padStart(2)} 项  ${signup}${stale}`,
   );
 }
+if (skipped) console.log(`\n⚰ ${skipped} 个已归档（挂掉）的站点跳过探测，快照里不再保留`);
 console.log(`\n已写入 ${path.relative(ROOT, LIVE)}`);

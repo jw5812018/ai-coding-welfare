@@ -12,6 +12,7 @@
  *   - 内容字段沿用旧值时两边本来就相等，不会产生事件，不需要额外判断
  */
 import { usd, DEFAULT_UNIT } from './credits.mjs';
+import { isArchived, archivedReason } from './archived.mjs';
 
 /**
  * 数字字段取值。
@@ -151,7 +152,7 @@ export function diffSnapshots(prevLive, nextLive, sites = []) {
         siteName: site?.name ?? id,
         type: 'site_added',
         severity: 'major',
-        text: `新收录 ${site?.name ?? id}${bits.length ? `：${bits.join('，')}` : ''}`,
+        text: `新收录 ${site?.name ?? id}${bits.length ? `：${bits.join('，')}` : c.note ? `：${c.note}` : ''}`,
       });
       continue;
     }
@@ -166,7 +167,9 @@ export function diffSnapshots(prevLive, nextLive, sites = []) {
       siteName: meta.get(id)?.name ?? id,
       type: 'site_removed',
       severity: 'major',
-      text: `移除收录 ${meta.get(id)?.name ?? id}`,
+      text: isArchived(meta.get(id))
+        ? `移入历史区 ${meta.get(id).name ?? id}：${archivedReason(meta.get(id))}`
+        : `移除收录 ${meta.get(id)?.name ?? id}`,
     });
   }
 

@@ -11,6 +11,7 @@ import { signupRoute, acceptsNew } from './signup.mjs';
 import { esc, fmt, pageShell, breadcrumb, faqLd } from './layout.mjs';
 import { uptime, byDay, coverage } from './history.mjs';
 import { icon } from './changelog.mjs';
+import { activeSites, isArchived } from './archived.mjs';
 
 /** 一次 Claude Code 往返的 token 量级：系统提示 + 工具结果吃掉大部分输入 */
 export const TURN = { input: 15_000, output: 2_000 };
@@ -28,6 +29,7 @@ const pickClaude = (snap) => {
 
 /** 首日额度能跑多少次「一问一答」；返回 null 表示价格不公开，页面上如实写「需登录」 */
 export function estimateTurns(site, snap) {
+  if (isArchived(site)) return null;
   const p = creditPlan(site, snap);
   if (p.unit !== 'usd' || p.firstDay == null) return null;
   const m = pickClaude(snap);
@@ -47,24 +49,25 @@ function compareRows(sites, byId) {
     const snap = byId.get(s.id);
     const p = creditPlan(s, snap);
     const est = estimateTurns(s, snap);
-    const billing = est?.billing ?? (p.unit === 'point' ? '站内积分' : p.resets ? '每日额度池' : '需登录查看');
+    const billing = est?.billing ?? (p.note && p.firstDay == null ? '自带 Key / 订阅' : p.unit === 'point' ? '站内积分' : p.resets ? '每日额度池' : '需登录查看');
     const per = est ? `$${Math.round(est.per * 1000) / 1000} / 次` : '—';
     const turns = est
       ? `<b>${est.turns}</b> 次${p.resets ? ' / 天' : ''}`
       : p.unit === 'point'
         ? '积分无公开换算'
-        : '需登录查看';
+        : p.note && p.firstDay == null ? '不按赠送额度折算' : '需登录查看';
     // 停注的站点留在表里（老用户还用得上，也方便看它什么时候回来），但额度划掉、不参与「最耐用」排序
     const shut = !acceptsNew(snap);
     return `<tr${shut ? ' class="shut"' : ''}><td><a href="../sites/${esc(s.id)}/">${esc(s.name)}</a>${
       shut ? ' <span class="tag warn">停注</span>' : ''
     }</td><td>${esc(billing)}</td><td>${
-      p.firstDay != null ? `${shut ? '<s>' : ''}${esc(usd(p.firstDay, p.approx, p.unit))}${shut ? '</s>' : ''}` : '—'
+      p.firstDay != null ? `${shut ? '<s>' : ''}${esc(usd(p.firstDay, p.approx, p.unit))}${shut ? '</s>' : ''}` : esc(p.note ?? '—')
     }</td><td>${per}</td><td>${turns}</td><td><code>${esc(est?.model ?? '—')}</code></td></tr>`;
   });
 }
 
-export function renderComparePage({ meta, sites, live, css }) {
+export function renderComparePage({ meta, sites: allSites, live, css }) {
+  const sites = activeSites(allSites);
   const byId = new Map((live?.sites ?? []).map((s) => [s.id, s]));
   const url = `${meta.pagesUrl}compare/`;
   // 「最划算」得是新用户真能注册上的站，否则这页给出的答案是个死链
@@ -166,7 +169,8 @@ function dayBars(history, siteId, days) {
 
 const pct = (u) => (u.enough ? `${u.percent}%` : `样本不足（${u.total} 次）`);
 
-export function renderStatusPage({ meta, sites, live, css, history }) {
+export function renderStatusPage({ meta, sites: allSites, live, css, history }) {
+  const sites = activeSites(allSites);
   const byId = new Map((live?.sites ?? []).map((s) => [s.id, s]));
   const cov = coverage(history);
   const url = `${meta.pagesUrl}status/`;
@@ -242,10 +246,12 @@ export function renderStatusPage({ meta, sites, live, css, history }) {
   });
 }
 
-export function renderChangelogPage({ meta, groups, live, css, limitDays = 60 }) {
+export function renderChangelogPage({ meta, groups, live, css, limitDays = 60, siteIds = [] }) {
   const url = `${meta.pagesUrl}changelog/`;
   const shown = groups.slice(0, limitDays);
   const count = shown.reduce((n, g) => n + g.events.length, 0);
+  // 事件里的推荐详情入口只留给未归档站；历史事件本身照常保留。
+  const hasPage = new Set(siteIds);
 
   const days = shown
     .map(
@@ -255,7 +261,7 @@ export function renderChangelogPage({ meta, groups, live, css, limitDays = 60 })
         .map(
           (e) =>
             `<li><span class="ev-ico">${icon(e.type)}</span><span>${esc(e.text)}</span>${
-              e.siteId ? ` <a class="ev-site" href="../sites/${esc(e.siteId)}/">详情</a>` : ''
+              e.siteId && hasPage.has(e.siteId) ? ` <a class="ev-site" href="../sites/${esc(e.siteId)}/">详情</a>` : ''
             }</li>`,
         )
         .join('')}</ul>

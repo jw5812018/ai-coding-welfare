@@ -10,6 +10,7 @@ import { signupRoute } from './signup.mjs';
 import { staleHours } from './newapi.mjs';
 import { esc, fmt, pageShell, breadcrumb, faqLd } from './layout.mjs';
 import { uptime } from './history.mjs';
+import { isArchived, archivedAt, archivedReason } from './archived.mjs';
 
 const yes = (v) => (v === true ? '✅' : v === false ? '❌' : '—');
 
@@ -20,7 +21,7 @@ function factRows(site, snap) {
   return [
     p.firstDay != null
       ? ['首日可得', `<b${shut ? ' class="struck"' : ''}>${usd(p.firstDay, p.approx, p.unit)}</b>${shut ? '<small> 站点停注中，新号拿不到</small>' : ''}`]
-      : null,
+      : p.note ? ['免费范围', esc(p.note)] : null,
     p.sources > 1 && breakdown(p) ? ['额度构成', esc(breakdown(p))] : null,
     p.daily != null
       ? ['之后每天', p.resets ? `重置额度池 ${usd(p.daily, p.approx, p.unit)}（不累积）` : `签到 ${usd(p.daily, p.approx, p.unit)}`]
@@ -133,6 +134,21 @@ document.querySelectorAll('.copy').forEach(function (btn) {
 </script>`;
 
 export function renderSitePage({ meta, site, snap, live, css, history, siblings = [] }) {
+  // 旧地址仍可访问，但不能继续展示过期的额度、注册链接和接入配置。
+  if (isArchived(site)) {
+    const when = archivedAt(site);
+    return pageShell({
+      meta, css, live, base: '../../', noindex: true,
+      title: `${site.name} 已归档 — ${meta.title}`,
+      desc: `${site.name} 已移入历史区，不再推荐注册。${archivedReason(site)}`,
+      canonical: `${meta.pagesUrl}sites/${site.id}/`,
+      body: `<header class="hero"><h1>${esc(site.name)} · 已归档</h1>
+        <p class="sub">${esc(archivedReason(site))}</p>
+        ${when ? `<p class="hint">归档日期：${esc(when)}</p>` : ''}
+        <p>不再展示旧额度、注册链接或接入配置；历史记录保留。</p>
+        <a class="btn btn-ghost" href="../../#graveyard">返回历史区</a></header>`,
+    });
+  }
   const p = creditPlan(site, snap);
   const up = Boolean(snap?.online);
   const route = signupRoute(snap);
@@ -143,7 +159,7 @@ export function renderSitePage({ meta, site, snap, live, css, history, siblings 
     shut ? '。⚠ 站点接口自报已暂停新用户注册' : p.firstDay != null ? `。首日可得 ${usd(p.firstDay, p.approx, p.unit)}${breakdown(p) ? `（${breakdown(p)}）` : ''}` : ''
   }。含实时在线状态、模型价格、Claude Code / Codex 接入配置与踩坑清单，数据快照 ${fmt(snap?.checkedAt)}。`;
 
-  const faq = [
+  const faq = site.faq ?? [
     [`${site.name} 注册完为什么看不到额度？`, '公益站额度多在登录时结算，退出登录再重新登录一次通常就到账；余额短暂显示 $0 属于前端展示问题，稍后刷新即可。'],
     [`${site.name} 的 Claude Code 报 401 怎么办？`, 'Anthropic 协议的 Base URL 不要带 /v1；再确认 Key 复制完整、模型名在站内可用清单里、客户端属于该站支持的类型。'],
     [`从别的链接注册 ${site.name} 有区别吗？`, `有。${
@@ -182,6 +198,7 @@ export function renderSitePage({ meta, site, snap, live, css, history, siblings 
 
   ${list('为什么值得注册', site.highlights)}
   ${modelsTable(snap)}
+  ${!snap?.models?.length && site.modelsNote ? `<section><h2>模型与套餐说明</h2><p class="hint">${esc(site.modelsNote)}</p></section>` : ''}
   ${list('注册要求', site.register?.requirements)}
   ${configBlocks(site, snap)}
   ${list('如何继续拿额度', site.earnMore)}

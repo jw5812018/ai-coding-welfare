@@ -6,6 +6,17 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 
 > 只记录会影响「值不值得注册」的字段。探测被站点 WAF 拦下时不记在线状态变化，避免机房 IP 被拦被误报成掉线。
 
+## 2026-09-23
+
+- ➖ AgentRouter 下线模型：glm-5.3、gpt-5.6-sol <sub>14:56 UTC</sub>
+- 🏷️ AgentRouter claude-opus-5 价格 $8 入 / $40 出（每 1M） → $6 入 / $30 出（每 1M） <sub>14:56 UTC</sub>
+- 🏷️ AgentRouter gpt-6-astra 价格 $3 入 / $15 出（每 1M） → $4 入 / $20 出（每 1M） <sub>14:56 UTC</sub>
+- 🆕 新收录 Mirasim：自带 Key 免费；赠额未公示 <sub>14:56 UTC</sub>
+- 🔴 Matrix 探测不到了：注册页与公开接口都没响应 <sub>14:56 UTC</sub>
+- 🗑️ 移入历史区 GoRouter：用户反馈已无法使用，移入历史区，不再推荐注册 <sub>14:56 UTC</sub>
+- 🗑️ 移入历史区 TaBiAI：用户反馈已无法使用，移入历史区，不再推荐注册 <sub>14:56 UTC</sub>
+- 🗑️ 移入历史区 RawChat 公益站：用户反馈已无法使用，移入历史区，不再推荐注册 <sub>14:56 UTC</sub>
+
 ## 2026-09-22
 
 - 🟢 GoRouter 恢复在线 <sub>21:21 UTC</sub>

@@ -12,9 +12,14 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { looksFiltered, isHttpsUrl } from './lib/newapi.mjs';
+import { activeSites } from './lib/archived.mjs';
+import { signupProbeUrl } from './lib/signup.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const { sites } = JSON.parse(await readFile(path.join(ROOT, 'data', 'sites.json'), 'utf8'));
+// 归档（已挂掉）的站点不检查：域名都死了，天天报「关键链接不可用」只会把告警刷成噪音
+const { sites: allSites } = JSON.parse(await readFile(path.join(ROOT, 'data', 'sites.json'), 'utf8'));
+const sites = activeSites(allSites);
+const archived = allSites.length - sites.length;
 
 async function probe(url) {
   const t = Date.now();
@@ -34,7 +39,7 @@ async function probe(url) {
 
 const targets = [];
 for (const s of sites) {
-  targets.push({ site: s.name, kind: '注册链接', url: s.signupUrl, critical: true });
+  targets.push({ site: s.name, kind: s.signupProbeUrl ? '公开入口（替代邀请路径）' : '注册链接', url: signupProbeUrl(s), critical: true });
   targets.push({ site: s.name, kind: '站点首页', url: s.homeUrl, critical: true });
   // relay 面板的 statusApi 是个「要鉴权的中转口」，不带 key 回 401 才是正常的（见 lib/relay.mjs）。
   // 不把这一类算进告警，否则每次 check 都固定挂一条噪音，久了就没人看告警了。
@@ -77,6 +82,7 @@ for (const r of results) {
 }
 
 console.log(`\n共 ${results.length} 项：失败 ${failed}，告警 ${warned}，被拦 ${blocked}`);
+if (archived) console.log(`⚰ ${archived} 个已归档（挂掉）的站点跳过检查`);
 if (blocked) {
   console.log('被拦的链接请换个网络（非机房 IP）复核一次，站点通常是好的。');
 }

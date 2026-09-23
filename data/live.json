@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-23T11:40:12.043Z",
+  "generatedAt": "2026-09-23T14:56:17.386Z",
   "sites": [
     {
       "id": "agentrouter",
-      "checkedAt": "2026-09-23T11:40:05.830Z",
+      "checkedAt": "2026-09-23T14:55:56.319Z",
       "online": true,
-      "latencyMs": 332,
-      "error": "invalid json",
+      "latencyMs": 790,
+      "error": null,
       "systemName": "Agent Router",
-      "version": "init-20260915-25158da5",
+      "version": "init-20260918-cbda758f",
       "registerOpen": null,
       "passwordRegister": null,
       "checkinEnabled": null,
@@ -25,7 +25,7 @@
         {
           "id": 16,
           "date": "2026-08-28",
-          "text": "为保障服务长期运行，Claude 和 GPT 模型已调整为限量供应，每日分批次发放，用完即止。目前暂定每日两批：北京时间 07:00 和 19:00（UTC 23:00 和 11:00），后续可能调整。 额度用完后会报错“402 Budget pool quota has been exhausted.”，等待下一批或切换至 DeepSeek / GLM 即可继续使用。"
+          "text": "为保障服务长期运行，Claude 和 GPT 模型已调整为限量供应，每日分批次发放，用完即止。新的投放时间为🕙北京时间10:00和19:00（对应UTC时间02:00和11:00），请大家注意时间变更，避免跑空。🕙 额度用完后会报错“402 Budget pool quota has been exhausted.”，等待下一批或切换至 DeepSeek / GLM 即可继续使用。"
         },
         {
           "id": 15,
@@ -57,10 +57,11 @@
           "inputPerMTok": 8,
           "outputPerMTok": 40,
           "groups": [
+            "test",
             "core",
             "default",
-            "svip",
-            "test"
+            "probation",
+            "svip"
           ],
           "protocols": [
             "anthropic",
@@ -69,16 +70,17 @@
         },
         {
           "name": "claude-opus-5",
-          "ratio": 4,
+          "ratio": 3,
           "completionRatio": 5,
           "fixedPrice": null,
-          "inputPerMTok": 8,
-          "outputPerMTok": 40,
+          "inputPerMTok": 6,
+          "outputPerMTok": 30,
           "groups": [
+            "default",
+            "probation",
             "svip",
             "test",
-            "core",
-            "default"
+            "core"
           ],
           "protocols": [
             "anthropic",
@@ -93,10 +95,11 @@
           "inputPerMTok": 4,
           "outputPerMTok": 12,
           "groups": [
-            "test",
             "core",
             "default",
-            "svip"
+            "probation",
+            "svip",
+            "test"
           ],
           "protocols": [
             "openai",
@@ -104,50 +107,16 @@
           ]
         },
         {
-          "name": "glm-5.3",
-          "ratio": 2.5,
-          "completionRatio": 5,
-          "fixedPrice": null,
-          "inputPerMTok": 5,
-          "outputPerMTok": 25,
-          "groups": [
-            "core",
-            "default",
-            "svip",
-            "test"
-          ],
-          "protocols": [
-            "anthropic",
-            "openai"
-          ]
-        },
-        {
-          "name": "gpt-5.6-sol",
-          "ratio": 1.5,
-          "completionRatio": 5,
-          "fixedPrice": null,
-          "inputPerMTok": 3,
-          "outputPerMTok": 15,
-          "groups": [
-            "test",
-            "core",
-            "default",
-            "svip"
-          ],
-          "protocols": [
-            "openai"
-          ]
-        },
-        {
           "name": "gpt-6-astra",
-          "ratio": 1.5,
+          "ratio": 2,
           "completionRatio": 5,
           "fixedPrice": null,
-          "inputPerMTok": 3,
-          "outputPerMTok": 15,
+          "inputPerMTok": 4,
+          "outputPerMTok": 20,
           "groups": [
             "core",
             "default",
+            "probation",
             "svip",
             "test"
           ],
@@ -156,7 +125,7 @@
           ]
         }
       ],
-      "modelsSource": "cached",
+      "modelsSource": "public-api",
       "defaults": {
         "claude": "claude-opus-5",
         "openai": "gpt-6-astra"
@@ -164,40 +133,30 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 1208,
-        "attempts": 1
+        "ms": 2602,
+        "attempts": 1,
+        "url": "https://agentrouter.org/register?aff=szt3"
       },
       "mirrors": [
         {
           "homeUrl": "https://ps.air-outer.com",
-          "online": false
+          "online": true
         }
       ],
-      "staleFrom": "2026-09-15T01:48:59.261Z",
-      "apiOk": false,
-      "pricingOk": false,
-      "dataStale": true,
-      "staleFields": [
-        "systemName",
-        "version",
-        "loginMethods",
-        "quotaPerUnit",
-        "inviteeBonusUsd",
-        "inviterBonusUsd",
-        "topupEnabled",
-        "announcements",
-        "models",
-        "defaults"
-      ],
+      "staleFrom": null,
+      "apiOk": true,
+      "pricingOk": true,
+      "dataStale": false,
+      "staleFields": [],
       "services": [],
       "probeBlocked": false
     },
     {
       "id": "docode",
-      "checkedAt": "2026-09-23T11:40:00.400Z",
+      "checkedAt": "2026-09-23T14:55:44.266Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 957,
+      "latencyMs": 5386,
       "error": null,
       "systemName": "DoCode",
       "version": "",
@@ -249,8 +208,9 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 871,
-        "attempts": 1
+        "ms": 2286,
+        "attempts": 3,
+        "url": "https://docode.cc/register?aff=zMRe"
       },
       "mirrors": [
         {
@@ -266,9 +226,9 @@
     },
     {
       "id": "justdowork",
-      "checkedAt": "2026-09-23T11:40:00.099Z",
+      "checkedAt": "2026-09-23T14:55:46.208Z",
       "online": true,
-      "latencyMs": 716,
+      "latencyMs": 815,
       "error": null,
       "systemName": "JustDoWork",
       "version": "v1.0.0-rc.23",
@@ -294,8 +254,9 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 945,
-        "attempts": 1
+        "ms": 902,
+        "attempts": 1,
+        "url": "https://api.justwoker.icu/sign-up?aff=VTrz"
       },
       "mirrors": [],
       "apiOk": true,
@@ -307,11 +268,51 @@
       "probeBlocked": false
     },
     {
-      "id": "kktoken",
-      "checkedAt": "2026-09-23T11:40:01.013Z",
+      "id": "mirasim",
+      "checkedAt": "2026-09-23T14:55:46.511Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 1634,
+      "latencyMs": 7631,
+      "error": null,
+      "systemName": null,
+      "version": null,
+      "registerOpen": null,
+      "passwordRegister": null,
+      "checkinEnabled": null,
+      "loginMethods": [],
+      "githubMinAccountAgeDays": null,
+      "quotaPerUnit": null,
+      "inviteeBonusUsd": null,
+      "inviterBonusUsd": null,
+      "topupEnabled": null,
+      "services": [],
+      "announcements": [],
+      "models": [],
+      "modelsSource": "login-required",
+      "defaults": {
+        "claude": null,
+        "openai": null
+      },
+      "signup": {
+        "status": 200,
+        "ok": true,
+        "ms": 3287,
+        "attempts": 1,
+        "url": "https://mirasim.ai/pricing"
+      },
+      "mirrors": [],
+      "probeBlocked": false,
+      "online": true,
+      "dataStale": false,
+      "staleFrom": null,
+      "staleFields": []
+    },
+    {
+      "id": "kktoken",
+      "checkedAt": "2026-09-23T14:55:47.223Z",
+      "apiOk": true,
+      "pricingOk": false,
+      "latencyMs": 8342,
       "error": null,
       "systemName": "KKtoken AI",
       "version": "v1.0.0-rc.25",
@@ -338,8 +339,9 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 986,
-        "attempts": 1
+        "ms": 1521,
+        "attempts": 2,
+        "url": "https://kktoken.cc/sign-up?aff=MzG9"
       },
       "mirrors": [],
       "probeBlocked": false,
@@ -349,88 +351,12 @@
       "staleFields": []
     },
     {
-      "id": "gorouter",
-      "checkedAt": "2026-09-23T11:40:08.912Z",
-      "apiOk": true,
-      "pricingOk": false,
-      "latencyMs": 1093,
-      "error": null,
-      "systemName": "GoRouter",
-      "version": "init-20260813-3cd90886",
-      "registerOpen": true,
-      "passwordRegister": false,
-      "checkinEnabled": true,
-      "loginMethods": [
-        "GitHub",
-        "账号密码"
-      ],
-      "githubMinAccountAgeDays": null,
-      "quotaPerUnit": 500000,
-      "inviteeBonusUsd": null,
-      "inviterBonusUsd": null,
-      "topupEnabled": null,
-      "services": [],
-      "announcements": [],
-      "models": [
-        {
-          "name": "claude-opus-5",
-          "ratio": 0,
-          "completionRatio": 0,
-          "fixedPrice": 0.3,
-          "inputPerMTok": null,
-          "outputPerMTok": null,
-          "groups": [
-            "default"
-          ],
-          "protocols": [
-            "anthropic",
-            "openai"
-          ]
-        },
-        {
-          "name": "claude-opus-5-thinking",
-          "ratio": 0,
-          "completionRatio": 0,
-          "fixedPrice": 0.3,
-          "inputPerMTok": null,
-          "outputPerMTok": null,
-          "groups": [
-            "default"
-          ],
-          "protocols": [
-            "anthropic",
-            "openai"
-          ]
-        }
-      ],
-      "modelsSource": "cached",
-      "defaults": {
-        "claude": "claude-opus-5",
-        "openai": "claude-opus-5"
-      },
-      "signup": {
-        "status": 403,
-        "ok": false,
-        "ms": 795,
-        "attempts": 1
-      },
-      "mirrors": [],
-      "probeBlocked": false,
-      "online": true,
-      "dataStale": true,
-      "staleFrom": "2026-09-05T20:22:54.779Z",
-      "staleFields": [
-        "models",
-        "defaults"
-      ]
-    },
-    {
       "id": "matrix",
-      "checkedAt": "2026-09-23T11:40:01.221Z",
-      "apiOk": true,
+      "checkedAt": "2026-09-23T14:55:58.414Z",
+      "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 1838,
-      "error": null,
+      "latencyMs": 5003,
+      "error": "fetch failed",
       "systemName": null,
       "version": null,
       "registerOpen": null,
@@ -451,191 +377,26 @@
         "openai": null
       },
       "signup": {
-        "status": 200,
-        "ok": true,
-        "ms": 1918,
-        "attempts": 1
+        "status": 0,
+        "ok": false,
+        "ms": 5003,
+        "error": "fetch failed",
+        "attempts": 3,
+        "url": "https://matrix.mzsjai.com/login?redirect=%2Fapp%2Fgrowth%3FinviteCode%3DMXMRFO52KD2_"
       },
       "mirrors": [],
       "probeBlocked": false,
-      "online": true,
+      "online": false,
       "dataStale": false,
       "staleFrom": null,
       "staleFields": []
     },
     {
-      "id": "tabitoken",
-      "checkedAt": "2026-09-23T11:40:05.432Z",
-      "apiOk": false,
-      "pricingOk": false,
-      "latencyMs": 181,
-      "error": "HTTP 521",
-      "systemName": "TaBiAI",
-      "version": "init-20260817-f880a343",
-      "registerOpen": true,
-      "passwordRegister": false,
-      "checkinEnabled": true,
-      "loginMethods": [
-        "GitHub",
-        "账号密码"
-      ],
-      "githubMinAccountAgeDays": null,
-      "quotaPerUnit": 500000,
-      "inviteeBonusUsd": null,
-      "inviterBonusUsd": null,
-      "topupEnabled": null,
-      "services": [],
-      "announcements": [],
-      "models": [
-        {
-          "name": "claude-opus-4-8",
-          "ratio": 0,
-          "completionRatio": 0,
-          "fixedPrice": 0.5,
-          "inputPerMTok": null,
-          "outputPerMTok": null,
-          "groups": [
-            "vip",
-            "default"
-          ],
-          "protocols": [
-            "anthropic",
-            "openai"
-          ]
-        },
-        {
-          "name": "claude-opus-4-8-thinking",
-          "ratio": 0,
-          "completionRatio": 0,
-          "fixedPrice": 0.5,
-          "inputPerMTok": null,
-          "outputPerMTok": null,
-          "groups": [
-            "vip",
-            "default"
-          ],
-          "protocols": [
-            "anthropic",
-            "openai"
-          ]
-        },
-        {
-          "name": "claude-opus-5",
-          "ratio": 0,
-          "completionRatio": 0,
-          "fixedPrice": 0.35,
-          "inputPerMTok": null,
-          "outputPerMTok": null,
-          "groups": [
-            "vip",
-            "default"
-          ],
-          "protocols": [
-            "anthropic",
-            "openai"
-          ]
-        },
-        {
-          "name": "claude-opus-5-thinking",
-          "ratio": 0,
-          "completionRatio": 0,
-          "fixedPrice": 0.4,
-          "inputPerMTok": null,
-          "outputPerMTok": null,
-          "groups": [
-            "default",
-            "vip"
-          ],
-          "protocols": [
-            "anthropic",
-            "openai"
-          ]
-        }
-      ],
-      "modelsSource": "cached",
-      "defaults": {
-        "claude": "claude-opus-5",
-        "openai": "claude-opus-5"
-      },
-      "signup": {
-        "status": 403,
-        "ok": false,
-        "ms": 1151,
-        "attempts": 1
-      },
-      "mirrors": [],
-      "probeBlocked": false,
-      "online": false,
-      "dataStale": true,
-      "staleFrom": "2026-09-05T20:22:55.415Z",
-      "staleFields": [
-        "systemName",
-        "version",
-        "registerOpen",
-        "passwordRegister",
-        "checkinEnabled",
-        "loginMethods",
-        "quotaPerUnit",
-        "models",
-        "defaults"
-      ]
-    },
-    {
-      "id": "rawchat",
-      "checkedAt": "2026-09-23T11:40:05.093Z",
-      "apiOk": false,
-      "pricingOk": false,
-      "latencyMs": 11,
-      "error": "HTTP 403",
-      "systemName": "RawChat公益站",
-      "version": "1.0.0.0",
-      "registerOpen": true,
-      "passwordRegister": true,
-      "checkinEnabled": null,
-      "loginMethods": [
-        "邮箱"
-      ],
-      "githubMinAccountAgeDays": null,
-      "quotaPerUnit": null,
-      "inviteeBonusUsd": null,
-      "inviterBonusUsd": null,
-      "topupEnabled": null,
-      "services": [
-        "Codex"
-      ],
-      "announcements": [],
-      "models": [],
-      "modelsSource": "login-required",
-      "defaults": {
-        "claude": null,
-        "openai": null
-      },
-      "signup": {
-        "status": 403,
-        "ok": false,
-        "ms": 1172,
-        "attempts": 1
-      },
-      "mirrors": [],
-      "online": false,
-      "dataStale": true,
-      "staleFrom": "2026-09-16T04:51:26.674Z",
-      "staleFields": [
-        "systemName",
-        "version",
-        "registerOpen",
-        "passwordRegister",
-        "loginMethods",
-        "services"
-      ],
-      "probeBlocked": false
-    },
-    {
       "id": "anyrouter",
-      "checkedAt": "2026-09-23T11:40:07.175Z",
+      "checkedAt": "2026-09-23T14:55:57.186Z",
       "apiOk": false,
       "pricingOk": false,
-      "latencyMs": 204,
+      "latencyMs": 426,
       "error": "invalid json",
       "systemName": null,
       "version": null,
@@ -659,8 +420,9 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 2865,
-        "attempts": 1
+        "ms": 10024,
+        "attempts": 1,
+        "url": "https://anyrouter.top/register?aff=Z24N"
       },
       "mirrors": [],
       "probeBlocked": false,
@@ -671,10 +433,10 @@
     },
     {
       "id": "cheapcodex",
-      "checkedAt": "2026-09-23T11:40:01.956Z",
+      "checkedAt": "2026-09-23T14:55:45.246Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 2566,
+      "latencyMs": 6365,
       "error": null,
       "systemName": null,
       "version": null,
@@ -698,8 +460,9 @@
       "signup": {
         "status": 200,
         "ok": true,
-        "ms": 2525,
-        "attempts": 1
+        "ms": 11095,
+        "attempts": 1,
+        "url": "https://api.cheapcodex.online/register?aff=U7SSQZSDB36S"
       },
       "mirrors": [],
       "probeBlocked": false,
@@ -710,10 +473,10 @@
     },
     {
       "id": "nofx",
-      "checkedAt": "2026-09-23T11:40:02.336Z",
+      "checkedAt": "2026-09-23T14:55:58.473Z",
       "apiOk": true,
       "pricingOk": false,
-      "latencyMs": 2946,
+      "latencyMs": 8081,
       "error": null,
       "systemName": null,
       "version": null,
@@ -735,10 +498,12 @@
         "openai": null
       },
       "signup": {
-        "status": 200,
-        "ok": true,
-        "ms": 3635,
-        "attempts": 1
+        "status": 0,
+        "ok": false,
+        "ms": 5007,
+        "error": "fetch failed",
+        "attempts": 3,
+        "url": "https://nofx.one/zh-CN/sign-in?ref=J369GHY4"
       },
       "mirrors": [],
       "probeBlocked": false,

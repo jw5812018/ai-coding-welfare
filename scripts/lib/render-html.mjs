@@ -10,6 +10,7 @@ import { signupRoute, acceptsNew } from './signup.mjs';
 import { esc, fmt, pageShell, faqLd } from './layout.mjs';
 import { icon } from './changelog.mjs';
 import { coverage } from './history.mjs';
+import { activeSites, archivedSites, archivedAt, archivedReason } from './archived.mjs';
 
 function claudeSnippet(site, snap) {
   const model = snap?.defaults?.claude ?? '在站内模型列表中选择';
@@ -47,7 +48,7 @@ function siteCard(site, snap) {
             shut ? '<small> 站点停注中，新号拿不到</small>' : p.sources > 1 && breakdown(p) ? `<small> ${esc(breakdown(p))}</small>` : ''
           }`,
         ]
-      : null,
+      : p.note ? ['免费范围', esc(p.note)] : null,
     p.daily != null
       ? ['之后每天', p.resets ? `重置额度池 ${usd(p.daily, p.approx, p.unit)}（不累积）` : `签到 ${usd(p.daily, p.approx, p.unit)}`]
       : snap?.checkinEnabled
@@ -124,7 +125,8 @@ function modelsTable(sites, byId) {
 }
 
 /** 首页只放最近几条变动做「这站还活着」的信号，完整列表在 /changelog/ */
-function recentSection(groups, history) {
+function recentSection(groups, history, activeIds) {
+  const activeById = new Set(activeIds ?? []);
   const events = groups.flatMap((g) => g.events).slice(0, 8);
   const cov = coverage(history);
   if (!events.length) return '';
@@ -138,7 +140,8 @@ function recentSection(groups, history) {
         .map(
           (e) =>
             `<li><span class="ev-ico">${icon(e.type)}</span><span>${esc(e.text)}</span>${
-              e.siteId ? ` <a class="ev-site" href="sites/${esc(e.siteId)}/">详情</a>` : ''
+              // 归档站只剩归档说明，不再作为推荐详情入口。
+              e.siteId && activeById.has(e.siteId) ? ` <a class="ev-site" href="sites/${esc(e.siteId)}/">详情</a>` : ''
             } <span class="muted">${esc(String(e.at ?? '').slice(0, 10))}</span></li>`,
         )
         .join('')}</ul>
@@ -157,7 +160,29 @@ const FAQ = [
   ['会不会顶掉我的 Claude 订阅登录？', '会。环境变量优先级更高，想切回订阅登录就 unset ANTHROPIC_BASE_URL / ANTHROPIC_AUTH_TOKEN / ANTHROPIC_MODEL 后重开终端。'],
 ];
 
-export function renderHtml({ meta, sites, live, css, groups = [], history }) {
+/** 坟场：曾经收录、后来挂掉的站点。留在页面最底下，只记名不吆喝，链接也不再给 */
+function graveyardSection(sites) {
+  const dead = archivedSites(sites);
+  if (!dead.length) return '';
+  const items = dead
+    .map((s) => {
+      const when = archivedAt(s);
+      return `<li><span class="dot down" aria-hidden="true"></span><b>${esc(s.name)}</b>${
+        when ? ` <span class="muted">（${esc(when)} 归档）</span>` : ''
+      }<span class="muted">${esc(archivedReason(s))}</span></li>`;
+    })
+    .join('');
+  return `
+    <section id="graveyard">
+      <h2>📦 历史区 · 已停用站点</h2>
+      <p class="hint">这些站已反馈不可用，不再推荐注册、展示额度或进行定时探测。保留历史记录，确认恢复可用后可人工重新收录。</p>
+      <ul class="events">${items}</ul>
+    </section>`;
+}
+
+export function renderHtml({ meta, sites: allSites, live, css, groups = [], history }) {
+  // 挂掉的站点不进主列表、不计入任何合计与 ItemList，只进底部坟场区块
+  const sites = activeSites(allSites);
   const byId = new Map((live?.sites ?? []).map((s) => [s.id, s]));
   const online = sites.filter((s) => byId.get(s.id)?.online).length;
   // 停注的站点不进「新用户能拿多少」的口径，也不当首屏主按钮（详见 lib/signup.mjs）
@@ -168,9 +193,12 @@ export function renderHtml({ meta, sites, live, css, groups = [], history }) {
   const { best, total, others } = usdTotals(plans);
   const extra = othersNote(others);
   const first = openSites.find((s) => s.recommended) ?? openSites[0] ?? null;
+  const deadCount = archivedSites(allSites).length;
   const desc = `${meta.tagline}。当前收录 ${sites.length} 个站点，${online} 个在线${
     closedSites.length ? `、${openSites.length} 个还收新用户` : ''
-  }${best ? `，单站首日最高可得 $${best} 免费额度，还收新用户的美元站全注册约 $${total}` : ''}${extra ? `；${extra}` : ''}。`;
+  }${best ? `，单站首日最高可得 $${best} 免费额度，还收新用户的美元站全注册约 $${total}` : ''}${extra ? `；${extra}` : ''}${
+    deadCount ? `；另有 ${deadCount} 个站已停用归档` : ''
+  }。`;
 
   const body = `  <header class="hero">
     <h1>${esc(meta.title)}</h1>
@@ -210,7 +238,8 @@ export function renderHtml({ meta, sites, live, css, groups = [], history }) {
     </div>
   </section>
 ${modelsTable(sites, byId)}
-${recentSection(groups, history)}
+${recentSection(groups, history, sites.map((s) => s.id))}
+${graveyardSection(allSites)}
   <section id="faq">
     <h2>常见问题</h2>
     <p class="hint">踩坑集中在这四个。</p>

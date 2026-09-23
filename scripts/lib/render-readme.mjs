@@ -5,6 +5,7 @@ import { signupRoute, acceptsNew } from './signup.mjs';
 import { icon } from './changelog.mjs';
 import { coverage } from './history.mjs';
 import { activeSites, archivedSites, archivedAt, archivedReason } from './archived.mjs';
+import { subscriptionPlan } from './subscription.mjs';
 
 /** shields.io 转义：- → --，_ → __，其余走 URI 编码 */
 const shield = (s) => encodeURIComponent(String(s).replace(/-/g, '--').replace(/_/g, '__'));
@@ -33,28 +34,32 @@ function overviewTable(sites, liveById) {
   // 多数站的邀请额度是邀请链接自己带的，用户不用手打；只有个别站（DoCode）注册表单里
   // 有一栏「邀请码」要自己填，漏填就只拿注册额度。没有任何站需要手填时不出这一列。
   const hasCode = sites.some((s) => s.inviteCode);
+  const hasSubscription = sites.some((s) => s.subscription);
   const rows = sites.map((s) => {
     const l = liveById.get(s.id) ?? {};
     const plan = creditPlan(s, l);
+    const sub = subscriptionPlan(s);
     const route = signupRoute(l);
     // 「在线」和「收不收新用户」是两件事：站点活得好好的但停注了，对新用户就是死路，
     // 状态栏必须说出来，否则下面那个「首日可得 $120」是在骗人点链接
     const state = l.online ? (route.state === 'closed' ? '🟡 停注' : '🟢 在线') : '🔴 异常';
     const first =
-      plan.firstDay != null
+      sub
+        ? `${route.state === 'closed' ? `~~${sub.name} ${sub.price}~~` : `**${sub.name} ${sub.price}**`}${sub.listPrice ? `<br>标价 ${sub.listPrice}` : ''}`
+        : plan.firstDay != null
         ? route.state === 'closed'
           ? `~~${usd(plan.firstDay, plan.approx, plan.unit)}~~`
           : `**${usd(plan.firstDay, plan.approx, plan.unit)}**`
         : plan.note ?? '站内公示';
-    const detail = breakdown(plan) ?? '—';
+    const detail = sub ? sub.estimates.map((e) => `${e.model} **${e.amount}**`).join('<br>') : breakdown(plan) ?? '—';
     const checkin =
-      perDay(plan) ??
+      sub ? `**${sub.window}**<br>共享额度` : perDay(plan) ??
       (l.checkinEnabled
         ? '支持签到'
         : l.checkinEnabled === false
           ? '无签到'
           : '—');
-    const models = l.models?.length ? `${l.models.length} 个可查` : l.services?.length ? l.services.join(' / ') : '需登录查看';
+    const models = sub ? `${sub.estimates.length} 种<br>官网公示` : l.models?.length ? `${l.models.length} 个可查` : l.services?.length ? l.services.join(' / ') : '需登录查看';
     const proto =
       [s.endpoints?.anthropic && 'Anthropic', s.endpoints?.openai && 'OpenAI'].filter(Boolean).join(' + ') ||
       s.setup?.client ||
@@ -62,7 +67,7 @@ function overviewTable(sites, liveById) {
     const cta =
       route.state === 'closed'
         ? `[已停注 · 仍可打开 →](${s.signupUrl})`
-        : route.state === 'oauth'
+        : sub ? `[查看 ${sub.name} →](${s.signupUrl})` : route.state === 'oauth'
           ? `[${route.oauth[0]} 注册 →](${s.signupUrl})`
           : `[点此注册 →](${s.signupUrl})`;
     const code = s.inviteCode ? ` \`${s.inviteCode}\` |` : ' — |';
@@ -72,7 +77,7 @@ function overviewTable(sites, liveById) {
     );
   });
   return [
-    `| 站点 | 状态 | 首日可得 | 额度构成 | 之后每天 | 兼容协议 | 模型 | 注册 |${hasCode ? ' 邀请码 |' : ''}`,
+    `| 站点 | 状态 | ${hasSubscription ? '首日可得 / 套餐' : '首日可得'} | ${hasSubscription ? '额度构成 / 用量' : '额度构成'} | ${hasSubscription ? '每日 / 周期' : '之后每天'} | 兼容协议 | 模型 | 注册 |${hasCode ? ' 邀请码 |' : ''}`,
     `| :-- | :--: | :--: | :-- | :--: | :--: | :--: | :--: |${hasCode ? ' :--: |' : ''}`,
     ...rows,
   ].join('\n');
@@ -118,6 +123,18 @@ function liveFacts(snap) {
 /** 额度明细：接口只给邀请额度，注册基础额度与签到额度来自 sites.json 登记 */
 function creditFacts(site, snap) {
   const p = creditPlan(site, snap);
+  const sub = subscriptionPlan(site);
+  if (sub) return [
+    `- **${sub.name} 当前 ${sub.price}**${sub.listPrice ? `（官网标价 ${sub.listPrice}）` : ''}`,
+    `- **${sub.window}**的请求量参考，不是整月总次数：`,
+    '',
+    '| 模型 | 官网估算请求量 |',
+    '| :-- | --: |',
+    ...sub.estimates.map((e) => `| ${e.model} | **${e.amount}** |`),
+    '',
+    `> ${sub.note} 这是付费套餐，不计入免费额度合计。[来源：官网定价](${sub.sourceUrl})（${sub.verifiedAt} 核对）。`,
+    ...(p.note ? ['', `另有免费路径：${p.note}，第三方 API 费用另算。`] : []),
+  ].join('\n');
   if (p.firstDay == null) return p.note ? `- 免费范围：${p.note}` : null;
   const detail = breakdown(p);
   return [
@@ -154,7 +171,7 @@ function siteSection(site, snap) {
     `**为什么值得注册**`,
     '',
     site.highlights.map((h) => `- ${h}`).join('\n'),
-    ...(creditFacts(site, snap) ? ['', '**能拿多少额度**', '', creditFacts(site, snap)] : []),
+    ...(creditFacts(site, snap) ? ['', site.subscription ? '**套餐价格与用量**' : '**能拿多少额度**', '', creditFacts(site, snap)] : []),
     '',
     '**实时数据**（自动抓取站点公开接口）',
     '',
@@ -331,6 +348,10 @@ export function renderReadme({ meta, sites: allSites, live, groups = [], history
     '## 🚀 一分钟上车',
     '',
     overviewTable(sites, byId),
+    ...sites.filter((s) => s.subscription).flatMap((s) => {
+      const sub = subscriptionPlan(s);
+      return ['', `> **${s.name} ${sub.name}：${sub.price} 是月费，用量按${sub.window}估算，不是每月总次数。** ${sub.note} 付费套餐不计入下方免费额度合计。[官网定价](${sub.sourceUrl})（${sub.verifiedAt} 核对）。`];
+    }),
     '',
     `> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：\`${fmtDate(live?.generatedAt)}\`。`,
     codeSites.length ? '>' : null,

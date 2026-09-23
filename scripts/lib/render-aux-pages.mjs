@@ -12,6 +12,7 @@ import { esc, fmt, pageShell, breadcrumb, faqLd } from './layout.mjs';
 import { uptime, byDay, coverage } from './history.mjs';
 import { icon } from './changelog.mjs';
 import { activeSites, isArchived } from './archived.mjs';
+import { subscriptionPlan } from './subscription.mjs';
 
 /** 一次 Claude Code 往返的 token 量级：系统提示 + 工具结果吃掉大部分输入 */
 export const TURN = { input: 15_000, output: 2_000 };
@@ -48,10 +49,13 @@ function compareRows(sites, byId) {
   return sites.map((s) => {
     const snap = byId.get(s.id);
     const p = creditPlan(s, snap);
+    const sub = subscriptionPlan(s);
     const est = estimateTurns(s, snap);
-    const billing = est?.billing ?? (p.note && p.firstDay == null ? '自带 Key / 订阅' : p.unit === 'point' ? '站内积分' : p.resets ? '每日额度池' : '需登录查看');
+    const billing = sub ? `${sub.name} 月订阅（付费）` : est?.billing ?? (p.note && p.firstDay == null ? '自带 Key / 订阅' : p.unit === 'point' ? '站内积分' : p.resets ? '每日额度池' : '需登录查看');
     const per = est ? `$${Math.round(est.per * 1000) / 1000} / 次` : '—';
-    const turns = est
+    const turns = sub
+      ? `${esc(sub.window)}：<br>${sub.estimates.map((e) => `${esc(e.model)} ${esc(e.amount)}`).join('<br>')}<br><small>${esc(sub.note)}</small>`
+      : est
       ? `<b>${est.turns}</b> 次${p.resets ? ' / 天' : ''}`
       : p.unit === 'point'
         ? '积分无公开换算'
@@ -61,7 +65,7 @@ function compareRows(sites, byId) {
     return `<tr${shut ? ' class="shut"' : ''}><td><a href="../sites/${esc(s.id)}/">${esc(s.name)}</a>${
       shut ? ' <span class="tag warn">停注</span>' : ''
     }</td><td>${esc(billing)}</td><td>${
-      p.firstDay != null ? `${shut ? '<s>' : ''}${esc(usd(p.firstDay, p.approx, p.unit))}${shut ? '</s>' : ''}` : esc(p.note ?? '—')
+      sub ? `<b>${esc(sub.price)}</b>${sub.listPrice ? `<br>官网标价 ${esc(sub.listPrice)}` : ''}<br><small>${esc(p.note ?? '')}</small>` : p.firstDay != null ? `${shut ? '<s>' : ''}${esc(usd(p.firstDay, p.approx, p.unit))}${shut ? '</s>' : ''}` : esc(p.note ?? '—')
     }</td><td>${per}</td><td>${turns}</td><td><code>${esc(est?.model ?? '—')}</code></td></tr>`;
   });
 }
@@ -110,7 +114,7 @@ export function renderComparePage({ meta, sites: allSites, live, css }) {
       'en-US',
     )} / 输出 ${TURN.output.toLocaleString('en-US')} tokens 估算，取各站最便宜的 Claude 型号。</p>
     <div class="table-wrap"><table>
-      <thead><tr><th>站点</th><th>计费方式</th><th>首日额度</th><th>单次成本</th><th>约能跑</th><th>折算所用模型</th></tr></thead>
+      <thead><tr><th>站点</th><th>计费方式</th><th>首日额度 / 套餐</th><th>单次成本</th><th>约能跑 / 套餐用量</th><th>折算所用模型</th></tr></thead>
       <tbody>${compareRows(sites, byId).join('')}</tbody>
     </table></div>
     <p class="hint">每日重置额度池的站点，「约能跑」是每天的量，次日回满但不累积。积分站没有公开的积分—美元换算，不参与折算。${

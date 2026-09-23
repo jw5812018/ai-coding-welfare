@@ -112,6 +112,16 @@ h2 + .hint { margin: 0 0 26px; color: var(--fg-dim); font-size: 14px; }
 /* 额度构成写在首日额度后面，压暗一档，别抢主数字的视觉 */
 .kv dd small { color: var(--fg-dim); font-size: 12px; display: block; }
 
+/* 订阅价与用量估算：和免费赠额分开显示，复用卡片的颜色与信息层级。 */
+.subscription { padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-soft); }
+.subscription-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.subscription-price b { color: var(--ok); font-size: 24px; line-height: 1.3; }
+.subscription-price span, .subscription-window { color: var(--fg-dim); font-size: 13px; }
+.subscription-window { margin: 0 0 8px; }
+.subscription-note { margin: 12px 0 0; font-size: 12px; color: var(--fg-dim); }
+.subscription-note a { color: var(--accent-2); }
+section > .subscription { margin: 16px 0; }
+
 ul.hl, ol.hl { margin: 0; padding-left: 18px; font-size: 14px; color: var(--fg-dim); }
 ul.hl li, ol.hl li { margin-bottom: 5px; }
 ul.hl li::marker, ol.hl li::marker { color: var(--accent); }
@@ -216,6 +226,7 @@ tr.shut td { color: var(--fg-dim); }
     <div class="pills">
       <span class="pill"><span class="dot up"></span> 在线</span>
 
+
       <span class="pill">首日可得 <b>300 站内刀</b></span>
 
       <span class="pill">数据更新 <b>2026-09-23 15:20 UTC</b></span>
@@ -229,6 +240,7 @@ tr.shut td { color: var(--fg-dim); }
   </header>
 
   <section><h2>能拿多少额度</h2>
+
     <dl class="kv"><dt>首日可得</dt><dd><b>300 站内刀</b></dd><dt>额度构成</dt><dd>注册 50 站内刀 + 本页邀请 250 站内刀</dd><dt>站点名称</dt><dd>DoCode</dd><dt>每日签到</dt><dd>❌</dd><dt>开放注册</dt><dd>✅（开放注册）</dd><dt>登录方式</dt><dd>账号密码</dd><dt>接口延迟</dt><dd>859 ms</dd><dt>数据快照</dt><dd>2026-09-23 15:20 UTC</dd></dl>
   </section>
 
@@ -267,7 +279,7 @@ wire_api = &quot;chat&quot;</code></pre><button class="copy" type="button">复�
 
   <section><h2>其它福利站</h2>
     <p class="hint">额度用完了就换一家，各站额度互不影响。</p>
-    <ul class="hl"><li><a href="../agentrouter/">AgentRouter</a> — AI Coding 公益站 · 注册即送额度，签到每日续命</li><li><a href="../justdowork/">JustDoWork</a> — New API 中转站 · GitHub 一键登录，支持签到与绘图</li><li><a href="../mirasim/">Mirasim</a> — 多智能体工作台 · 自带账号 / Key 免费，Go 当前 $1/月，邀 3 位好友开通 Go 送 1 个月</li><li><a href="../kktoken/">KKtoken AI</a> — New API 中转站 · 注册送 $75，本页邀请码再加 $25，按 token 计费输入输出各 $1/M</li><li><a href="../matrix/">Matrix</a> — 统一 API 网关 + 开源应用商店 · 邀请注册送 600 积分，实名再送 2000</li><li><a href="../anyrouter/">AnyRouter</a> — New API 中转站 · 注册送 $75，本页邀请码再加 $50，Anthropic 与 OpenAI 两条原生路由都开着</li><li><a href="../cheapcodex/">CheapCodex</a> — 自研 AI 网关 · 本页邀请码送 $20，每日签到再 $20，OpenAI / Anthropic / Codex 三条协议一把 Key</li><li><a href="../nofx/">NOFX</a> — 任务制积分站 · 做任务领 API 积分，签到 / Discord / 邀请 / 发推都给分，免密码登录、无需绑卡</li></ul>
+    <ul class="hl"><li><a href="../agentrouter/">AgentRouter</a> — AI Coding 公益站 · 注册即送额度，签到每日续命</li><li><a href="../justdowork/">JustDoWork</a> — New API 中转站 · GitHub 一键登录，支持签到与绘图</li><li><a href="../mirasim/">Mirasim</a> — Go 当前 $1/月（官网标价 $18）· 每 5 小时官网估算：Kimi 约 130 次 / GLM 约 1,900 次 / DS 约 7,800 次</li><li><a href="../kktoken/">KKtoken AI</a> — New API 中转站 · 注册送 $75，本页邀请码再加 $25，按 token 计费输入输出各 $1/M</li><li><a href="../matrix/">Matrix</a> — 统一 API 网关 + 开源应用商店 · 邀请注册送 600 积分，实名再送 2000</li><li><a href="../anyrouter/">AnyRouter</a> — New API 中转站 · 注册送 $75，本页邀请码再加 $50，Anthropic 与 OpenAI 两条原生路由都开着</li><li><a href="../cheapcodex/">CheapCodex</a> — 自研 AI 网关 · 本页邀请码送 $20，每日签到再 $20，OpenAI / Anthropic / Codex 三条协议一把 Key</li><li><a href="../nofx/">NOFX</a> — 任务制积分站 · 做任务领 API 积分，签到 / Discord / 邀请 / 发推都给分，免密码登录、无需绑卡</li></ul>
   </section>
 <script>
 document.querySelectorAll('.copy').forEach(function (btn) {

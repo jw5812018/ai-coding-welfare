@@ -202,7 +202,7 @@
     {
       "id": "mirasim",
       "name": "Mirasim",
-      "subtitle": "多智能体工作台 · 自带账号 / Key 免费，Go 当前 $1/月，邀 3 位好友开通 Go 送 1 个月",
+      "subtitle": "Go 当前 $1/月（官网标价 $18）· 每 5 小时官网估算：Kimi 约 130 次 / GLM 约 1,900 次 / DS 约 7,800 次",
       "recommended": false,
       "panel": "relay",
       "credits": {
@@ -212,6 +212,19 @@
         "approx": false,
         "note": "自带 Key 免费；赠额未公示"
       },
+      "subscription": {
+        "name": "Go",
+        "monthlyUsd": 1,
+        "listMonthlyUsd": 18,
+        "windowHours": 5,
+        "estimates": [
+          { "model": "Kimi K3", "requests": 130 },
+          { "model": "GLM 5.3 Flash", "requests": 1900 },
+          { "model": "DS 4.1 Flash", "requests": 7800 }
+        ],
+        "sourceUrl": "https://mirasim.ai/pricing",
+        "verifiedAt": "2026-09-23"
+      },
       "signupUrl": "https://mirasim.ai/r/go-kx9cd5",
       "signupProbeUrl": "https://mirasim.ai/pricing",
       "homeUrl": "https://mirasim.ai",
@@ -219,11 +232,12 @@
       "statusApi": "https://mirasim.ai/pricing",
       "pricingApi": null,
       "mirrors": [],
-      "tags": ["多智能体", "自带 Key", "Go 订阅", "邀请活动", "Claude Code", "Codex"],
+      "tags": ["$1/月", "Go 订阅", "多智能体", "邀请赠月", "Claude Code", "Codex"],
       "highlights": [
-        "本地工作台与自带账号 / Key 的接入能力免费开放；第三方订阅和 API 调用费用仍由你承担，不等于免费模型额度",
-        "Go 套餐在 2026-09-23 定价页标价 $1/月（划线价 $18），列出的模型是 Kimi K3、GLM 5.3 Flash 与 DS 4.1 Flash",
+        "$1 就能开通一个月 Go（官网标价 $18）：低成本体验云端模型，不需要先买高档套餐",
+        "用量优势看 5 小时窗口：官网估算 Kimi K3 约 130 次、GLM 5.3 Flash 约 1,900 次、DS 4.1 Flash 约 7,800 次；同一份额度按不同模型折算，三项不能相加",
         "邀请活动：在应用内取得自己的邀请链接，邀请 3 位好友且三人都开通 Go 后，邀请者可获赠 1 个月 Go；公开规则未承诺被邀请人注册即送",
+        "不订阅也能用工作台：自带账号 / Key 的接入能力免费，第三方订阅和 API 调用费用另算",
         "桌面端提供 macOS / Windows / Linux，支持多模型、并行会话与独立 worktree，也有命令行入口"
       ],
       "endpoints": {
@@ -241,7 +255,7 @@
         ],
         "dashboardUrl": "https://mirasim.ai/account"
       },
-      "modelsNote": "公开定价页的 Go 模型为 Kimi K3、GLM 5.3 Flash、DS 4.1 Flash。页面同时写着特定模型不限请求，并给出每 5 小时约 130 / 1,900 / 7,800 次的估算；本页不将这些估算当成保证用量。Claude / Codex 对应的 Basic、Pro、Max 是另列的套餐，不属于 $1 Go 的承诺。",
+      "modelsNote": "Go 的 $1/月套餐包含 Kimi K3、GLM 5.3 Flash、DS 4.1 Flash。定价页按每 5 小时给出约 130 / 1,900 / 7,800 次的请求量估算，不是整月只有这些次数。三项共用同一份套餐额度、不能相加，也不是保证次数；本页不外推为每天或每月的固定总量。Claude / Codex 对应的 Basic、Pro、Max 是另列的套餐，不属于 $1 Go 的承诺。",
       "register": {
         "methods": ["GitHub OAuth", "邮箱验证码"],
         "requirements": [
@@ -262,6 +276,7 @@
         "robots.txt 禁止自动抓取 /r/ 邀请路径，因此定时检查只访问允许抓取的定价页；在线仅说明官网可访问，不代表登录、支付或模型调用已经实测"
       ],
       "faq": [
+        ["$1/月的 Go 大约能用多少？", "官网按每 5 小时估算：Kimi K3 约 130 次，GLM 5.3 Flash 约 1,900 次，DS 4.1 Flash 约 7,800 次。这不是整月总次数，而是同一份额度按模型折算的参考值；三项不能相加，实际用量以站内为准。"],
         ["Mirasim 免费的是哪些部分？", "自带账号 / API Key 或本地模型的工作台接入能力免费；第三方订阅和 API 费用另算。Go 云端套餐在本次核对时标价 $1/月，不是免费 API 额度。"],
         ["通过本页链接注册就送一个月 Go 吗？", "公开定价页没有这样的承诺。已公开的赠月活动是邀请者邀请 3 位好友，且三人都开通 Go 后，邀请者获得 1 个月 Go；被邀请人的权益以账号页为准。"],
         ["能直接复制 Base URL 到其它客户端吗？", "本页核对的公开资料没有提供可直接使用的通用中转地址。请按官方文档使用 Mirasim 客户端或 CLI，并在账号页确认可用服务，不要把官网域名猜成 API 地址。"]

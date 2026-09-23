@@ -27,17 +27,19 @@
 
 ## 🚀 一分钟上车
 
-| 站点 | 状态 | 首日可得 | 额度构成 | 之后每天 | 兼容协议 | 模型 | 注册 | 邀请码 |
+| 站点 | 状态 | 首日可得 / 套餐 | 额度构成 / 用量 | 每日 / 周期 | 兼容协议 | 模型 | 注册 | 邀请码 |
 | :-- | :--: | :--: | :-- | :--: | :--: | :--: | :--: | :--: |
 | **AgentRouter** 🔥 | 🟢 在线 | **$175** | 注册 $100 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 4 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) | — |
 | **DoCode** | 🟢 在线 | **300 站内刀** | 注册 50 站内刀 + 本页邀请 250 站内刀 | 无签到 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://docode.cc/register?aff=zMRe) | `zMRe` |
 | **JustDoWork** | 🟢 在线 | **≈$92** | 注册 $70 + 首签 ≈$22 | ≈$22/天 | Anthropic + OpenAI | 需登录查看 | [GitHub 注册 →](https://api.justwoker.icu/sign-up?aff=VTrz) | — |
-| **Mirasim** | 🟢 在线 | 自带 Key 免费；赠额未公示 | — | — | Mirasim 客户端 / CLI | 需登录查看 | [点此注册 →](https://mirasim.ai/r/go-kx9cd5) | — |
+| **Mirasim** | 🟢 在线 | **Go $1/月**<br>标价 $18/月 | Kimi K3 **≈130 次**<br>GLM 5.3 Flash **≈1,900 次**<br>DS 4.1 Flash **≈7,800 次** | **每 5 小时**<br>共享额度 | Mirasim 客户端 / CLI | 3 种<br>官网公示 | [查看 Go →](https://mirasim.ai/r/go-kx9cd5) | — |
 | **KKtoken AI** | 🟢 在线 | **$120** | 注册 $75 + 本页邀请 $25 + 首签 $20 | $20/天 | Anthropic + OpenAI | 需登录查看 | [GitHub 注册 →](https://kktoken.cc/sign-up?aff=MzG9) | — |
 | **Matrix** | 🟢 在线 | **600 积分** | 本页邀请 600 积分 | — | OpenAI 兼容 | 需登录查看 | [点此注册 →](https://matrix.mzsjai.com/login?redirect=%2Fapp%2Fgrowth%3FinviteCode%3DMXMRFO52KD2_) | — |
 | **AnyRouter** | 🟢 在线 | **$150** | 注册 $75 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://anyrouter.top/register?aff=Z24N) | — |
 | **CheapCodex** | 🟢 在线 | **$40** | 本页邀请 $20 + 首签 $20 | $20/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://api.cheapcodex.online/register?aff=U7SSQZSDB36S) | — |
 | **NOFX** | 🟢 在线 | **15 积分** | 本页邀请 10 积分 + 首签 5 积分 | 5 积分/天 | OpenAI 兼容 | 需登录查看 | [点此注册 →](https://nofx.one/zh-CN/sign-in?ref=J369GHY4) | — |
+
+> **Mirasim Go：$1/月 是月费，用量按每 5 小时估算，不是每月总次数。** 官网估算，共享额度按模型折算，各模型次数不可相加；实际用量以站内为准。 付费套餐不计入下方免费额度合计。[官网定价](https://mirasim.ai/pricing)（2026-09-23 核对）。
 
 > 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：`2026-09-23 15:20 UTC`。
 >
@@ -444,26 +446,38 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 
 ### 🟢 Mirasim
 
-> 多智能体工作台 · 自带账号 / Key 免费，Go 当前 $1/月，邀 3 位好友开通 Go 送 1 个月
+> Go 当前 $1/月（官网标价 $18）· 每 5 小时官网估算：Kimi 约 130 次 / GLM 约 1,900 次 / DS 约 7,800 次
 
 <a href="https://mirasim.ai/r/go-kx9cd5"><img src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E6%B3%A8%E5%86%8C-Mirasim-brightgreen?style=for-the-badge" alt="注册 Mirasim"></a>
 
 **为什么值得注册**
 
-- 本地工作台与自带账号 / Key 的接入能力免费开放；第三方订阅和 API 调用费用仍由你承担，不等于免费模型额度
-- Go 套餐在 2026-09-23 定价页标价 $1/月（划线价 $18），列出的模型是 Kimi K3、GLM 5.3 Flash 与 DS 4.1 Flash
+- $1 就能开通一个月 Go（官网标价 $18）：低成本体验云端模型，不需要先买高档套餐
+- 用量优势看 5 小时窗口：官网估算 Kimi K3 约 130 次、GLM 5.3 Flash 约 1,900 次、DS 4.1 Flash 约 7,800 次；同一份额度按不同模型折算，三项不能相加
 - 邀请活动：在应用内取得自己的邀请链接，邀请 3 位好友且三人都开通 Go 后，邀请者可获赠 1 个月 Go；公开规则未承诺被邀请人注册即送
+- 不订阅也能用工作台：自带账号 / Key 的接入能力免费，第三方订阅和 API 调用费用另算
 - 桌面端提供 macOS / Windows / Linux，支持多模型、并行会话与独立 worktree，也有命令行入口
 
-**能拿多少额度**
+**套餐价格与用量**
 
-- 免费范围：自带 Key 免费；赠额未公示
+- **Go 当前 $1/月**（官网标价 $18/月）
+- **每 5 小时**的请求量参考，不是整月总次数：
+
+| 模型 | 官网估算请求量 |
+| :-- | --: |
+| Kimi K3 | **≈130 次** |
+| GLM 5.3 Flash | **≈1,900 次** |
+| DS 4.1 Flash | **≈7,800 次** |
+
+> 官网估算，共享额度按模型折算，各模型次数不可相加；实际用量以站内为准。 这是付费套餐，不计入免费额度合计。[来源：官网定价](https://mirasim.ai/pricing)（2026-09-23 核对）。
+
+另有免费路径：自带 Key 免费；赠额未公示，第三方 API 费用另算。
 
 **实时数据**（自动抓取站点公开接口）
 
 - 接口延迟：710 ms
 
-> 公开定价页的 Go 模型为 Kimi K3、GLM 5.3 Flash、DS 4.1 Flash。页面同时写着特定模型不限请求，并给出每 5 小时约 130 / 1,900 / 7,800 次的估算；本页不将这些估算当成保证用量。Claude / Codex 对应的 Basic、Pro、Max 是另列的套餐，不属于 $1 Go 的承诺。
+> Go 的 $1/月套餐包含 Kimi K3、GLM 5.3 Flash、DS 4.1 Flash。定价页按每 5 小时给出约 130 / 1,900 / 7,800 次的请求量估算，不是整月只有这些次数。三项共用同一份套餐额度、不能相加，也不是保证次数；本页不外推为每天或每月的固定总量。Claude / Codex 对应的 Basic、Pro、Max 是另列的套餐，不属于 $1 Go 的承诺。
 
 **注册要求**
 

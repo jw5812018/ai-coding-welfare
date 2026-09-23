@@ -19,6 +19,7 @@ import { renderReadme } from './lib/render-readme.mjs';
 import { signupRoute, acceptsNew, signupProbeUrl } from './lib/signup.mjs';
 import { isArchived, activeSites, archivedSites, archivedAt, archivedReason } from './lib/archived.mjs';
 import { telegramText } from './lib/telegram.mjs';
+import { subscriptionPlan, renderSubscription } from './lib/subscription.mjs';
 
 let passed = 0;
 function test(name, fn) {
@@ -1195,6 +1196,66 @@ test('Mirasim 的免费范围与有条件赠月显示到页面，不套用注册
   assert.ok(!html.includes('ANTHROPIC_BASE_URL'));
   const faq = jsonLd(html).flat().find((x) => x['@type'] === 'FAQPage');
   assert.equal(faq.mainEntity.length, MIRASIM.faq.length);
+});
+
+console.log('Go 套餐价量展示：月费、窗口、模型用量同时可见');
+test('订阅独立记录价格、5 小时窗口和三档估算，不拼成美元赠额', () => {
+  const sub = subscriptionPlan(MIRASIM);
+  assert.equal(sub.price, '$1/月');
+  assert.equal(sub.listPrice, '$18/月');
+  assert.equal(sub.window, '每 5 小时');
+  assert.deepEqual(sub.estimates.map((e) => [e.model, e.amount]), [
+    ['Kimi K3', '≈130 次'], ['GLM 5.3 Flash', '≈1,900 次'], ['DS 4.1 Flash', '≈7,800 次'],
+  ]);
+  assert.equal(subscriptionPlan(SITE), null);
+  assert.equal(renderSubscription(SITE), '');
+  assert.equal(creditPlan(MIRASIM).firstDay, null);
+  assert.equal(usdTotals([creditPlan(MIRASIM)]).count, 0);
+});
+test('README 总表直接呈现 $1 月费与三档用量，不再把卖点藏进详情', () => {
+  const md = renderReadme({ meta: META, sites: CATALOG, live: LIVE, groups: [], history: HIST });
+  const table = md.split('\n').filter((l) => l.startsWith('| '));
+  const row = table.find((l) => l.startsWith('| **Mirasim**'));
+  assert.match(table[0], /首日可得 \/ 套餐/);
+  assert.match(row, /\*\*Go \$1\/月\*\*/);
+  assert.ok(row.includes('标价 $18/月'));
+  for (const label of ['Kimi K3', '≈130 次', 'GLM 5.3 Flash', '≈1,900 次', 'DS 4.1 Flash', '≈7,800 次', '每 5 小时', '共享额度']) assert.ok(row.includes(label), label);
+  assert.ok(!row.includes('需登录查看'));
+  assert.ok(!row.includes('自带 Key 免费'));
+  assert.ok(row.includes('[查看 Go →](https://mirasim.ai/r/go-kx9cd5)'));
+  assert.equal(row.split('|').length, table[0].split('|').length);
+  const intro = md.slice(0, md.indexOf('## 📚 站点详情'));
+  assert.match(intro, /各模型次数不可相加/);
+  assert.match(intro, /付费套餐不计入下方免费额度合计/);
+  assert.match(intro, /\*\*\$577\*\*/);
+});
+test('卡片和详情页使用同一价量区块，免费范围是补充信息', () => {
+  const args = { meta: META, sites: [MIRASIM], live: LIVE, css: '', groups: [], history: HIST };
+  for (const html of [renderHtml(args), renderSitePage({ ...args, site: MIRASIM })]) {
+    assert.ok(html.includes(renderSubscription(MIRASIM)));
+    assert.match(html, /Go \$1\/月/);
+    assert.match(html, /≈7,800 次/);
+    assert.match(html, /各模型次数不可相加/);
+    assert.ok(html.indexOf('class="subscription"') < html.indexOf('<dt>免费范围</dt>'));
+    assert.ok(!html.includes('免费注册 Mirasim'));
+  }
+});
+test('横评展示付费月费和窗口用量，不把官方请求量当成免费 Claude 往返次数', () => {
+  const html = renderComparePage({ meta: META, sites: [MIRASIM], live: LIVE, css: '' });
+  assert.match(html, /Go 月订阅（付费）/);
+  assert.match(html, /\$1\/月/);
+  assert.match(html, /每 5 小时/);
+  assert.match(html, /≈7,800 次/);
+  assert.match(html, /各模型次数不可相加/);
+  assert.equal(estimateTurns(MIRASIM, TOKEN_SNAP), null);
+});
+test('订阅区块转义模型名与来源属性，没有标价时不捏造原价', () => {
+  const site = { ...MIRASIM, subscription: { ...MIRASIM.subscription, name: '<Go>', listMonthlyUsd: null, sourceUrl: 'https://example.test/?a="b"', estimates: [{ model: '<img src=x>', requests: 130 }] } };
+  const html = renderSubscription(site);
+  assert.ok(!html.includes('<img src=x>'));
+  assert.match(html, /&lt;img src=x&gt;/);
+  assert.match(html, /&quot;b&quot;/);
+  assert.ok(!html.includes('官网标价'));
 });
 
 console.log('安全：出网协议与 Telegram 转义（issue #3 的安全报告）');

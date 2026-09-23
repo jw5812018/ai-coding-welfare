@@ -76,6 +76,9 @@ npm run check     # 确认新链接可访问
 
 - 像 Mirasim 这样免费使用工作台、但模型需自带 Key 或付费订阅的站点，额度填 `null`，用
   `credits.note` 写清免费范围；不能把订阅价格或有条件的赠月算成首日 API 额度。
+- 付费套餐用独立的 `subscription` 登记：`name`、`monthlyUsd`、`listMonthlyUsd`、`windowHours`、
+  `estimates: [{ model, requests }]`、`sourceUrl`、`verifiedAt`。总表、卡片、详情与横评会展示月费和
+  每个时间窗口的官网用量估算；共享额度的各模型次数不能相加，也不外推每天 / 每月保证量。
 - `signupUrl` 始终保留用户提供的完整邀请链接。如果 robots 禁止自动抓取邀请路径，增加
   `signupProbeUrl` 指向允许抓取的公开入口。刷新和健康检查只探测后者，在线不表示邀请权益已实测。
 - `endpoints` 没有已核实的公开地址就填 `null`，用 `setup` 说明客户端接入方式。

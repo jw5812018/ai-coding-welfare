@@ -11,6 +11,7 @@ import { staleHours } from './newapi.mjs';
 import { esc, fmt, pageShell, breadcrumb, faqLd } from './layout.mjs';
 import { uptime } from './history.mjs';
 import { isArchived, archivedAt, archivedReason } from './archived.mjs';
+import { subscriptionPlan, renderSubscription } from './subscription.mjs';
 
 const yes = (v) => (v === true ? '✅' : v === false ? '❌' : '—');
 
@@ -151,10 +152,11 @@ export function renderSitePage({ meta, site, snap, live, css, history, siblings 
   }
   const p = creditPlan(site, snap);
   const up = Boolean(snap?.online);
+  const sub = subscriptionPlan(site);
   const route = signupRoute(snap);
   const shut = route.state === 'closed';
   const url = `${meta.pagesUrl}sites/${site.id}/`;
-  const title = `${site.name} 免费额度 / 邀请链接 / Claude Code 配置 — ${meta.title}`;
+  const title = sub ? `${site.name} ${sub.name} ${sub.price} / 套餐用量 / 邀请链接 — ${meta.title}` : `${site.name} 免费额度 / 邀请链接 / Claude Code 配置 — ${meta.title}`;
   const desc = `${site.name}：${site.subtitle}${
     shut ? '。⚠ 站点接口自报已暂停新用户注册' : p.firstDay != null ? `。首日可得 ${usd(p.firstDay, p.approx, p.unit)}${breakdown(p) ? `（${breakdown(p)}）` : ''}` : ''
   }。含实时在线状态、模型价格、Claude Code / Codex 接入配置与踩坑清单，数据快照 ${fmt(snap?.checkedAt)}。`;
@@ -174,13 +176,14 @@ export function renderSitePage({ meta, site, snap, live, css, history, siblings 
     <div class="pills">
       <span class="pill"><span class="dot ${up ? 'up' : 'down'}"></span> ${up ? '在线' : '探测异常'}</span>
       ${shut ? '<span class="pill warn">暂停注册</span>' : ''}
+      ${sub ? `<span class="pill">${esc(sub.name)} 套餐 <b>${esc(sub.price)}</b></span>` : ''}
       ${p.firstDay != null ? `<span class="pill">首日可得 <b>${usd(p.firstDay, p.approx, p.unit)}</b></span>` : ''}
       ${snap?.models?.length ? `<span class="pill">可查模型 <b>${snap.models.length}</b> 个</span>` : ''}
       <span class="pill">数据更新 <b>${esc(fmt(snap?.checkedAt))}</b></span>
     </div>
     <div class="cta-row">
       <a class="btn ${shut ? 'btn-ghost' : 'btn-primary'}" href="${esc(site.signupUrl)}" target="_blank" rel="noopener">${
-        shut ? `打开 ${esc(site.name)}（已停注）→` : `免费注册 ${esc(site.name)} →`
+        shut ? `打开 ${esc(site.name)}（已停注）→` : sub ? `查看 ${esc(site.name)} ${esc(sub.name)} · ${esc(sub.price)} →` : `免费注册 ${esc(site.name)} →`
       }</a>
       <a class="btn btn-ghost" href="#config">直接看接入配置</a>
     </div>
@@ -192,7 +195,8 @@ export function renderSitePage({ meta, site, snap, live, css, history, siblings 
     }
   </header>
 
-  <section><h2>能拿多少额度</h2>
+  <section><h2>${sub ? '套餐价格与用量' : '能拿多少额度'}</h2>
+    ${renderSubscription(site)}
     <dl class="kv">${factRows(site, snap).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join('')}</dl>
   </section>
 

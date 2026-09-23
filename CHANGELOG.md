@@ -8,6 +8,7 @@ AI Coding 福利站导航的自动变动记录：站点上下线、额度调整�
 
 ## 2026-09-23
 
+- 🟢 Matrix 恢复在线 <sub>15:20 UTC</sub>
 - ➖ AgentRouter 下线模型：glm-5.3、gpt-5.6-sol <sub>14:56 UTC</sub>
 - 🏷️ AgentRouter claude-opus-5 价格 $8 入 / $40 出（每 1M） → $6 入 / $30 出（每 1M） <sub>14:56 UTC</sub>
 - 🏷️ AgentRouter gpt-6-astra 价格 $3 入 / $15 出（每 1M） → $4 入 / $20 出（每 1M） <sub>14:56 UTC</sub>

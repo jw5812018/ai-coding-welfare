@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T21:31:30.966Z",
+  "generatedAt": "2026-09-24T01:53:46.983Z",
   "sites": [
     {
       "id": "agentrouter",
@@ -513,6 +513,327 @@
         "ms": 3787,
         "attempts": 1,
         "url": "https://nofx.one/zh-CN/sign-in?ref=J369GHY4"
+      },
+      "mirrors": [],
+      "probeBlocked": false,
+      "online": true,
+      "dataStale": false,
+      "staleFrom": null,
+      "staleFields": []
+    },
+    {
+      "id": "flushapi",
+      "checkedAt": "2026-09-24T01:53:46.983Z",
+      "apiOk": true,
+      "pricingOk": true,
+      "latencyMs": 728,
+      "error": null,
+      "systemName": "FlushAPI",
+      "version": "",
+      "registerOpen": true,
+      "passwordRegister": false,
+      "checkinEnabled": true,
+      "loginMethods": [
+        "GitHub",
+        "账号密码"
+      ],
+      "githubMinAccountAgeDays": null,
+      "quotaPerUnit": 500000,
+      "inviteeBonusUsd": null,
+      "inviterBonusUsd": null,
+      "topupEnabled": null,
+      "services": [],
+      "announcements": [],
+      "models": [
+        {
+          "name": "auto",
+          "ratio": 0.2,
+          "completionRatio": 1,
+          "fixedPrice": null,
+          "inputPerMTok": 0.4,
+          "outputPerMTok": 0.4,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "openai",
+            "openai-response",
+            "openai-response-compact",
+            "anthropic",
+            "gemini",
+            "openai-alpha-search"
+          ]
+        },
+        {
+          "name": "claude-fable-5",
+          "ratio": 5,
+          "completionRatio": 5,
+          "fixedPrice": null,
+          "inputPerMTok": 10,
+          "outputPerMTok": 50,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "anthropic",
+            "openai"
+          ]
+        },
+        {
+          "name": "claude-fable-5.1",
+          "ratio": 5,
+          "completionRatio": 5,
+          "fixedPrice": null,
+          "inputPerMTok": 10,
+          "outputPerMTok": 50,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "anthropic",
+            "openai"
+          ]
+        },
+        {
+          "name": "claude-opus-4-7",
+          "ratio": 2.5,
+          "completionRatio": 5,
+          "fixedPrice": null,
+          "inputPerMTok": 5,
+          "outputPerMTok": 25,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "anthropic",
+            "openai"
+          ]
+        },
+        {
+          "name": "claude-opus-4-8",
+          "ratio": 2.5,
+          "completionRatio": 5,
+          "fixedPrice": null,
+          "inputPerMTok": 5,
+          "outputPerMTok": 25,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "anthropic",
+            "openai"
+          ]
+        },
+        {
+          "name": "claude-opus-4.7",
+          "ratio": 2.5,
+          "completionRatio": 5,
+          "fixedPrice": null,
+          "inputPerMTok": 5,
+          "outputPerMTok": 25,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "anthropic",
+            "openai"
+          ]
+        },
+        {
+          "name": "claude-opus-4.8",
+          "ratio": 2.5,
+          "completionRatio": 5,
+          "fixedPrice": null,
+          "inputPerMTok": 5,
+          "outputPerMTok": 25,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "anthropic",
+            "openai"
+          ]
+        },
+        {
+          "name": "claude-opus-5",
+          "ratio": 2.5,
+          "completionRatio": 5,
+          "fixedPrice": null,
+          "inputPerMTok": 5,
+          "outputPerMTok": 25,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "anthropic",
+            "openai"
+          ]
+        },
+        {
+          "name": "DeepSeek-V4.1-Flash",
+          "ratio": 0.0165,
+          "completionRatio": 2.0303,
+          "fixedPrice": null,
+          "inputPerMTok": 0.033,
+          "outputPerMTok": 0.067,
+          "groups": [
+            "Super",
+            "default"
+          ],
+          "protocols": [
+            "openai",
+            "openai-response",
+            "openai-response-compact",
+            "anthropic",
+            "gemini",
+            "openai-alpha-search"
+          ]
+        },
+        {
+          "name": "glm-5.3",
+          "ratio": 0.1335,
+          "completionRatio": 3.7453,
+          "fixedPrice": null,
+          "inputPerMTok": 0.267,
+          "outputPerMTok": 1,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "openai",
+            "openai-response",
+            "openai-response-compact",
+            "anthropic",
+            "gemini",
+            "openai-alpha-search"
+          ]
+        },
+        {
+          "name": "glm-5.3-flash",
+          "ratio": 0.0265,
+          "completionRatio": 3.7736,
+          "fixedPrice": null,
+          "inputPerMTok": 0.053,
+          "outputPerMTok": 0.2,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "openai",
+            "openai-response",
+            "openai-response-compact",
+            "anthropic",
+            "gemini",
+            "openai-alpha-search"
+          ]
+        },
+        {
+          "name": "gpt-5.6-luna",
+          "ratio": 0.1,
+          "completionRatio": 6,
+          "fixedPrice": null,
+          "inputPerMTok": 0.2,
+          "outputPerMTok": 1.2,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "openai"
+          ]
+        },
+        {
+          "name": "gpt-5.6-sol",
+          "ratio": 2,
+          "completionRatio": 5,
+          "fixedPrice": null,
+          "inputPerMTok": 4,
+          "outputPerMTok": 20,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "openai"
+          ]
+        },
+        {
+          "name": "gpt-6-astra",
+          "ratio": 5,
+          "completionRatio": 5,
+          "fixedPrice": null,
+          "inputPerMTok": 10,
+          "outputPerMTok": 50,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "openai"
+          ]
+        },
+        {
+          "name": "Qwen3.8-27B",
+          "ratio": 0.0835,
+          "completionRatio": 2.994,
+          "fixedPrice": null,
+          "inputPerMTok": 0.167,
+          "outputPerMTok": 0.5,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "openai",
+            "openai-response",
+            "openai-response-compact",
+            "anthropic",
+            "gemini",
+            "openai-alpha-search"
+          ]
+        },
+        {
+          "name": "sensenova-6.8-flash-lite",
+          "ratio": 0.05,
+          "completionRatio": 4,
+          "fixedPrice": null,
+          "inputPerMTok": 0.1,
+          "outputPerMTok": 0.4,
+          "groups": [
+            "default",
+            "Super"
+          ],
+          "protocols": [
+            "openai",
+            "openai-response",
+            "openai-response-compact",
+            "anthropic",
+            "gemini",
+            "openai-alpha-search"
+          ]
+        }
+      ],
+      "modelsSource": "public-api",
+      "defaults": {
+        "claude": "claude-fable-5.1",
+        "openai": "gpt-6-astra"
+      },
+      "signup": {
+        "status": 200,
+        "ok": true,
+        "ms": 237,
+        "attempts": 2,
+        "url": "https://flushapi.fun/sign-up?aff=WBF3"
       },
       "mirrors": [],
       "probeBlocked": false,

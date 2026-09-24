@@ -1165,6 +1165,25 @@ test('Mirasim 排第四，三个已确认不可用的站保持归档', () => {
   assert.equal(new Set(CATALOG.map((s) => s.id)).size, CATALOG.length);
   assert.equal(MIRASIM.signupUrl, 'https://mirasim.ai/r/go-kx9cd5');
 });
+const FLUSHAPI = CATALOG.find((s) => s.id === 'flushapi');
+test('FlushAPI 收在未归档末尾，邀请链接与公开接口齐全', () => {
+  assert.equal(activeSites(CATALOG).at(-1).id, 'flushapi');
+  assert.equal(FLUSHAPI.signupUrl, 'https://flushapi.fun/sign-up?aff=WBF3');
+  assert.equal(signupProbeUrl(FLUSHAPI), FLUSHAPI.signupUrl);
+  assert.equal(FLUSHAPI.statusApi, 'https://flushapi.fun/api/status');
+  assert.equal(FLUSHAPI.pricingApi, 'https://flushapi.fun/api/pricing');
+});
+test('FlushAPI 赠额未公示：不捏造美元数字，不进跨站合计', () => {
+  const plan = creditPlan(FLUSHAPI);
+  assert.equal(plan.firstDay, null);
+  assert.equal(plan.invite, null);
+  assert.match(plan.note, /未公示/);
+  assert.deepEqual(usdTotals([creditPlan(SITE), plan]), usdTotals([creditPlan(SITE)]));
+  assert.deepEqual(auditCredits([FLUSHAPI], LIVE), []);
+  const [event] = diffSnapshots({ sites: [] }, { generatedAt: iso(0), sites: [{ id: FLUSHAPI.id }] }, [FLUSHAPI]);
+  assert.equal(event.type, 'site_added');
+  assert.equal(event.text, `新收录 ${FLUSHAPI.name}：${FLUSHAPI.credits.note}`);
+});
 test('不抓 robots 禁止的邀请路径，展示链接仍保持原样', () => {
   assert.equal(signupProbeUrl(MIRASIM), 'https://mirasim.ai/pricing');
   assert.equal(signupProbeUrl(SITE), SITE.signupUrl);

@@ -743,6 +743,83 @@
         "站点公开面读不到任何机器可读的状态：robots.txt 禁掉了 /api/ 与控制台各页，本页只探 sitemap.xml 判断站点还活着，所以「实时数据」一栏只有延迟"
       ],
       "community": []
+    },
+    {
+      "id": "flushapi",
+      "name": "FlushAPI",
+      "subtitle": "New API 网关 · GitHub 一键建号，签到开着，16 个模型与价格全公开",
+      "recommended": false,
+      "credits": {
+        "signup": null,
+        "invite": null,
+        "dailyCheckin": null,
+        "approx": false,
+        "note": "每日签到开启；注册 / 邀请 / 签到额度数额站点未公示"
+      },
+      "signupUrl": "https://flushapi.fun/sign-up?aff=WBF3",
+      "homeUrl": "https://flushapi.fun",
+      "docsUrl": "https://flushapi.fun/docs",
+      "statusApi": "https://flushapi.fun/api/status",
+      "pricingApi": "https://flushapi.fun/api/pricing",
+      "mirrors": [],
+      "tags": [
+        "New API",
+        "签到",
+        "Claude Code",
+        "Codex",
+        "免费额度",
+        "Anthropic 兼容",
+        "OpenAI 兼容"
+      ],
+      "highlights": [
+        "GitHub OAuth 一键建号：接口自报 github_oauth=true 且未开邮箱验证、未开 Turnstile，注册链路很短",
+        "三条原生路由实测在线：带无效 Key 探 /v1/messages、/v1/chat/completions、/v1/responses，都由 New API 亲自回「Invalid token」——Claude Code、Codex 与 Chat 类客户端填个 Base URL 就能直连",
+        "定价接口无需登录：16 个模型与倍率全公开，含 claude-opus-5 / 4-8、fable-5.1、gpt-6-astra、gpt-5.6-sol、glm-5.3(-flash)、DeepSeek-V4.1-Flash 等",
+        "价格按 New API 标准口径折算公示：claude 系输入 $5 / 输出 $25（每 1M tokens），GLM-5.3 输入约 $0.27 / 输出约 $1，按量扣不是按次",
+        "新用户自动进 default 组且 16 个模型全在该组可用；每日签到开关开着（数额未公示）"
+      ],
+      "endpoints": {
+        "anthropic": "https://flushapi.fun",
+        "openai": "https://flushapi.fun/v1"
+      },
+      "modelsNote": "/api/pricing 无需登录即可查，16 个模型：claude 系 7 个（opus-4-7 到 opus-5、fable-5 / 5.1）、gpt 系 3 个（gpt-5.6-sol / luna、gpt-6-astra）、glm-5.3 与 5.3-flash，另有 DeepSeek-V4.1-Flash、Qwen3.8-27B、sensenova-6.8-flash-lite 与 auto。接口自报按美元计价（quota_display_type=USD），本页价格按 New API 标准倍率口径折算：claude 系输入 $5 / 输出 $25（每 1M tokens），GLM-5.3-Flash 输入约 $0.05。所有模型同时挂在 default 与 Super 两个分组，新用户自动进 default 组。",
+      "register": {
+        "methods": ["GitHub OAuth"],
+        "requirements": [
+          "务必从本页邀请链接进入注册（带 ?aff=WBF3），邀请关系在注册那一刻绑定，事后补不上；邀请奖励数额接口未公示，以站内到账为准",
+          "只能走 GitHub 授权建号：接口自报邮箱密码注册关着（password_register_enabled=false），密码登录只留给已有账号",
+          "没有邮箱验证码环节（email_verification=false），也没开 Turnstile 人机校验"
+        ]
+      },
+      "earnMore": [
+        "每日签到领额度（checkin_enabled=true；数额未公示，登录后台点签到）",
+        "邀请他人注册的奖励数额接口未公示，登录后台「邀请」页确认"
+      ],
+      "caveats": [
+        "站点很新：接口自报的 start_time 折 2026-09-24 前后才上线，运营稳定性还没有经过时间检验，别替它做长期承诺",
+        "注册送多少、邀请返多少、签到给多少——公开接口一个数字都没给，本页不登记美元赠额、不计入跨站合计；进后台看实际到账再算账",
+        "页面是纯 SPA：robots.txt 返回的是前端壳而不是 robots 内容，本页只打 /api/status 与 /api/pricing 两个公开接口探测",
+        "充值比例 price=7.3（¥7.3 ≈ $1）说明它不是纯免费站，免费额度用完后要付费才能续"
+      ],
+      "faq": [
+        [
+          "FlushAPI 注册送额度吗？",
+          "站点公开接口没有公示注册、邀请与签到的具体赠送数额，只确认每日签到开关是开的。实际到账多少，以注册后控制台显示为准。"
+        ],
+        [
+          "能用邮箱注册吗？",
+          "不能。接口自报邮箱密码注册关着（password_register_enabled=false），新用户只能用 GitHub 授权建号；密码登录只留给已有账号。"
+        ],
+        [
+          "怎么接 Claude Code / Codex？",
+          "Anthropic 协议的 Base URL 填 https://flushapi.fun（不带 /v1），OpenAI 兼容填 https://flushapi.fun/v1，Key 在控制台令牌页创建；三条路由带无效 Key 探都由 New API 亲自回 401，说明网关活着。"
+        ],
+        [
+          "有哪些模型、什么价？",
+          "定价接口无需登录就公开 16 个模型与倍率：claude-opus-5 / 4-8、fable-5.1、gpt-6-astra、gpt-5.6-sol、glm-5.3(-flash)、DeepSeek-V4.1-Flash、Qwen3.8-27B 等；claude 系输入 $5 / 输出 $25（每 1M tokens），新用户默认进 default 组且全模型可用。"
+        ]
+      ],
+      "community": []
     }
   ]
 }

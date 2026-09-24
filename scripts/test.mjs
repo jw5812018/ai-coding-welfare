@@ -1072,6 +1072,24 @@ test('邀请码要手填的站才出「邀请码」列，且写清 — 不等于
   assert.equal(cols(head), cols(sep));
   assert.equal(cols(head), cols(row));
 });
+test('投稿公告在首屏：README 的 [!TIP] 排在总表前，首页排在大标题上方，两边都给提交和逛 Issue 两个入口', () => {
+  const live = { generatedAt: iso(0), sites: [{ id: 'demo', online: true, registerOpen: true }] };
+  const md = renderReadme({ meta: META, sites: [SITE], live, groups: [], history: HIST });
+  const tip = md.indexOf('> [!TIP]');
+  assert.ok(tip > 0 && tip < md.indexOf('## 🚀 一分钟上车'), '公告要在首屏，排在总表之前');
+  assert.ok(md.includes(`[提交 Issue](${META.repoUrl}/issues/new/choose)`), '提交入口走模板选择页，推广别的也能开空白 Issue');
+  assert.ok(md.includes(`[逛逛 Issue 区](${META.repoUrl}/issues)`));
+  assert.match(md, /特别优质、实测靠谱的，我会收录进正文/);
+  assert.doesNotMatch(md, /我来收录/, '底部不能再承诺「投了就收录」，和顶部口径打架');
+  assert.match(md, /Issue 区的投稿由网友自行发布，未经本仓库核实/);
+
+  const html = renderHtml({ meta: META, sites: [SITE], live, css: '', groups: [], history: HIST });
+  const hero = html.slice(html.indexOf('<header class="hero">'), html.indexOf('</header>'));
+  assert.ok(hero.includes('<p class="announce">'), '首页 hero 里要有投稿公告');
+  assert.ok(hero.indexOf('class="announce"') < hero.indexOf('<h1>'), '公告排在大标题上方');
+  assert.ok(hero.includes(`href="${META.repoUrl}/issues/new/choose"`));
+  assert.ok(hero.includes(`href="${META.repoUrl}/issues"`));
+});
 test('停注变动进日志时带上接口口径，别让人以为是我们猜的', () => {
   const [ev] = D({ ...snap(), registerOpen: true }, { ...snap(), registerOpen: false });
   assert.equal(ev.type, 'register_closed');

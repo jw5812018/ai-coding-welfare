@@ -63,6 +63,17 @@ header.hero { padding: 84px 0 56px; text-align: center; }
 }
 .hero p.sub { margin: 0 auto 26px; max-width: 620px; color: var(--fg-dim); font-size: clamp(15px, 2vw, 18px); }
 
+/* 投稿公告：大标题上方的一条横幅，首屏第一眼就能看到；窄屏时文字和两个入口各自折行 */
+.announce {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 14px;
+  width: fit-content; max-width: 100%; margin: 0 auto 22px; padding: 8px 16px;
+  border: 1px solid rgba(124, 92, 255, 0.45); border-radius: 12px;
+  background: rgba(124, 92, 255, 0.1); color: var(--fg-dim); font-size: 13px; line-height: 1.6;
+}
+.announce b { color: var(--fg); }
+.announce a { color: var(--accent-2); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.announce a:hover { text-decoration: underline; }
+
 .pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 30px; }
 .pill {
   padding: 6px 13px; border: 1px solid var(--line); border-radius: 999px;
@@ -220,6 +231,11 @@ tr.shut td { color: var(--fg-dim); }
 <nav class="nav"><div class="wrap navrow"><a class="navlink active" href="">站点总览</a><a class="navlink" href="compare/">按次 vs 按量</a><a class="navlink" href="status/">可用性</a><a class="navlink" href="changelog/">变动日志</a><span class="navspace"></span><a class="navlink" href="feed.xml">Atom 订阅</a></div></nav>
 <div class="wrap">
   <header class="hero">
+    <p class="announce">
+      <span>📣 <b>欢迎投稿</b>：Issue 区就是你的免费推广位，邀请链接可以直接贴，特别优质的会收录进本站</span>
+      <a href="https://github.com/panxunying/ai-coding-welfare/issues/new/choose" target="_blank" rel="noopener">提交 Issue →</a>
+      <a href="https://github.com/panxunying/ai-coding-welfare/issues" target="_blank" rel="noopener">逛逛 Issue 区</a>
+    </p>
     <h1>AI Coding 福利站导航</h1>
     <p class="sub">免费额度 · 白嫖 Claude Code / Codex / Cursor 的中转与公益站合集</p>
     <div class="pills">

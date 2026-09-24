@@ -204,7 +204,13 @@ export function renderHtml({ meta, sites: allSites, live, css, groups = [], hist
     deadCount ? `；另有 ${deadCount} 个站已停用归档` : ''
   }。`;
 
+  // 投稿公告放在大标题上方：首屏第一眼就能看到，和 README 顶部的 [!TIP] 提示块同一个口径
   const body = `  <header class="hero">
+    <p class="announce">
+      <span>📣 <b>欢迎投稿</b>：Issue 区就是你的免费推广位，邀请链接可以直接贴，特别优质的会收录进本站</span>
+      <a href="${esc(`${meta.repoUrl}/issues/new/choose`)}" target="_blank" rel="noopener">提交 Issue →</a>
+      <a href="${esc(`${meta.repoUrl}/issues`)}" target="_blank" rel="noopener">逛逛 Issue 区</a>
+    </p>
     <h1>${esc(meta.title)}</h1>
     <p class="sub">${esc(meta.tagline)}</p>
     <div class="pills">

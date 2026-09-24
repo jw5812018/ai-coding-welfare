@@ -24,6 +24,11 @@
 
 <p align="center"><a href="https://panxunying.github.io/ai-coding-welfare/compare/">📊 按次 vs 按量折算横评</a> · <a href="https://panxunying.github.io/ai-coding-welfare/status/">🩺 可用性历史</a> · <a href="https://panxunying.github.io/ai-coding-welfare/changelog/">🗓 变动日志</a> · <a href="https://panxunying.github.io/ai-coding-welfare/feed.xml">🔔 Atom 订阅</a></p>
 
+> [!TIP]
+> **📣 欢迎投稿：Issue 区就是你的免费推广位**
+>
+> 发现好用的福利站，或者自己就在运营一个？直接[提交 Issue](https://github.com/panxunying/ai-coding-welfare/issues/new/choose)，邀请链接可以一并贴上。Issue 对所有访客公开，本身就是推广渠道；其中特别优质、实测靠谱的，我会收录进正文。想发现更多站点，不妨[逛逛 Issue 区](https://github.com/panxunying/ai-coding-welfare/issues)。
+
 ---
 
 ## 🚀 一分钟上车
@@ -1196,7 +1201,7 @@ npm run check     # 校验链接是否还活着
 
 发现好用的公益站 / 中转站？两种方式：
 
-- 提 [Issue](https://github.com/panxunying/ai-coding-welfare/issues/new?template=new-site.yml) 填个表单，我来收录
+- 提 [Issue](https://github.com/panxunying/ai-coding-welfare/issues/new?template=new-site.yml) 填个表单：投稿公开可见，本身就是一次推广；符合下方收录标准、特别优质的，我会收录进正文
 - 或者直接 PR：往 `data/sites.json` 加一条，跑 `npm run refresh && npm run build` 后提交
 
 收录标准：**能免费拿到额度**、注册流程不套娃、站点公开接口可探测。
@@ -1205,6 +1210,7 @@ npm run check     # 校验链接是否还活着
 
 - 本页包含**邀请链接**，邀请奖励、领取条件与免费范围以各站活动规则为准；不保证注册即有奖励。
 - 本仓库只做信息聚合，**与各站点无隶属关系**，不代收费用、不承诺可用性。公益站随时可能改规则、限速或关站。
+- Issue 区的投稿由网友自行发布，未经本仓库核实，注册前请自行甄别；只有收录进正文的站点才会被定时探测。
 - 请勿把生产密钥、隐私数据、企业代码丢给来源不明的中转服务；重要项目请用官方 API。
 - 请遵守各站点与上游模型服务商的使用条款，禁止批量注册、刷量、转售额度等行为，封号自负。
 - 页面上的额度 / 模型 / 价格由脚本自动抓取，仅代表抓取那一刻的状态，**一切以站内实时公示为准**。

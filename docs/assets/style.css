@@ -45,6 +45,17 @@ header.hero { padding: 84px 0 56px; text-align: center; }
 }
 .hero p.sub { margin: 0 auto 26px; max-width: 620px; color: var(--fg-dim); font-size: clamp(15px, 2vw, 18px); }
 
+/* 投稿公告：大标题上方的一条横幅，首屏第一眼就能看到；窄屏时文字和两个入口各自折行 */
+.announce {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 14px;
+  width: fit-content; max-width: 100%; margin: 0 auto 22px; padding: 8px 16px;
+  border: 1px solid rgba(124, 92, 255, 0.45); border-radius: 12px;
+  background: rgba(124, 92, 255, 0.1); color: var(--fg-dim); font-size: 13px; line-height: 1.6;
+}
+.announce b { color: var(--fg); }
+.announce a { color: var(--accent-2); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.announce a:hover { text-decoration: underline; }
+
 .pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 30px; }
 .pill {
   padding: 6px 13px; border: 1px solid var(--line); border-radius: 999px;

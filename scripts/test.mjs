@@ -1166,8 +1166,8 @@ test('Mirasim 排第四，三个已确认不可用的站保持归档', () => {
   assert.equal(MIRASIM.signupUrl, 'https://mirasim.ai/r/go-kx9cd5');
 });
 const FLUSHAPI = CATALOG.find((s) => s.id === 'flushapi');
-test('FlushAPI 收在未归档末尾，邀请链接与公开接口齐全', () => {
-  assert.equal(activeSites(CATALOG).at(-1).id, 'flushapi');
+test('FlushAPI 排在第五位，邀请链接与公开接口齐全', () => {
+  assert.equal(activeSites(CATALOG)[4].id, 'flushapi');
   assert.equal(FLUSHAPI.signupUrl, 'https://flushapi.fun/sign-up?aff=WBF3');
   assert.equal(signupProbeUrl(FLUSHAPI), FLUSHAPI.signupUrl);
   assert.equal(FLUSHAPI.statusApi, 'https://flushapi.fun/api/status');

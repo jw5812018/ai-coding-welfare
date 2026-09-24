@@ -14,12 +14,12 @@
   <a href="https://docode.cc/register?aff=zMRe"><b>DoCode 注册</b></a> ·
   <a href="https://api.justwoker.icu/sign-up?aff=VTrz"><b>JustDoWork 注册</b></a> ·
   <a href="https://mirasim.ai/r/go-kx9cd5"><b>Mirasim 注册</b></a> ·
+  <a href="https://flushapi.fun/sign-up?aff=WBF3"><b>FlushAPI 注册</b></a> ·
   <a href="https://kktoken.cc/sign-up?aff=MzG9"><b>KKtoken AI 注册</b></a> ·
   <a href="https://matrix.mzsjai.com/login?redirect=%2Fapp%2Fgrowth%3FinviteCode%3DMXMRFO52KD2_"><b>Matrix 注册</b></a> ·
   <a href="https://anyrouter.top/register?aff=Z24N"><b>AnyRouter 注册</b></a> ·
   <a href="https://api.cheapcodex.online/register?aff=U7SSQZSDB36S"><b>CheapCodex 注册</b></a> ·
-  <a href="https://nofx.one/zh-CN/sign-in?ref=J369GHY4"><b>NOFX 注册</b></a> ·
-  <a href="https://flushapi.fun/sign-up?aff=WBF3"><b>FlushAPI 注册</b></a>
+  <a href="https://nofx.one/zh-CN/sign-in?ref=J369GHY4"><b>NOFX 注册</b></a>
 </p>
 
 <p align="center"><a href="https://panxunying.github.io/ai-coding-welfare/compare/">📊 按次 vs 按量折算横评</a> · <a href="https://panxunying.github.io/ai-coding-welfare/status/">🩺 可用性历史</a> · <a href="https://panxunying.github.io/ai-coding-welfare/changelog/">🗓 变动日志</a> · <a href="https://panxunying.github.io/ai-coding-welfare/feed.xml">🔔 Atom 订阅</a></p>
@@ -34,12 +34,12 @@
 | **DoCode** | 🟢 在线 | **300 站内刀** | 注册 50 站内刀 + 本页邀请 250 站内刀 | 无签到 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://docode.cc/register?aff=zMRe) | `zMRe` |
 | **JustDoWork** | 🟢 在线 | **≈$92** | 注册 $70 + 首签 ≈$22 | ≈$22/天 | Anthropic + OpenAI | 需登录查看 | [GitHub 注册 →](https://api.justwoker.icu/sign-up?aff=VTrz) | — |
 | **Mirasim** | 🟢 在线 | **Go套餐 $1/月** | Kimi K3 **≈130 次**<br>GLM 5.3 Flash **≈1,900 次**<br>DS 4.1 Flash **≈7,800 次** | **每 5 小时**<br>共享额度 | Mirasim 客户端 / CLI | 3 种<br>官网公示 | [查看 Go →](https://mirasim.ai/r/go-kx9cd5) | — |
+| **FlushAPI** | 🟢 在线 | **$22.5** | 注册 $15 + 本页邀请 $7.5 | 支持签到 | Anthropic + OpenAI | 16 个可查 | [GitHub 注册 →](https://flushapi.fun/sign-up?aff=WBF3) | — |
 | **KKtoken AI** | 🟢 在线 | **$120** | 注册 $75 + 本页邀请 $25 + 首签 $20 | $20/天 | Anthropic + OpenAI | 需登录查看 | [GitHub 注册 →](https://kktoken.cc/sign-up?aff=MzG9) | — |
 | **Matrix** | 🟢 在线 | **600 积分** | 本页邀请 600 积分 | — | OpenAI 兼容 | 需登录查看 | [点此注册 →](https://matrix.mzsjai.com/login?redirect=%2Fapp%2Fgrowth%3FinviteCode%3DMXMRFO52KD2_) | — |
 | **AnyRouter** | 🟢 在线 | **$150** | 注册 $75 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://anyrouter.top/register?aff=Z24N) | — |
 | **CheapCodex** | 🟢 在线 | **$40** | 本页邀请 $20 + 首签 $20 | $20/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://api.cheapcodex.online/register?aff=U7SSQZSDB36S) | — |
 | **NOFX** | 🟢 在线 | **15 积分** | 本页邀请 10 积分 + 首签 5 积分 | 5 积分/天 | OpenAI 兼容 | 需登录查看 | [点此注册 →](https://nofx.one/zh-CN/sign-in?ref=J369GHY4) | — |
-| **FlushAPI** | 🟢 在线 | **$22.5** | 注册 $15 + 本页邀请 $7.5 | 支持签到 | Anthropic + OpenAI | 16 个可查 | [GitHub 注册 →](https://flushapi.fun/sign-up?aff=WBF3) | — |
 
 > **Mirasim Go套餐 $1/月：用量按每 5 小时估算，不是每月总次数。** 官网估算，共享额度按模型折算，各模型次数不可相加；实际用量以站内为准。 付费套餐不计入下方免费额度合计。[官网定价](https://mirasim.ai/pricing)（2026-09-23 核对）。
 
@@ -519,6 +519,140 @@ curl -s https://api.justwoker.icu/v1/chat/completions \
 
 ---
 
+### 🟢 FlushAPI
+
+> New API 网关 · 注册送 $15，本页邀请进入共 $22.5，GitHub 一键建号，16 个模型与价格全公开
+
+<a href="https://flushapi.fun/sign-up?aff=WBF3"><img src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E6%B3%A8%E5%86%8C-FlushAPI-brightgreen?style=for-the-badge" alt="注册 FlushAPI"></a>
+
+**为什么值得注册**
+
+- 注册送 $15，从本页邀请链接进入变 $22.5；此后每邀请一人再得 $7.5（站方公告口径 2026-09-24）
+- GitHub OAuth 一键建号：接口自报 github_oauth=true 且未开邮箱验证、未开 Turnstile，注册链路很短
+- 三条原生路由实测在线：带无效 Key 探 /v1/messages、/v1/chat/completions、/v1/responses，都由 New API 亲自回「Invalid token」——Claude Code、Codex 与 Chat 类客户端填个 Base URL 就能直连
+- 定价接口无需登录：16 个模型与倍率全公开，含 claude-opus-5 / 4-8、fable-5.1、gpt-6-astra、gpt-5.6-sol、glm-5.3(-flash)、DeepSeek-V4.1-Flash 等
+- 价格最低 $0.03/1M tokens 起（DeepSeek-V4.1-Flash 输入侧）；claude 系输入 $5 / 输出 $25，按量扣不是按次
+- Super 余额独立：claude-opus-5 / 4.8 / 4.7、fable-5.x、gpt-6-astra / 5.6-sol 划在 Super 档，gpt-5.6-luna 不耗 Super 余额
+
+**能拿多少额度**
+
+- 注册即送：**$15**
+- 从本页邀请链接注册额外：**$7.5**
+- 首日合计：**$22.5**　（注册 $15 + 本页邀请 $7.5）
+
+**实时数据**（自动抓取站点公开接口）
+
+- 站点名称：**FlushAPI**
+- 每日签到：✅
+- 开放注册：✅（站点关掉了邮箱密码注册，得用 GitHub 登录建号（防批量注册的常规做法）。）
+- 登录方式：GitHub / 账号密码
+- 接口延迟：6842 ms
+
+**当前可用模型**
+
+| 模型 | 倍率 | 输入 / 1M tokens | 输出 / 1M tokens | 协议 |
+| :-- | :--: | :--: | :--: | :--: |
+| `auto` | 0.2 | $0.4 | $0.4 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
+| `claude-fable-5` | 5 | $10 | $50 | anthropic / openai |
+| `claude-fable-5.1` | 5 | $10 | $50 | anthropic / openai |
+| `claude-opus-4-7` | 2.5 | $5 | $25 | anthropic / openai |
+| `claude-opus-4-8` | 2.5 | $5 | $25 | anthropic / openai |
+| `claude-opus-4.7` | 2.5 | $5 | $25 | anthropic / openai |
+| `claude-opus-4.8` | 2.5 | $5 | $25 | anthropic / openai |
+| `claude-opus-5` | 2.5 | $5 | $25 | anthropic / openai |
+| `DeepSeek-V4.1-Flash` | 0.0165 | $0.033 | $0.067 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
+| `glm-5.3` | 0.1335 | $0.267 | $1 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
+| `glm-5.3-flash` | 0.0265 | $0.053 | $0.2 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
+| `gpt-5.6-luna` | 0.1 | $0.2 | $1.2 | openai |
+| `gpt-5.6-sol` | 2 | $4 | $20 | openai |
+| `gpt-6-astra` | 5 | $10 | $50 | openai |
+| `Qwen3.8-27B` | 0.0835 | $0.167 | $0.5 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
+| `sensenova-6.8-flash-lite` | 0.05 | $0.1 | $0.4 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
+
+<sub>倍率 1 ≈ $2 / 1M tokens，输出价 = 倍率 × 补全倍率 × $2；以站内实时价格为准。</sub>
+
+**注册要求**
+
+- 务必从本页邀请链接进入注册（带 ?aff=WBF3）：裸注册只有 $15，走邀请链接是 $22.5，多出的 $7.5 在注册那一刻结算，事后补不上
+- 只能走 GitHub 授权建号：接口自报邮箱密码注册关着（password_register_enabled=false），密码登录只留给已有账号
+- 没有邮箱验证码环节（email_verification=false），也没开 Turnstile 人机校验
+
+**接入配置**
+
+<details open><summary><b>Claude Code</b>（Anthropic 兼容，Base URL 不带 <code>/v1</code>）</summary>
+
+```bash
+# macOS / Linux
+export ANTHROPIC_BASE_URL=https://flushapi.fun
+export ANTHROPIC_AUTH_TOKEN=你在站点后台创建的 Key
+export ANTHROPIC_MODEL=claude-fable-5.1
+npm install -g @anthropic-ai/claude-code@latest && claude
+```
+
+```powershell
+# Windows PowerShell
+$env:ANTHROPIC_BASE_URL = "https://flushapi.fun"
+$env:ANTHROPIC_AUTH_TOKEN = "你在站点后台创建的 Key"
+$env:ANTHROPIC_MODEL = "claude-fable-5.1"
+claude
+```
+
+</details>
+
+<details><summary><b>Codex CLI</b>（OpenAI 兼容，写入 <code>~/.codex/config.toml</code>）</summary>
+
+```toml
+model = "gpt-6-astra"
+model_provider = "flushapi"
+
+[model_providers.flushapi]
+name = "FlushAPI"
+base_url = "https://flushapi.fun/v1"
+env_key = "FLUSHAPI_API_KEY"
+wire_api = "chat"
+```
+
+</details>
+
+<details><summary><b>OpenAI SDK / Cherry Studio / Cursor 等通用客户端</b></summary>
+
+```python
+from openai import OpenAI
+
+client = OpenAI(api_key="你的 Key", base_url="https://flushapi.fun/v1")
+resp = client.chat.completions.create(model="gpt-6-astra", messages=[{"role": "user", "content": "ping"}])
+print(resp.choices[0].message.content)
+```
+
+通用客户端只需填两项：**Base URL** = `https://flushapi.fun/v1`，**API Key** = 站点后台创建的 Key。
+
+</details>
+
+<details><summary><b>连通性自测</b></summary>
+
+```bash
+curl -s https://flushapi.fun/v1/chat/completions \
+  -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
+  -d '{"model":"gpt-6-astra","messages":[{"role":"user","content":"只回复 OK"}]}'
+```
+
+</details>
+
+**如何继续拿额度**
+
+- 每邀请一位好友注册，邀请人再得 $7.5（站方公告口径，人数未见上限说明）
+- 每日签到开着（checkin_enabled=true），签到给多少公告与公开接口都没写，登录后台点签到看实际数额
+
+**⚠️ 使用前必读**
+
+- 额度数字（注册 $15 / 邀请 $7.5 / 邀请人 +$7.5）来自站方 2026-09-24 的公告截图，公开接口不公示这些字段、本页无法自动核对，进后台看实际到账再算账
+- 站点很新：接口自报的 start_time 折 2026-09-24 前后才上线，运营稳定性还没有经过时间检验，别替它做长期承诺
+- Super 档是独立余额（公告口径「separate balance」）：claude-opus / fable、gpt-6-astra 等旗舰模型走 Super 档，$15 / $22.5 是 default 余额的口径，开通前看清站内的分档说明
+- 页面是纯 SPA：robots.txt 返回的是前端壳而不是 robots 内容，本页只打 /api/status 与 /api/pricing 两个公开接口探测
+- 充值比例 price=7.3（¥7.3 ≈ $1）说明它不是纯免费站，免费额度用完后要付费才能续
+
+---
+
 ### 🟢 KKtoken AI
 
 > New API 中转站 · 注册送 $75，本页邀请码再加 $25，按 token 计费输入输出各 $1/M
@@ -969,140 +1103,6 @@ curl -s https://api.cheapcodex.online/v1/chat/completions \
 - 落地页的 CTA 写「注册领取 $20 积分」，而本页登记的邀请注册是 10 积分——两个口径站点没在公开页面上对齐，进后台看实际到账数
 - 「分享到 X」那 $20 要发带自己邀请码的推文并上传截图过审，本质是替站点做推广，要不要做自己判断
 - 站点公开面读不到任何机器可读的状态：robots.txt 禁掉了 /api/ 与控制台各页，本页只探 sitemap.xml 判断站点还活着，所以「实时数据」一栏只有延迟
-
----
-
-### 🟢 FlushAPI
-
-> New API 网关 · 注册送 $15，本页邀请进入共 $22.5，GitHub 一键建号，16 个模型与价格全公开
-
-<a href="https://flushapi.fun/sign-up?aff=WBF3"><img src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E6%B3%A8%E5%86%8C-FlushAPI-brightgreen?style=for-the-badge" alt="注册 FlushAPI"></a>
-
-**为什么值得注册**
-
-- 注册送 $15，从本页邀请链接进入变 $22.5；此后每邀请一人再得 $7.5（站方公告口径 2026-09-24）
-- GitHub OAuth 一键建号：接口自报 github_oauth=true 且未开邮箱验证、未开 Turnstile，注册链路很短
-- 三条原生路由实测在线：带无效 Key 探 /v1/messages、/v1/chat/completions、/v1/responses，都由 New API 亲自回「Invalid token」——Claude Code、Codex 与 Chat 类客户端填个 Base URL 就能直连
-- 定价接口无需登录：16 个模型与倍率全公开，含 claude-opus-5 / 4-8、fable-5.1、gpt-6-astra、gpt-5.6-sol、glm-5.3(-flash)、DeepSeek-V4.1-Flash 等
-- 价格最低 $0.03/1M tokens 起（DeepSeek-V4.1-Flash 输入侧）；claude 系输入 $5 / 输出 $25，按量扣不是按次
-- Super 余额独立：claude-opus-5 / 4.8 / 4.7、fable-5.x、gpt-6-astra / 5.6-sol 划在 Super 档，gpt-5.6-luna 不耗 Super 余额
-
-**能拿多少额度**
-
-- 注册即送：**$15**
-- 从本页邀请链接注册额外：**$7.5**
-- 首日合计：**$22.5**　（注册 $15 + 本页邀请 $7.5）
-
-**实时数据**（自动抓取站点公开接口）
-
-- 站点名称：**FlushAPI**
-- 每日签到：✅
-- 开放注册：✅（站点关掉了邮箱密码注册，得用 GitHub 登录建号（防批量注册的常规做法）。）
-- 登录方式：GitHub / 账号密码
-- 接口延迟：6842 ms
-
-**当前可用模型**
-
-| 模型 | 倍率 | 输入 / 1M tokens | 输出 / 1M tokens | 协议 |
-| :-- | :--: | :--: | :--: | :--: |
-| `auto` | 0.2 | $0.4 | $0.4 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
-| `claude-fable-5` | 5 | $10 | $50 | anthropic / openai |
-| `claude-fable-5.1` | 5 | $10 | $50 | anthropic / openai |
-| `claude-opus-4-7` | 2.5 | $5 | $25 | anthropic / openai |
-| `claude-opus-4-8` | 2.5 | $5 | $25 | anthropic / openai |
-| `claude-opus-4.7` | 2.5 | $5 | $25 | anthropic / openai |
-| `claude-opus-4.8` | 2.5 | $5 | $25 | anthropic / openai |
-| `claude-opus-5` | 2.5 | $5 | $25 | anthropic / openai |
-| `DeepSeek-V4.1-Flash` | 0.0165 | $0.033 | $0.067 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
-| `glm-5.3` | 0.1335 | $0.267 | $1 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
-| `glm-5.3-flash` | 0.0265 | $0.053 | $0.2 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
-| `gpt-5.6-luna` | 0.1 | $0.2 | $1.2 | openai |
-| `gpt-5.6-sol` | 2 | $4 | $20 | openai |
-| `gpt-6-astra` | 5 | $10 | $50 | openai |
-| `Qwen3.8-27B` | 0.0835 | $0.167 | $0.5 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
-| `sensenova-6.8-flash-lite` | 0.05 | $0.1 | $0.4 | openai / openai-response / openai-response-compact / anthropic / gemini / openai-alpha-search |
-
-<sub>倍率 1 ≈ $2 / 1M tokens，输出价 = 倍率 × 补全倍率 × $2；以站内实时价格为准。</sub>
-
-**注册要求**
-
-- 务必从本页邀请链接进入注册（带 ?aff=WBF3）：裸注册只有 $15，走邀请链接是 $22.5，多出的 $7.5 在注册那一刻结算，事后补不上
-- 只能走 GitHub 授权建号：接口自报邮箱密码注册关着（password_register_enabled=false），密码登录只留给已有账号
-- 没有邮箱验证码环节（email_verification=false），也没开 Turnstile 人机校验
-
-**接入配置**
-
-<details open><summary><b>Claude Code</b>（Anthropic 兼容，Base URL 不带 <code>/v1</code>）</summary>
-
-```bash
-# macOS / Linux
-export ANTHROPIC_BASE_URL=https://flushapi.fun
-export ANTHROPIC_AUTH_TOKEN=你在站点后台创建的 Key
-export ANTHROPIC_MODEL=claude-fable-5.1
-npm install -g @anthropic-ai/claude-code@latest && claude
-```
-
-```powershell
-# Windows PowerShell
-$env:ANTHROPIC_BASE_URL = "https://flushapi.fun"
-$env:ANTHROPIC_AUTH_TOKEN = "你在站点后台创建的 Key"
-$env:ANTHROPIC_MODEL = "claude-fable-5.1"
-claude
-```
-
-</details>
-
-<details><summary><b>Codex CLI</b>（OpenAI 兼容，写入 <code>~/.codex/config.toml</code>）</summary>
-
-```toml
-model = "gpt-6-astra"
-model_provider = "flushapi"
-
-[model_providers.flushapi]
-name = "FlushAPI"
-base_url = "https://flushapi.fun/v1"
-env_key = "FLUSHAPI_API_KEY"
-wire_api = "chat"
-```
-
-</details>
-
-<details><summary><b>OpenAI SDK / Cherry Studio / Cursor 等通用客户端</b></summary>
-
-```python
-from openai import OpenAI
-
-client = OpenAI(api_key="你的 Key", base_url="https://flushapi.fun/v1")
-resp = client.chat.completions.create(model="gpt-6-astra", messages=[{"role": "user", "content": "ping"}])
-print(resp.choices[0].message.content)
-```
-
-通用客户端只需填两项：**Base URL** = `https://flushapi.fun/v1`，**API Key** = 站点后台创建的 Key。
-
-</details>
-
-<details><summary><b>连通性自测</b></summary>
-
-```bash
-curl -s https://flushapi.fun/v1/chat/completions \
-  -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
-  -d '{"model":"gpt-6-astra","messages":[{"role":"user","content":"只回复 OK"}]}'
-```
-
-</details>
-
-**如何继续拿额度**
-
-- 每邀请一位好友注册，邀请人再得 $7.5（站方公告口径，人数未见上限说明）
-- 每日签到开着（checkin_enabled=true），签到给多少公告与公开接口都没写，登录后台点签到看实际数额
-
-**⚠️ 使用前必读**
-
-- 额度数字（注册 $15 / 邀请 $7.5 / 邀请人 +$7.5）来自站方 2026-09-24 的公告截图，公开接口不公示这些字段、本页无法自动核对，进后台看实际到账再算账
-- 站点很新：接口自报的 start_time 折 2026-09-24 前后才上线，运营稳定性还没有经过时间检验，别替它做长期承诺
-- Super 档是独立余额（公告口径「separate balance」）：claude-opus / fable、gpt-6-astra 等旗舰模型走 Super 档，$15 / $22.5 是 default 余额的口径，开通前看清站内的分档说明
-- 页面是纯 SPA：robots.txt 返回的是前端壳而不是 robots 内容，本页只打 /api/status 与 /api/pricing 两个公开接口探测
-- 充值比例 price=7.3（¥7.3 ≈ $1）说明它不是纯免费站，免费额度用完后要付费才能续
 
 ---
 

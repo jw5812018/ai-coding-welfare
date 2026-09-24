@@ -1173,16 +1173,18 @@ test('FlushAPI 收在未归档末尾，邀请链接与公开接口齐全', () =>
   assert.equal(FLUSHAPI.statusApi, 'https://flushapi.fun/api/status');
   assert.equal(FLUSHAPI.pricingApi, 'https://flushapi.fun/api/pricing');
 });
-test('FlushAPI 赠额未公示：不捏造美元数字，不进跨站合计', () => {
+test('FlushAPI 首日 $22.5 = 注册 $15 + 邀请 $7.5，公告口径计入跨站合计', () => {
   const plan = creditPlan(FLUSHAPI);
-  assert.equal(plan.firstDay, null);
-  assert.equal(plan.invite, null);
-  assert.match(plan.note, /未公示/);
-  assert.deepEqual(usdTotals([creditPlan(SITE), plan]), usdTotals([creditPlan(SITE)]));
+  assert.equal(plan.signup, 15);
+  assert.equal(plan.invite, 7.5);
+  assert.equal(plan.firstDay, 22.5);
+  assert.equal(plan.daily, null, '签到数额公告与接口都没写，不编数字');
+  assert.match(plan.note, /公告/);
+  assert.deepEqual(usdTotals([plan]), { count: 1, best: 22.5, total: 22.5, resetting: false, others: [] });
   assert.deepEqual(auditCredits([FLUSHAPI], LIVE), []);
   const [event] = diffSnapshots({ sites: [] }, { generatedAt: iso(0), sites: [{ id: FLUSHAPI.id }] }, [FLUSHAPI]);
   assert.equal(event.type, 'site_added');
-  assert.equal(event.text, `新收录 ${FLUSHAPI.name}：${FLUSHAPI.credits.note}`);
+  assert.equal(event.text, `新收录 ${FLUSHAPI.name}：注册送 $15，邀请再加 $7.5`);
 });
 test('不抓 robots 禁止的邀请路径，展示链接仍保持原样', () => {
   assert.equal(signupProbeUrl(MIRASIM), 'https://mirasim.ai/pricing');
@@ -1247,7 +1249,7 @@ test('README 总表直接呈现 $1 月费与三档用量，不再把卖点藏进
   const intro = md.slice(0, md.indexOf('## 📚 站点详情'));
   assert.match(intro, /各模型次数不可相加/);
   assert.match(intro, /付费套餐不计入下方免费额度合计/);
-  assert.match(intro, /\*\*\$577\*\*/);
+  assert.match(intro, /\*\*\$599\.5\*\*/);
 });
 test('卡片和详情页使用同一价量区块，免费范围是补充信息', () => {
   const args = { meta: META, sites: [MIRASIM], live: LIVE, css: '', groups: [], history: HIST };

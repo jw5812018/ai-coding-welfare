@@ -39,7 +39,7 @@
 | **AnyRouter** | 🟢 在线 | **$150** | 注册 $75 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://anyrouter.top/register?aff=Z24N) | — |
 | **CheapCodex** | 🟢 在线 | **$40** | 本页邀请 $20 + 首签 $20 | $20/天 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://api.cheapcodex.online/register?aff=U7SSQZSDB36S) | — |
 | **NOFX** | 🟢 在线 | **15 积分** | 本页邀请 10 积分 + 首签 5 积分 | 5 积分/天 | OpenAI 兼容 | 需登录查看 | [点此注册 →](https://nofx.one/zh-CN/sign-in?ref=J369GHY4) | — |
-| **FlushAPI** | 🟢 在线 | 每日签到开启；注册 / 邀请 / 签到额度数额站点未公示 | — | 支持签到 | Anthropic + OpenAI | 16 个可查 | [GitHub 注册 →](https://flushapi.fun/sign-up?aff=WBF3) | — |
+| **FlushAPI** | 🟢 在线 | **$22.5** | 注册 $15 + 本页邀请 $7.5 | 支持签到 | Anthropic + OpenAI | 16 个可查 | [GitHub 注册 →](https://flushapi.fun/sign-up?aff=WBF3) | — |
 
 > **Mirasim Go套餐 $1/月：用量按每 5 小时估算，不是每月总次数。** 官网估算，共享额度按模型折算，各模型次数不可相加；实际用量以站内为准。 付费套餐不计入下方免费额度合计。[官网定价](https://mirasim.ai/pricing)（2026-09-23 核对）。
 
@@ -47,7 +47,7 @@
 >
 > 「邀请码」列写了码的站（DoCode `zMRe`），注册表单里有一栏要**自己填**，漏填就只拿得到注册基础额度、事后补不上；其余站写 — 表示未登记需要手填的邀请码，邀请奖励与条件请看站点详情。
 >
-> 5 个有明确美元额度、且还收新用户的站全注册一遍，第一天手上大约有 **$577** 额度可用；DoCode 另发 300 站内刀，Matrix 另发 600 积分，NOFX 另发 15 积分，都是各站自己的计价单位、与美元没有公开换算，未计入这个合计。
+> 6 个有明确美元额度、且还收新用户的站全注册一遍，第一天手上大约有 **$599.5** 额度可用；DoCode 另发 300 站内刀，Matrix 另发 600 积分，NOFX 另发 15 积分，都是各站自己的计价单位、与美元没有公开换算，未计入这个合计。
 
 **只想快点用上 Claude Code？** 三步：
 
@@ -974,21 +974,24 @@ curl -s https://api.cheapcodex.online/v1/chat/completions \
 
 ### 🟢 FlushAPI
 
-> New API 网关 · GitHub 一键建号，签到开着，16 个模型与价格全公开
+> New API 网关 · 注册送 $15，本页邀请进入共 $22.5，GitHub 一键建号，16 个模型与价格全公开
 
 <a href="https://flushapi.fun/sign-up?aff=WBF3"><img src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E6%B3%A8%E5%86%8C-FlushAPI-brightgreen?style=for-the-badge" alt="注册 FlushAPI"></a>
 
 **为什么值得注册**
 
+- 注册送 $15，从本页邀请链接进入变 $22.5；此后每邀请一人再得 $7.5（站方公告口径 2026-09-24）
 - GitHub OAuth 一键建号：接口自报 github_oauth=true 且未开邮箱验证、未开 Turnstile，注册链路很短
 - 三条原生路由实测在线：带无效 Key 探 /v1/messages、/v1/chat/completions、/v1/responses，都由 New API 亲自回「Invalid token」——Claude Code、Codex 与 Chat 类客户端填个 Base URL 就能直连
 - 定价接口无需登录：16 个模型与倍率全公开，含 claude-opus-5 / 4-8、fable-5.1、gpt-6-astra、gpt-5.6-sol、glm-5.3(-flash)、DeepSeek-V4.1-Flash 等
-- 价格按 New API 标准口径折算公示：claude 系输入 $5 / 输出 $25（每 1M tokens），GLM-5.3 输入约 $0.27 / 输出约 $1，按量扣不是按次
-- 新用户自动进 default 组且 16 个模型全在该组可用；每日签到开关开着（数额未公示）
+- 价格最低 $0.03/1M tokens 起（DeepSeek-V4.1-Flash 输入侧）；claude 系输入 $5 / 输出 $25，按量扣不是按次
+- Super 余额独立：claude-opus-5 / 4.8 / 4.7、fable-5.x、gpt-6-astra / 5.6-sol 划在 Super 档，gpt-5.6-luna 不耗 Super 余额
 
 **能拿多少额度**
 
-- 免费范围：每日签到开启；注册 / 邀请 / 签到额度数额站点未公示
+- 注册即送：**$15**
+- 从本页邀请链接注册额外：**$7.5**
+- 首日合计：**$22.5**　（注册 $15 + 本页邀请 $7.5）
 
 **实时数据**（自动抓取站点公开接口）
 
@@ -1023,7 +1026,7 @@ curl -s https://api.cheapcodex.online/v1/chat/completions \
 
 **注册要求**
 
-- 务必从本页邀请链接进入注册（带 ?aff=WBF3），邀请关系在注册那一刻绑定，事后补不上；邀请奖励数额接口未公示，以站内到账为准
+- 务必从本页邀请链接进入注册（带 ?aff=WBF3）：裸注册只有 $15，走邀请链接是 $22.5，多出的 $7.5 在注册那一刻结算，事后补不上
 - 只能走 GitHub 授权建号：接口自报邮箱密码注册关着（password_register_enabled=false），密码登录只留给已有账号
 - 没有邮箱验证码环节（email_verification=false），也没开 Turnstile 人机校验
 
@@ -1090,13 +1093,14 @@ curl -s https://flushapi.fun/v1/chat/completions \
 
 **如何继续拿额度**
 
-- 每日签到领额度（checkin_enabled=true；数额未公示，登录后台点签到）
-- 邀请他人注册的奖励数额接口未公示，登录后台「邀请」页确认
+- 每邀请一位好友注册，邀请人再得 $7.5（站方公告口径，人数未见上限说明）
+- 每日签到开着（checkin_enabled=true），签到给多少公告与公开接口都没写，登录后台点签到看实际数额
 
 **⚠️ 使用前必读**
 
+- 额度数字（注册 $15 / 邀请 $7.5 / 邀请人 +$7.5）来自站方 2026-09-24 的公告截图，公开接口不公示这些字段、本页无法自动核对，进后台看实际到账再算账
 - 站点很新：接口自报的 start_time 折 2026-09-24 前后才上线，运营稳定性还没有经过时间检验，别替它做长期承诺
-- 注册送多少、邀请返多少、签到给多少——公开接口一个数字都没给，本页不登记美元赠额、不计入跨站合计；进后台看实际到账再算账
+- Super 档是独立余额（公告口径「separate balance」）：claude-opus / fable、gpt-6-astra 等旗舰模型走 Super 档，$15 / $22.5 是 default 余额的口径，开通前看清站内的分档说明
 - 页面是纯 SPA：robots.txt 返回的是前端壳而不是 robots 内容，本页只打 /api/status 与 /api/pricing 两个公开接口探测
 - 充值比例 price=7.3（¥7.3 ≈ $1）说明它不是纯免费站，免费额度用完后要付费才能续
 

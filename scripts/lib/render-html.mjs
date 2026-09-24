@@ -85,7 +85,7 @@ function siteCard(site, snap) {
         ${accessBlock(site, snap)}
         <div class="mt-auto"></div>
         <a class="btn ${shut ? 'btn-ghost' : 'btn-primary'}" href="${esc(site.signupUrl)}" target="_blank" rel="noopener">${
-          shut ? `打开 ${esc(site.name)}（已停注）→` : sub ? `查看 ${esc(site.name)} ${esc(sub.name)} · ${esc(sub.price)} →` : `免费注册 ${esc(site.name)} →`
+          shut ? `打开 ${esc(site.name)}（已停注）→` : sub ? `查看 ${esc(site.name)} ${esc(sub.label)} →` : `免费注册 ${esc(site.name)} →`
         }</a>
         <a class="btn btn-ghost" href="sites/${esc(site.id)}/">额度明细 / 接入配置 / 可用性 →</a>
         ${(site.mirrors ?? [])
@@ -219,7 +219,7 @@ export function renderHtml({ meta, sites: allSites, live, css, groups = [], hist
       ${
         // 一个还收人的站都没有时，首屏主按钮不能继续喊「立即免费注册」——点进去也注册不了
         first
-          ? `<a class="btn btn-primary" href="${esc(first.signupUrl)}" target="_blank" rel="noopener">${firstSub ? `查看 ${esc(first.name)} ${esc(firstSub.name)} · ${esc(firstSub.price)}` : `立即免费注册 ${esc(first.name)}`} →</a>`
+          ? `<a class="btn btn-primary" href="${esc(first.signupUrl)}" target="_blank" rel="noopener">${firstSub ? `查看 ${esc(first.name)} ${esc(firstSub.label)}` : `立即免费注册 ${esc(first.name)}`} →</a>`
           : `<a class="btn btn-primary" href="#sites">收录的站现在都停注了，看看各站状态 →</a>`
       }
       <a class="btn btn-ghost" href="compare/">哪个站最耐用？按次 vs 按量 →</a>

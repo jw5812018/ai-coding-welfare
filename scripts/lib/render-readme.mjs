@@ -45,7 +45,7 @@ function overviewTable(sites, liveById) {
     const state = l.online ? (route.state === 'closed' ? '🟡 停注' : '🟢 在线') : '🔴 异常';
     const first =
       sub
-        ? `${route.state === 'closed' ? `~~${sub.name} ${sub.price}~~` : `**${sub.name} ${sub.price}**`}${sub.listPrice ? `<br>标价 ${sub.listPrice}` : ''}`
+        ? `${route.state === 'closed' ? `~~${sub.label}~~` : `**${sub.label}**`}${sub.listPrice ? `<br>标价 ${sub.listPrice}` : ''}`
         : plan.firstDay != null
         ? route.state === 'closed'
           ? `~~${usd(plan.firstDay, plan.approx, plan.unit)}~~`
@@ -125,7 +125,7 @@ function creditFacts(site, snap) {
   const p = creditPlan(site, snap);
   const sub = subscriptionPlan(site);
   if (sub) return [
-    `- **${sub.name} 当前 ${sub.price}**${sub.listPrice ? `（官网标价 ${sub.listPrice}）` : ''}`,
+    `- **${sub.label}**${sub.listPrice ? `（官网标价 ${sub.listPrice}）` : ''}`,
     `- **${sub.window}**的请求量参考，不是整月总次数：`,
     '',
     '| 模型 | 官网估算请求量 |',
@@ -350,7 +350,7 @@ export function renderReadme({ meta, sites: allSites, live, groups = [], history
     overviewTable(sites, byId),
     ...sites.filter((s) => s.subscription).flatMap((s) => {
       const sub = subscriptionPlan(s);
-      return ['', `> **${s.name} ${sub.name}：${sub.price} 是月费，用量按${sub.window}估算，不是每月总次数。** ${sub.note} 付费套餐不计入下方免费额度合计。[官网定价](${sub.sourceUrl})（${sub.verifiedAt} 核对）。`];
+      return ['', `> **${s.name} ${sub.label}：用量按${sub.window}估算，不是每月总次数。** ${sub.note} 付费套餐不计入下方免费额度合计。[官网定价](${sub.sourceUrl})（${sub.verifiedAt} 核对）。`];
     }),
     '',
     `> 「首日可得」= 注册基础额度 + 本页邀请链接额度 + 当天能领的签到额度（每日重置额度池的站点按一天的池子算）；模型、价格、在线状态由脚本抓取站点公开接口自动生成，最后更新：\`${fmtDate(live?.generatedAt)}\`。`,

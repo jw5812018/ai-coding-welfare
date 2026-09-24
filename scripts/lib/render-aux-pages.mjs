@@ -65,7 +65,7 @@ function compareRows(sites, byId) {
     return `<tr${shut ? ' class="shut"' : ''}><td><a href="../sites/${esc(s.id)}/">${esc(s.name)}</a>${
       shut ? ' <span class="tag warn">停注</span>' : ''
     }</td><td>${esc(billing)}</td><td>${
-      sub ? `<b>${esc(sub.price)}</b>${sub.listPrice ? `<br>官网标价 ${esc(sub.listPrice)}` : ''}<br><small>${esc(p.note ?? '')}</small>` : p.firstDay != null ? `${shut ? '<s>' : ''}${esc(usd(p.firstDay, p.approx, p.unit))}${shut ? '</s>' : ''}` : esc(p.note ?? '—')
+      sub ? `<b>${esc(sub.label)}</b>${sub.listPrice ? `<br>官网标价 ${esc(sub.listPrice)}` : ''}<br><small>${esc(p.note ?? '')}</small>` : p.firstDay != null ? `${shut ? '<s>' : ''}${esc(usd(p.firstDay, p.approx, p.unit))}${shut ? '</s>' : ''}` : esc(p.note ?? '—')
     }</td><td>${per}</td><td>${turns}</td><td><code>${esc(est?.model ?? '—')}</code></td></tr>`;
   });
 }

@@ -7,6 +7,7 @@ export function subscriptionPlan(site) {
   return {
     ...s,
     price: `$${s.monthlyUsd}/月`,
+    label: `${s.name}套餐 $${s.monthlyUsd}/月`,
     listPrice: s.listMonthlyUsd != null ? `$${s.listMonthlyUsd}/月` : null,
     window: `每 ${s.windowHours} 小时`,
     estimates: s.estimates.map((e) => ({ ...e, amount: `≈${e.requests.toLocaleString('en-US')} 次` })),
@@ -19,7 +20,7 @@ export function renderSubscription(site) {
   const s = subscriptionPlan(site);
   if (!s) return '';
   return `<div class="subscription" role="group" aria-label="${esc(s.name)} 套餐价格与用量">
-    <p class="subscription-price"><b>${esc(s.name)} ${esc(s.price)}</b>${s.listPrice ? ` <span>官网标价 ${esc(s.listPrice)}</span>` : ''}</p>
+    <p class="subscription-price"><b>${esc(s.label)}</b>${s.listPrice ? ` <span>官网标价 ${esc(s.listPrice)}</span>` : ''}</p>
     <p class="subscription-window">${esc(s.window)} · 官网请求量估算</p>
     <dl class="kv">${s.estimates.map((e) => `<dt>${esc(e.model)}</dt><dd><b>${esc(e.amount)}</b></dd>`).join('')}</dl>
     <p class="subscription-note">${esc(s.note)}<br><a href="${esc(s.sourceUrl)}" target="_blank" rel="noopener">官网定价</a> · ${esc(s.verifiedAt)} 核对</p>

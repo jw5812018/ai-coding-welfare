@@ -202,7 +202,7 @@
     {
       "id": "mirasim",
       "name": "Mirasim",
-      "subtitle": "Go 当前 $1/月（官网标价 $18）· 每 5 小时官网估算：Kimi 约 130 次 / GLM 约 1,900 次 / DS 约 7,800 次",
+      "subtitle": "Go套餐 $1/月 · 每 5 小时官网估算：Kimi 约 130 次 / GLM 约 1,900 次 / DS 约 7,800 次",
       "recommended": false,
       "panel": "relay",
       "credits": {
@@ -215,7 +215,6 @@
       "subscription": {
         "name": "Go",
         "monthlyUsd": 1,
-        "listMonthlyUsd": 18,
         "windowHours": 5,
         "estimates": [
           { "model": "Kimi K3", "requests": 130 },
@@ -234,7 +233,7 @@
       "mirrors": [],
       "tags": ["$1/月", "Go 订阅", "多智能体", "邀请赠月", "Claude Code", "Codex"],
       "highlights": [
-        "$1 就能开通一个月 Go（官网标价 $18）：低成本体验云端模型，不需要先买高档套餐",
+        "Go套餐 $1/月：低成本体验云端模型，不需要先买高档套餐",
         "用量优势看 5 小时窗口：官网估算 Kimi K3 约 130 次、GLM 5.3 Flash 约 1,900 次、DS 4.1 Flash 约 7,800 次；同一份额度按不同模型折算，三项不能相加",
         "邀请活动：在应用内取得自己的邀请链接，邀请 3 位好友且三人都开通 Go 后，邀请者可获赠 1 个月 Go；公开规则未承诺被邀请人注册即送",
         "不订阅也能用工作台：自带账号 / Key 的接入能力免费，第三方订阅和 API 调用费用另算",

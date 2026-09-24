@@ -14,6 +14,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://panxunying.github.io/ai-coding-welfare/status/">
 <link rel="alternate" type="application/atom+xml" title="变动日志" href="https://panxunying.github.io/ai-coding-welfare/feed.xml">
+
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI Coding 福利站导航","item":"https://panxunying.github.io/ai-coding-welfare/"},{"@type":"ListItem","position":2,"name":"可用性","item":"https://panxunying.github.io/ai-coding-welfare/status/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"可用性是怎么测的？","acceptedAnswer":{"@type":"Answer","text":"CI 每 6 小时探一次各站的注册页与公开接口，结果压进仓库里的 data/history.json。目前已记录 155 个样本，覆盖约 33.8 天。"}},{"@type":"Question","name":"为什么有的站显示「探测被拦下」？","acceptedAnswer":{"@type":"Answer","text":"公益站前面普遍挂 Cloudflare，GitHub Actions 的机房 IP 容易吃到挑战页。这种情况不算掉线，状态沿用上一次成功探测的结果，并单独计入「被拦次数」——家宽访问通常不受影响。"}},{"@type":"Question","name":"显示异常的站还能用吗？","acceptedAnswer":{"@type":"Answer","text":"可能能。本页只代表自动探测视角：注册页与公开接口都没响应就标异常。真要用请自己开一下站点，或看该站详情页里的备用域名。"}},{"@type":"Question","name":"标了「停注」是什么意思？","acceptedAnswer":{"@type":"Answer","text":"站点自己的接口报 register_enabled=false，也就是不收新用户了；站点本身还在跑，老用户不受影响。重新开放会自动记进变动日志。"}}]}]</script>
 <style>
 /* AI Coding 福利站导航 — 落地页样式（手写，非生成物） */
@@ -174,6 +175,34 @@ footer a { color: var(--accent-2); }
 .navlink.active { color: var(--fg); background: rgba(124, 92, 255, 0.16); }
 .navspace { flex: 1 1 auto; }
 
+/* Native language links work without JavaScript and preserve the current service. */
+.languages { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 16px 0; }
+.languages a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 9px;
+  color: var(--fg-dim); text-decoration: none; font-size: 14px;
+}
+.languages a:hover, .languages a[aria-current="page"] { color: var(--fg); background: var(--bg-soft); }
+.languages a[aria-current="page"] { border-color: var(--accent-2); font-weight: 650; }
+.localized-nav .navrow { flex-wrap: nowrap; overflow-x: auto; }
+.localized-nav .navlink { flex-shrink: 0; }
+a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent-2); outline-offset: 4px;
+}
+.localized a:not(.btn):not(.navlink) { color: var(--accent-2); }
+.localized .card h3 { line-height: 1.5; }
+.localized .kv { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+.localized .notice { margin: 12px 0; }
+.localized .section-copy { color: var(--fg-dim); }
+@media (max-width: 480px) {
+  .localized .kv { grid-template-columns: minmax(0, 1fr); }
+  .localized .kv dd { margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+
 /* 面包屑：详情页比首页深两层，给个回头路 */
 .crumb { margin: 0 0 10px; font-size: 13px; color: var(--fg-dim); }
 .crumb a { color: var(--accent-2); text-decoration: none; }
@@ -230,6 +259,7 @@ tr.shut td { color: var(--fg-dim); }
 <body>
 <nav class="nav"><div class="wrap navrow"><a class="navlink" href="../">站点总览</a><a class="navlink" href="../compare/">按次 vs 按量</a><a class="navlink active" href="../status/">可用性</a><a class="navlink" href="../changelog/">变动日志</a><span class="navspace"></span><a class="navlink" href="../feed.xml">Atom 订阅</a></div></nav>
 <div class="wrap">
+<nav class="languages" aria-label="语言 / Language"><a href="../" lang="zh-CN" hreflang="zh-CN" aria-current="page">简体中文</a><a href="../en/" lang="en" hreflang="en">English</a><a href="../hi/" lang="hi" hreflang="hi">हिन्दी</a><a href="../pt-BR/" lang="pt-BR" hreflang="pt-BR">Português (Brasil)</a><a href="../ja/" lang="ja" hreflang="ja">日本語</a><a href="../de/" lang="de" hreflang="de">Deutsch</a></nav>
   <header class="hero">
     <p class="crumb"><a href="../">AI Coding 福利站导航</a> › 可用性</p>
     <h1>福利站可用性</h1>
@@ -298,7 +328,7 @@ tr.shut td { color: var(--fg-dim); }
       <td><a href="../sites/matrix/">Matrix</a></td>
       <td><span class="dot up"></span> 在线</td>
       <td><div class="bars" role="img" aria-label="最近 7 天可用性"><i class="bar ok" title="2026-09-18 4/4 次在线"></i><i class="bar ok" title="2026-09-19 4/4 次在线"></i><i class="bar ok" title="2026-09-20 4/4 次在线"></i><i class="bar ok" title="2026-09-21 3/3 次在线"></i><i class="bar ok" title="2026-09-22 4/4 次在线"></i><i class="bar part" title="2026-09-23 6/7 次在线"></i><i class="bar ok" title="2026-09-24 6/6 次在线"></i></div></td>
-      <td>97.2%</td>
+      <td>97.1%</td>
       <td>99.2%</td>
       <td>0</td>
       <td>2093 ms</td>
@@ -314,7 +344,7 @@ tr.shut td { color: var(--fg-dim); }
       <td><a href="../sites/cheapcodex/">CheapCodex</a></td>
       <td><span class="dot up"></span> 在线</td>
       <td><div class="bars" role="img" aria-label="最近 7 天可用性"><i class="bar ok" title="2026-09-18 4/4 次在线"></i><i class="bar ok" title="2026-09-19 4/4 次在线"></i><i class="bar ok" title="2026-09-20 4/4 次在线"></i><i class="bar ok" title="2026-09-21 3/3 次在线"></i><i class="bar part" title="2026-09-22 3/4 次在线"></i><i class="bar ok" title="2026-09-23 7/7 次在线"></i><i class="bar ok" title="2026-09-24 6/6 次在线"></i></div></td>
-      <td>97.2%</td>
+      <td>97.1%</td>
       <td>98.1%</td>
       <td>0</td>
       <td>2217 ms</td>
@@ -338,6 +368,7 @@ tr.shut td { color: var(--fg-dim); }
     <details><summary>标了「停注」是什么意思？</summary><p>站点自己的接口报 register_enabled=false，也就是不收新用户了；站点本身还在跑，老用户不受影响。重新开放会自动记进变动日志。</p></details>
   </section>
   <footer>
+
     <ul>
       <li>本页包含<strong>邀请链接</strong>，邀请奖励、领取条件与免费范围以各站活动规则为准，不保证注册即有奖励。</li>
       <li>本站只做信息聚合，与各站点无隶属关系，不代收费用、不承诺可用性；公益站可能随时改规则或关站。</li>

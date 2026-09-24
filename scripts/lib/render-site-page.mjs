@@ -237,6 +237,7 @@ ${COPY_JS}`;
     title,
     desc,
     canonical: url,
+    languagePath: `sites/${site.id}/`,
     jsonLd: [
       breadcrumb(meta, [
         { name: meta.title, url: meta.pagesUrl },

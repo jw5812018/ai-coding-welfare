@@ -1,5 +1,7 @@
 <h1 align="center">AI Coding 福利站导航</h1>
 
+**简体中文** · [English](README.en.md) · [हिन्दी](README.hi.md) · [Português (Brasil)](README.pt-BR.md) · [日本語](README.ja.md) · [Deutsch](README.de.md)
+
 <p align="center">免费额度 · 白嫖 Claude Code / Codex / Cursor 的中转与公益站合集</p>
 
 <p align="center">

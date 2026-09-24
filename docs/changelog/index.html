@@ -14,6 +14,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://panxunying.github.io/ai-coding-welfare/changelog/">
 <link rel="alternate" type="application/atom+xml" title="变动日志" href="https://panxunying.github.io/ai-coding-welfare/feed.xml">
+
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI Coding 福利站导航","item":"https://panxunying.github.io/ai-coding-welfare/"},{"@type":"ListItem","position":2,"name":"变动日志","item":"https://panxunying.github.io/ai-coding-welfare/changelog/"}]}</script>
 <style>
 /* AI Coding 福利站导航 — 落地页样式（手写，非生成物） */
@@ -174,6 +175,34 @@ footer a { color: var(--accent-2); }
 .navlink.active { color: var(--fg); background: rgba(124, 92, 255, 0.16); }
 .navspace { flex: 1 1 auto; }
 
+/* Native language links work without JavaScript and preserve the current service. */
+.languages { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 16px 0; }
+.languages a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 9px;
+  color: var(--fg-dim); text-decoration: none; font-size: 14px;
+}
+.languages a:hover, .languages a[aria-current="page"] { color: var(--fg); background: var(--bg-soft); }
+.languages a[aria-current="page"] { border-color: var(--accent-2); font-weight: 650; }
+.localized-nav .navrow { flex-wrap: nowrap; overflow-x: auto; }
+.localized-nav .navlink { flex-shrink: 0; }
+a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent-2); outline-offset: 4px;
+}
+.localized a:not(.btn):not(.navlink) { color: var(--accent-2); }
+.localized .card h3 { line-height: 1.5; }
+.localized .kv { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+.localized .notice { margin: 12px 0; }
+.localized .section-copy { color: var(--fg-dim); }
+@media (max-width: 480px) {
+  .localized .kv { grid-template-columns: minmax(0, 1fr); }
+  .localized .kv dd { margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+
 /* 面包屑：详情页比首页深两层，给个回头路 */
 .crumb { margin: 0 0 10px; font-size: 13px; color: var(--fg-dim); }
 .crumb a { color: var(--accent-2); text-decoration: none; }
@@ -230,6 +259,7 @@ tr.shut td { color: var(--fg-dim); }
 <body>
 <nav class="nav"><div class="wrap navrow"><a class="navlink" href="../">站点总览</a><a class="navlink" href="../compare/">按次 vs 按量</a><a class="navlink" href="../status/">可用性</a><a class="navlink active" href="../changelog/">变动日志</a><span class="navspace"></span><a class="navlink" href="../feed.xml">Atom 订阅</a></div></nav>
 <div class="wrap">
+<nav class="languages" aria-label="语言 / Language"><a href="../" lang="zh-CN" hreflang="zh-CN" aria-current="page">简体中文</a><a href="../en/" lang="en" hreflang="en">English</a><a href="../hi/" lang="hi" hreflang="hi">हिन्दी</a><a href="../pt-BR/" lang="pt-BR" hreflang="pt-BR">Português (Brasil)</a><a href="../ja/" lang="ja" hreflang="ja">日本語</a><a href="../de/" lang="de" hreflang="de">Deutsch</a></nav>
   <header class="hero">
     <p class="crumb"><a href="../">AI Coding 福利站导航</a> › 变动日志</p>
     <h1>变动日志</h1>
@@ -327,6 +357,7 @@ tr.shut td { color: var(--fg-dim); }
       <ul class="events"><li><span class="ev-ico">🟢</span><span>RawChat 公益站 恢复在线</span></li><li><span class="ev-ico">🔴</span><span>RawChat 公益站 探测不到了：注册页与公开接口都没响应</span></li><li><span class="ev-ico">🆕</span><span>新收录 RawChat 公益站：每日额度池 $50</span></li><li><span class="ev-ico">🟢</span><span>AgentRouter 恢复在线</span> <a class="ev-site" href="../sites/agentrouter/">详情</a></li><li><span class="ev-ico">📢</span><span>AgentRouter 发了公告：📢 备用域名正式上线 为进一步提升服务可用性，本站现已推出备用域名：🔗 https://ps.air-outer.com 访问不了原域名的中国大陆用户可使用此域名，备用域名支持 API 接口调用 与 官网访问，与原域名功能完全一致。 原域名 https://agentrout</span> <a class="ev-site" href="../sites/agentrouter/">详情</a></li><li><span class="ev-ico">📢</span><span>AgentRouter 发了公告：🎁 官方社区平台汇总 欢迎加入或关注以下官方渠道，获取最新动态与支持： 📱 QQ 群 · 1群：1054950616 · 2群：1091388133 · 3群：700583832 💬 Discord https://discord.gg/SXEhNMXsn 🐦 X（Twi</span> <a class="ev-site" href="../sites/agentrouter/">详情</a></li><li><span class="ev-ico">📢</span><span>AgentRouter 发了公告：📢 不当使用行为封禁说明 为维护服务公平，平台禁止以下不当行为： · 批量注册/获取额度 · 自动化刷量套利 · 转售、共享账号及额度 · 虚假邀请欺诈 · 恶意绕过限制、干扰服务 违规账号将封禁，名单见 Discord 🚫blocked-history 频道。 申诉请联系：</span> <a class="ev-site" href="../sites/agentrouter/">详情</a></li><li><span class="ev-ico">📢</span><span>AgentRouter 发了公告：因受到恶意举报影响，近期服务稳定性遇到巨大挑战，导致Claude系列模型大规模停用。 为保障后续提升服务质量、及时同步信息，我们已启用新的官方 Discord，并在新的官方X更新动态。 为避免走失，请大家有序移步： 新的 Discord： 👉 https://discord.g</span> <a class="ev-site" href="../sites/agentrouter/">详情</a></li><li><span class="ev-ico">📢</span><span>AgentRouter 发了公告：English Announcement see in &lt;b style=&quot;color: blue;text-decoration: underline;&quot;&gt;[Discord](https://discord.gg/V6kaP6Rg44)&lt;b&gt;</span> <a class="ev-site" href="../sites/agentrouter/">详情</a></li><li><span class="ev-ico">🔴</span><span>AgentRouter 探测不到了：注册页与公开接口都没响应</span> <a class="ev-site" href="../sites/agentrouter/">详情</a></li><li><span class="ev-ico">🆕</span><span>新收录 AgentRouter：注册送 $100，邀请再加 $50，每日签到 $25</span> <a class="ev-site" href="../sites/agentrouter/">详情</a></li><li><span class="ev-ico">🆕</span><span>新收录 JustDoWork：注册送 $70，每日签到 $22</span> <a class="ev-site" href="../sites/justdowork/">详情</a></li></ul>
     </section>
   <footer>
+
     <ul>
       <li>本页包含<strong>邀请链接</strong>，邀请奖励、领取条件与免费范围以各站活动规则为准，不保证注册即有奖励。</li>
       <li>本站只做信息聚合，与各站点无隶属关系，不代收费用、不承诺可用性；公益站可能随时改规则或关站。</li>

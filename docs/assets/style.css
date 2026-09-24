@@ -156,6 +156,34 @@ footer a { color: var(--accent-2); }
 .navlink.active { color: var(--fg); background: rgba(124, 92, 255, 0.16); }
 .navspace { flex: 1 1 auto; }
 
+/* Native language links work without JavaScript and preserve the current service. */
+.languages { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 16px 0; }
+.languages a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 9px;
+  color: var(--fg-dim); text-decoration: none; font-size: 14px;
+}
+.languages a:hover, .languages a[aria-current="page"] { color: var(--fg); background: var(--bg-soft); }
+.languages a[aria-current="page"] { border-color: var(--accent-2); font-weight: 650; }
+.localized-nav .navrow { flex-wrap: nowrap; overflow-x: auto; }
+.localized-nav .navlink { flex-shrink: 0; }
+a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent-2); outline-offset: 4px;
+}
+.localized a:not(.btn):not(.navlink) { color: var(--accent-2); }
+.localized .card h3 { line-height: 1.5; }
+.localized .kv { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+.localized .notice { margin: 12px 0; }
+.localized .section-copy { color: var(--fg-dim); }
+@media (max-width: 480px) {
+  .localized .kv { grid-template-columns: minmax(0, 1fr); }
+  .localized .kv dd { margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+
 /* 面包屑：详情页比首页深两层，给个回头路 */
 .crumb { margin: 0 0 10px; font-size: 13px; color: var(--fg-dim); }
 .crumb a { color: var(--accent-2); text-decoration: none; }

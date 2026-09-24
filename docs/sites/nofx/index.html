@@ -14,6 +14,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://panxunying.github.io/ai-coding-welfare/sites/nofx/">
 <link rel="alternate" type="application/atom+xml" title="变动日志" href="https://panxunying.github.io/ai-coding-welfare/feed.xml">
+<link rel="alternate" hreflang="zh-CN" href="https://panxunying.github.io/ai-coding-welfare/sites/nofx/">
+<link rel="alternate" hreflang="en" href="https://panxunying.github.io/ai-coding-welfare/en/sites/nofx/">
+<link rel="alternate" hreflang="hi" href="https://panxunying.github.io/ai-coding-welfare/hi/sites/nofx/">
+<link rel="alternate" hreflang="pt-BR" href="https://panxunying.github.io/ai-coding-welfare/pt-BR/sites/nofx/">
+<link rel="alternate" hreflang="ja" href="https://panxunying.github.io/ai-coding-welfare/ja/sites/nofx/">
+<link rel="alternate" hreflang="de" href="https://panxunying.github.io/ai-coding-welfare/de/sites/nofx/">
+<link rel="alternate" hreflang="x-default" href="https://panxunying.github.io/ai-coding-welfare/sites/nofx/">
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI Coding 福利站导航","item":"https://panxunying.github.io/ai-coding-welfare/"},{"@type":"ListItem","position":2,"name":"NOFX","item":"https://panxunying.github.io/ai-coding-welfare/sites/nofx/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"NOFX 注册完为什么看不到额度？","acceptedAnswer":{"@type":"Answer","text":"公益站额度多在登录时结算，退出登录再重新登录一次通常就到账；余额短暂显示 $0 属于前端展示问题，稍后刷新即可。"}},{"@type":"Question","name":"NOFX 的 Claude Code 报 401 怎么办？","acceptedAnswer":{"@type":"Answer","text":"Anthropic 协议的 Base URL 不要带 /v1；再确认 Key 复制完整、模型名在站内可用清单里、客户端属于该站支持的类型。"}},{"@type":"Question","name":"从别的链接注册 NOFX 有区别吗？","acceptedAnswer":{"@type":"Answer","text":"有。邀请额度 10 积分 是在注册那一刻结算的，走裸链拿不到，事后也补不上。"}}]}]</script>
 <style>
 /* AI Coding 福利站导航 — 落地页样式（手写，非生成物） */
@@ -174,6 +181,34 @@ footer a { color: var(--accent-2); }
 .navlink.active { color: var(--fg); background: rgba(124, 92, 255, 0.16); }
 .navspace { flex: 1 1 auto; }
 
+/* Native language links work without JavaScript and preserve the current service. */
+.languages { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 16px 0; }
+.languages a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 9px;
+  color: var(--fg-dim); text-decoration: none; font-size: 14px;
+}
+.languages a:hover, .languages a[aria-current="page"] { color: var(--fg); background: var(--bg-soft); }
+.languages a[aria-current="page"] { border-color: var(--accent-2); font-weight: 650; }
+.localized-nav .navrow { flex-wrap: nowrap; overflow-x: auto; }
+.localized-nav .navlink { flex-shrink: 0; }
+a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent-2); outline-offset: 4px;
+}
+.localized a:not(.btn):not(.navlink) { color: var(--accent-2); }
+.localized .card h3 { line-height: 1.5; }
+.localized .kv { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+.localized .notice { margin: 12px 0; }
+.localized .section-copy { color: var(--fg-dim); }
+@media (max-width: 480px) {
+  .localized .kv { grid-template-columns: minmax(0, 1fr); }
+  .localized .kv dd { margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+
 /* 面包屑：详情页比首页深两层，给个回头路 */
 .crumb { margin: 0 0 10px; font-size: 13px; color: var(--fg-dim); }
 .crumb a { color: var(--accent-2); text-decoration: none; }
@@ -230,6 +265,7 @@ tr.shut td { color: var(--fg-dim); }
 <body>
 <nav class="nav"><div class="wrap navrow"><a class="navlink active" href="../../">站点总览</a><a class="navlink" href="../../compare/">按次 vs 按量</a><a class="navlink" href="../../status/">可用性</a><a class="navlink" href="../../changelog/">变动日志</a><span class="navspace"></span><a class="navlink" href="../../feed.xml">Atom 订阅</a></div></nav>
 <div class="wrap">
+<nav class="languages" aria-label="语言 / Language"><a href="../../sites/nofx/" lang="zh-CN" hreflang="zh-CN" aria-current="page">简体中文</a><a href="../../en/sites/nofx/" lang="en" hreflang="en">English</a><a href="../../hi/sites/nofx/" lang="hi" hreflang="hi">हिन्दी</a><a href="../../pt-BR/sites/nofx/" lang="pt-BR" hreflang="pt-BR">Português (Brasil)</a><a href="../../ja/sites/nofx/" lang="ja" hreflang="ja">日本語</a><a href="../../de/sites/nofx/" lang="de" hreflang="de">Deutsch</a></nav>
   <header class="hero">
     <p class="crumb"><a href="../../">AI Coding 福利站导航</a> › NOFX</p>
     <h1>NOFX</h1>
@@ -264,7 +300,7 @@ tr.shut td { color: var(--fg-dim); }
 <p><a class="btn btn-ghost" href="https://nofx.one/zh-CN/tasks" target="_blank" rel="noopener">打开控制台</a></p></section>
   <section><h2>如何继续拿额度</h2><ul class="hl"><li>每日签到 +$5 积分（Discord 里输入 /checkin，每日刷新）</li><li>加入 Discord 并用 /verify 验证 +$5 积分（一次性，验证码领取后 30 分钟内有效）</li><li>邀请好友注册，邀请者每人 +$5 积分，不限每日人数</li><li>在 X 发一条带邀请码的推文、上传截图过审 +$20 积分（一次性）</li><li>体验合作 APP 的任务另有积分，由合作方 HMAC 回调自动确认</li></ul></section>
   <section><h2>⚠️ 使用前必读</h2><ul class="hl"><li>额度是站内积分，站方没有公开积分与美元的换算，本页按积分原样显示，不折算美元、也不并入跨站的美元合计——站点界面写的「$5 积分」是它自己的单位，别当成 5 美元</li><li>积分有 30 天有效期：从首次奖励入账起算，期间有真实 API 消耗会重新计算 30 天，到期前 7 天 / 1 天有站内和邮件提醒。领了不用会过期，这点和本页其它站不一样</li><li>每日签到「剩余积分超过 $50 时暂停」，攒不到很高，是设计成让你边领边用的</li><li>落地页的 CTA 写「注册领取 $20 积分」，而本页登记的邀请注册是 10 积分——两个口径站点没在公开页面上对齐，进后台看实际到账数</li><li>「分享到 X」那 $20 要发带自己邀请码的推文并上传截图过审，本质是替站点做推广，要不要做自己判断</li><li>站点公开面读不到任何机器可读的状态：robots.txt 禁掉了 /api/ 与控制台各页，本页只探 sitemap.xml 判断站点还活着，所以「实时数据」一栏只有延迟</li></ul></section>
-  <section><h2>最近 7 天可用性</h2><p class="hint">最近 7 天自动探测 36 次，在线 36 次（<b>100%</b>）。</p>
+  <section><h2>最近 7 天可用性</h2><p class="hint">最近 7 天自动探测 35 次，在线 35 次（<b>100%</b>）。</p>
     <p><a class="navlink" href="../../status/">看全部站点的可用性 →</a></p></section>
 
 
@@ -290,6 +326,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
 });
 </script>
   <footer>
+
     <ul>
       <li>本页包含<strong>邀请链接</strong>，邀请奖励、领取条件与免费范围以各站活动规则为准，不保证注册即有奖励。</li>
       <li>本站只做信息聚合，与各站点无隶属关系，不代收费用、不承诺可用性；公益站可能随时改规则或关站。</li>

@@ -14,6 +14,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://panxunying.github.io/ai-coding-welfare/">
 <link rel="alternate" type="application/atom+xml" title="变动日志" href="https://panxunying.github.io/ai-coding-welfare/feed.xml">
+<link rel="alternate" hreflang="zh-CN" href="https://panxunying.github.io/ai-coding-welfare/">
+<link rel="alternate" hreflang="en" href="https://panxunying.github.io/ai-coding-welfare/en/">
+<link rel="alternate" hreflang="hi" href="https://panxunying.github.io/ai-coding-welfare/hi/">
+<link rel="alternate" hreflang="pt-BR" href="https://panxunying.github.io/ai-coding-welfare/pt-BR/">
+<link rel="alternate" hreflang="ja" href="https://panxunying.github.io/ai-coding-welfare/ja/">
+<link rel="alternate" hreflang="de" href="https://panxunying.github.io/ai-coding-welfare/de/">
+<link rel="alternate" hreflang="x-default" href="https://panxunying.github.io/ai-coding-welfare/">
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"ItemList","name":"AI Coding 福利站导航","numberOfItems":10,"itemListElement":[{"@type":"ListItem","position":1,"name":"AgentRouter","description":"AI Coding 公益站 · 注册即送额度，签到每日续命","url":"https://panxunying.github.io/ai-coding-welfare/sites/agentrouter/"},{"@type":"ListItem","position":2,"name":"DoCode","description":"New API 中转站 · 注册送 50 站内刀，注册时填邀请码 zMRe 再加 250，首日 300 刀，Claude 与 GPT 都在架上","url":"https://panxunying.github.io/ai-coding-welfare/sites/docode/"},{"@type":"ListItem","position":3,"name":"JustDoWork","description":"New API 中转站 · GitHub 一键登录，支持签到与绘图","url":"https://panxunying.github.io/ai-coding-welfare/sites/justdowork/"},{"@type":"ListItem","position":4,"name":"Mirasim","description":"Go套餐 $1/月 · 每 5 小时官网估算：Kimi 约 130 次 / GLM 约 1,900 次 / DS 约 7,800 次","url":"https://panxunying.github.io/ai-coding-welfare/sites/mirasim/"},{"@type":"ListItem","position":5,"name":"FlushAPI","description":"New API 网关 · 注册送 $15，本页邀请进入共 $22.5，GitHub 一键建号，16 个模型与价格全公开","url":"https://panxunying.github.io/ai-coding-welfare/sites/flushapi/"},{"@type":"ListItem","position":6,"name":"KKtoken AI","description":"New API 中转站 · 注册送 $75，本页邀请码再加 $25，按 token 计费输入输出各 $1/M","url":"https://panxunying.github.io/ai-coding-welfare/sites/kktoken/"},{"@type":"ListItem","position":7,"name":"Matrix","description":"统一 API 网关 + 开源应用商店 · 邀请注册送 600 积分，实名再送 2000","url":"https://panxunying.github.io/ai-coding-welfare/sites/matrix/"},{"@type":"ListItem","position":8,"name":"AnyRouter","description":"New API 中转站 · 注册送 $75，本页邀请码再加 $50，Anthropic 与 OpenAI 两条原生路由都开着","url":"https://panxunying.github.io/ai-coding-welfare/sites/anyrouter/"},{"@type":"ListItem","position":9,"name":"CheapCodex","description":"自研 AI 网关 · 本页邀请码送 $20，每日签到再 $20，OpenAI / Anthropic / Codex 三条协议一把 Key","url":"https://panxunying.github.io/ai-coding-welfare/sites/cheapcodex/"},{"@type":"ListItem","position":10,"name":"NOFX","description":"任务制积分站 · 做任务领 API 积分，签到 / Discord / 邀请 / 发推都给分，免密码登录、无需绑卡","url":"https://panxunying.github.io/ai-coding-welfare/sites/nofx/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"注册完看不到额度？","acceptedAnswer":{"@type":"Answer","text":"公益站额度多在登录时结算，退出后重新登录一次通常就到账；余额短暂显示 $0 属于展示问题，稍后刷新即可。"}},{"@type":"Question","name":"Claude Code 报 401？","acceptedAnswer":{"@type":"Answer","text":"Anthropic 协议的 Base URL 不要带 /v1；再确认 Key 完整、模型名在站内可用清单里、客户端属于该站支持的类型。"}},{"@type":"Question","name":"返回 400 content blocked？","acceptedAnswer":{"@type":"Answer","text":"部分站点只放行中 / 英 / 法 / 德 / 俄，提示词混入其它语言会被上游拦截。"}},{"@type":"Question","name":"会不会顶掉我的 Claude 订阅登录？","acceptedAnswer":{"@type":"Answer","text":"会。环境变量优先级更高，想切回订阅登录就 unset ANTHROPIC_BASE_URL / ANTHROPIC_AUTH_TOKEN / ANTHROPIC_MODEL 后重开终端。"}}]}]</script>
 <style>
 /* AI Coding 福利站导航 — 落地页样式（手写，非生成物） */
@@ -174,6 +181,34 @@ footer a { color: var(--accent-2); }
 .navlink.active { color: var(--fg); background: rgba(124, 92, 255, 0.16); }
 .navspace { flex: 1 1 auto; }
 
+/* Native language links work without JavaScript and preserve the current service. */
+.languages { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 16px 0; }
+.languages a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 9px;
+  color: var(--fg-dim); text-decoration: none; font-size: 14px;
+}
+.languages a:hover, .languages a[aria-current="page"] { color: var(--fg); background: var(--bg-soft); }
+.languages a[aria-current="page"] { border-color: var(--accent-2); font-weight: 650; }
+.localized-nav .navrow { flex-wrap: nowrap; overflow-x: auto; }
+.localized-nav .navlink { flex-shrink: 0; }
+a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent-2); outline-offset: 4px;
+}
+.localized a:not(.btn):not(.navlink) { color: var(--accent-2); }
+.localized .card h3 { line-height: 1.5; }
+.localized .kv { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+.localized .notice { margin: 12px 0; }
+.localized .section-copy { color: var(--fg-dim); }
+@media (max-width: 480px) {
+  .localized .kv { grid-template-columns: minmax(0, 1fr); }
+  .localized .kv dd { margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+
 /* 面包屑：详情页比首页深两层，给个回头路 */
 .crumb { margin: 0 0 10px; font-size: 13px; color: var(--fg-dim); }
 .crumb a { color: var(--accent-2); text-decoration: none; }
@@ -230,6 +265,7 @@ tr.shut td { color: var(--fg-dim); }
 <body>
 <nav class="nav"><div class="wrap navrow"><a class="navlink active" href="">站点总览</a><a class="navlink" href="compare/">按次 vs 按量</a><a class="navlink" href="status/">可用性</a><a class="navlink" href="changelog/">变动日志</a><span class="navspace"></span><a class="navlink" href="feed.xml">Atom 订阅</a></div></nav>
 <div class="wrap">
+<nav class="languages" aria-label="语言 / Language"><a href="" lang="zh-CN" hreflang="zh-CN" aria-current="page">简体中文</a><a href="en/" lang="en" hreflang="en">English</a><a href="hi/" lang="hi" hreflang="hi">हिन्दी</a><a href="pt-BR/" lang="pt-BR" hreflang="pt-BR">Português (Brasil)</a><a href="ja/" lang="ja" hreflang="ja">日本語</a><a href="de/" lang="de" hreflang="de">Deutsch</a></nav>
   <header class="hero">
     <p class="announce">
       <span>📣 <b>欢迎投稿</b>：Issue 区就是你的免费推广位，邀请链接可以直接贴，特别优质的会收录进本站</span>
@@ -482,6 +518,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
 });
 </script>
   <footer>
+
     <ul>
       <li>本页包含<strong>邀请链接</strong>，邀请奖励、领取条件与免费范围以各站活动规则为准，不保证注册即有奖励。</li>
       <li>本站只做信息聚合，与各站点无隶属关系，不代收费用、不承诺可用性；公益站可能随时改规则或关站。</li>

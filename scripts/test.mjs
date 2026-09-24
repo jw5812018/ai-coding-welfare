@@ -20,6 +20,8 @@ import { signupRoute, acceptsNew, signupProbeUrl } from './lib/signup.mjs';
 import { isArchived, activeSites, archivedSites, archivedAt, archivedReason } from './lib/archived.mjs';
 import { telegramText } from './lib/telegram.mjs';
 import { subscriptionPlan, renderSubscription } from './lib/subscription.mjs';
+import { LANGUAGES, TRANSLATED_LANGUAGES, language, languageNav } from './lib/locales.mjs';
+import { validateCatalog, interpolate, renderLocalizedReadme, renderLocalizedHome, renderLocalizedSite } from './lib/render-localized.mjs';
 
 let passed = 0;
 function test(name, fn) {
@@ -1355,5 +1357,121 @@ test('超过 12 条折成「另有 N 项」，6 小时一次不该把频道刷�
   assert.match(t, /另有 3 项/);
   assert.equal((t.match(/^🟢 e\d+$/gm) ?? []).length, 12);
 });
+
+console.log('多语言：共享数据、完整翻译、等价页面链接与归档安全');
+const TRANSLATIONS = await Promise.all(TRANSLATED_LANGUAGES.map(async (l) =>
+  JSON.parse(await readFile(new URL(`../data/locales/${l.id}.json`, import.meta.url), 'utf8')),
+));
+const ENGLISH = TRANSLATIONS.find((c) => c.locale === 'en');
+const I18N_LIVE = { generatedAt: '2026-09-24T04:00:00Z', sites: activeSites(CATALOG).map((s) => ({
+  id: s.id, online: true, registerOpen: true, checkinEnabled: true, checkedAt: '2026-09-24T04:00:00Z',
+})) };
+
+test('保留中文并新增五种语种，不把国别推断当成官方语种榜', () => {
+  assert.deepEqual(LANGUAGES.map((l) => l.id), ['zh-CN', 'en', 'hi', 'pt-BR', 'ja', 'de']);
+  assert.match(ENGLISH.ui.selectionNote, /does not publish an official ranking/);
+  assert.match(ENGLISH.ui.selectionNote, /India is multilingual/);
+  assert.throws(() => language('xx'), /Unsupported locale/);
+});
+test('缺翻译、少占位符和新增站没翻译时失败，不静默回退', () => {
+  const missing = structuredClone(ENGLISH);
+  delete missing.ui.closed;
+  assert.throws(() => validateCatalog(missing, ENGLISH, CATALOG), /missing\/extra keys/);
+  const variable = structuredClone(ENGLISH);
+  variable.ui.total = 'Total';
+  assert.throws(() => validateCatalog(variable, ENGLISH, CATALOG), /invalid translation ui.total/);
+  assert.throws(() => validateCatalog(ENGLISH, ENGLISH, [{ id: 'untranslated' }]), /missing site translation/);
+  assert.throws(() => interpolate('{missing}'), /Missing translation variable/);
+});
+test('语言切换是原生链接，当前语言及目标页明确', () => {
+  const nav = languageNav({ locale: 'de', base: '../../../', path: 'sites/flushapi/' });
+  assert.equal((nav.match(/<a /g) ?? []).length, 6);
+  assert.equal((nav.match(/aria-current="page"/g) ?? []).length, 1);
+  for (const l of LANGUAGES) assert.ok(nav.includes(`href="../../../${l.path}sites/flushapi/"`));
+});
+
+for (const catalog of TRANSLATIONS) {
+  const locale = language(catalog.locale);
+  const args = { meta: META, sites: CATALOG, live: I18N_LIVE, css: '', catalog };
+  const homepage = renderLocalizedHome(args);
+  const readme = renderLocalizedReadme(args);
+  test(`${locale.id}：翻译完整，语言元数据和首页 canonical 独立`, () => {
+    validateCatalog(catalog, ENGLISH, CATALOG);
+    assert.ok(homepage.includes(`<html lang="${locale.id}">`));
+    assert.ok(homepage.includes(`rel="canonical" href="${META.pagesUrl}${locale.path}"`));
+    assert.equal((homepage.match(/<link rel="alternate" hreflang=/g) ?? []).length, 7);
+    assert.ok(!/\{(?:providers|count|amount|inviteCode|hours|at)\}/.test(readme + homepage));
+    assert.ok(readme.includes('README.md') && readme.includes('> [!TIP]'));
+    assert.ok(homepage.indexOf(catalog.ui.submitTitle) < homepage.indexOf(`<h1>`));
+    assert.ok(homepage.includes('/issues/new/choose') && homepage.includes(`${META.repoUrl}/issues"`));
+  });
+  test(`${locale.id}：顺序、邀请链接和免费额度总计共用源数据`, () => {
+    const ld = JSON.parse(homepage.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+    assert.equal(ld.itemListElement[4].name, 'FlushAPI');
+    assert.equal(ld.numberOfItems, activeSites(CATALOG).length);
+    assert.ok(readme.includes('$599.5') && homepage.includes('$599.5'));
+    for (const s of activeSites(CATALOG)) {
+      assert.ok(readme.includes(s.signupUrl));
+      assert.ok(homepage.includes(`href="${s.signupUrl.replace(/&/g, '&amp;')}"`));
+    }
+    assert.ok(!readme.includes('$600') && !readme.includes('$300'));
+    assert.ok(readme.includes(catalog.ui.points) && readme.includes(catalog.ui.siteUnits));
+  });
+  test(`${locale.id}：停注划掉额度并移出合计，OAuth-only 不误判`, () => {
+    const live = structuredClone(I18N_LIVE);
+    live.sites.find((s) => s.id === 'agentrouter').registerOpen = false;
+    const html = renderLocalizedHome({ ...args, live });
+    assert.ok(html.includes('$424.5') && !html.includes('$599.5'));
+    assert.ok(html.includes('<b class="struck">$175</b>'));
+    const md = renderLocalizedReadme({ ...args, live });
+    assert.ok(md.includes('~~$175~~'));
+    const oauth = renderLocalizedSite({ ...args, site: FLUSHAPI, snap: {
+      online: true, registerOpen: true, passwordRegister: false, loginMethods: ['GitHub'], checkinEnabled: true,
+    } });
+    assert.ok(oauth.includes(interpolate(catalog.ui.oauth, { providers: 'GitHub' })));
+    assert.ok(oauth.includes(catalog.ui.checkinUnknown) && !oauth.includes('class="struck"'));
+  });
+  test(`${locale.id}：订阅窗口与模型数量动态生成，变化不用改五份译文`, () => {
+    const edited = structuredClone(MIRASIM);
+    edited.subscription.monthlyUsd = 2;
+    edited.subscription.windowHours = 7;
+    edited.subscription.estimates[0].requests = 131;
+    const html = renderLocalizedSite({ ...args, site: edited });
+    assert.ok(html.includes(interpolate(catalog.ui.perMonth, { amount: '$2' })));
+    assert.ok(html.includes(interpolate(catalog.ui.window, { hours: 7 })));
+    assert.ok(html.includes(interpolate(catalog.ui.requests, { count: '131' })));
+    assert.ok(html.includes(catalog.ui.planNote));
+    const changed = { ...FLUSHAPI, credits: { ...FLUSHAPI.credits, signup: 16 } };
+    assert.ok(renderLocalizedSite({ ...args, site: changed }).includes('$23.5'));
+  });
+  test(`${locale.id}：旧语言详情覆盖为 noindex，不保留归档站邀请和配置`, () => {
+    const archived = { ...FLUSHAPI, archived: { at: '2026-09-24', reason: 'test' } };
+    const html = renderLocalizedSite({ ...args, site: archived });
+    assert.match(html, /name="robots" content="noindex,follow"/);
+    assert.ok(!html.includes(archived.signupUrl));
+    assert.ok(!html.includes('$22.5'));
+    assert.ok(!html.includes('https://flushapi.fun/v1'));
+    const archivedAll = CATALOG.map((s) => ({ ...s, archived: { at: '2026-09-24', reason: 'test' } }));
+    assert.doesNotThrow(() => renderLocalizedHome({ ...args, sites: archivedAll }));
+  });
+  test(`${locale.id}：快照过时与 WAF 明示，按次单价不冒充 token 单价`, () => {
+    const snap = { ...I18N_LIVE.sites[0], dataStale: true, probeBlocked: true, staleFrom: '2026-09-20T00:00:00Z',
+      models: [{ name: 'test-model', fixedPrice: 0.8, inputPerMTok: 999, outputPerMTok: 999, protocols: ['Anthropic'] }] };
+    const html = renderLocalizedSite({ ...args, site: FLUSHAPI, snap });
+    assert.ok(html.includes(catalog.ui.blocked));
+    assert.ok(html.includes('2026-09-20 00:00 UTC'));
+    assert.ok(html.includes('$0.8') && !html.includes('$999'));
+    assert.ok(html.includes(`rel="canonical" href="${META.pagesUrl}${locale.path}sites/flushapi/"`));
+    assert.ok(html.includes('href="../../../sites/flushapi/"'));
+  });
+  test(`${locale.id}：翻译与模型内容不能注入 HTML 或提前闭合 JSON-LD`, () => {
+    const hostile = structuredClone(catalog);
+    hostile.sites.flushapi.summary = '<img src=x onerror=alert(1)> </script>';
+    const html = renderLocalizedHome({ ...args, catalog: hostile });
+    assert.ok(!html.includes('<img src=x'));
+    assert.ok(html.includes('&lt;img'));
+    assert.doesNotThrow(() => JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]));
+  });
+}
 
 console.log(`\n${process.exitCode ? '✘ 有用例失败' : `✔ 全部通过（${passed} 项）`}`);

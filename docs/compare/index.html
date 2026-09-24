@@ -14,6 +14,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://panxunying.github.io/ai-coding-welfare/compare/">
 <link rel="alternate" type="application/atom+xml" title="变动日志" href="https://panxunying.github.io/ai-coding-welfare/feed.xml">
+
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI Coding 福利站导航","item":"https://panxunying.github.io/ai-coding-welfare/"},{"@type":"ListItem","position":2,"name":"按次 vs 按量","item":"https://panxunying.github.io/ai-coding-welfare/compare/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"为什么送的美元一样多，能用的次数差这么远？","acceptedAnswer":{"@type":"Answer","text":"按次计费的站一次请求固定扣钱（$0.2~0.8），和 tokens 用量无关；按量计费的站按 tokens 扣。同样 $100，按次站可能只够一两百次对话，按量站在轻负载下能跑更多次。"}},{"@type":"Question","name":"一次「一问一答」按多少 token 算？","acceptedAnswer":{"@type":"Answer","text":"本页统一按输入 15,000 tokens、输出 2,000 tokens 折算——Claude Code 的系统提示与工具结果占掉大部分输入。开了 prompt cache 或长上下文，实际值会明显偏离这个估算。"}},{"@type":"Question","name":"哪个站最划算？","acceptedAnswer":{"@type":"Answer","text":"按本页折算口径，还收新用户的站里 AgentRouter 的首日额度能跑最多次（约 1166 次）。但公益站规则天天变，以站内实时公示为准。"}}]}]</script>
 <style>
 /* AI Coding 福利站导航 — 落地页样式（手写，非生成物） */
@@ -174,6 +175,34 @@ footer a { color: var(--accent-2); }
 .navlink.active { color: var(--fg); background: rgba(124, 92, 255, 0.16); }
 .navspace { flex: 1 1 auto; }
 
+/* Native language links work without JavaScript and preserve the current service. */
+.languages { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 16px 0; }
+.languages a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 9px;
+  color: var(--fg-dim); text-decoration: none; font-size: 14px;
+}
+.languages a:hover, .languages a[aria-current="page"] { color: var(--fg); background: var(--bg-soft); }
+.languages a[aria-current="page"] { border-color: var(--accent-2); font-weight: 650; }
+.localized-nav .navrow { flex-wrap: nowrap; overflow-x: auto; }
+.localized-nav .navlink { flex-shrink: 0; }
+a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent-2); outline-offset: 4px;
+}
+.localized a:not(.btn):not(.navlink) { color: var(--accent-2); }
+.localized .card h3 { line-height: 1.5; }
+.localized .kv { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+.localized .notice { margin: 12px 0; }
+.localized .section-copy { color: var(--fg-dim); }
+@media (max-width: 480px) {
+  .localized .kv { grid-template-columns: minmax(0, 1fr); }
+  .localized .kv dd { margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+
 /* 面包屑：详情页比首页深两层，给个回头路 */
 .crumb { margin: 0 0 10px; font-size: 13px; color: var(--fg-dim); }
 .crumb a { color: var(--accent-2); text-decoration: none; }
@@ -230,6 +259,7 @@ tr.shut td { color: var(--fg-dim); }
 <body>
 <nav class="nav"><div class="wrap navrow"><a class="navlink" href="../">站点总览</a><a class="navlink active" href="../compare/">按次 vs 按量</a><a class="navlink" href="../status/">可用性</a><a class="navlink" href="../changelog/">变动日志</a><span class="navspace"></span><a class="navlink" href="../feed.xml">Atom 订阅</a></div></nav>
 <div class="wrap">
+<nav class="languages" aria-label="语言 / Language"><a href="../" lang="zh-CN" hreflang="zh-CN" aria-current="page">简体中文</a><a href="../en/" lang="en" hreflang="en">English</a><a href="../hi/" lang="hi" hreflang="hi">हिन्दी</a><a href="../pt-BR/" lang="pt-BR" hreflang="pt-BR">Português (Brasil)</a><a href="../ja/" lang="ja" hreflang="ja">日本語</a><a href="../de/" lang="de" hreflang="de">Deutsch</a></nav>
   <header class="hero">
     <p class="crumb"><a href="../">AI Coding 福利站导航</a> › 按次 vs 按量</p>
     <h1>按次计费 vs 按量计费</h1>
@@ -268,6 +298,7 @@ tr.shut td { color: var(--fg-dim); }
     <details><summary>哪个站最划算？</summary><p>按本页折算口径，还收新用户的站里 AgentRouter 的首日额度能跑最多次（约 1166 次）。但公益站规则天天变，以站内实时公示为准。</p></details>
   </section>
   <footer>
+
     <ul>
       <li>本页包含<strong>邀请链接</strong>，邀请奖励、领取条件与免费范围以各站活动规则为准，不保证注册即有奖励。</li>
       <li>本站只做信息聚合，与各站点无隶属关系，不代收费用、不承诺可用性；公益站可能随时改规则或关站。</li>

@@ -22,6 +22,8 @@ import { groupByDay, renderAtom } from './lib/changelog.mjs';
 import { EMPTY_HISTORY } from './lib/history.mjs';
 import { auditCredits } from './lib/credits.mjs';
 import { activeSites, archivedSites } from './lib/archived.mjs';
+import { TRANSLATED_LANGUAGES } from './lib/locales.mjs';
+import { validateCatalog, renderLocalizedReadme, renderLocalizedHome, renderLocalizedSite } from './lib/render-localized.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const p = (...s) => path.join(ROOT, ...s);
@@ -45,6 +47,13 @@ if (!live.generatedAt) console.warn('⚠ 找不到 data/live.json，先跑 `npm 
 const history = await readJson('data/history.json', EMPTY_HISTORY);
 const changelog = await readJson('data/changelog.json', { events: [] });
 const groups = groupByDay(changelog.events ?? []);
+const catalogs = await Promise.all(TRANSLATED_LANGUAGES.map(async (locale) => {
+  const catalog = JSON.parse(await readFile(p('data', 'locales', `${locale.id}.json`), 'utf8'));
+  if (catalog.locale !== locale.id) throw new Error(`Locale mismatch: ${locale.id}`);
+  return catalog;
+}));
+const reference = catalogs.find((c) => c.locale === 'en');
+for (const catalog of catalogs) validateCatalog(catalog, reference, allSites);
 
 // 额度是手工登记的，站点改政策时不会自己变；和接口实测值对不上就提醒一声
 // 归档站已死、不再探测，登记值与接口值对不上也没有意义，跳过
@@ -84,6 +93,18 @@ await write('status/index.html', renderStatusPage({ meta, sites, live, css, hist
 await write('changelog/index.html', renderChangelogPage({ meta, groups, live, css, siteIds: sites.map((s) => s.id) }));
 await write('feed.xml', renderAtom({ meta, groups, updated: changelog.updatedAt ?? live.generatedAt }));
 
+for (const locale of TRANSLATED_LANGUAGES) {
+  const catalog = catalogs.find((c) => c.locale === locale.id);
+  const args = { meta, sites: allSites, live, css, catalog };
+  await writeFile(p(locale.readme), renderLocalizedReadme(args), 'utf8');
+  await write(`${locale.path}index.html`, renderLocalizedHome(args));
+  for (const site of allSites) {
+    await write(`${locale.path}sites/${site.id}/index.html`, renderLocalizedSite({
+      ...args, site, snap: byId.get(site.id),
+    }));
+  }
+}
+
 // 落地页要被搜到才有推广价值：robots + 把每一页都写进 sitemap
 const base = meta.pagesUrl?.replace(/\/?$/, '/') ?? '';
 const day = (live.generatedAt ?? new Date().toISOString()).slice(0, 10);
@@ -93,6 +114,10 @@ const urls = [
   { loc: `${base}status/`, freq: 'daily', pri: '0.7' },
   { loc: `${base}changelog/`, freq: 'daily', pri: '0.7' },
   ...sites.map((s) => ({ loc: `${base}sites/${s.id}/`, freq: 'daily', pri: '0.9' })),
+  ...TRANSLATED_LANGUAGES.flatMap((locale) => [
+    { loc: `${base}${locale.path}`, freq: 'daily', pri: '0.9' },
+    ...sites.map((s) => ({ loc: `${base}${locale.path}sites/${s.id}/`, freq: 'daily', pri: '0.8' })),
+  ]),
 ];
 
 await write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${base}sitemap.xml\n`);
@@ -114,5 +139,5 @@ if (/USERNAME/.test(`${meta.repoUrl}${meta.pagesUrl}`)) {
   console.warn('⚠ data/sites.json 的 meta.repoUrl / meta.pagesUrl 还是占位的 USERNAME，推到 GitHub 前记得改成你的用户名。');
 }
 
-console.log(`✔ README.md 已生成（${sites.length} 个站点）`);
-console.log(`✔ docs/ 已生成 ${urls.length} 个页面 + ${dead.length} 个归档说明页 + feed.xml + sitemap.xml`);
+console.log(`✔ README.md + ${catalogs.length} 种翻译已生成（${sites.length} 个站点）`);
+console.log(`✔ docs/ 已生成 ${urls.length} 个页面 + ${dead.length * (catalogs.length + 1)} 个归档说明页 + feed.xml + sitemap.xml`);

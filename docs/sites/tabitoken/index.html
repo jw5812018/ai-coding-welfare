@@ -15,6 +15,7 @@
 <link rel="canonical" href="https://panxunying.github.io/ai-coding-welfare/sites/tabitoken/">
 <link rel="alternate" type="application/atom+xml" title="变动日志" href="https://panxunying.github.io/ai-coding-welfare/feed.xml">
 
+
 <style>
 /* AI Coding 福利站导航 — 落地页样式（手写，非生成物） */
 :root {
@@ -174,6 +175,34 @@ footer a { color: var(--accent-2); }
 .navlink.active { color: var(--fg); background: rgba(124, 92, 255, 0.16); }
 .navspace { flex: 1 1 auto; }
 
+/* Native language links work without JavaScript and preserve the current service. */
+.languages { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 16px 0; }
+.languages a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 9px;
+  color: var(--fg-dim); text-decoration: none; font-size: 14px;
+}
+.languages a:hover, .languages a[aria-current="page"] { color: var(--fg); background: var(--bg-soft); }
+.languages a[aria-current="page"] { border-color: var(--accent-2); font-weight: 650; }
+.localized-nav .navrow { flex-wrap: nowrap; overflow-x: auto; }
+.localized-nav .navlink { flex-shrink: 0; }
+a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent-2); outline-offset: 4px;
+}
+.localized a:not(.btn):not(.navlink) { color: var(--accent-2); }
+.localized .card h3 { line-height: 1.5; }
+.localized .kv { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+.localized .notice { margin: 12px 0; }
+.localized .section-copy { color: var(--fg-dim); }
+@media (max-width: 480px) {
+  .localized .kv { grid-template-columns: minmax(0, 1fr); }
+  .localized .kv dd { margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+
 /* 面包屑：详情页比首页深两层，给个回头路 */
 .crumb { margin: 0 0 10px; font-size: 13px; color: var(--fg-dim); }
 .crumb a { color: var(--accent-2); text-decoration: none; }
@@ -230,12 +259,14 @@ tr.shut td { color: var(--fg-dim); }
 <body>
 <nav class="nav"><div class="wrap navrow"><a class="navlink active" href="../../">站点总览</a><a class="navlink" href="../../compare/">按次 vs 按量</a><a class="navlink" href="../../status/">可用性</a><a class="navlink" href="../../changelog/">变动日志</a><span class="navspace"></span><a class="navlink" href="../../feed.xml">Atom 订阅</a></div></nav>
 <div class="wrap">
+<nav class="languages" aria-label="语言 / Language"><a href="../../" lang="zh-CN" hreflang="zh-CN" aria-current="page">简体中文</a><a href="../../en/" lang="en" hreflang="en">English</a><a href="../../hi/" lang="hi" hreflang="hi">हिन्दी</a><a href="../../pt-BR/" lang="pt-BR" hreflang="pt-BR">Português (Brasil)</a><a href="../../ja/" lang="ja" hreflang="ja">日本語</a><a href="../../de/" lang="de" hreflang="de">Deutsch</a></nav>
 <header class="hero"><h1>TaBiAI · 已归档</h1>
         <p class="sub">用户反馈已无法使用，移入历史区，不再推荐注册</p>
         <p class="hint">归档日期：2026-09-21</p>
         <p>不再展示旧额度、注册链接或接入配置；历史记录保留。</p>
         <a class="btn btn-ghost" href="../../#graveyard">返回历史区</a></header>
   <footer>
+
     <ul>
       <li>本页包含<strong>邀请链接</strong>，邀请奖励、领取条件与免费范围以各站活动规则为准，不保证注册即有奖励。</li>
       <li>本站只做信息聚合，与各站点无隶属关系，不代收费用、不承诺可用性；公益站可能随时改规则或关站。</li>

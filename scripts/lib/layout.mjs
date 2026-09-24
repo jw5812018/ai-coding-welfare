@@ -5,6 +5,7 @@
  * 别在各个渲染器里各写一套相对路径。样式沿用「内联进 HTML」的做法：
  * 单文件转发到社群不掉样式，也省掉一次请求。
  */
+import { language, languageNav, languageAlternates } from './locales.mjs';
 
 export const esc = (s) =>
   String(s ?? '')
@@ -29,14 +30,20 @@ export const NAV = [
   { href: 'changelog/', label: '变动日志' },
 ];
 
-function navBar(base, current) {
-  const items = NAV.map((n) => {
+function navBar(base, current, locale, copy) {
+  const links = copy ? [
+    { href: language(locale).path, label: copy.overview },
+    { href: 'compare/', label: copy.compareZh },
+    { href: 'status/', label: copy.statusZh },
+    { href: 'changelog/', label: copy.historyZh },
+  ] : NAV;
+  const items = links.map((n) => {
     const active = n.href === current;
     return `<a class="navlink${active ? ' active' : ''}" href="${esc(base + n.href)}">${esc(n.label)}</a>`;
   });
-  return `<nav class="nav"><div class="wrap navrow">${items.join('')}<span class="navspace"></span><a class="navlink" href="${esc(
+  return `<nav class="nav${copy ? ' localized-nav' : ''}"><div class="wrap navrow">${items.join('')}<span class="navspace"></span><a class="navlink" href="${esc(
     `${base}feed.xml`,
-  )}">Atom 订阅</a></div></nav>`;
+  )}">${esc(copy?.feedZh ?? 'Atom 订阅')}</a></div></nav>`;
 }
 
 /**
@@ -47,32 +54,37 @@ function navBar(base, current) {
 const ld = (data) =>
   JSON.stringify(data).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
 
-export function pageShell({ meta, css, title, desc, canonical, base = '', current = '', jsonLd = [], body, live, noindex = false }) {
+export function pageShell({ meta, css, title, desc, canonical, base = '', current = '', jsonLd = [], body, live, noindex = false, locale = 'zh-CN', copy = null, languagePath = null }) {
+  language(locale); // Reject invalid locale metadata instead of silently rendering the wrong language.
   const feed = `${meta.pagesUrl}feed.xml`;
   return `<!doctype html>
-<html lang="zh-CN">
+<html lang="${locale}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 ${noindex ? '<meta name="robots" content="noindex,follow">' : ''}
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
-<meta name="keywords" content="${esc((meta.keywords ?? []).join(','))}">
+<meta name="keywords" content="${esc(copy ? [copy.title, 'Claude Code', 'Codex', 'Cursor', 'API'].join(',') : (meta.keywords ?? []).join(','))}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${esc(canonical)}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="${esc(canonical)}">
-<link rel="alternate" type="application/atom+xml" title="变动日志" href="${esc(feed)}">
+<link rel="alternate" type="application/atom+xml" title="${esc(copy?.historyZh ?? '变动日志')}" href="${esc(feed)}">
+${languagePath !== null ? languageAlternates(meta.pagesUrl, languagePath) : ''}
 ${jsonLd.length ? `<script type="application/ld+json">${ld(jsonLd.length === 1 ? jsonLd[0] : jsonLd)}</script>` : ''}
 ${css ? `<style>\n${css}</style>` : `<link rel="stylesheet" href="${esc(base)}assets/style.css">`}
 </head>
 <body>
-${navBar(base, current)}
+${navBar(base, current, locale, copy)}
 <div class="wrap">
+${languageNav({ locale, base, path: languagePath ?? '', label: copy?.language })}
 ${body}
   <footer>
+    ${copy ? `<h2>${esc(copy.safety)}</h2><ul>${copy.disclaimer.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>
+    <p>${esc(copy.updated)}: ${esc(live?.generatedAt ? fmt(live.generatedAt) : copy.unknown)} · <a href="${esc(meta.repoUrl)}">${esc(copy.repository)}</a> · <a href="${esc(feed)}">${esc(copy.feedZh)}</a></p>` : `
     <ul>
       <li>本页包含<strong>邀请链接</strong>，邀请奖励、领取条件与免费范围以各站活动规则为准，不保证注册即有奖励。</li>
       <li>本站只做信息聚合，与各站点无隶属关系，不代收费用、不承诺可用性；公益站可能随时改规则或关站。</li>
@@ -81,7 +93,7 @@ ${body}
     </ul>
     <p>数据快照时间：${esc(fmt(live?.generatedAt))} · 由 <a href="${esc(meta.repoUrl)}">${esc(
       meta.repoUrl.replace(/^https:\/\//, ''),
-    )}</a> 自动生成 · <a href="${esc(feed)}">Atom 订阅</a></p>
+    )}</a> 自动生成 · <a href="${esc(feed)}">Atom 订阅</a></p>`}
   </footer>
 </div>
 </body>

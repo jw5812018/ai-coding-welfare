@@ -112,6 +112,24 @@ npm run check     # 确认新链接可访问
 
 ## 改版式 / 改文案
 
+### 多语言版本
+
+保留中文主版，增加 `en`、`hi`、`pt-BR`、`ja`、`de` 五种语言。顶部语言链接
+在站点详情页会切换到同一站点，不会强制按浏览器语言跳转。README 入口为根目录的
+`README.<locale>.md`，网页入口为 `docs/<locale>/`。
+
+- 选语种的依据与局限见 [多语言说明](I18N.md)，不是 GitHub 官方自然语言排行榜。
+- `data/locales/*.json` 是手工维护的翻译来源，包含界面文字和站点摘要、注册条件、重要风险。
+  新增站点或修改政策时，同步更新五份文案；英文是键名和占位符的校验基准，不是静默回退语言。
+- 金额、模型、协议入口、完整邀请 URL、位次均来自 `data/sites.json` / `data/live.json`，
+  翻译不要复制这些可生成字段。像 `{inviteCode}` 的占位符不可改名或遗漏。
+- `scripts/lib/render-localized.mjs` 生成翻译版 README、首页、详情页；共享 `credits.mjs`
+  与 `signup.mjs` 的计算逻辑。历史、横评、外部文档仍为原语言，入口明确标注中文。
+- 归档时各语言的旧详情页都会覆盖为 `noindex` 说明页，不保留注册链接，也不进入 sitemap。
+- `npm test && npm run build` 校验完整性并重新生成。CI 自动刷新同时提交所有 README 语言版。
+
+### 中文版与公共数据
+
 - README 的结构在 [`scripts/lib/render-readme.mjs`](scripts/lib/render-readme.mjs)
 - 落地页结构在 [`scripts/lib/render-html.mjs`](scripts/lib/render-html.mjs)，样式在 [`docs/assets/style.css`](docs/assets/style.css)（这个是手写文件，可以直接改）
 - 抓取字段的解析在 [`scripts/lib/newapi.mjs`](scripts/lib/newapi.mjs)（同时是各面板共用的底座：`fetchJson` / `blankSnapshot` / `pickPreferred`）

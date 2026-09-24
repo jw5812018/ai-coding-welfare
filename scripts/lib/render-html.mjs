@@ -291,6 +291,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     title: `${meta.title} — ${meta.tagline}`,
     desc,
     canonical: meta.pagesUrl,
+    languagePath: '',
     jsonLd: [itemList, faqLd(FAQ)],
     body,
   });

@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://agentrouter.org/register?aff=szt3"><b>AgentRouter 注册</b></a> ·
-  <a href="https://docode.cc/register?aff=zMRe"><b>DoCode 注册</b></a> ·
+  <a href="https://ai.docode.life/register?aff=zMRe"><b>DoCode 注册</b></a> ·
   <a href="https://api.justwoker.icu/sign-up?aff=VTrz"><b>JustDoWork 注册</b></a> ·
   <a href="https://mirasim.ai/r/go-kx9cd5"><b>Mirasim 注册</b></a> ·
   <a href="https://flushapi.fun/sign-up?aff=WBF3"><b>FlushAPI 注册</b></a> ·
@@ -38,7 +38,7 @@
 | 站点 | 状态 | 首日可得 / 套餐 | 额度构成 / 用量 | 每日 / 周期 | 兼容协议 | 模型 | 注册 | 邀请码 |
 | :-- | :--: | :--: | :-- | :--: | :--: | :--: | :--: | :--: |
 | **AgentRouter** 🔥 | 🟢 在线 | **$175** | 注册 $100 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 4 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) | — |
-| **DoCode** | 🟢 在线 | **300 站内刀** | 注册 50 站内刀 + 本页邀请 250 站内刀 | 无签到 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://docode.cc/register?aff=zMRe) | `zMRe` |
+| **DoCode** | 🟢 在线 | **300 站内刀** | 注册 50 站内刀 + 本页邀请 250 站内刀 | 无签到 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://ai.docode.life/register?aff=zMRe) | `zMRe` |
 | **JustDoWork** | 🟢 在线 | **≈$92** | 注册 $70 + 首签 ≈$22 | ≈$22/天 | Anthropic + OpenAI | 需登录查看 | [GitHub 注册 →](https://api.justwoker.icu/sign-up?aff=VTrz) | — |
 | **Mirasim** | 🟢 在线 | **Go套餐 $1/月** | Kimi K3 **≈130 次**<br>GLM 5.3 Flash **≈1,900 次**<br>DS 4.1 Flash **≈7,800 次** | **每 5 小时**<br>共享额度 | Mirasim 客户端 / CLI | 3 种<br>官网公示 | [查看 Go →](https://mirasim.ai/r/go-kx9cd5) | — |
 | **FlushAPI** | 🟢 在线 | **$22.5** | 注册 $15 + 本页邀请 $7.5 | 支持签到 | Anthropic + OpenAI | 16 个可查 | [GitHub 注册 →](https://flushapi.fun/sign-up?aff=WBF3) | — |
@@ -216,7 +216,7 @@ curl -s https://agentrouter.org/v1/chat/completions \
 
 > New API 中转站 · 注册送 50 站内刀，注册时填邀请码 zMRe 再加 250，首日 300 刀，Claude 与 GPT 都在架上
 
-<a href="https://docode.cc/register?aff=zMRe"><img src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E6%B3%A8%E5%86%8C-DoCode-brightgreen?style=for-the-badge" alt="注册 DoCode"></a>
+<a href="https://ai.docode.life/register?aff=zMRe"><img src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E6%B3%A8%E5%86%8C-DoCode-brightgreen?style=for-the-badge" alt="注册 DoCode"></a>
 
 **为什么值得注册**
 
@@ -253,7 +253,7 @@ curl -s https://agentrouter.org/v1/chat/completions \
 - 250 站内刀在注册那一刻结算，注册完再去后台补填邀请码是没用的
 - 只能邮箱 + 密码建号：公开配置里 github / linuxdo / discord / telegram / 微信 / OIDC / Passkey 的开关全是 false，没有第三方登录入口
 - 注册要邮箱验证码（email_verification = true），并且开着 Cloudflare Turnstile 人机校验
-- 主域名打不开时换 api.docode.cc，同一套账号与额度
+- 本页提供的 ai.docode.life 注册链接打不开时换 api.docode.cc，同一套账号与额度
 
 **接入配置**
 
@@ -328,7 +328,7 @@ curl -s https://docode.cc/v1/chat/completions \
 - 额度数字（注册 50 / 邀请 250）站点公开接口没有暴露：/api/status 里既没有 quota_for_new_user 也没有 quota_for_invitee，本页登记的是站内公示口径，进后台核对一遍再算账
 - 没有每日签到，额度用完只能充值或等活动，不像 AgentRouter 那样能每天续命
 - 这是付费中转站不是公益站：后台开着在线充值（Stripe 单价 ¥8），公告里大半是充值送额度与倍率涨跌，免费额度用完要付费才能续
-- 站内 FAQ 公示的备用域名 ai.docode.pro / ai.docode.life 与公告里的 hk.docode.cc 目前 HTTPS 都连不上（前两个的证书只签了 docode.cc、域名对不上，hk 直接 TLS 握手失败），本页只登记实测可用的 api.docode.cc
+- 主注册链接已更新为 ai.docode.life/register?aff=zMRe；2026-09-25 本地 HTTPS 检查发现证书与主机名不匹配，尚未确认新入口可正常注册。如浏览器提示证书错误，请勿绕过警告，可尝试下方 api.docode.cc 备用入口；自动健康检查仍检查新注册链接
 - 上游波动写在公告里：GPT plus「全面阵亡」后又「暂时复活」、gpt-5.4 已彻底下架、9 月 10 日还在说「openai 炸了，gpt 全线都不太行」，别当稳定生产通道用
 
 <details><summary><b>站点最新公告</b>（自动同步）</summary>

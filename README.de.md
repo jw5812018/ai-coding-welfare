@@ -22,7 +22,7 @@ Community-Gateways, kostenloses API-Guthaben und günstige Tarife für Claude Co
 | Anbieter | Status | Guthaben am ersten Tag / Tarif | Tägliches Guthaben | Registrierung |
 | --- | --- | --- | --- | --- |
 | **AgentRouter** | Erreichbar | **$175** | $25/Tag · Täglicher Check-in | [Dienst öffnen / registrieren](https://agentrouter.org/register?aff=szt3) |
-| **DoCode** | Erreichbar | **300 interne Einheiten (keine USD)** | Kein Check-in | [Dienst öffnen / registrieren](https://docode.cc/register?aff=zMRe) |
+| **DoCode** | Erreichbar | **300 interne Einheiten (keine USD)** | Kein Check-in | [Dienst öffnen / registrieren](https://ai.docode.life/register?aff=zMRe) |
 | **JustDoWork** | Erreichbar | **≈$92** | ≈$22/Tag · Täglicher Check-in | [Dienst öffnen / registrieren](https://api.justwoker.icu/sign-up?aff=VTrz) |
 | **Mirasim** | Erreichbar | **Go · $1/Monat** | Schätzwerte je 5-Stunden-Zeitfenster | [Dienst öffnen / registrieren](https://mirasim.ai/r/go-kx9cd5) |
 | **FlushAPI** | Erreichbar | **$22.5** | Check-in aktiviert; Betrag nicht veröffentlicht | [Dienst öffnen / registrieren](https://flushapi.fun/sign-up?aff=WBF3) |
@@ -93,7 +93,7 @@ Aufgeführt werden nur Modelle aus dem öffentlichen Datenstand; fehlende Daten 
 
 New-API-Gateway für Claude und GPT; Prämien werden in internen Einheiten vergeben, nicht in US-Dollar.
 
-[Dienst öffnen / registrieren](https://docode.cc/register?aff=zMRe) · [Details](https://panxunying.github.io/ai-coding-welfare/de/sites/docode/)
+[Dienst öffnen / registrieren](https://ai.docode.life/register?aff=zMRe) · [Details](https://panxunying.github.io/ai-coding-welfare/de/sites/docode/)
 
 
 - **Guthaben am ersten Tag / Tarif**: 300 interne Einheiten (keine USD)
@@ -112,7 +112,7 @@ Nur E-Mail und Passwort, mit E-Mail-Bestätigung und Cloudflare Turnstile. Vor d
 
 ### Prämien, Einschränkungen und wichtige Hinweise
 
-Kein täglicher Check-in. Prämien stammen aus Anbieterankündigungen, nicht aus öffentlichen Guthabenfeldern. Interne Einheiten nicht zur USD-Summe addieren: beobachtet wurden 50 Einheiten pro CNY 1, eine Ankündigung nennt auch 25. Gruppen- und Ausgabemultiplikatoren beeinflussen den Verbrauch zusätzlich. Modelle und Preise sind nur nach Anmeldung sichtbar. Nach Verbrauch des Aktionsguthabens ist dies ein kostenpflichtiges Gateway; Ausfälle und Preisänderungen sind möglich.
+Kein täglicher Check-in. Prämien stammen aus Anbieterankündigungen, nicht aus öffentlichen Guthabenfeldern. Interne Einheiten nicht zur USD-Summe addieren: beobachtet wurden 50 Einheiten pro CNY 1, eine Ankündigung nennt auch 25. Gruppen- und Ausgabemultiplikatoren beeinflussen den Verbrauch zusätzlich. Modelle und Preise sind nur nach Anmeldung sichtbar. Nach Verbrauch des Aktionsguthabens ist dies ein kostenpflichtiges Gateway; Ausfälle und Preisänderungen sind möglich. Der Hauptlink zur Registrierung führt jetzt zu ai.docode.life. Eine lokale HTTPS-Prüfung am 2026-09-25 ergab einen nicht zum Hostnamen passenden Zertifikatsnamen; eine erfolgreiche Registrierung über diesen Einstieg ist nicht bestätigt. Zertifikatswarnungen nicht umgehen; bei Bedarf den alternativen Registrierungslink versuchen.
 
 ### Client-Einrichtung
 

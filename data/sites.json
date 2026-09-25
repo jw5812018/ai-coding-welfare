@@ -99,7 +99,7 @@
         "approx": false,
         "unit": "site-usd"
       },
-      "signupUrl": "https://docode.cc/register?aff=zMRe",
+      "signupUrl": "https://ai.docode.life/register?aff=zMRe",
       "inviteCode": "zMRe",
       "homeUrl": "https://docode.cc",
       "docsUrl": null,
@@ -133,7 +133,7 @@
           "250 站内刀在注册那一刻结算，注册完再去后台补填邀请码是没用的",
           "只能邮箱 + 密码建号：公开配置里 github / linuxdo / discord / telegram / 微信 / OIDC / Passkey 的开关全是 false，没有第三方登录入口",
           "注册要邮箱验证码（email_verification = true），并且开着 Cloudflare Turnstile 人机校验",
-          "主域名打不开时换 api.docode.cc，同一套账号与额度"
+          "本页提供的 ai.docode.life 注册链接打不开时换 api.docode.cc，同一套账号与额度"
         ]
       },
       "earnMore": [
@@ -146,7 +146,7 @@
         "额度数字（注册 50 / 邀请 250）站点公开接口没有暴露：/api/status 里既没有 quota_for_new_user 也没有 quota_for_invitee，本页登记的是站内公示口径，进后台核对一遍再算账",
         "没有每日签到，额度用完只能充值或等活动，不像 AgentRouter 那样能每天续命",
         "这是付费中转站不是公益站：后台开着在线充值（Stripe 单价 ¥8），公告里大半是充值送额度与倍率涨跌，免费额度用完要付费才能续",
-        "站内 FAQ 公示的备用域名 ai.docode.pro / ai.docode.life 与公告里的 hk.docode.cc 目前 HTTPS 都连不上（前两个的证书只签了 docode.cc、域名对不上，hk 直接 TLS 握手失败），本页只登记实测可用的 api.docode.cc",
+        "主注册链接已更新为 ai.docode.life/register?aff=zMRe；2026-09-25 本地 HTTPS 检查发现证书与主机名不匹配，尚未确认新入口可正常注册。如浏览器提示证书错误，请勿绕过警告，可尝试下方 api.docode.cc 备用入口；自动健康检查仍检查新注册链接",
         "上游波动写在公告里：GPT plus「全面阵亡」后又「暂时复活」、gpt-5.4 已彻底下架、9 月 10 日还在说「openai 炸了，gpt 全线都不太行」，别当稳定生产通道用"
       ],
       "community": []

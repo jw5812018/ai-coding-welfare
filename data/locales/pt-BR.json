@@ -88,7 +88,7 @@
     "docode": {
       "summary": "Gateway New API com Claude e GPT; os bônus usam unidades internas, não dólares americanos.",
       "registration": "Somente e-mail e senha, com verificação por e-mail e Cloudflare Turnstile. Confira o código {inviteCode} no formulário antes de enviar; não é possível adicioná-lo depois. O domínio alternativo usa a mesma conta e saldo.",
-      "notes": "Sem check-in diário. Os bônus vêm de comunicados, não de campos públicos de cota. Não some unidades internas ao total em USD: a recarga observada era de 50 unidades por CNY 1, com um comunicado também mencionando 25. Multiplicadores de grupo e saída afetam o consumo. Modelos e preços exigem login. É um gateway pago após o fim dos créditos promocionais; pode haver falhas e mudanças de preço na origem."
+      "notes": "Sem check-in diário. Os bônus vêm de comunicados, não de campos públicos de cota. Não some unidades internas ao total em USD: a recarga observada era de 50 unidades por CNY 1, com um comunicado também mencionando 25. Multiplicadores de grupo e saída afetam o consumo. Modelos e preços exigem login. É um gateway pago após o fim dos créditos promocionais; pode haver falhas e mudanças de preço na origem. O link principal de cadastro agora usa ai.docode.life. Uma verificação HTTPS local em 2026-09-25 encontrou um certificado incompatível com o nome do domínio; o cadastro por esse endereço não foi confirmado. Não ignore avisos de certificado; tente o link alternativo de cadastro se necessário."
     },
     "justdowork": {
       "summary": "Gateway New API com login GitHub, check-ins diários e interfaces de imagens e tarefas.",

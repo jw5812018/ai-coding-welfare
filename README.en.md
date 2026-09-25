@@ -22,7 +22,7 @@ A translated guide to the listed services. Amounts, model IDs, prices and referr
 | Site | Status | First-day credits / plan | Daily credits | Signup |
 | --- | --- | --- | --- | --- |
 | **AgentRouter** | Reachable | **$175** | $25/day · Daily check-in | [Open service / register](https://agentrouter.org/register?aff=szt3) |
-| **DoCode** | Reachable | **300 site units (not USD)** | No check-in | [Open service / register](https://docode.cc/register?aff=zMRe) |
+| **DoCode** | Reachable | **300 site units (not USD)** | No check-in | [Open service / register](https://ai.docode.life/register?aff=zMRe) |
 | **JustDoWork** | Reachable | **≈$92** | ≈$22/day · Daily check-in | [Open service / register](https://api.justwoker.icu/sign-up?aff=VTrz) |
 | **Mirasim** | Reachable | **Go · $1/month** | Estimates per 5-hour window | [Open service / register](https://mirasim.ai/r/go-kx9cd5) |
 | **FlushAPI** | Reachable | **$22.5** | Check-in enabled; amount unpublished | [Open service / register](https://flushapi.fun/sign-up?aff=WBF3) |
@@ -93,7 +93,7 @@ Only models returned by the public snapshot are listed; missing data does not me
 
 New API gateway with Claude and GPT services; bonuses use internal site units, not US dollars.
 
-[Open service / register](https://docode.cc/register?aff=zMRe) · [Details](https://panxunying.github.io/ai-coding-welfare/en/sites/docode/)
+[Open service / register](https://ai.docode.life/register?aff=zMRe) · [Details](https://panxunying.github.io/ai-coding-welfare/en/sites/docode/)
 
 
 - **First-day credits / plan**: 300 site units (not USD)
@@ -112,7 +112,7 @@ Email and password only, with email verification and Cloudflare Turnstile. Confi
 
 ### Rewards, limits and important caveats
 
-No daily check-in. Bonuses come from provider notices, not publicly exposed quota fields. Site units must not be added to USD totals: the observed top-up ratio was CNY 1 for 50 units, with a notice also mentioning 25. Group and output multipliers further affect usage. Models and pricing require login. This is a paid gateway after promotional credits run out; upstream outages and price changes are possible.
+No daily check-in. Bonuses come from provider notices, not publicly exposed quota fields. Site units must not be added to USD totals: the observed top-up ratio was CNY 1 for 50 units, with a notice also mentioning 25. Group and output multipliers further affect usage. Models and pricing require login. This is a paid gateway after promotional credits run out; upstream outages and price changes are possible. The primary signup link is now ai.docode.life. A local HTTPS check on 2026-09-25 found a certificate hostname mismatch; successful signup through this entry has not been verified. Do not bypass certificate warnings; try the alternative registration link if needed.
 
 ### Client setup
 

@@ -1185,6 +1185,13 @@ test('Mirasim 排第四，三个已确认不可用的站保持归档', () => {
   assert.equal(new Set(CATALOG.map((s) => s.id)).size, CATALOG.length);
   assert.equal(MIRASIM.signupUrl, 'https://mirasim.ai/r/go-kx9cd5');
 });
+const DOCODE = CATALOG.find((s) => s.id === 'docode');
+test('DoCode 展示与健康检查都使用新注册链接，邀请码保持不变', () => {
+  assert.equal(DOCODE.signupUrl, 'https://ai.docode.life/register?aff=zMRe');
+  assert.equal(signupProbeUrl(DOCODE), DOCODE.signupUrl);
+  assert.equal(DOCODE.inviteCode, 'zMRe');
+  assert.deepEqual(DOCODE.endpoints, { anthropic: 'https://docode.cc', openai: 'https://docode.cc/v1' });
+});
 const FLUSHAPI = CATALOG.find((s) => s.id === 'flushapi');
 test('FlushAPI 排在第五位，邀请链接与公开接口齐全', () => {
   assert.equal(activeSites(CATALOG)[4].id, 'flushapi');

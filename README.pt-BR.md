@@ -22,7 +22,7 @@ Guia traduzido dos serviços listados. Valores, IDs de modelos, preços e links 
 | Serviço | Status | Créditos no primeiro dia / plano | Créditos diários | Cadastro |
 | --- | --- | --- | --- | --- |
 | **AgentRouter** | Acessível | **$175** | $25/dia · Check-in diário | [Abrir serviço / cadastrar](https://agentrouter.org/register?aff=szt3) |
-| **DoCode** | Acessível | **300 unidades internas (não USD)** | Sem check-in | [Abrir serviço / cadastrar](https://docode.cc/register?aff=zMRe) |
+| **DoCode** | Acessível | **300 unidades internas (não USD)** | Sem check-in | [Abrir serviço / cadastrar](https://ai.docode.life/register?aff=zMRe) |
 | **JustDoWork** | Acessível | **≈$92** | ≈$22/dia · Check-in diário | [Abrir serviço / cadastrar](https://api.justwoker.icu/sign-up?aff=VTrz) |
 | **Mirasim** | Acessível | **Go · $1/mês** | Estimativas por janela de 5 horas | [Abrir serviço / cadastrar](https://mirasim.ai/r/go-kx9cd5) |
 | **FlushAPI** | Acessível | **$22.5** | Check-in ativo; valor não divulgado | [Abrir serviço / cadastrar](https://flushapi.fun/sign-up?aff=WBF3) |
@@ -93,7 +93,7 @@ Somente modelos retornados pelos dados públicos são listados; a ausência de d
 
 Gateway New API com Claude e GPT; os bônus usam unidades internas, não dólares americanos.
 
-[Abrir serviço / cadastrar](https://docode.cc/register?aff=zMRe) · [Detalhes](https://panxunying.github.io/ai-coding-welfare/pt-BR/sites/docode/)
+[Abrir serviço / cadastrar](https://ai.docode.life/register?aff=zMRe) · [Detalhes](https://panxunying.github.io/ai-coding-welfare/pt-BR/sites/docode/)
 
 
 - **Créditos no primeiro dia / plano**: 300 unidades internas (não USD)
@@ -112,7 +112,7 @@ Somente e-mail e senha, com verificação por e-mail e Cloudflare Turnstile. Con
 
 ### Recompensas, limites e cuidados importantes
 
-Sem check-in diário. Os bônus vêm de comunicados, não de campos públicos de cota. Não some unidades internas ao total em USD: a recarga observada era de 50 unidades por CNY 1, com um comunicado também mencionando 25. Multiplicadores de grupo e saída afetam o consumo. Modelos e preços exigem login. É um gateway pago após o fim dos créditos promocionais; pode haver falhas e mudanças de preço na origem.
+Sem check-in diário. Os bônus vêm de comunicados, não de campos públicos de cota. Não some unidades internas ao total em USD: a recarga observada era de 50 unidades por CNY 1, com um comunicado também mencionando 25. Multiplicadores de grupo e saída afetam o consumo. Modelos e preços exigem login. É um gateway pago após o fim dos créditos promocionais; pode haver falhas e mudanças de preço na origem. O link principal de cadastro agora usa ai.docode.life. Uma verificação HTTPS local em 2026-09-25 encontrou um certificado incompatível com o nome do domínio; o cadastro por esse endereço não foi confirmado. Não ignore avisos de certificado; tente o link alternativo de cadastro se necessário.
 
 ### Configuração do cliente
 

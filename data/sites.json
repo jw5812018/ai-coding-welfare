@@ -83,6 +83,63 @@
       "community": []
     },
     {
+      "id": "conduit",
+      "name": "Conduit",
+      "subtitle": "注册赠送 $500 额度 · 支持 GPT-6、Fable 5.1 等模型，Telegram 机器人注册",
+      "recommended": false,
+      "panel": "relay",
+      "credits": {
+        "signup": 500,
+        "invite": null,
+        "dailyCheckin": null,
+        "approx": false,
+        "unit": "usd",
+        "note": "注册赠送 $500，按投稿信息登记，实际到账以机器人内显示为准。"
+      },
+      "signupUrl": "https://t.me/conduitoff_bot?start=ref_8111640723",
+      "homeUrl": "https://t.me/conduitoff_bot",
+      "docsUrl": null,
+      "statusApi": "https://t.me/conduitoff_bot",
+      "pricingApi": null,
+      "mirrors": [],
+      "tags": ["免费额度", "注册 $500", "GPT-6", "Fable 5.1", "Telegram"],
+      "highlights": [
+        "注册赠送 $500 额度",
+        "支持 GPT-6、Fable 5.1 等模型",
+        "通过本页 Telegram 邀请链接进入 Conduit 机器人，按提示完成注册"
+      ],
+      "endpoints": {
+        "anthropic": null,
+        "openai": null
+      },
+      "setup": {
+        "client": "机器人内查看",
+        "note": "通过 Telegram 机器人注册后，按机器人提供的说明获取接入地址、API Key 与可用模型名。",
+        "steps": [
+          "打开本页完整邀请链接，在 Telegram 中启动 Conduit 机器人",
+          "按机器人提示完成注册并查看赠送额度",
+          "在机器人内查看模型清单、价格与接入说明"
+        ]
+      },
+      "modelsSummary": "GPT-6 / Fable 5.1 等",
+      "modelsNote": "按投稿信息登记：支持 GPT-6、Fable 5.1 等模型。完整模型清单、实际调用名称与价格请在机器人内查看。",
+      "faq": [
+        ["Conduit 注册赠送多少额度？", "按投稿信息，注册赠送 $500 额度；实际到账以机器人内显示为准。"],
+        ["如何通过邀请链接注册 Conduit？", "打开 https://t.me/conduitoff_bot?start=ref_8111640723，在 Telegram 中点击 Start / 开始，按机器人提示完成注册。"],
+        ["Conduit 支持哪些模型？", "支持 GPT-6、Fable 5.1 等模型，完整清单与实际调用名称请在机器人内查看。"]
+      ],
+      "register": {
+        "methods": ["Telegram 机器人"],
+        "requirements": [
+          "需要 Telegram 账号，通过完整邀请链接进入 @conduitoff_bot，保留 start=ref_8111640723",
+          "点击 Start / 开始后，按机器人提示完成注册并查看余额"
+        ]
+      },
+      "earnMore": [],
+      "caveats": [],
+      "community": []
+    },
+    {
       "id": "agentrouter",
       "name": "AgentRouter",
       "subtitle": "AI Coding 公益站 · 注册即送额度，签到每日续命",

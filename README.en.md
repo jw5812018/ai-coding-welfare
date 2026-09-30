@@ -22,6 +22,7 @@ A translated guide to the listed services. Amounts, model IDs, prices and referr
 | Site | Status | First-day credits / plan | Daily credits | Signup |
 | --- | --- | --- | --- | --- |
 | **ArtBloom** | Reachable | **$100** | Not publicly specified | [Open service / register](https://api.artbloom.tech/signup?ref=PCTM2VCGUI) |
+| **Conduit** | Probe failed | **$500** | Not publicly specified | [Open service / register](https://t.me/conduitoff_bot?start=ref_8111640723) |
 | **AgentRouter** | Reachable | **$175** | $25/day · Daily check-in | [Open service / register](https://agentrouter.org/register?aff=szt3) |
 | **DoCode** | Reachable | **300 site units (not USD)** | No check-in | [Open service / register](https://ai.docode.life/register?aff=zMRe) |
 | **JustDoWork** | Reachable | **≈$92** | ≈$22/day · Daily check-in | [Open service / register](https://api.justwoker.icu/sign-up?aff=VTrz) |
@@ -33,7 +34,7 @@ A translated guide to the listed services. Amounts, model IDs, prices and referr
 | **CheapCodex** | Reachable | **$40** | $20/day · Daily check-in | [Open service / register](https://api.cheapcodex.online/register?aff=U7SSQZSDB36S) |
 | **NOFX** | Reachable | **15 points** | 5 points/day · Daily check-in | [Open service / register](https://nofx.one/zh-CN/sign-in?ref=J369GHY4) |
 
-**Indicative first-day USD credits: $699.5 across 7 services accepting new users.**
+**Indicative first-day USD credits: $1199.5 across 8 services accepting new users.**
 
 First-day credit = signup + referral + first check-in (or one daily pool). Credits are separate service balances, not cash. Points, site units, paid plans, archived services and closed registrations are excluded from the USD total. Conditions and actual awards may vary.
 
@@ -81,6 +82,40 @@ Only models returned by the public snapshot are listed; missing data does not me
 Not publicly specified
 
 [Full source notes (Chinese)](https://panxunying.github.io/ai-coding-welfare/sites/artbloom/)
+## Conduit
+
+Register through the Conduit Telegram bot to receive $500 in credits, with GPT-6, Fable 5.1 and other models available.
+
+[Open service / register](https://t.me/conduitoff_bot?start=ref_8111640723) · [Details](https://panxunying.github.io/ai-coding-welfare/en/sites/conduit/)
+
+
+- **First-day credits / plan**: $500
+- **Signup**: $500
+- **Daily credits**: Not publicly specified
+- **Status**: Probe failed
+- **Snapshot updated**: 2026-09-30 10:09 UTC
+
+
+### Registration requirements
+
+Use a Telegram account to open the full referral link, press Start and follow the bot's registration instructions. Keep the referral parameter in the link.
+
+### Rewards, limits and important caveats
+
+The signup credit and model information were supplied by a contributor. Check the bot for your actual balance, current models, prices and client setup instructions.
+
+### Client setup
+
+Create an API key in the service dashboard and use only a model listed for your account. Anthropic base URLs do not include /v1; OpenAI-compatible URLs usually do. A protocol endpoint does not guarantee access to every model or client.
+
+
+### Public model snapshot
+
+Only models returned by the public snapshot are listed; missing data does not mean there are no models. Confirm current prices, account groups and availability in the dashboard. Per-request prices are not token prices.
+
+Not publicly specified
+
+[Full source notes (Chinese)](https://panxunying.github.io/ai-coding-welfare/sites/conduit/)
 ## AgentRouter
 
 Community gateway with signup, referral and daily check-in credits; Anthropic and OpenAI-compatible endpoints.

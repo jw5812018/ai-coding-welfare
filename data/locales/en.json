@@ -85,6 +85,11 @@
       "registration": "Use the full referral link and continue with GitHub. The signup page advertises an immediate $100 credit with no credit card required. Create an API key in the dashboard after signing in.",
       "notes": "The public models page lists Opus 5.5 and other models with their prices. Check the service for current model pricing and the dashboard for your actual balance and usage."
     },
+    "conduit": {
+      "summary": "Register through the Conduit Telegram bot to receive $500 in credits, with GPT-6, Fable 5.1 and other models available.",
+      "registration": "Use a Telegram account to open the full referral link, press Start and follow the bot's registration instructions. Keep the referral parameter in the link.",
+      "notes": "The signup credit and model information were supplied by a contributor. Check the bot for your actual balance, current models, prices and client setup instructions."
+    },
     "agentrouter": {
       "summary": "Community gateway with signup, referral and daily check-in credits; Anthropic and OpenAI-compatible endpoints.",
       "registration": "Use the referral link with GitHub or LinuxDO. Sign out and sign in again if awarded credits do not appear.",

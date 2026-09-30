@@ -22,6 +22,7 @@ Guia traduzido dos serviços listados. Valores, IDs de modelos, preços e links 
 | Serviço | Status | Créditos no primeiro dia / plano | Créditos diários | Cadastro |
 | --- | --- | --- | --- | --- |
 | **ArtBloom** | Acessível | **$100** | Não divulgado publicamente | [Abrir serviço / cadastrar](https://api.artbloom.tech/signup?ref=PCTM2VCGUI) |
+| **Conduit** | Falha na verificação | **$500** | Não divulgado publicamente | [Abrir serviço / cadastrar](https://t.me/conduitoff_bot?start=ref_8111640723) |
 | **AgentRouter** | Acessível | **$175** | $25/dia · Check-in diário | [Abrir serviço / cadastrar](https://agentrouter.org/register?aff=szt3) |
 | **DoCode** | Acessível | **300 unidades internas (não USD)** | Sem check-in | [Abrir serviço / cadastrar](https://ai.docode.life/register?aff=zMRe) |
 | **JustDoWork** | Acessível | **≈$92** | ≈$22/dia · Check-in diário | [Abrir serviço / cadastrar](https://api.justwoker.icu/sign-up?aff=VTrz) |
@@ -33,7 +34,7 @@ Guia traduzido dos serviços listados. Valores, IDs de modelos, preços e links 
 | **CheapCodex** | Acessível | **$40** | $20/dia · Check-in diário | [Abrir serviço / cadastrar](https://api.cheapcodex.online/register?aff=U7SSQZSDB36S) |
 | **NOFX** | Acessível | **15 pontos** | 5 pontos/dia · Check-in diário | [Abrir serviço / cadastrar](https://nofx.one/zh-CN/sign-in?ref=J369GHY4) |
 
-**Créditos indicativos em USD no primeiro dia: $699.5 em 7 serviços que aceitam novos usuários.**
+**Créditos indicativos em USD no primeiro dia: $1199.5 em 8 serviços que aceitam novos usuários.**
 
 Crédito no primeiro dia = cadastro + indicação + primeiro check-in (ou uma cota diária). São saldos separados em cada serviço, não dinheiro. Pontos, unidades internas, planos pagos, serviços arquivados e cadastros fechados ficam fora do total em USD. Condições e créditos recebidos podem variar.
 
@@ -81,6 +82,40 @@ Somente modelos retornados pelos dados públicos são listados; a ausência de d
 Não divulgado publicamente
 
 [Notas completas da fonte (chinês)](https://panxunying.github.io/ai-coding-welfare/sites/artbloom/)
+## Conduit
+
+Cadastre-se pelo bot do Conduit no Telegram para receber US$ 500 em créditos, com GPT-6, Fable 5.1 e outros modelos disponíveis.
+
+[Abrir serviço / cadastrar](https://t.me/conduitoff_bot?start=ref_8111640723) · [Detalhes](https://panxunying.github.io/ai-coding-welfare/pt-BR/sites/conduit/)
+
+
+- **Créditos no primeiro dia / plano**: $500
+- **Cadastro**: $500
+- **Créditos diários**: Não divulgado publicamente
+- **Status**: Falha na verificação
+- **Dados atualizados em**: 2026-09-30 10:09 UTC
+
+
+### Requisitos de cadastro
+
+Abra o link completo de indicação com uma conta do Telegram, pressione Start e siga as instruções de cadastro do bot. Mantenha o parâmetro de indicação no link.
+
+### Recompensas, limites e cuidados importantes
+
+As informações sobre créditos de cadastro e modelos foram fornecidas por um colaborador. Consulte o bot para verificar seu saldo real, os modelos atuais, os preços e as instruções de configuração do cliente.
+
+### Configuração do cliente
+
+Crie uma chave de API no painel e use apenas um modelo disponível para sua conta. URLs base Anthropic não incluem /v1; as compatíveis com OpenAI geralmente incluem. Um endpoint de protocolo não garante suporte a todos os modelos ou clientes.
+
+
+### Dados públicos dos modelos
+
+Somente modelos retornados pelos dados públicos são listados; a ausência de dados não significa ausência de modelos. Confirme preços atuais, grupos da conta e disponibilidade no painel. Preços por requisição não são preços por token.
+
+Não divulgado publicamente
+
+[Notas completas da fonte (chinês)](https://panxunying.github.io/ai-coding-welfare/sites/conduit/)
 ## AgentRouter
 
 Gateway comunitário com créditos de cadastro, indicação e check-in diário; endpoints Anthropic e compatíveis com OpenAI.

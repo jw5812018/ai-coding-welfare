@@ -5,14 +5,15 @@
 <p align="center">免费额度 · 白嫖 Claude Code / Codex / Cursor 的中转与公益站合集</p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-11%20%E4%B8%AA-blue" alt="收录站点">
-  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-11%2F11-brightgreen" alt="在线">
-  <img src="https://img.shields.io/badge/%E9%A6%96%E6%97%A5%E5%8F%AF%E5%BE%97-%E6%9C%80%E9%AB%98%20%24175-success" alt="首日可得">
+  <img src="https://img.shields.io/badge/%E6%94%B6%E5%BD%95%E7%AB%99%E7%82%B9-12%20%E4%B8%AA-blue" alt="收录站点">
+  <img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF-11%2F12-orange" alt="在线">
+  <img src="https://img.shields.io/badge/%E9%A6%96%E6%97%A5%E5%8F%AF%E5%BE%97-%E6%9C%80%E9%AB%98%20%24500-success" alt="首日可得">
   <img src="https://img.shields.io/badge/%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0-2026--09--30%2005.35%20UTC-informational" alt="数据更新">
 </p>
 
 <p align="center">
   <a href="https://api.artbloom.tech/signup?ref=PCTM2VCGUI"><b>ArtBloom 注册</b></a> ·
+  <a href="https://t.me/conduitoff_bot?start=ref_8111640723"><b>Conduit 注册</b></a> ·
   <a href="https://agentrouter.org/register?aff=szt3"><b>AgentRouter 注册</b></a> ·
   <a href="https://ai.docode.life/register?aff=zMRe"><b>DoCode 注册</b></a> ·
   <a href="https://api.justwoker.icu/sign-up?aff=VTrz"><b>JustDoWork 注册</b></a> ·
@@ -39,6 +40,7 @@
 | 站点 | 状态 | 首日可得 / 套餐 | 额度构成 / 用量 | 每日 / 周期 | 兼容协议 | 模型 | 注册 | 邀请码 |
 | :-- | :--: | :--: | :-- | :--: | :--: | :--: | :--: | :--: |
 | **ArtBloom** 🔥 | 🟢 在线 | **$100** | 注册 $100 | — | OpenAI | **支持 Opus 5.5** | [点此注册 →](https://api.artbloom.tech/signup?ref=PCTM2VCGUI) | — |
+| **Conduit** | 🔴 异常 | **$500** | 注册 $500 | — | 机器人内查看 | **GPT-6 / Fable 5.1 等** | [点此注册 →](https://t.me/conduitoff_bot?start=ref_8111640723) | — |
 | **AgentRouter** | 🟢 在线 | **$175** | 注册 $100 + 本页邀请 $50 + 首签 $25 | $25/天 | Anthropic + OpenAI | 4 个可查 | [点此注册 →](https://agentrouter.org/register?aff=szt3) | — |
 | **DoCode** | 🟢 在线 | **300 站内刀** | 注册 50 站内刀 + 本页邀请 250 站内刀 | 无签到 | Anthropic + OpenAI | 需登录查看 | [点此注册 →](https://ai.docode.life/register?aff=zMRe) | `zMRe` |
 | **JustDoWork** | 🟢 在线 | **≈$92** | 注册 $70 + 首签 ≈$22 | ≈$22/天 | Anthropic + OpenAI | 需登录查看 | [GitHub 注册 →](https://api.justwoker.icu/sign-up?aff=VTrz) | — |
@@ -56,7 +58,7 @@
 >
 > 「邀请码」列写了码的站（DoCode `zMRe`），注册表单里有一栏要**自己填**，漏填就只拿得到注册基础额度、事后补不上；其余站写 — 表示未登记需要手填的邀请码，邀请奖励与条件请看站点详情。
 >
-> 7 个有明确美元额度、且还收新用户的站全注册一遍，第一天手上大约有 **$699.5** 额度可用；DoCode 另发 300 站内刀，Matrix 另发 600 积分，NOFX 另发 15 积分，都是各站自己的计价单位、与美元没有公开换算，未计入这个合计。
+> 8 个有明确美元额度、且还收新用户的站全注册一遍，第一天手上大约有 **$1199.5** 额度可用；DoCode 另发 300 站内刀，Matrix 另发 600 积分，NOFX 另发 15 积分，都是各站自己的计价单位、与美元没有公开换算，未计入这个合计。
 >
 > 🟡 有 1 个站点已超过 48 小时没抓到接口数据，其明细为上一次成功抓取的快照；在线状态按注册页实际可访问性判断。
 
@@ -150,6 +152,44 @@ curl -s https://api.artbloom.tech/v1/chat/completions \
 
 ---
 
+### 🔴 Conduit
+
+> 注册赠送 $500 额度 · 支持 GPT-6、Fable 5.1 等模型，Telegram 机器人注册
+
+<a href="https://t.me/conduitoff_bot?start=ref_8111640723"><img src="https://img.shields.io/badge/%E7%AB%8B%E5%8D%B3%E6%B3%A8%E5%86%8C-Conduit-brightgreen?style=for-the-badge" alt="注册 Conduit"></a>
+
+**为什么值得注册**
+
+- 注册赠送 $500 额度
+- 支持 GPT-6、Fable 5.1 等模型
+- 通过本页 Telegram 邀请链接进入 Conduit 机器人，按提示完成注册
+
+**能拿多少额度**
+
+- 注册即送：**$500**
+- 首日合计：**$500**
+
+**实时数据**（自动抓取站点公开接口）
+
+- 接口延迟：10500 ms
+
+> 按投稿信息登记：支持 GPT-6、Fable 5.1 等模型。完整模型清单、实际调用名称与价格请在机器人内查看。
+
+**注册要求**
+
+- 需要 Telegram 账号，通过完整邀请链接进入 @conduitoff_bot，保留 start=ref_8111640723
+- 点击 Start / 开始后，按机器人提示完成注册并查看余额
+
+**接入配置**
+
+> 通过 Telegram 机器人注册后，按机器人提供的说明获取接入地址、API Key 与可用模型名。
+
+1. 打开本页完整邀请链接，在 Telegram 中启动 Conduit 机器人
+2. 按机器人提示完成注册并查看赠送额度
+3. 在机器人内查看模型清单、价格与接入说明
+
+---
+
 ### 🟢 AgentRouter
 
 > AI Coding 公益站 · 注册即送额度，签到每日续命
@@ -172,7 +212,7 @@ curl -s https://api.artbloom.tech/v1/chat/completions \
 
 **实时数据**（自动抓取站点公开接口）
 
-- ⚠ 接口已连续 159 小时没抓到新数据，下列信息为 `2026-09-23 14:55 UTC` 的快照
+- ⚠ 接口已连续 163 小时没抓到新数据，下列信息为 `2026-09-23 14:55 UTC` 的快照
 - 站点名称：**Agent Router**
 - 面板版本：`init-20260918-cbda758f`
 - 邀请他人可得：**$50**

@@ -22,6 +22,7 @@ Community-Gateways, kostenloses API-Guthaben und günstige Tarife für Claude Co
 | Anbieter | Status | Guthaben am ersten Tag / Tarif | Tägliches Guthaben | Registrierung |
 | --- | --- | --- | --- | --- |
 | **ArtBloom** | Erreichbar | **$100** | Nicht öffentlich angegeben | [Dienst öffnen / registrieren](https://api.artbloom.tech/signup?ref=PCTM2VCGUI) |
+| **Conduit** | Prüfung fehlgeschlagen | **$500** | Nicht öffentlich angegeben | [Dienst öffnen / registrieren](https://t.me/conduitoff_bot?start=ref_8111640723) |
 | **AgentRouter** | Erreichbar | **$175** | $25/Tag · Täglicher Check-in | [Dienst öffnen / registrieren](https://agentrouter.org/register?aff=szt3) |
 | **DoCode** | Erreichbar | **300 interne Einheiten (keine USD)** | Kein Check-in | [Dienst öffnen / registrieren](https://ai.docode.life/register?aff=zMRe) |
 | **JustDoWork** | Erreichbar | **≈$92** | ≈$22/Tag · Täglicher Check-in | [Dienst öffnen / registrieren](https://api.justwoker.icu/sign-up?aff=VTrz) |
@@ -33,7 +34,7 @@ Community-Gateways, kostenloses API-Guthaben und günstige Tarife für Claude Co
 | **CheapCodex** | Erreichbar | **$40** | $20/Tag · Täglicher Check-in | [Dienst öffnen / registrieren](https://api.cheapcodex.online/register?aff=U7SSQZSDB36S) |
 | **NOFX** | Erreichbar | **15 Punkte** | 5 Punkte/Tag · Täglicher Check-in | [Dienst öffnen / registrieren](https://nofx.one/zh-CN/sign-in?ref=J369GHY4) |
 
-**Ungefähres USD-Guthaben am ersten Tag: $699.5 bei 7 Diensten, die neue Nutzer aufnehmen.**
+**Ungefähres USD-Guthaben am ersten Tag: $1199.5 bei 8 Diensten, die neue Nutzer aufnehmen.**
 
 Guthaben am ersten Tag = Registrierung + Empfehlung + erster Check-in (oder ein Tageskontingent). Es handelt sich um getrennte Dienstguthaben, nicht um Bargeld. Punkte, interne Einheiten, kostenpflichtige Tarife, archivierte Dienste und geschlossene Registrierungen zählen nicht zur USD-Summe. Bedingungen und tatsächliche Gutschriften können abweichen.
 
@@ -81,6 +82,40 @@ Aufgeführt werden nur Modelle aus dem öffentlichen Datenstand; fehlende Daten 
 Nicht öffentlich angegeben
 
 [Vollständige Quellnotizen (Chinesisch)](https://panxunying.github.io/ai-coding-welfare/sites/artbloom/)
+## Conduit
+
+Die Registrierung über den Conduit-Bot auf Telegram bietet 500 US-Dollar Guthaben sowie Zugang zu GPT-6, Fable 5.1 und weiteren Modellen.
+
+[Dienst öffnen / registrieren](https://t.me/conduitoff_bot?start=ref_8111640723) · [Details](https://panxunying.github.io/ai-coding-welfare/de/sites/conduit/)
+
+
+- **Guthaben am ersten Tag / Tarif**: $500
+- **Registrierung**: $500
+- **Tägliches Guthaben**: Nicht öffentlich angegeben
+- **Status**: Prüfung fehlgeschlagen
+- **Datenstand**: 2026-09-30 10:09 UTC
+
+
+### Voraussetzungen für die Registrierung
+
+Öffne den vollständigen Empfehlungslink mit einem Telegram-Konto, drücke Start und folge den Registrierungsanweisungen des Bots. Behalte den Empfehlungsparameter im Link bei.
+
+### Prämien, Einschränkungen und wichtige Hinweise
+
+Die Angaben zum Startguthaben und zu den Modellen stammen aus einer Einsendung. Prüfe dein tatsächliches Guthaben, die aktuellen Modelle, Preise und Anweisungen zur Client-Einrichtung im Bot.
+
+### Client-Einrichtung
+
+Erstelle im Dashboard einen API-Schlüssel und verwende nur ein für dein Konto verfügbares Modell. Anthropic-Basis-URLs enthalten kein /v1, OpenAI-kompatible URLs meist schon. Ein Protokoll-Endpunkt garantiert nicht die Unterstützung aller Modelle oder Clients.
+
+
+### Öffentlicher Modell-Datenstand
+
+Aufgeführt werden nur Modelle aus dem öffentlichen Datenstand; fehlende Daten bedeuten nicht, dass keine Modelle vorhanden sind. Aktuelle Preise, Kontogruppen und Verfügbarkeit im Dashboard prüfen. Preise pro Anfrage sind keine Tokenpreise.
+
+Nicht öffentlich angegeben
+
+[Vollständige Quellnotizen (Chinesisch)](https://panxunying.github.io/ai-coding-welfare/sites/conduit/)
 ## AgentRouter
 
 Community-Gateway mit Registrierungs-, Empfehlungs- und täglichen Check-in-Guthaben sowie Anthropic- und OpenAI-kompatiblen Endpunkten.

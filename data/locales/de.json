@@ -85,6 +85,11 @@
       "registration": "Den vollständigen Empfehlungslink verwenden und mit GitHub fortfahren. Die Registrierungsseite bewirbt sofortige 100 US-Dollar Guthaben ohne Kreditkarte. Nach der Anmeldung einen API-Schlüssel im Dashboard erstellen.",
       "notes": "Die öffentliche Modellseite führt Opus 5.5 und weitere Modelle mit ihren Preisen auf. Aktuelle Modellpreise beim Anbieter sowie den tatsächlichen Kontostand und Verbrauch im Dashboard prüfen."
     },
+    "conduit": {
+      "summary": "Die Registrierung über den Conduit-Bot auf Telegram bietet 500 US-Dollar Guthaben sowie Zugang zu GPT-6, Fable 5.1 und weiteren Modellen.",
+      "registration": "Öffne den vollständigen Empfehlungslink mit einem Telegram-Konto, drücke Start und folge den Registrierungsanweisungen des Bots. Behalte den Empfehlungsparameter im Link bei.",
+      "notes": "Die Angaben zum Startguthaben und zu den Modellen stammen aus einer Einsendung. Prüfe dein tatsächliches Guthaben, die aktuellen Modelle, Preise und Anweisungen zur Client-Einrichtung im Bot."
+    },
     "agentrouter": {
       "summary": "Community-Gateway mit Registrierungs-, Empfehlungs- und täglichen Check-in-Guthaben sowie Anthropic- und OpenAI-kompatiblen Endpunkten.",
       "registration": "Über den Empfehlungslink mit GitHub oder LinuxDO registrieren. Falls Guthaben fehlt, abmelden und erneut anmelden.",

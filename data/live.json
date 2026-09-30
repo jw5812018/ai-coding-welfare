@@ -42,6 +42,47 @@
       "staleFields": []
     },
     {
+      "id": "conduit",
+      "checkedAt": "2026-09-30T10:09:16.545Z",
+      "apiOk": false,
+      "pricingOk": false,
+      "latencyMs": 10500,
+      "error": "fetch failed",
+      "systemName": null,
+      "version": null,
+      "registerOpen": null,
+      "passwordRegister": null,
+      "checkinEnabled": null,
+      "loginMethods": [],
+      "githubMinAccountAgeDays": null,
+      "quotaPerUnit": null,
+      "inviteeBonusUsd": null,
+      "inviterBonusUsd": null,
+      "topupEnabled": null,
+      "services": [],
+      "announcements": [],
+      "models": [],
+      "modelsSource": "login-required",
+      "defaults": {
+        "claude": null,
+        "openai": null
+      },
+      "signup": {
+        "status": 0,
+        "ok": false,
+        "ms": 10500,
+        "error": "fetch failed",
+        "attempts": 3,
+        "url": "https://t.me/conduitoff_bot?start=ref_8111640723"
+      },
+      "mirrors": [],
+      "probeBlocked": false,
+      "online": false,
+      "dataStale": false,
+      "staleFrom": null,
+      "staleFields": []
+    },
+    {
       "id": "agentrouter",
       "checkedAt": "2026-09-30T05:34:55.877Z",
       "online": true,

@@ -85,6 +85,11 @@
       "registration": "Use o link completo de indicação e continue com o GitHub. A página de cadastro anuncia US$ 100 em créditos imediatos, sem exigir cartão de crédito. Após entrar, crie uma chave de API no painel.",
       "notes": "A página pública de modelos lista o Opus 5.5 e outros modelos com seus preços. Confira os preços atuais no serviço e o saldo real e o consumo no painel."
     },
+    "conduit": {
+      "summary": "Cadastre-se pelo bot do Conduit no Telegram para receber US$ 500 em créditos, com GPT-6, Fable 5.1 e outros modelos disponíveis.",
+      "registration": "Abra o link completo de indicação com uma conta do Telegram, pressione Start e siga as instruções de cadastro do bot. Mantenha o parâmetro de indicação no link.",
+      "notes": "As informações sobre créditos de cadastro e modelos foram fornecidas por um colaborador. Consulte o bot para verificar seu saldo real, os modelos atuais, os preços e as instruções de configuração do cliente."
+    },
     "agentrouter": {
       "summary": "Gateway comunitário com créditos de cadastro, indicação e check-in diário; endpoints Anthropic e compatíveis com OpenAI.",
       "registration": "Use o link de indicação com GitHub ou LinuxDO. Saia e entre novamente se os créditos não aparecerem.",
